@@ -2,6 +2,7 @@
 
   - [ ] FE
   - [ ] BE
+  - [ ] BC
   - [x] Team
 
 <br>
