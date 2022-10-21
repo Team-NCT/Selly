@@ -40,6 +40,19 @@ contract SellyERC721 is ERC721Enumerable {
         return tokenId;
     }
 
+    function createMine(string memory _tokenURI)
+        public
+        returns (uint256)
+    {
+        address me = msg.sender;
+        uint256 tokenId = current() + 1;
+        tokenURIs[tokenId] = _tokenURI;
+        _tokenIds = tokenId;
+        _mint(me, tokenId);
+        emit mintNFT(tokenId, me, _tokenURI);
+        return tokenId;
+    }
+
     function tokenIDsofWallet(address _owner)
         public
         view
