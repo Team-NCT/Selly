@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Getter
@@ -42,8 +39,11 @@ public class Article {
 
   private Date updateRegist;
 
+  @ManyToOne
+  private Users owner;
+
   @Builder
-  public Article(Long articleId, boolean availability, String category, String articleName, String articleUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, Date registTime, Date createRegist, Date updateRegist) {
+  public Article(Long articleId, boolean availability, String category, String articleName, String articleUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, Date registTime, Date createRegist, Date updateRegist, Users owner) {
     this.articleId = articleId;
     this.availability = availability;
     this.category = category;
@@ -56,5 +56,6 @@ public class Article {
     this.registTime = registTime;
     this.createRegist = createRegist;
     this.updateRegist = updateRegist;
+    this.owner = owner;
   }
 }
