@@ -16,45 +16,45 @@ import java.util.Date;
 @Entity
 public class Article {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long articleId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long articleId;
 
-    private boolean availability;
+  private boolean availability;
 
-    private String category;
+  private String category;
 
-    private String articleName;
+  private String articleName;
 
-    private String articleUrl;
+  private String articleUrl;
 
-    private String articleIntroduction;
+  private String articleIntroduction;
 
-    private String connectionLink;
+  private String connectionLink;
 
-    private String attribute;
+  private String attribute;
 
-    private String metaDataUrl;
+  private String metaDataUrl;
 
-    private Date registTime;
+  private Date registTime;
 
-    private Date createRegist;
+  private Date createRegist;
 
-    private Date updateRegist;
+  private Date updateRegist;
 
-    @Builder
-    public Article(Long articleId, boolean availability, String category, String articleName, String articleUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, Date registTime, Date createRegist, Date updateRegist) {
-        this.articleId = articleId;
-        this.availability = availability;
-        this.category = category;
-        this.articleName = articleName;
-        this.articleUrl = articleUrl;
-        this.articleIntroduction = articleIntroduction;
-        this.connectionLink = connectionLink;
-        this.attribute = attribute;
-        this.metaDataUrl = metaDataUrl;
-        this.registTime = registTime;
-        this.createRegist = createRegist;
-        this.updateRegist = updateRegist;
-    }
+  @Builder
+  public Article(Long articleId, boolean availability, String category, String articleName, String articleUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, Date registTime, Date createRegist, Date updateRegist) {
+    this.articleId = articleId;
+    this.availability = availability;
+    this.category = category;
+    this.articleName = articleName;
+    this.articleUrl = articleUrl;
+    this.articleIntroduction = articleIntroduction;
+    this.connectionLink = connectionLink;
+    this.attribute = attribute;
+    this.metaDataUrl = metaDataUrl;
+    this.registTime = registTime;
+    this.createRegist = createRegist;
+    this.updateRegist = updateRegist;
+  }
 }
