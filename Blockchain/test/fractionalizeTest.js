@@ -1,8 +1,8 @@
-const SellyNFT = artifacts.require("SellyERC721")
+const Fractionalize = artifacts.require("FractionsFactory")
 
-contract("SellyERC721", (account) => {
-  it ("Mint Test!", async () => {
-    const instance = await SellyNFT.deployed();
+contract("FractionsFactory", (account) => {
+  it ("Fractionalize Test!", async () => {
+    const instance = await Fractionalize.deployed();
     const response1 = await instance.current();
     console.log("before mint", response1);
     const response2 = await instance.createMine("temporary_URI");
