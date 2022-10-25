@@ -21,5 +21,13 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint", "jsx-a11y"],
-  rules: {},
+  rules: {
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
+    "@typescript-eslint/no-var-requires": 0,
+  },
 };
