@@ -1,0 +1,12 @@
+@mixin font($fs: $body1, $fw: $regular, $fc: $main-font) {
+  font-size: $fs;
+  font-weight: $fw;
+  color: $fc;
+}
+
+@mixin font-button($fs: $body1, $fw: $bold, $fc: $main-font) {
+  font-size: $fs;
+  font-weight: $fw;
+  color: $fc;
+  letter-spacing: $ls-btn;
+}

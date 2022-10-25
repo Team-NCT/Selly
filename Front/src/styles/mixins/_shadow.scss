@@ -1,0 +1,51 @@
+@mixin shadow-drop1 {
+  background: #d9d9d9;
+  box-shadow: 0px 100px 80px rgba(0, 0, 0, 0.07),
+    0px 41.78px 33.4px rgba(0, 0, 0, 0.0503),
+    0px 22.34px 17.87px rgba(0, 0, 0, 0.0417),
+    0px 12.52px 10.02px rgba(0, 0, 0, 0.035),
+    0px 6.65px 5.32px rgba(0, 0, 0, 0.0283),
+    0px 2.77px 2.21px rgba(0, 0, 0, 0.0197);
+}
+
+@mixin shadow-drop2 {
+  background: #d9d9d9;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), -1px -1px 3px #ffffff,
+    -2px -1px 5px #aeaec0;
+}
+
+@mixin shadow-drop3 {
+  background: #d9d9d9;
+  box-shadow: 0px -2px 33.4px rgba(0, 0, 0, 0.0503),
+    0px 22.34px 17.87px rgba(0, 0, 0, 0.0417),
+    0px 12.52px 10.02px rgba(0, 0, 0, 0.035),
+    0px 6.65px 5.32px rgba(0, 0, 0, 0.0283),
+    0px 2.77px 2.21px rgba(0, 0, 0, 0.0197);
+}
+
+@mixin shadow-drop4 {
+  background: #d9d9d9;
+  box-shadow: -1px -1px 3px #ffffff, 1.5px 1.5px 4px #aeaec0;
+}
+
+@mixin shadow-drop5 {
+  background: #d9d9d9;
+  box-shadow: -1px -1px 3px #ffffff, -1px 1.5px 4px #aeaec0;
+}
+
+@mixin shadow-inner1 {
+  background: #d9d9d9;
+  box-shadow: inset -1px -1px 1px rgba(255, 255, 255, 0.7),
+    inset 2px 1px 5px rgba(174, 174, 192, 0.5);
+}
+
+@mixin shadow-modal {
+  background: #d9d9d9;
+  box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2),
+    0px 0px 1px rgba(9, 30, 66, 0.31);
+}
+
+@mixin shadow-nav {
+  background: #d9d9d9;
+  box-shadow: 0px 5px 5px rgba(9, 30, 66, 0.05);
+}
