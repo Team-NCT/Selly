@@ -1,9 +1,17 @@
-import { createElement } from "react";
+import React from "react";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Home } from "./pages";
 
-export default function App() {
-  return createElement(
-    "div",
-    { className: "app" },
-    createElement("h1", null, "안녕! React 😃")
+function App() {
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
+
+export default App;
