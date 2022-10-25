@@ -17,14 +17,23 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   bool public forSale = false;
   uint256 public salePrice;
   bool public canRedeem = false;
+  uint256 public firstPrice;
 
   // event Check(
   //   address indexed _owner,
   //   address indexed _creater
   // );
 
-  constructor(address _NFTCA, uint256 _tokenId, uint256 _amount, address _creater) 
-    ERC20("MyToken", "MTK") ERC20Permit("MyToken") {
+  constructor(
+    address _NFTCA, 
+    uint256 _tokenId, 
+    uint256 _amount, 
+    address _creater, 
+    string memory _name, 
+    string memory _symbol,
+    uint256 _firstPrice
+  ) 
+    ERC20(_name, _symbol) ERC20Permit(_name) {
       collection = IERC721(_NFTCA);
       // emit Check(collection.ownerOf(_tokenId), _creater);
       
@@ -35,6 +44,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
       NFTCA = _NFTCA;
       amount = _amount;
       creater = _creater;
+      firstPrice = _firstPrice;
     }
   
   function initialize() external {
