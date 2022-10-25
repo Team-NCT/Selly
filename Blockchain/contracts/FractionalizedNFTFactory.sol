@@ -12,10 +12,14 @@ contract FractionalizedNFTFactory is Ownable {
     returns (address)
   {
     address fractionalizedNFTCA = address(
-        new FractionalizedNFT(NFTCA, tokenId, amount)
+        new FractionalizedNFT(NFTCA, tokenId, amount, msg.sender)
     );
     fractionalizedNFTCAs.push(fractionalizedNFTCA);
-
+ 
     return fractionalizedNFTCA;
   }
+
+  function allF_NFTCAs() public view returns (address[] memory) {
+    return fractionalizedNFTCAs;
+  } 
 }

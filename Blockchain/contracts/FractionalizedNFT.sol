@@ -12,22 +12,34 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   address public NFTCA;
   uint256 public amount;
   uint256 public tokenId;
+  address public creater;
   bool public initialized = false;
   bool public forSale = false;
   uint256 public salePrice;
   bool public canRedeem = false;
 
-  constructor(address _NFTCA, uint256 _tokenId, uint256 _amount) 
+  // event Check(
+  //   address indexed _owner,
+  //   address indexed _creater
+  // );
+
+  constructor(address _NFTCA, uint256 _tokenId, uint256 _amount, address _creater) 
     ERC20("MyToken", "MTK") ERC20Permit("MyToken") {
+      collection = IERC721(_NFTCA);
+      // emit Check(collection.ownerOf(_tokenId), _creater);
+      
+      require(collection.ownerOf(_tokenId) == _creater, "Not owner of token");
       require(_amount > 0, "Amount needs to be more than 0");
+
       tokenId = _tokenId;
       NFTCA = _NFTCA;
       amount = _amount;
+      creater = _creater;
     }
   
   function initialize() external {
+    require(msg.sender == creater, "Can only creater");
     require(!initialized, "Already initialized");
-    collection = IERC721(NFTCA);
     collection.safeTransferFrom(msg.sender, address(this), tokenId);
     initialized = true;
     _mint(msg.sender, amount);
