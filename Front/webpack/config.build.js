@@ -1,5 +1,8 @@
 const { merge } = require("webpack-merge");
 const { getAbsPath } = require("./config.utils");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const devConfig = require("./config.dev");
 
 const buildConfig = {
@@ -8,6 +11,23 @@ const buildConfig = {
   output: {
     path: getAbsPath("public"),
     filename: "js/bundle.min.js",
+    chunkFilename: "js/[name].chunk.js",
+  },
+  module: {
+    rules: [
+      ...devConfig.module.rules.filter(
+        ({ test: regExp }) => !regExp.test(".css")
+      ),
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+    ],
+  },
+  plugins: [new MiniCssExtractPlugin()],
+  optimization: {
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
   },
 };
 
