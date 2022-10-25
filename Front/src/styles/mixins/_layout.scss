@@ -18,3 +18,15 @@
     display: none;
   }
 }
+
+@mixin layout {
+  width: 100%;
+
+  @media #{$tablet} {
+    max-width: 840px;
+  }
+
+  @media #{$pc} {
+    max-width: 1040px;
+  }
+}
