@@ -1,16 +1,16 @@
-const { getAbsPath } = require('./config.utils');
-const path = require('path');
+const { getAbsPath } = require("./config.utils");
+const path = require("path");
 
 const devConfig = {
-  target: 'web',
-  mode: 'development',
-  devtool: 'eval-source-map',
+  target: "web",
+  mode: "development",
+  devtool: "eval-source-map",
   entry: {
-    main: getAbsPath('src/index.tsx'),
+    main: getAbsPath("src/index.tsx"),
   },
   output: {
-    path: getAbsPath('public'),
-    filename: 'main.js',
+    path: getAbsPath("public"),
+    filename: "main.js",
   },
   module: {
     rules: [
@@ -18,15 +18,15 @@ const devConfig = {
         test: /\.jsx?$/i,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
         },
       },
       {
         test: /\.css$/i,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               sourceMap: true,
             },
@@ -35,16 +35,16 @@ const devConfig = {
       },
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '../src/'),
+      "@": path.resolve(__dirname, "../src/"),
     },
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
+    extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".json"],
   },
 };
 

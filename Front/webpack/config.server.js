@@ -1,14 +1,14 @@
-const { merge } = require('webpack-merge');
-const devConfig = require('./config.dev');
+const { merge } = require("webpack-merge");
+const devConfig = require("./config.dev");
 
 const serverConfig = {
   devServer: {
-    static: ['public'],
+    static: ["public"],
     client: {
       overlay: true,
     },
     compress: true,
-    host: 'localhost',
+    host: "localhost",
     port: 3000,
     open: false,
   },
