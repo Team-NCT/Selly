@@ -19,11 +19,11 @@ module.exports = {
   // 세미콜론(;) 사용 여부
   semi: true,
   // 싱글 인용 부호(') 사용 여부
-  singleQuote: true,
+  doubleQuote: true,
   // 탭 너비 설정
   tabWidth: 2,
   // 객체 마지막 속성 선언 뒷 부분에 콤마 추가 여부
   trailingComma: 'es5',
   // 탭 사용 여부
   useTabs: false,
-}
+};
