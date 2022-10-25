@@ -12,6 +12,7 @@ const buildConfig = {
     path: getAbsPath("public"),
     filename: "js/bundle.min.js",
     chunkFilename: "js/[name].chunk.js",
+    assetModuleFilename: "assets/[name].[hash].[ext]",
   },
   module: {
     rules: [
@@ -20,7 +21,16 @@ const buildConfig = {
       ),
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+      },
+      {
+        test: /\.s?[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
     ],
   },

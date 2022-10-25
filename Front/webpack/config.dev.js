@@ -25,18 +25,45 @@ const devConfig = {
         test: /\.css$/i,
         use: [
           "style-loader",
+
+          // css
           {
             loader: "css-loader",
+            options: {
+              sourceMap: true,
+              importLoaders: 1,
+            },
+          },
+
+          // postcss
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+
+          // sass
+          {
+            loader: "sass-loader",
             options: {
               sourceMap: true,
             },
           },
         ],
       },
+
+      // typescript
       {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
+      },
+
+      // asset
+      {
+        test: /\.(gif|jpe?g|png|webp|svg)$/i,
+        type: "asset",
       },
     ],
   },
