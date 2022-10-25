@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    "jest/globals": true,
   },
   extends: [
     "eslint:recommended",
@@ -11,16 +12,21 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
-    "prettier",
+    "plugin:jest/recommended",
     "plugin:@typescript-eslint/recommended",
+    "prettier",
   ],
   overrides: [],
   parser: "@typescript-eslint/parser",
+  settings: {
+    react: { version: require("react/package.json").version },
+    jest: { version: require("jest/package.json").version },
+  },
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint", "jsx-a11y"],
+  plugins: ["react", "@typescript-eslint", "jest", "jsx-a11y"],
   rules: {
     "prettier/prettier": [
       "error",
@@ -29,6 +35,11 @@ module.exports = {
       },
     ],
     "@typescript-eslint/no-var-requires": 0,
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
   },
