@@ -1,0 +1,24 @@
+@mixin flex($flex-d: row) {
+  display: flex;
+  flex-direction: $flex-d;
+}
+
+@mixin flex-xy($juco: center, $alit: center) {
+  display: flex;
+  justify-content: $juco;
+  align-items: $alit;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin hide-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
