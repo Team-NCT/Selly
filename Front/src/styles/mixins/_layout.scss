@@ -19,14 +19,29 @@
   }
 }
 
-@mixin layout {
-  width: 100%;
-
-  @media #{$tablet} {
-    max-width: 840px;
+@mixin mobile {
+  @media (max-width: #{$breakpoint-tablet - 1px}) {
+    main {
+      margin: auto #{$margin-mobile};
+    }
+    @content;
   }
+}
 
-  @media #{$pc} {
-    max-width: 1040px;
+@mixin tablet {
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+    main {
+      margin: auto #{$margin-tablet};
+    }
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-desktop}) {
+    main {
+      margin: auto #{$margin-desktop};
+    }
+    @content;
   }
 }
