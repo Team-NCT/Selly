@@ -32,6 +32,7 @@
   @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
     main {
       margin: auto #{$margin-tablet};
+      max-width: 840px;
     }
     @content;
   }
@@ -41,6 +42,7 @@
   @media (min-width: #{$breakpoint-desktop}) {
     main {
       margin: auto #{$margin-desktop};
+      max-width: 1040px;
     }
     @content;
   }
