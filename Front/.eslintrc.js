@@ -29,5 +29,7 @@ module.exports = {
       },
     ],
     "@typescript-eslint/no-var-requires": 0,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
   },
 };
