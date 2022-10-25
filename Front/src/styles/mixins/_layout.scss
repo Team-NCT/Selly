@@ -1,10 +1,6 @@
-@mixin flex($flex-d: row) {
+@mixin flex($flex-d: row, $juco: center, $alit: center) {
   display: flex;
   flex-direction: $flex-d;
-}
-
-@mixin flex-xy($juco: center, $alit: center) {
-  display: flex;
   justify-content: $juco;
   align-items: $alit;
 }
