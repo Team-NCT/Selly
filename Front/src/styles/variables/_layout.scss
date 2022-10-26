@@ -1,8 +1,8 @@
-// mobile
+// margin
 $margin-mobile: 16px;
 $margin-tablet: 32px;
-$margin-pc: 200px;
+$margin-desktop: 200px;
 
-// media
-$tablet: "screen and (min-width: 600px)";
-$pc: "screen and (min-width: 1240px)";
+// breakpoints
+$breakpoint-tablet: 600px;
+$breakpoint-desktop: 1240px;

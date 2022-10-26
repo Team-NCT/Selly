@@ -18,3 +18,32 @@
     display: none;
   }
 }
+
+@mixin mobile {
+  @media (max-width: #{$breakpoint-tablet - 1px}) {
+    main {
+      margin: auto #{$margin-mobile};
+    }
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+    main {
+      margin: auto #{$margin-tablet};
+      max-width: 840px;
+    }
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-desktop}) {
+    main {
+      margin: auto #{$margin-desktop};
+      max-width: 1040px;
+    }
+    @content;
+  }
+}
