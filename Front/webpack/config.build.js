@@ -16,21 +16,14 @@ const buildConfig = {
   },
   module: {
     rules: [
-      ...devConfig.module.rules.filter(
-        ({ test: regExp }) => !regExp.test(".css")
-      ),
+      ...devConfig.module.rules.filter(({ test: regExp }) => !regExp.test(".css")),
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.s?[ac]ss$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-          "sass-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
       },
     ],
   },

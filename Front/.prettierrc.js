@@ -14,7 +14,7 @@ module.exports = {
   bracketSpacing: true,
 
   // 행폭 설정 (줄 길이가 설정 값보다 길어지면 자동 개행)
-  printWidth: 80,
+  printWidth: 100,
 
   // 산문 래핑 설정
   proseWrap: "preserve",
