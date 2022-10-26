@@ -1,15 +1,17 @@
 import React from "react";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { Home } from "./pages";
+import { Route, Routes } from "react-router-dom";
+import { Home, Counter } from "@/pages";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        {/* 메인 페이지 */}
+        <Route path="/" element={<Home />} />
+
+        {/* 테스트 페이지 */}
+        <Route path="/counter" element={<Counter />} />
+      </Routes>
     </>
   );
 }
