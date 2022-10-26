@@ -6,14 +6,29 @@ spring:
     name: selly-gateway
   cloud:
     gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway GlobalFilter
+            preLogger: true
+            postLogger: true
       routes:
         - id: selly-user-service
-          uri: http://localhost:8081/
+          uri: lb://SELLY-USER-SERVICE
           predicates:
             - Path=/selly-user-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, Logging filter
+                preLogger: true
+                postLogger: true
+#            - AddRequestHeader=selly-user-request, selly-user-request-header 2
+#            - AddResponseHeader=selly-user-response, selly-user-response-header 2
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
