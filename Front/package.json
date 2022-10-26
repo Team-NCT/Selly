@@ -13,6 +13,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "browserslist": [
+    "> 1% in KR",
+    "not dead",
+    "ie 11",
+    "maintained node versions"
+  ],
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
