@@ -15,12 +15,17 @@ module.exports = {
     "plugin:jest/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
+    "plugin:storybook/recommended",
   ],
   overrides: [],
   parser: "@typescript-eslint/parser",
   settings: {
-    react: { version: require("react/package.json").version },
-    jest: { version: require("jest/package.json").version },
+    react: {
+      version: require("react/package.json").version,
+    },
+    jest: {
+      version: require("jest/package.json").version,
+    },
   },
   parserOptions: {
     ecmaVersion: "latest",
