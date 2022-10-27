@@ -14,6 +14,7 @@ const devConfig = {
   },
   module: {
     rules: [
+      // jsx
       {
         test: /\.jsx?$/i,
         exclude: /node_modules/,
@@ -21,29 +22,25 @@ const devConfig = {
           loader: "babel-loader",
         },
       },
+
+      // scsss
       {
-        test: /\.css$/i,
+        test: /\.s?[ac]ss$/i,
         use: [
           "style-loader",
-
-          // css
           {
             loader: "css-loader",
             options: {
               sourceMap: true,
-              importLoaders: 1,
+              importLoaders: 2,
             },
           },
-
-          // postcss
           {
             loader: "postcss-loader",
             options: {
               sourceMap: true,
             },
           },
-
-          // sass
           {
             loader: "sass-loader",
             options: {
