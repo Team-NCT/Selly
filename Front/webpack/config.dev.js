@@ -50,10 +50,9 @@ const devConfig = {
         ],
       },
 
-      // typescript
       {
-        test: /\.tsx?$/,
-        use: "ts-loader",
+        test: /\.(ts|tsx|js|jsx)$/,
+        use: "babel-loader",
         exclude: /node_modules/,
       },
 
