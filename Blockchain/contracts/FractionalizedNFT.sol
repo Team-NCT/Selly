@@ -60,6 +60,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   }
 
   function putForSale(uint256 price) external {
+    require(msg.sender == creater, "Can only creater");
     salePrice = price;
     forSale = true;
   }
@@ -94,5 +95,17 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
 
   function allSaleCAs() public view returns (address[] memory) {
     return F_NFTSaleCAs;
-  } 
+  }
+
+  // 팔고 있는 조각이 다 팔린 판매컨트랙트 주소 제거
+  function removeSoldoutSaleCA(address _SaleCA) external {
+    require(msg.sender == _SaleCA, "Only remove myself");
+
+    for (uint256 i = 0; i < F_NFTSaleCAs.length; i++) {
+      if (F_NFTSaleCAs[i] == _SaleCA) {
+        F_NFTSaleCAs[i] = F_NFTSaleCAs[F_NFTSaleCAs.length - 1];
+        F_NFTSaleCAs.pop();
+      }
+    }
+  }
 }
