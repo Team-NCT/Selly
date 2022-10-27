@@ -6,6 +6,7 @@ import "../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import "./F_NFTSale.sol";
 
 contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   IERC721 public collection;
@@ -18,6 +19,9 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   uint256 public salePrice;
   bool public canRedeem = false;
   uint256 public firstPrice;
+
+  // 판매 컨트랙트의 주소를 저장하는 배열
+  address[] public F_NFTSaleCAs;
 
   // event Check(
   //   address indexed _owner,
@@ -40,8 +44,8 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
       require(collection.ownerOf(_tokenId) == _creater, "Not owner of token");
       require(_amount > 0, "Amount needs to be more than 0");
 
-      tokenId = _tokenId;
       NFTCA = _NFTCA;
+      tokenId = _tokenId;
       amount = _amount;
       creater = _creater;
       firstPrice = _firstPrice;
@@ -76,4 +80,19 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     _burn(msg.sender, _amount);
     payable(msg.sender).transfer(toRedeem);
   }
+
+  function createSale(uint256 _amount, uint256 _price) public returns (address) {
+    address F_NFTSaleCA = address(
+        new F_NFTSale(msg.sender, address(this), _amount, _price)
+    );
+
+    F_NFTSaleCAs.push(F_NFTSaleCA);
+
+    transfer(F_NFTSaleCA, _amount);
+    return F_NFTSaleCA;
+  }
+
+  function allSaleCAs() public view returns (address[] memory) {
+    return F_NFTSaleCAs;
+  } 
 }
