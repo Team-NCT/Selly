@@ -11,6 +11,7 @@ const serverConfig = {
     host: "localhost",
     port: 3000,
     open: false,
+    historyApiFallback: true,
   },
 };
 
