@@ -19,6 +19,7 @@ module.exports = {
       "@": path.resolve(__dirname, "../src"),
     };
 
+    // scss
     config.module.rules.push({
       test: /\.scss$/,
       use: [
