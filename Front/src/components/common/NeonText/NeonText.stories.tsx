@@ -1,5 +1,4 @@
 import { Meta, Story } from "@storybook/react";
-import { Children } from "react";
 import NeonText from "./NeonText";
 import { NeonTextProps } from "./NeonText.types";
 
@@ -18,7 +17,5 @@ const Template: Story<NeonTextProps> = (args) => <NeonText {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  primary: true,
-  label: "NeonText",
   children: "Selly",
 };
