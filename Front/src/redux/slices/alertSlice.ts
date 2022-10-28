@@ -11,7 +11,7 @@ interface AlertState {
   content: React.ReactNode;
 
   //* 알럿 스타일
-  styles?: AlertStylesType;
+  style?: AlertStylesType;
 
   //* 아이콘 스타일
   icon?: AlertIconStylesType;
@@ -20,7 +20,7 @@ interface AlertState {
 const initialState: AlertState = {
   status: false,
   content: "",
-  styles: undefined,
+  style: undefined,
   icon: undefined,
 };
 
@@ -49,10 +49,10 @@ const slice = createSlice({
 
     //* Alert 스타일 설정
     setAlertStyles: (state, action: PayloadAction<AlertStylesType>) => {
-      state.styles = action.payload;
+      state.style = action.payload;
     },
     resetAlertStyles: (state) => {
-      state.styles = undefined;
+      state.style = undefined;
     },
 
     //* icon 스타일 설정

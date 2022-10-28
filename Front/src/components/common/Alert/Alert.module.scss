@@ -1,4 +1,11 @@
-.alert {
+$bg-palette: (
+  success: $muscat info: $ocean error: $sherbet150 warning: $marmalade100,
+  icon: $white,
+);
+
+@each $style, $color in $bg-palette {
+}
+
+dialog {
   width: 400px;
-  height: 100px;
 }

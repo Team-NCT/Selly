@@ -1,10 +1,26 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import { AlertProps } from "./Alert.types";
-// import styles from "./Alert.module.scss";
+import "./Alert.module.scss";
+import { useAlert } from "@/hooks/useAlert";
 
-const Alert = ({ state = true, styles = "success", icon = "none", message = "" }: AlertProps) => {
-  // const {closeAlert} =
-  return <dialog open={state}>hihi</dialog>;
+const Alert = ({
+  style = "success",
+  icon = "none",
+  ...props
+}: React.PropsWithChildren<AlertProps>) => {
+  // const { closeAlertModal } = useAlert();
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     closeAlertModal();
+  //   }, 2500);
+  // }, []);
+
+  return (
+    <dialog open className="">
+      {props.children}
+    </dialog>
+  );
 };
 
 export default Alert;

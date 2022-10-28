@@ -1,6 +1,6 @@
 import "@/styles/base/_base.scss";
 import { Route, Routes } from "react-router-dom";
-import { Home, Counter } from "@/pages";
+import { Home, Counter, Test } from "@/pages";
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
 
         {/* 테스트 페이지 */}
         <Route path="/counter" element={<Counter />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </>
   );

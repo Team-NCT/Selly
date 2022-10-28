@@ -5,8 +5,6 @@ export const AlertIconStyles = ["success", "info", "error", "warning", "none"] a
 export type AlertIconStylesType = typeof AlertIconStyles[number];
 
 export interface AlertProps {
-  state: boolean;
-  styles: AlertStylesType; //* default: "success"
-  icon: AlertIconStylesType; //* default: "none"
-  message: string;
+  style?: AlertStylesType; //* default: "success"
+  icon?: AlertIconStylesType; //* default: "none"
 }
