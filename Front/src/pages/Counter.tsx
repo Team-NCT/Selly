@@ -1,5 +1,6 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+import Card from "@/components/common/Card/Card";
 
 // * action creator, selector를 import한다.
 import { selectCounter, increment, decrement } from "@/redux/slices/counterSlice";

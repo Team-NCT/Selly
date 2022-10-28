@@ -1,11 +1,16 @@
 import { CardProps } from "./Card.types";
 import style from "./Card.module.scss";
 
-const Card = () => {
+const Card = ({ url, title, supply }: CardProps) => {
   return (
-    <section>
-      <h1>좀비와 함께 춤을</h1>
-      <figure></figure>
+    <section className={style.card}>
+      <figure>
+        <img src={url} alt={title}></img>
+      </figure>
+      <div>
+        <h1>{title}</h1>
+        <h2>collectable supply: {supply}</h2>
+      </div>
     </section>
   );
 };
