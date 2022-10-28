@@ -1,3 +1,2 @@
-// export interface AlertProps {
-//   // 알럿이 생ㅅ
-// }
+/* eslint-disable @typescript-eslint/no-empty-interface */
+export interface AlertProps {}

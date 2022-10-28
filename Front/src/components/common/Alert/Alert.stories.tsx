@@ -1,8 +1,14 @@
-import { Story } from "@storybook/react";
-import React from "react";
-// import { Alert } from "./Alert";
-export default {
-  title: "Alert/Alert",
-};
+import { Meta, Story } from "@storybook/react";
+import Alert from "./Alert";
+import { AlertProps } from "./Alert.types";
 
-export const Default: Story = () => <div>햐햐</div>;
+export default {
+  title: "Common/Alert",
+  component: Alert,
+  parameters: {
+    componentSubtitle: "알럿 컴포넌트",
+  },
+  argTypes: {},
+} as Meta;
+
+export const Default: Story<AlertProps> = (args) => <Alert {...args} />;
