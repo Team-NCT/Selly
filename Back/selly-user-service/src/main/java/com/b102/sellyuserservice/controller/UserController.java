@@ -5,6 +5,7 @@ import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.service.UserService;
 import com.b102.sellyuserservice.vo.RequestUser;
 import com.b102.sellyuserservice.vo.ResponseUser;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -19,20 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/selly-user-service")
+@RequestMapping("/")
+@RequiredArgsConstructor
 @Slf4j // log를 쓰기 위한 어노테이션
 public class UserController {
 
     private final UserService userService;
     private final Environment env;
-
-    @Autowired
-    public UserController(UserService userService, Environment env){
-        this.userService = userService;
-        this.env = env;
-    }
-
-
 
     @PostMapping("/users")
     public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user){

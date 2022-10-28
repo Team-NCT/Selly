@@ -3,19 +3,32 @@ package com.b102.sellyuserservice.model.service;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-  UserRepository userRepository;
-  @Autowired
-  public UserServiceImpl(UserRepository userRepository){
-    this.userRepository = userRepository;
+  private final UserRepository userRepository;
+
+  @Override
+  public UserDetails loadUserByUsername(String wallet) throws UsernameNotFoundException {
+    UserEntity userEntity = userRepository.findByWallet(wallet);
+    if(userEntity == null){
+      throw new UsernameNotFoundException(wallet);
+    }
+
+    return new User(userEntity.getWallet(), null, true, true, true, true, new ArrayList<>());
   }
+
   @Override
   public UserDto createUser(UserDto userDto){
     ModelMapper mapper = new ModelMapper();
