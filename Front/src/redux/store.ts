@@ -1,9 +1,14 @@
+import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import counter from "./slices/counterSlice";
 
-const reducers = {
+//! reducer import
+import counter from "./slices/counterSlice";
+import alert from "@/redux/slices/alertSlice";
+
+const reducers = combineReducers({
   counter,
-};
+  alert,
+});
 
 const store = configureStore({
   reducer: reducers,
