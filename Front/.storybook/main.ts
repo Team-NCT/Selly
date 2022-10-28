@@ -13,10 +13,28 @@ module.exports = {
     builder: "@storybook/builder-webpack5",
   },
   webpackFinal: async (config) => {
+    // 절대 경로
     config.resolve.alias = {
       ...config.resolve.alias,
       "@": path.resolve(__dirname, "../src"),
     };
+
+    // scss
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: [
+        {
+          loader: "sass-loader",
+          options: {
+            additionalData: `
+            @import "./src/styles/variables/_variables.scss";
+            @import "./src/styles/mixins/_mixins.scss";
+		  `,
+          },
+        },
+      ],
+    });
+
     return config;
   },
 };

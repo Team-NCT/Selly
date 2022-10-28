@@ -1,4 +1,4 @@
-import React from "react";
+import "@/styles/base/_base.scss";
 import { Route, Routes } from "react-router-dom";
 import { Home, Counter } from "@/pages";
 
