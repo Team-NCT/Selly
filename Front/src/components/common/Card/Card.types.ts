@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface CardProps {
   /**
    * NFT 이미지 URL
@@ -13,4 +15,9 @@ export interface CardProps {
    * NFT 판매 개수
    */
   supply?: string;
+
+  /**
+   * 클릭 이벤트 핸들러
+   */
+  clickHandler: () => void;
 }

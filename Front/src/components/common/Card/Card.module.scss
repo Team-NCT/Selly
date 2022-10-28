@@ -1,7 +1,29 @@
 .card {
+  position: relative;
   img {
     aspect-ratio: 1/1;
-    max-width: 200px;
+    max-width: 240px;
     border-radius: $radius-card;
+  }
+  div {
+    position: absolute;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: black;
+    border-radius: $radius-card;
+    top: 0;
+    left: 0;
+    padding: 16px;
+
+    h1 {
+      @include font($body2, $medium, $white);
+      width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    h2 {
+      @include font($caption, $regular, $white);
+    }
   }
 }
