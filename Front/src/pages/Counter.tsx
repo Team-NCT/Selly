@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 
 // * action creator, selector를 import한다.

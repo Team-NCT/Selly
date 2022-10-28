@@ -57,6 +57,10 @@ const devConfig = {
             loader: "sass-loader",
             options: {
               sourceMap: true,
+              additionalData: `
+                @import "./src/styles/variables/_variables.scss";
+                @import "./src/styles/mixins/_mixins.scss";
+          `,
             },
           },
         ],
@@ -80,7 +84,7 @@ const devConfig = {
     alias: {
       "@": path.resolve(__dirname, "../src/"),
     },
-    extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".json"],
+    extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".scss", ".json"],
   },
 };
 
