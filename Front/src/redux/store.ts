@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counter from "./slices/counterSlice";
 
+//! reducer import
+import alert from "@/redux/slices/alertSlice";
+
 const reducers = {
   counter,
+  alert,
 };
 
 const store = configureStore({
