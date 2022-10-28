@@ -1,4 +1,6 @@
 const { getAbsPath } = require("./config.utils");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 const path = require("path");
 
 const devConfig = {
@@ -9,9 +11,19 @@ const devConfig = {
     main: getAbsPath("src/index.tsx"),
   },
   output: {
-    path: getAbsPath("public"),
+    path: getAbsPath("dist"),
     filename: "main.js",
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "public/index.html",
+    }),
+
+    // react를 import하지 않아도 된다.
+    new webpack.ProvidePlugin({
+      React: "react",
+    }),
+  ],
   module: {
     rules: [
       // jsx
@@ -49,7 +61,7 @@ const devConfig = {
           },
         ],
       },
-
+      // typescript
       {
         test: /\.(ts|tsx|js|jsx)$/,
         use: "babel-loader",
@@ -64,6 +76,7 @@ const devConfig = {
     ],
   },
   resolve: {
+    // 절대 경로 설정
     alias: {
       "@": path.resolve(__dirname, "../src/"),
     },

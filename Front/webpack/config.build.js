@@ -7,9 +7,9 @@ const devConfig = require("./config.dev");
 
 const buildConfig = {
   mode: "production",
-  devtool: false,
+  devtool: "cheap-module-source-map",
   output: {
-    path: getAbsPath("public"),
+    path: getAbsPath("dist"),
     filename: "js/[name].min.js",
     chunkFilename: "js/[name].chunk.js",
     assetModuleFilename: "assets/[name].[hash].[ext]",

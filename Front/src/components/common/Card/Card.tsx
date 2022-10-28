@@ -1,5 +1,4 @@
-import React from "react";
-// import { CardProps } from "./Card.types";
+import { CardProps } from "./Card.types";
 import style from "./Card.module.scss";
 
 const Card = () => {
