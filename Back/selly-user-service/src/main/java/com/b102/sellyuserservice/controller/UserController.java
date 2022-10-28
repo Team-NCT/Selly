@@ -1,6 +1,7 @@
 package com.b102.sellyuserservice.controller;
 
 import com.b102.sellyuserservice.domain.dto.UserDto;
+import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.service.UserService;
 import com.b102.sellyuserservice.vo.RequestUser;
 import com.b102.sellyuserservice.vo.ResponseUser;
@@ -12,6 +13,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/selly-user-service")
@@ -44,10 +49,25 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String test(){
-        return "test";
+    public ResponseEntity<List<ResponseUser>> getUsers(){
+        Iterable<UserEntity> userList = userService.getUserByAll();
+
+        List<ResponseUser> result = new ArrayList<>();
+        userList.forEach(v -> {
+            result.add(new ModelMapper().map(v, ResponseUser.class));
+        });
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") Long userId){
+        UserDto userDto = userService.getUserByUserId(userId);
+
+        ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
+
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+    }
 
 
 }
