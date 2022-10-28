@@ -1,0 +1,19 @@
+.neonText {
+  position: relative;
+  display: inline-block;
+  color: #000;
+}
+
+.neonText:after {
+  content: "";
+  position: absolute;
+  bottom: -10%;
+  left: 57%;
+  width: 55%;
+  height: 60%;
+  background-color: #dbfb7c;
+  z-index: -10;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
