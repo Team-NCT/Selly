@@ -8,13 +8,15 @@ contract F_NFTSale{
   IERC20 public F_NFTContractERC20;
   IFractionalizedNFT public F_NFTContract;
   address public seller;
-  address F_NFTCA;
+  address public F_NFTCA;
   uint256 public amount;
-  uint256 price;
+  uint256 public price;
 
   event Check (
     uint256 price
   );
+  event Received(address, uint);
+
   constructor (
     address _seller,
     address _F_NFTCA,
@@ -37,13 +39,19 @@ contract F_NFTSale{
     F_NFTContractERC20.transfer(msg.sender, _amount);
     payable(seller).transfer(address(this).balance);
 
-    // 팔고 있는 조각이 다 팔린 판매컨트랙트 주소 제거
+    // 팔고 있는 조각이 다 팔린 판매컨트랙트 주소 제거 후 컨트랙트 폭파
     if (amount == 0) {
       F_NFTContract.removeSoldoutSaleCA(address(this));
+      // selfdestruct(payable(seller)); // Todo: 테스트 끝나면 활성화시키기
     }
   }
 
   function getBalance() public view returns (uint256) {
     return address(this).balance;
+  }
+
+  // 컨트랙트가 ether를 받기 위해 필요한 함수
+  receive() external payable {
+    emit Received(msg.sender, msg.value);
   }
 }

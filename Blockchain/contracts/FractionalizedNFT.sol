@@ -9,33 +9,47 @@ import "../node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.
 import "./F_NFTSale.sol";
 
 contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
+  // 분할 관련 변수
   IERC721 public collection;
   address public NFTCA;
   uint256 public amount;
   uint256 public tokenId;
   address public creater;
   bool public initialized = false;
-  bool public forSale = false;
-  uint256 public salePrice;
-  bool public canRedeem = false;
-  uint256 public firstPrice;
+  // bool public forSale = false;
+  // bool public canRedeem = false;
 
   // 판매 컨트랙트의 주소를 저장하는 배열
   address[] public F_NFTSaleCAs;
+
+  // 소유권을 가진 유저들의 주소를 저장하는 배열
+  address[] public partyAddresses;
+
+  // 경매 관련 변수
+  uint256 public auctionEndTime;
+  uint256 public minimumPrice;
+
+  address public highestBidder;
+  uint256 public highestBid;
+
+  bool public ended = false;
 
   // event Check(
   //   address indexed _owner,
   //   address indexed _creater
   // );
 
+  event HighestBidIncreased(address preBidder, uint256 preAmount, address bidder, uint256 amount);
+  event Burn(address user, uint256 amount);
+  // event Check(strings type);
+  
   constructor(
     address _NFTCA, 
     uint256 _tokenId, 
     uint256 _amount, 
     address _creater, 
     string memory _name, 
-    string memory _symbol,
-    uint256 _firstPrice
+    string memory _symbol
   ) 
     ERC20(_name, _symbol) ERC20Permit(_name) {
       collection = IERC721(_NFTCA);
@@ -48,9 +62,11 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
       tokenId = _tokenId;
       amount = _amount;
       creater = _creater;
-      firstPrice = _firstPrice;
     }
   
+  // 초기화 함수, 단 한 번, 분할 컨트랙트를 생성한 유저만이 실행 가능
+  // 수행 전에 해당 NFT 컨트랙트의 setAprrovalAll 실행 필요
+  // NFT를 현재 컨트랙트(금고) 로 옮긴 후, 요청한 개수만큼 소유권을 발행
   function initialize() external {
     require(msg.sender == creater, "Can only creater");
     require(!initialized, "Already initialized");
@@ -59,28 +75,28 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     _mint(msg.sender, amount);
   }
 
-  function putForSale(uint256 price) external {
-    require(msg.sender == creater, "Can only creater");
-    salePrice = price;
-    forSale = true;
-  }
+  // function putForSale(uint256 price) external {
+  //   require(msg.sender == creater, "Can only creater");
+  //   salePrice = price;
+  //   forSale = true;
+  // }
 
-  function purchase() external payable {
-    require(forSale, "Not for sale");
-    require(msg.value >= salePrice, "Not enough ether sent");
-    collection.transferFrom(address(this), msg.sender, tokenId);
-    forSale = false;
-    canRedeem = true;
-  }
+  // function purchase() external payable {
+  //   require(forSale, "Not for sale");
+  //   require(msg.value >= salePrice, "Not enough ether sent");
+  //   collection.transferFrom(address(this), msg.sender, tokenId);
+  //   forSale = false;
+  //   canRedeem = true;
+  // }
 
-  function redeem(uint256 _amount) external {
-    require(canRedeem, "Redemption not available");
-    uint256 totalEther = address(this).balance;
-    uint256 toRedeem = _amount * totalEther / totalSupply();
+  // function redeem(uint256 _amount) external {
+  //   require(canRedeem, "Redemption not available");
+  //   uint256 totalEther = address(this).balance;
+  //   uint256 toRedeem = _amount * totalEther / totalSupply();
 
-    _burn(msg.sender, _amount);
-    payable(msg.sender).transfer(toRedeem);
-  }
+  //   _burn(msg.sender, _amount);
+  //   payable(msg.sender).transfer(toRedeem);
+  // }
 
   function createSale(uint256 _amount, uint256 _price) public returns (address) {
     address F_NFTSaleCA = address(
@@ -97,7 +113,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     return F_NFTSaleCAs;
   }
 
-  // 팔고 있는 조각이 다 팔린 판매컨트랙트 주소 제거
+  // 판매컨트랙트 주소 제거 함수
   function removeSoldoutSaleCA(address _SaleCA) external {
     require(msg.sender == _SaleCA, "Only remove myself");
 
@@ -107,5 +123,88 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
         F_NFTSaleCAs.pop();
       }
     }
+  }
+
+  function startAuction(uint256 _startPrice) external {
+    require((100 * balanceOf(msg.sender) / totalSupply()) > 50, "Only user who own more than 50% of fractions can start auction");
+    minimumPrice = _startPrice;
+    uint256 threeday = 3 days;
+    auctionEndTime = block.timestamp + threeday;
+  }
+
+  function bid () external payable {
+    require(block.timestamp <= auctionEndTime, "Not to auction");
+    require(msg.value >= minimumPrice, "Have to Bid higher than minimumPrice");
+    require(msg.value > highestBid, "Have to Bid higher than current bid");
+
+    // 이전 최고 입찰자에게 돈을 돌려준다.
+    if (highestBid  != 0) {
+      payable(highestBidder).transfer(highestBid);
+    }
+
+    emit HighestBidIncreased(highestBidder, highestBid, msg.sender, msg.value);
+
+    highestBidder = msg.sender;
+    highestBid = msg.value;
+  }
+
+  function auctionEnd() public {
+    require(!ended, "Already called");
+    // require(block.timestamp >= auctionEndTime, "To auction");
+    require(highestBid != 0, "Nobody makes a bid");
+
+    ended = true;
+    collection.safeTransferFrom(address(this), highestBidder, tokenId);
+
+    uint256 totalFractions = totalSupply();
+    // address[] users = ;
+
+    uint256 totalEther = address(this).balance;
+    uint256 possessions;
+    address user;
+    uint256 toRedeem;
+
+
+    for (uint256 i = 0; i < partyAddresses.length; i++) {
+      possessions = balanceOf(partyAddresses[i]);
+      user = partyAddresses[i];
+      
+      _burn(user, possessions);
+
+      toRedeem = possessions * totalEther / totalFractions;
+      payable(user).transfer(toRedeem);
+    }
+  }
+
+  // Todo: 추후 수정
+  function _afterTokenTransfer(
+    address from,
+    address to,
+    uint256 amount
+  ) internal virtual override {
+    super._afterTokenTransfer(from, to, amount);
+
+    if (to != address(0)) {
+      partyAddresses.push(to);
+    }
+    // if (balanceOf(from) == 0) {
+    //   partyAddress
+    // }
+  }
+
+  function getAllAddresses() public view returns (address[] memory) {
+    return partyAddresses;
+  }
+
+  function getHighestBid() public view returns (uint256) {
+    return highestBid;
+  }
+
+  function getHighestBidder() public view returns (address) {
+    return highestBidder;
+  }
+
+  function getBalance() public view returns (uint256) {
+    return address(this).balance;
   }
 }
