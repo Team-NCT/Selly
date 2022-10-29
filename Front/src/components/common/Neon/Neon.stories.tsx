@@ -10,6 +10,18 @@ export default {
   },
   argTypes: {
     children: { control: { type: "text" } },
+    width: {
+      control: { type: "range", min: 1, max: 100, step: 1 },
+    },
+    height: {
+      control: { type: "range", min: 1, max: 100, step: 1 },
+    },
+    vertical: {
+      control: { type: "range", min: 1, max: 100, step: 1 },
+    },
+    horizontal: {
+      control: { type: "range", min: 1, max: 100, step: 1 },
+    },
   },
 } as Meta;
 
