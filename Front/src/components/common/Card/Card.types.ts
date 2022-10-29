@@ -1,16 +1,16 @@
 export interface CardProps {
   /**
-   * NFT 이미지 URL
+   * NFT 이미지 URL (required)
    */
   url: string;
 
   /**
-   * NFT 제목
+   * NFT 제목 (required)
    */
   title: string;
 
   /**
    * NFT 판매 개수
    */
-  supply?: string;
+  supply?: number;
 }

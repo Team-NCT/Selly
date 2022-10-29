@@ -1,7 +1,42 @@
 .card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: $radius-card;
+
   img {
+    width: 100%;
     aspect-ratio: 1/1;
-    max-width: 200px;
     border-radius: $radius-card;
+  }
+
+  div {
+    @include flex(column, flex-end, flex-start);
+    gap: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 1/1;
+    padding: 16px;
+    border-radius: $radius-card;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+
+    .card_title {
+      @include font($body2, $regular, $white);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 80%;
+    }
+
+    .card_supply {
+      @include font($caption, $light, $white);
+    }
   }
 }
