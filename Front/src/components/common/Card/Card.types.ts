@@ -14,10 +14,10 @@ export interface CardProps {
   /**
    * NFT 판매 개수
    */
-  supply?: string;
+  supply?: number;
 
   /**
    * 클릭 이벤트 핸들러
    */
-  clickHandler: () => void;
+  clickHandler?: () => void;
 }
