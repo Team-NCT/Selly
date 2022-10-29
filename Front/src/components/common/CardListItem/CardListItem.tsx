@@ -1,8 +1,8 @@
-import { CardItemProps } from "./CardItem.types";
-import style from "./CardItem.module.scss";
+import { CardListItemProps } from "./CardListItem.types";
+import style from "./CardListItem.module.scss";
 import { numberAddComma } from "@/helpers/utils/numberConversion";
 
-const Card = ({ url, title, href, supply }: CardItemProps) => {
+const CardListItem = ({ url, title, href, supply }: CardListItemProps) => {
   let supplyCount;
   if (supply) {
     supplyCount = numberAddComma(supply);
@@ -14,12 +14,12 @@ const Card = ({ url, title, href, supply }: CardItemProps) => {
           <img src={url} alt={title}></img>
         </figure>
         <div>
-          <h1>{title}</h1>
-          {supply && <h2>남은 조각: {supplyCount} 개</h2>}
+          <p>{title}</p>
+          {supply && <p>남은 조각: {supplyCount} 개</p>}
         </div>
       </a>
     </li>
   );
 };
 
-export default Card;
+export default CardListItem;

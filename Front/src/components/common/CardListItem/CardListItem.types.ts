@@ -1,4 +1,4 @@
-export interface CardItemProps {
+export interface CardListItemProps {
   /**
    * NFT 이미지 URL (required)
    */
