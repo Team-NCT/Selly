@@ -8,7 +8,7 @@ const Card = ({ url, title, supply, clickHandler }: CardProps) => {
     supplyCount = numberAddComma(supply);
   }
   return (
-    <section className={style.card} role="presentation" onClick={clickHandler}>
+    <section className={style.card} onClick={clickHandler}>
       <figure>
         <img src={url} alt={title}></img>
       </figure>

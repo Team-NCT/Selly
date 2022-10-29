@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface CardProps {
   /**
    * NFT 이미지 URL
