@@ -6,7 +6,7 @@ export default {
   title: "Common/CardList",
   component: CardList,
   parameters: {
-    componentSubtitle: "카드 리스트",
+    componentSubtitle: "카드 리스트: CardListItem Props 참고",
   },
   argTypes: {},
 } as Meta;
@@ -25,9 +25,6 @@ const defaultProps = {
 
 Default.args = {
   data: [
-    defaultProps,
-    defaultProps,
-    defaultProps,
     defaultProps,
     defaultProps,
     defaultProps,
