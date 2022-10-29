@@ -1,9 +1,7 @@
 .card {
   @include flex(column, center, center);
   @include shadow-modal;
-  gap: 16px;
   width: 100%;
-  padding-bottom: 16px;
   border-radius: $radius-card;
   background-color: $white;
   figure {
@@ -18,7 +16,7 @@
   .card_content {
     width: 100%;
     border-radius: 0px, 0px, $radius-card, $radius-card;
-    padding: 0px 12px;
+    padding: 16px 12px;
     .card_content_title {
       @include font($body2, $semibold, $main-font);
       overflow: hidden;
