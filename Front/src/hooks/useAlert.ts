@@ -11,12 +11,12 @@ import {
   resetIconStyles,
 } from "@/redux/slices/alertSlice";
 
-import { AlertIconStylesType, AlertStylesType } from "@/components/common/Alert/Alert.types";
+import { AlertStylesType } from "@/components/common/Alert/Alert.types";
 
 export interface OpenAlertArg {
   content: React.ReactNode;
   style: AlertStylesType;
-  icon: AlertIconStylesType;
+  icon: boolean;
 }
 
 export const useAlert = () => {

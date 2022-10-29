@@ -1,6 +1,16 @@
-import Alert from "@/components/common/Alert/Alert";
+import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
 
 const Test = () => {
-  return <Alert>hello</Alert>;
+  const { openAlertModal } = useAlert();
+  const openAlertHandler = () => {
+    const data: OpenAlertArg = {
+      content: "버튼을 클릭하였습니다.",
+      style: "success",
+      icon: true,
+    };
+    openAlertModal(data);
+  };
+
+  return <button onClick={openAlertHandler}>알럿</button>;
 };
 export default Test;
