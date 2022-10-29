@@ -3,13 +3,14 @@
   width: 100%;
   aspect-ratio: 1/1;
   border-radius: $radius-card;
-
-  img {
+  figure {
     width: 100%;
-    aspect-ratio: 1/1;
-    border-radius: $radius-card;
+    img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      border-radius: $radius-card;
+    }
   }
-
   div {
     @include flex(column, flex-end, flex-start);
     gap: 4px;
