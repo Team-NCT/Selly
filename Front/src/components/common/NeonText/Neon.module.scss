@@ -22,21 +22,57 @@ $colors: (
   "ocean250": $ocean250,
 );
 
-@each $key, $value in $colors {
-  .#{$key}bg {
-    color: $black350;
-    position: relative;
-    display: inline-block;
+@mixin neonH($h) {
+  &.top:after {
+    top: -$h + "%";
   }
 
-  .#{$key}bg:after {
+  &.bottom:after {
+    bottom: -$h + "%";
+  }
+}
+@mixin neonW($w) {
+  &.right:after {
+    right: -$w + "%";
+  }
+
+  &.left:after {
+    left: -$w + "%";
+  }
+}
+
+.neonText {
+  color: $black350;
+  position: relative;
+  display: inline-block;
+
+  &:after {
     content: "";
     position: absolute;
-    bottom: -10%;
-    left: 57%;
-    width: 55%;
-    height: 60%;
     z-index: -10;
+  }
+}
+
+@each $key, $value in $colors {
+  .#{$key}-bg:after {
     background-color: $value;
+  }
+}
+
+@for $i from 1 to 101 {
+  .width-#{$i}:after {
+    width: #{$i} + "%";
+  }
+
+  .height-#{$i}:after {
+    height: #{$i} + "%";
+  }
+
+  .vertical-#{$i} {
+    @include neonH(#{$i});
+  }
+
+  .horizontal-#{$i} {
+    @include neonW(#{$i});
   }
 }

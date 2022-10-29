@@ -1,6 +1,6 @@
 import { Meta, Story } from "@storybook/react";
-import NeonText from "./NeonText";
-import { NeonTextProps } from "./NeonText.types";
+import NeonText from "./Neon";
+import { NeonTextProps } from "./Neon.types";
 
 export default {
   title: "Common/NeonText",
@@ -13,9 +13,8 @@ export default {
   },
 } as Meta;
 
-const Template: Story<NeonTextProps> = (args) => <NeonText {...args} />;
+export const Default: Story<NeonTextProps> = (args) => <NeonText {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
+Default.args = {
   children: "Selly",
 };
