@@ -22,6 +22,9 @@ export default {
     horizontal: {
       control: { type: "range", min: 1, max: 100, step: 1 },
     },
+    color: { control: { type: "select" } },
+    positionH: { control: { type: "radio" } },
+    positionW: { control: { type: "radio" } },
   },
 } as Meta;
 
@@ -29,4 +32,11 @@ export const Default: Story<NeonTextProps> = (args) => <NeonText {...args} />;
 
 Default.args = {
   children: "Selly",
+  width: 55,
+  height: 60,
+  vertical: 10,
+  horizontal: 10,
+  color: "muscat",
+  positionH: "bottom",
+  positionW: "right",
 };
