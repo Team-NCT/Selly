@@ -1,0 +1,21 @@
+.card_list {
+  width: 100%;
+
+  @include mobile {
+    @include grid(40%);
+    column-gap: 24px;
+    row-gap: 24px;
+  }
+
+  @include tablet {
+    @include grid(20%);
+    column-gap: 40px;
+    row-gap: 60px;
+  }
+
+  @include desktop {
+    @include grid(20%);
+    column-gap: 40px;
+    row-gap: 80px;
+  }
+}
