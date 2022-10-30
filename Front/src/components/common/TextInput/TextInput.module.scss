@@ -1,0 +1,24 @@
+.input_text {
+  width: 100%;
+  padding: 4px 2px;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    @include font($body2, $light, $white350);
+  }
+}
+
+.input_true {
+  @include font($body2, $regular, $main-font);
+  border-bottom: 2px solid $main-font;
+}
+
+.input_false {
+  @include font($body2, $regular, $sherbet150);
+  border-bottom: 2px solid $sherbet150;
+}
