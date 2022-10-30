@@ -1,4 +1,4 @@
-import { NeonTextProps } from "./Neon.types";
+import { NeonProps } from "./Neon.types";
 import style from "./Neon.module.scss";
 
 const Neon = ({
@@ -10,7 +10,7 @@ const Neon = ({
   height = 60,
   vertical = 10,
   horizontal = 10,
-}: NeonTextProps) => {
+}: NeonProps) => {
   const neonColor = style[[color, "-bg"].join("")];
   const neonWidth = style[["width-", width].join("")];
   const neonHeight = style[["height-", height].join("")];

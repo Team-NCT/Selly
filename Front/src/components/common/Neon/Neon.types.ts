@@ -31,7 +31,7 @@ export type PositionWType = typeof PositionW[number];
 
 export type NeonNumberType = number;
 
-export interface NeonTextProps {
+export interface NeonProps {
   /**
    * 텍스트
    */
