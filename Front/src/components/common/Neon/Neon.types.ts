@@ -31,7 +31,7 @@ export type PositionWType = typeof PositionW[number];
 
 export type NeonNumberType = number;
 
-export interface NeonTextProps {
+export interface NeonProps {
   /**
    * 텍스트
    */
@@ -55,20 +55,20 @@ export interface NeonTextProps {
   /**
    * 네온 가로길이 1%~100%
    */
-  width: NeonNumberType;
+  width?: NeonNumberType;
 
   /**
    * 네온 세로길이 1%~100%
    */
-  height: NeonNumberType;
+  height?: NeonNumberType;
 
   /**
    * 네온 수직위치 1%~100%
    */
-  vertical: NeonNumberType;
+  vertical?: NeonNumberType;
 
   /**
    * 네온 수평위치 1%~100%
    */
-  horizontal: NeonNumberType;
+  horizontal?: NeonNumberType;
 }
