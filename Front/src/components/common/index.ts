@@ -13,3 +13,4 @@ export { default as DescCardList } from "./DescCardList/DescCardList";
 
 //* TextInput
 export { default as TextInput } from "./TextInput/TextInput";
+export { default as Label } from "./Label/Label";
