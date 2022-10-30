@@ -11,6 +11,8 @@ public interface ArticleService {
 
   public Long createArticle(ArticleRequest articleRequest);
 
+  public List<Article> findByAll();
+
   public ArticleResponseDto findById(Long id);
 
   public Long numberOfArticle();

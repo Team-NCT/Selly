@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Article {
+public class  Article {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

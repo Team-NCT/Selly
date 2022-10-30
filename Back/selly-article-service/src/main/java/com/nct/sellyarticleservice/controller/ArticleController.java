@@ -21,18 +21,13 @@ public class ArticleController {
   private final ArticleServiceImpl articleService;
 
   @PostMapping("/create")
-//  public ResponseEntity<Object> createArticle(@RequestBody Article article) throws SQLException{
-//    Message message = articleService.createArticle(article);
-////    return new ResponseEntity<Message>(message, HttpStatus.OK);
-//    return ResponseEntity.ok()
-//            .body(message);
-//  }
   public Long createArticle(@RequestBody ArticleRequest articleRequest) throws SQLException{
-//    Message message = articleService.createArticle(articleRequest);
-//    return new ResponseEntity<Message>(message, HttpStatus.OK);
-//    return ResponseEntity.ok()
-//            .body(message);
     return articleService.createArticle(articleRequest);
+  }
+
+  @GetMapping("")
+  public List<Article> getArticleByAll() {
+    return articleService.findByAll();
   }
 
   @GetMapping("/{id}")
