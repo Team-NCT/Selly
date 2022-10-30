@@ -9,16 +9,16 @@
   }
 
   &::placeholder {
-    @include font($body1, $light, $white350);
+    @include font($body2, $light, $white350);
   }
 }
 
 .input_true {
-  @include font($body1, $regular, $main-font);
+  @include font($body2, $regular, $main-font);
   border-bottom: 2px solid $main-font;
 }
 
 .input_false {
-  @include font($body1, $regular, $sherbet150);
+  @include font($body2, $regular, $sherbet150);
   border-bottom: 2px solid $sherbet150;
 }
