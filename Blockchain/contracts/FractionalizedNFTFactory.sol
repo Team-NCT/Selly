@@ -17,14 +17,13 @@ contract FractionalizedNFTFactory {
     uint256 _tokenId, 
     uint256 _amount, 
     string memory _name, 
-    string memory _symbol,
-    uint256 _price
+    string memory _symbol
   ) 
     external 
     returns (address)
   {
     address fractionalizedNFTCA = address(
-        new FractionalizedNFT(_NFTCA, _tokenId, _amount, msg.sender, _name, _symbol, _price)
+        new FractionalizedNFT(_NFTCA, _tokenId, _amount, msg.sender, _name, _symbol)
     );
     fractionalizedNFTCAs.push(fractionalizedNFTCA);
     F_NFTCA[_NFTCA][_tokenId] = fractionalizedNFTCA;
