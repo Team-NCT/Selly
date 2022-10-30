@@ -20,3 +20,6 @@ export { default as Label } from "./Label/Label";
 
 //* Button
 export { default as Button } from "./Button/Button";
+
+//* Radio
+export { default as Radio } from "./Radio/Radio";

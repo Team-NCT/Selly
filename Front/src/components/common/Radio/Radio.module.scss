@@ -23,7 +23,7 @@ $bg-palette: (
   box-sizing: border-box;
   line-height: 20px;
   width: 100%;
-  padding: 8px 8px 8px 36px;
+  padding: 4px 8px 4px 36px;
   color: $black;
   vertical-align: top;
   text-align: left;
@@ -33,7 +33,7 @@ $bg-palette: (
 .opt__label::after {
   position: absolute;
   box-sizing: border-box;
-  top: 18px;
+  top: 14px;
   left: 4px;
   transform: translateY(-50%);
 }
