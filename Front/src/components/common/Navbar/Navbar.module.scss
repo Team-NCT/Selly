@@ -1,0 +1,21 @@
+nav {
+  @include flex(row, space-between, center);
+}
+
+.search {
+  border: 1px solid $black;
+}
+
+.nav_title {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  font-size: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.nav_list {
+  display: flex;
+}

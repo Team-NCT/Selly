@@ -5,3 +5,5 @@ export { default as DescCard } from "./DescCard/DescCard";
 export { default as Neon } from "./Neon/Neon";
 export { default as DescCardListItem } from "./DescCardListItem/DescCardListItem";
 export { default as DescCardList } from "./DescCardList/DescCardList";
+export { default as Alert } from "./Alert/Alert";
+export { default as Navbar } from "./Navbar/Navbar";
