@@ -1,17 +1,9 @@
-export const ButtonBG = [
-  "primary",
-  "ocean",
-  "navy",
-  "danger",
-  "white",
-  "disabled",
-  "none",
-] as const;
+export const ButtonBG = ["primary", "ocean", "navy", "danger", "white", "disabled"] as const;
 export type ButtonBGType = typeof ButtonBG[number];
 
 export type ButtonSizeType = "default" | "small" | "xsmall" | "fillContainer";
 
-export type ButtonColorType = "black" | "white";
+export type ButtonColorType = "black" | "white" | "outline" | "none";
 
 export interface ButtonProps {
   /**
@@ -22,17 +14,17 @@ export interface ButtonProps {
   /**
    * 버튼 배경색
    */
-  bg: ButtonBGType;
+  bg?: ButtonBGType;
 
   /**
    * 버튼 크기
    */
-  size: ButtonSizeType;
+  size?: ButtonSizeType;
 
   /**
    * 버튼 글씨 색
    */
-  color: ButtonColorType;
+  color?: ButtonColorType;
 
   /**
    * 버튼 함수
