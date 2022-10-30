@@ -36,7 +36,7 @@ export const Default: Story<LabelProps> = (args) => <Label {...args}>아이디</
 export const LabeledInput: Story<LabelProps> = (args) => {
   const [value, handleInputChange] = useInputState();
   return (
-    <div style={{ width: "30%" }}>
+    <form style={{ width: "30%" }}>
       <Label {...args}>Username</Label>
       <TextInput
         id="input-text"
@@ -45,7 +45,7 @@ export const LabeledInput: Story<LabelProps> = (args) => {
         status={true}
         maxLength={10}
       />
-    </div>
+    </form>
   );
 };
 
