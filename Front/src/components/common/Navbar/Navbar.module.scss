@@ -1,0 +1,93 @@
+nav {
+  @include flex(row);
+  @include shadow-nav;
+  min-height: 80px;
+  width: 100%;
+  img {
+    max-width: 94px;
+    aspect-ratio: 94/39;
+  }
+}
+
+.nav_container {
+  width: 90%;
+  @include flex(row, space-between, center);
+}
+
+.nav_head {
+  @include flex(row);
+}
+
+.nav_search {
+  width: 100%;
+  margin-left: 66px;
+  @include tablet {
+  }
+  @include laptop {
+    min-width: 536px;
+  }
+}
+
+.nav_title {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  font-size: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.nav_list {
+  @include flex(column);
+  @include tablet {
+    @include flex(row, space-between);
+    width: 30%;
+    max-width: 300px;
+  }
+
+  li {
+    @include font($h5, bold);
+  }
+}
+
+.nav_user {
+  margin-left: 16px;
+  @include laptop {
+    margin: 0;
+  }
+}
+
+.wallet {
+  font-size: 32px;
+}
+
+// dropdown
+.dropdown {
+  position: relative;
+  display: inline-block;
+  &:hover {
+    .dropdown_content {
+      @include flex(column);
+    }
+  }
+}
+
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: $white;
+  min-width: 117px;
+  box-shadow: -11px 11px 22px rgba(216, 217, 221, 0.2), 11px -11px 22px rgba(216, 217, 221, 0.2),
+    -11px -11px 22px rgba(254, 255, 255, 0.9), 11px 11px 28px rgba(216, 217, 221, 0.9);
+  z-index: 1;
+  margin-top: 12px;
+  NavLink {
+    @include font($caption, $bold);
+    padding: 8px 13px;
+    display: block;
+    &:hover {
+      background-color: $muscat;
+    }
+  }
+}

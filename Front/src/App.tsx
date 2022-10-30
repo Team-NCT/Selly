@@ -4,7 +4,7 @@ import { Home, Counter, Test } from "@/pages";
 import { useAppSelector } from "./hooks/useStore";
 import { selectAlert } from "./redux/slices/alertSlice";
 import { createPortal } from "react-dom";
-import Alert from "./components/common/Alert/Alert";
+import { Alert, Navbar } from "./components/common/index";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
@@ -13,12 +13,14 @@ function App() {
   return (
     <>
       <Routes>
-        {/* 메인 페이지 */}
-        <Route path="/" element={<Home />} />
+        <Route element={<Navbar />}>
+          {/* 메인 페이지 */}
+          <Route path="/" element={<Home />} />
 
-        {/* 테스트 페이지 */}
-        <Route path="/counter" element={<Counter />} />
-        <Route path="/test" element={<Test />} />
+          {/* 테스트 페이지 */}
+          <Route path="/counter" element={<Counter />} />
+          <Route path="/test" element={<Test />} />
+        </Route>
       </Routes>
       {/* 알럿 포탈 */}
       {alertState &&
