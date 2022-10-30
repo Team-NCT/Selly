@@ -14,4 +14,9 @@ public class SellyUserServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SellyUserServiceApplication.class, args);
 	}
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 }

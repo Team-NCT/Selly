@@ -19,7 +19,8 @@ public class UserEntity {
 
   @Column(nullable = false, length = 150, unique = true)
   private String wallet;
-
+  @Column(nullable = false, unique = true)
+  private String encryptedPwd;
   @Column(nullable = false, length = 200)
   private String image;
   @Column(nullable = false, length = 200)

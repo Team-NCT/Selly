@@ -1,4 +1,4 @@
-package com.b102.sellyuserservice.filter;
+package com.b102.sellyuserservice.security;
 
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.model.service.UserService;
@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -23,14 +25,27 @@ import java.util.ArrayList;
 @Slf4j
 //@RequiredArgsConstructor
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-  @Autowired
-  UserService userService;
+
+  private UserService userService;
+  private Environment env;
+  public CustomAuthenticationFilter(AuthenticationManager authenticationManager,
+                              UserService userService,
+                              Environment env) {
+    super.setAuthenticationManager(authenticationManager);
+    this.userService = userService;
+    this.env = env;
+  }
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
     try {
       RequestLogin creds = new ObjectMapper().readValue(request.getInputStream(), RequestLogin.class);
-      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(creds.getWallet(), null, new ArrayList<>());
-      return getAuthenticationManager().authenticate(authenticationToken);
+      return getAuthenticationManager().authenticate(
+              new UsernamePasswordAuthenticationToken(
+                      creds.getWallet(),
+                      creds.getPwd(),
+                      new ArrayList<>()
+              )
+      );
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
