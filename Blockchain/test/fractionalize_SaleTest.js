@@ -66,11 +66,14 @@ contract("Fractionalize Test", (account) => {
 
     await F_NFTContract.startAuction( ethers.utils.parseEther('10'), {from: account[5]});
 
-    // await F_NFTContract.bid({from: account[4], value: 500});
+    await F_NFTContract.cancelAuction({from: account[5]});
 
-    await F_NFTContract.bid({from: account[7], value:  ethers.utils.parseEther('10')});
+    await F_NFTContract.startAuction( ethers.utils.parseEther('20'), {from: account[5]});
+    console.log("경매기간", await F_NFTContract.auctionEndTime());
+    await F_NFTContract.bid({from: account[7], value:  ethers.utils.parseEther('20')});
     console.log("현재 입찰 최고가 및 입찰자", await F_NFTContract.getHighestBid(), await F_NFTContract.getHighestBidder());
-    await F_NFTContract.bid({from: account[8], value:  ethers.utils.parseEther('15')});
+    console.log("입찰자 생성 후 경매기간", await F_NFTContract.auctionEndTime());
+    await F_NFTContract.bid({from: account[8], value:  ethers.utils.parseEther('30')});
     console.log("현재 입찰 최고가 및 입찰자", await F_NFTContract.getHighestBid(), await F_NFTContract.getHighestBidder());
     console.log("금고가 가진 돈", await F_NFTContract.getBalance());
 

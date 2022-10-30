@@ -35,6 +35,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   address public highestBidder;
   uint256 public highestBid;
 
+  bool public auctionStatus = false;
   bool public ended = false;
 
   // 이벤트
@@ -100,19 +101,38 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
 
   function startAuction(uint256 _startPrice) external {
     require((100 * balanceOf(msg.sender) / totalSupply()) > 50, "Only user who own more than 50% of fractions can start auction");
+    require(!auctionStatus, "Auctioning");
+    require(highestBid == 0, "there is someone who makes a bid");
+
+    auctionStatus = true;
     minimumPrice = _startPrice;
-    uint256 threeday = 3 days;
-    auctionEndTime = block.timestamp + threeday;
+  }
+
+  function cancelAuction() external {
+    require((100 * balanceOf(msg.sender) / totalSupply()) > 50, "Only user who own more than 50% of fractions can cancel auction");
+    require(block.timestamp >= auctionEndTime, "there is someone who makes a bid");
+    require(auctionStatus, "Not to auction");
+    require(highestBid == 0, "there is someone who makes a bid");
+    require(!ended, "Auction Ended");
+
+    auctionStatus = false;
   }
 
   function bid () external payable {
-    require(block.timestamp <= auctionEndTime, "Not to auction");
+    require(auctionStatus, "Not to auction");
+    // 첫 입찰자가 생긴 경우 설정된 경매 기간 내에만, 입찰 가능하다
+    require(highestBid == 0 || block.timestamp <= auctionEndTime, "Not to auction");
     require(msg.value >= minimumPrice, "Have to Bid higher than minimumPrice");
     require(msg.value > highestBid, "Have to Bid higher than current bid");
 
     // 이전 최고 입찰자에게 돈을 돌려준다.
     if (highestBid  != 0) {
       payable(highestBidder).transfer(highestBid);
+    } 
+    // 첫 입찰자가 생길 경우 경매 기간을 3일로 설정한다.
+    else {
+      uint256 threeday = 3 days;
+      auctionEndTime = block.timestamp + threeday;
     }
 
     emit HighestBidIncreased(highestBidder, highestBid, msg.sender, msg.value);
@@ -146,6 +166,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
       _burn(user, possessions);
 
       toRedeem = possessions * totalEther / totalFractions;
+      // 소유권이 판매 컨트랙트에 있을 때, 판매자 주소로 금액 전송 
       if (sellerAddress[user] != address(0)) {
         SaleContract = IF_Sale(user);
         SaleContract.destruct();
@@ -153,6 +174,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
       }
       payable(user).transfer(toRedeem);
     }
+    // selfdestruct(payable(creater)); // Todo: 테스트 끝나면 활성화시키기
   }
 
   function _afterTokenTransfer(
