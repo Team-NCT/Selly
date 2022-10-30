@@ -3,9 +3,11 @@ package com.nct.sellyarticleservice.model.service;
 import com.nct.sellyarticleservice.domain.dto.ArticleRequest;
 import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
 import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
+import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,5 +66,20 @@ public class ArticleServiceImpl implements ArticleService{
   public List<Article> articleCategoryFilter(String category) {
 
     return articleRepository.findByCategory(category);
+  }
+
+  @Override
+  public ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id) {
+    Article article = articleRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + id));
+
+    article.updateArticle(
+            articleUpdateRequest.isAvailability()
+    );
+    articleRepository.save(article);
+
+    return ArticleResponse.builder()
+            .availability(articleUpdateRequest.isAvailability())
+            .build();
   }
 }

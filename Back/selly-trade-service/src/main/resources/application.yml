@@ -2,6 +2,8 @@ server:
   port: 8101
 
 spring:
+  application:
+    name: selly-trade-service
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/selly?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
@@ -12,9 +14,8 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: update
-  application:
-    name: selly-trade-service
+      ddl-auto: create
+
 
 eureka:
   client:

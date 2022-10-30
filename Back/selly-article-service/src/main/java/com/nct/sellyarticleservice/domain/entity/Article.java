@@ -76,4 +76,8 @@ public class  Article {
     this.owner = owner;
     this.tokenId = tokenId;
   }
+
+  public void updateArticle(boolean availability) {
+    this.availability = availability;
+  }
 }

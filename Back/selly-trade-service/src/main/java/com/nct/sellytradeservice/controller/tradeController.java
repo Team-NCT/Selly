@@ -1,14 +1,13 @@
 package com.nct.sellytradeservice.controller;
 
+import com.nct.sellytradeservice.domain.dto.ArticleResponse;
+import com.nct.sellytradeservice.domain.dto.ArticleResponseDto;
+import com.nct.sellytradeservice.domain.dto.ArticleUpdateRequest;
 import com.nct.sellytradeservice.model.service.TradeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.bridge.Message;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,10 +17,15 @@ public class tradeController {
 
   private final TradeService tradeService;
 
-  @PostMapping("/registArticleSell/{articleId}")
-  public ResponseEntity<Object> registArticleSell(@PathVariable("articleId") Long articleId) {
-    String response = tradeService.registArticleSell(articleId);
+  @PostMapping("/registArticleSell/{id}")
+  public ResponseEntity<Object> registArticleSell(@PathVariable("id") Long id, @RequestBody ArticleUpdateRequest articleUpdateRequest) {
+    String response = tradeService.registArticleSell(id, articleUpdateRequest);
     return ResponseEntity.ok()
             .body(response);
+  }
+
+  @GetMapping("/{id}")
+  public ArticleResponseDto articleResponse(@PathVariable("id") Long id) {
+    return tradeService.findById(id);
   }
 }

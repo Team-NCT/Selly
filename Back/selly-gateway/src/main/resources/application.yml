@@ -26,6 +26,28 @@ spring:
                 postLogger: true
 #            - AddRequestHeader=selly-user-request, selly-user-request-header 2
 #            - AddResponseHeader=selly-user-response, selly-user-response-header 2
+        - id: selly-article-service
+          uri: lb://SELLY-ARTICLE-SERVICE
+          predicates:
+            - Path=/selly-article-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, Logging filter
+                preLogger: true
+                postLogger: true
+        - id: selly-trade-service
+          uri: lb://SELLY-TRADE-SERVICE
+          predicates:
+            - Path=/selly-trade-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, Logging filter
+                preLogger: true
+                postLogger: true
 eureka:
   client:
     register-with-eureka: true

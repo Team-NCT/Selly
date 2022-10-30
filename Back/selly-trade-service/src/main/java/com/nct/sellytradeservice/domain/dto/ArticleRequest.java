@@ -67,27 +67,27 @@ public class ArticleRequest {
     this.owner = owner;
   }
 
-  public Article toEntity() {
-    return Article.builder()
-            .articleId(articleId)
-            .availability(isAvailability())
-            .category(category)
-            .articleName(articleName)
-            .articleImgUrl(articleImgUrl)
-            .articleIntroduction(articleIntroduction)
-            .connectionLink(connectionLink)
-            .attribute(attribute)
-            .metaDataUrl(metaDataUrl)
-            .registTime(registTime)
-            .createRegist(createRegist)
-            .updateRegist(updateRegist)
-            .contractAddress(contractAddress)
-            .originalAuthor(originalAuthor)
-            .primaryCnt(primaryCnt)
-            .currentCnt(currentCnt)
-            .price(price)
-            .owner(owner)
-            .build();
-  }
+//  public Article toEntity() {
+//    return Article.builder()
+//            .articleId(articleId)
+//            .availability(isAvailability())
+//            .category(category)
+//            .articleName(articleName)
+//            .articleImgUrl(articleImgUrl)
+//            .articleIntroduction(articleIntroduction)
+//            .connectionLink(connectionLink)
+//            .attribute(attribute)
+//            .metaDataUrl(metaDataUrl)
+//            .registTime(registTime)
+//            .createRegist(createRegist)
+//            .updateRegist(updateRegist)
+//            .contractAddress(contractAddress)
+//            .originalAuthor(originalAuthor)
+//            .primaryCnt(primaryCnt)
+//            .currentCnt(currentCnt)
+//            .price(price)
+//            .owner(owner)
+//            .build();
+//  }
 
 }
