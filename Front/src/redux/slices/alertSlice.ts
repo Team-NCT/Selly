@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
-import { AlertStylesType, AlertIconStylesType } from "@/components/common/Alert/Alert.types";
+import { AlertStylesType } from "@/components/common/Alert/Alert.types";
 import { RootState } from "../store";
 
 //* state의 타입
@@ -11,16 +11,16 @@ interface AlertState {
   content: React.ReactNode;
 
   //* 알럿 스타일
-  styles?: AlertStylesType;
+  style?: AlertStylesType;
 
   //* 아이콘 스타일
-  icon?: AlertIconStylesType;
+  icon?: boolean;
 }
 
 const initialState: AlertState = {
   status: false,
   content: "",
-  styles: undefined,
+  style: undefined,
   icon: undefined,
 };
 
@@ -49,14 +49,14 @@ const slice = createSlice({
 
     //* Alert 스타일 설정
     setAlertStyles: (state, action: PayloadAction<AlertStylesType>) => {
-      state.styles = action.payload;
+      state.style = action.payload;
     },
     resetAlertStyles: (state) => {
-      state.styles = undefined;
+      state.style = undefined;
     },
 
     //* icon 스타일 설정
-    setIconStyles: (state, action: PayloadAction<AlertIconStylesType>) => {
+    setIconStyles: (state, action: PayloadAction<boolean>) => {
       state.icon = action.payload;
     },
     resetIconStyles: (state) => {

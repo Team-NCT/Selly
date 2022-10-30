@@ -11,8 +11,8 @@ const DescCard = ({ url, title, price, profit }: DescCardProps) => {
         <p className={style.card_content_title}>{title}</p>
         <div className={style.card_content_desc}>
           <p>{price} ETH</p>
-          {profit > 0 && <p className={style.red}> + {+profit.toFixed(2)} %</p>}
-          {profit <= 0 && <p className={style.blue}> - {-profit.toFixed(2)} %</p>}
+          {profit > 0 && <p className={style.red}> +{+profit.toFixed(2)}%</p>}
+          {profit <= 0 && <p className={style.blue}> -{-profit.toFixed(2)}%</p>}
         </div>
       </div>
     </div>
