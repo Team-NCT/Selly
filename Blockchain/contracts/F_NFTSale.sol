@@ -34,6 +34,7 @@ contract F_NFTSale{
   function purchase (uint256 _amount) external payable{
     require(_amount <= amount, "Can't buy more pieces than the number selling");
     // value의 단위는 wei
+    require(msg.sender != seller, "Can't buy mine");
     require(msg.value == (price * _amount), "Pay correct price");
     amount -= _amount;
     F_NFTContractERC20.transfer(msg.sender, _amount);
@@ -41,13 +42,19 @@ contract F_NFTSale{
 
     // 팔고 있는 조각이 다 팔린 판매컨트랙트 주소 제거 후 컨트랙트 폭파
     if (amount == 0) {
-      F_NFTContract.removeSoldoutSaleCA(address(this));
-      // selfdestruct(payable(seller)); // Todo: 테스트 끝나면 활성화시키기
+      destruct();
     }
   }
 
-  function destruct() external {
-    require(F_NFTContractERC20.balanceOf(address(this)) == 0, "Only can destruct when has no piece");
+  function cancelSale() external {
+    require(msg.sender == seller, "Only seller can cancel sale");
+    F_NFTContractERC20.transfer(msg.sender, amount);
+    amount = 0;
+    destruct();
+  }
+
+  function destruct() public {
+    require(F_NFTContractERC20.balanceOf(address(this)) == 0, "Only can destruct when contract has no piece");
     F_NFTContract.removeSoldoutSaleCA(address(this));
     // selfdestruct(payable(seller)); // Todo: 테스트 끝나면 활성화시키기
   }
