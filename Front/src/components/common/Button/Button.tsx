@@ -6,15 +6,13 @@ const Button = ({
   bg = "primary",
   size = "default",
   color = "black",
-  fillContainer = "false",
   onClick,
 }: ButtonProps) => {
   const buttonBg = style[["bg-", bg].join("")];
-  const fill = fillContainer === "true" ? style.fillContainer : "";
 
   return (
     <button
-      className={`${style.button} ${buttonBg} ${style[size]} ${style[color]} ${fill}`}
+      className={`${style.button} ${buttonBg} ${style[size]} ${style[color]}`}
       onClick={onClick}>
       {children}
     </button>

@@ -9,11 +9,9 @@ export const ButtonBG = [
 ] as const;
 export type ButtonBGType = typeof ButtonBG[number];
 
-export type ButtonSizeType = "default" | "small" | "xsmall";
+export type ButtonSizeType = "default" | "small" | "xsmall" | "fillContainer";
 
 export type ButtonColorType = "black" | "white";
-
-export type ButtonFillContainer = "true" | "false";
 
 export interface ButtonProps {
   /**
@@ -35,11 +33,6 @@ export interface ButtonProps {
    * 버튼 글씨 색
    */
   color: ButtonColorType;
-
-  /**
-   * 버튼 Fill Container
-   */
-  fillContainer: ButtonFillContainer;
 
   /**
    * 버튼 함수

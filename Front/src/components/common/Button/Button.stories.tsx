@@ -12,7 +12,6 @@ export default {
     children: { control: { type: "text" } },
     bg: { control: { type: "radio" } },
     size: { control: { type: "radio" } },
-    fillContainer: { control: { type: "radio" } },
   },
 } as Meta;
 
@@ -22,5 +21,4 @@ Default.args = {
   children: "button",
   bg: "primary",
   size: "default",
-  fillContainer: "false",
 };
