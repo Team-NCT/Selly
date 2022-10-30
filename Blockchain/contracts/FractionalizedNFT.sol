@@ -101,6 +101,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
 
   function startAuction(uint256 _startPrice) external {
     require((100 * balanceOf(msg.sender) / totalSupply()) > 50, "Only user who own more than 50% of fractions can start auction");
+    require(!ended, "Auction Ended");
     require(!auctionStatus, "Auctioning");
     require(highestBid == 0, "there is someone who makes a bid");
 
@@ -110,10 +111,9 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
 
   function cancelAuction() external {
     require((100 * balanceOf(msg.sender) / totalSupply()) > 50, "Only user who own more than 50% of fractions can cancel auction");
-    require(block.timestamp >= auctionEndTime, "there is someone who makes a bid");
-    require(auctionStatus, "Not to auction");
-    require(highestBid == 0, "there is someone who makes a bid");
     require(!ended, "Auction Ended");
+    require(highestBid == 0, "there is someone who makes a bid");
+    require(auctionStatus, "Not to auction");
 
     auctionStatus = false;
   }
