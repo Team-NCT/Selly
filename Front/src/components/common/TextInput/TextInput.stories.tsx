@@ -1,17 +1,21 @@
 import { Meta, Story } from "@storybook/react";
 import TextInput from "./TextInput";
 import { TextInputProps } from "./TextInput.types";
+import { useInputState } from "@/hooks/useInputState";
 
 export default {
   title: "Common/TextInput",
   component: TextInput,
   parameters: {
-    componentSubtitle: "텍스트 Input 컴포넌트",
+    componentSubtitle: "텍스트 Input 컴포넌트: TextInput.stories.tsx에 사용 예시가 있습니다.",
   },
   argTypes: {},
 } as Meta;
 
-export const Default: Story<TextInputProps> = (args) => <TextInput {...args} />;
+export const Default: Story<TextInputProps> = (args) => {
+  const [value, handleInputChange] = useInputState();
+  return <TextInput {...args} value={value} handleInputChange={handleInputChange} />;
+};
 
 Default.args = {
   id: "input-text",
