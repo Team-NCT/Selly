@@ -2,6 +2,7 @@ const FractionalizedNFTFactory = artifacts.require("FractionalizedNFTFactory");
 const FractionalizedNFT = artifacts.require("FractionalizedNFT");
 const SellyERC721 = artifacts.require("SellyERC721");
 const Sale = artifacts.require("F_NFTSale");
+const ethers = require('ethers');
 
 contract("Fractionalize Test", (account) => {
   it ("Start Test!", async () => {
@@ -31,14 +32,16 @@ contract("Fractionalize Test", (account) => {
     console.log("계정1의 소유권 개수", account1_num);
     assert.equal(account1_num, F_NUM, "WRONG");
 
-    const pieceOfPrice = 10;
-    response = await F_NFTContract.createSale(8, pieceOfPrice, {from: account[1]});
+    const pieceOfPrice = ethers.utils.parseEther('1');
+    response = await F_NFTContract.createSale(10, pieceOfPrice, {from: account[1]});
 
     total_num = await F_NFTContract.totalSupply();
     console.log("총 소유권 개수", total_num);
 
     account1_num = await F_NFTContract.balanceOf(account[1]);
     console.log("판매 등록 후 계정1의 소유권 개수", account1_num);
+
+    console.log("소유권을 가지고 있는 주소들", await F_NFTContract.getAllAddresses());
 
     const allSaleCAs = await F_NFTContract.allSaleCAs();
     const SaleContract = await Sale.at(allSaleCAs[0]);
@@ -48,7 +51,8 @@ contract("Fractionalize Test", (account) => {
     
     console.log("판매 컨트랙트 주소들", await F_NFTContract.allSaleCAs());
     
-    const purchaseNum = 6;
+    const purchaseNum = 3;
+    await SaleContract.purchase(purchaseNum, {from: account[5], value: pieceOfPrice*purchaseNum});
     await SaleContract.purchase(purchaseNum, {from: account[5], value: pieceOfPrice*purchaseNum});
 
     saleContract_num = await F_NFTContract.balanceOf(SaleContract.address);
@@ -60,13 +64,13 @@ contract("Fractionalize Test", (account) => {
 
     console.log("소유권을 가지고 있는 주소들", await F_NFTContract.getAllAddresses());
 
-    await F_NFTContract.startAuction(1000, {from: account[5]});
+    await F_NFTContract.startAuction( ethers.utils.parseEther('10'), {from: account[5]});
 
     // await F_NFTContract.bid({from: account[4], value: 500});
 
-    await F_NFTContract.bid({from: account[7], value: 1000});
+    await F_NFTContract.bid({from: account[7], value:  ethers.utils.parseEther('10')});
     console.log("현재 입찰 최고가 및 입찰자", await F_NFTContract.getHighestBid(), await F_NFTContract.getHighestBidder());
-    await F_NFTContract.bid({from: account[8], value: 2000});
+    await F_NFTContract.bid({from: account[8], value:  ethers.utils.parseEther('15')});
     console.log("현재 입찰 최고가 및 입찰자", await F_NFTContract.getHighestBid(), await F_NFTContract.getHighestBidder());
     console.log("금고가 가진 돈", await F_NFTContract.getBalance());
 
@@ -87,7 +91,9 @@ contract("Fractionalize Test", (account) => {
     account5_num = await F_NFTContract.balanceOf(account[5]);
     console.log("계정5의 소유권 개수", account5_num);
 
+    console.log("판매컨트랙트가 가지고 있는 돈", await SaleContract.getBalance());
 
+    console.log("판매 컨트랙트 주소들", await F_NFTContract.allSaleCAs());
 
   })
 })

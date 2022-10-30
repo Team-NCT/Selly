@@ -46,6 +46,12 @@ contract F_NFTSale{
     }
   }
 
+  function destruct() external {
+    require(F_NFTContractERC20.balanceOf(address(this)) == 0, "Only can destruct when has no piece");
+    F_NFTContract.removeSoldoutSaleCA(address(this));
+    // selfdestruct(payable(seller)); // Todo: 테스트 끝나면 활성화시키기
+  }
+
   function getBalance() public view returns (uint256) {
     return address(this).balance;
   }

@@ -7,6 +7,7 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 import "./F_NFTSale.sol";
+import "./IF_Sale.sol";
 
 contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   // 분할 관련 변수
@@ -16,14 +17,16 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   uint256 public tokenId;
   address public creater;
   bool public initialized = false;
-  // bool public forSale = false;
-  // bool public canRedeem = false;
+  IF_Sale public SaleContract;
 
   // 판매 컨트랙트의 주소를 저장하는 배열
   address[] public F_NFTSaleCAs;
+  mapping(address => address) public sellerAddress;
 
   // 소유권을 가진 유저들의 주소를 저장하는 배열
   address[] public partyAddresses;
+  uint256 partyAddressesLength;
+  mapping(address => uint256) partyAddressesIdx;
 
   // 경매 관련 변수
   uint256 public auctionEndTime;
@@ -34,14 +37,10 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
 
   bool public ended = false;
 
-  // event Check(
-  //   address indexed _owner,
-  //   address indexed _creater
-  // );
-
+  // 이벤트
   event HighestBidIncreased(address preBidder, uint256 preAmount, address bidder, uint256 amount);
   event Burn(address user, uint256 amount);
-  // event Check(strings type);
+  event Check(uint256 amount, address[] users, uint256 index);
   
   constructor(
     address _NFTCA, 
@@ -53,7 +52,6 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   ) 
     ERC20(_name, _symbol) ERC20Permit(_name) {
       collection = IERC721(_NFTCA);
-      // emit Check(collection.ownerOf(_tokenId), _creater);
       
       require(collection.ownerOf(_tokenId) == _creater, "Not owner of token");
       require(_amount > 0, "Amount needs to be more than 0");
@@ -75,29 +73,6 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     _mint(msg.sender, amount);
   }
 
-  // function putForSale(uint256 price) external {
-  //   require(msg.sender == creater, "Can only creater");
-  //   salePrice = price;
-  //   forSale = true;
-  // }
-
-  // function purchase() external payable {
-  //   require(forSale, "Not for sale");
-  //   require(msg.value >= salePrice, "Not enough ether sent");
-  //   collection.transferFrom(address(this), msg.sender, tokenId);
-  //   forSale = false;
-  //   canRedeem = true;
-  // }
-
-  // function redeem(uint256 _amount) external {
-  //   require(canRedeem, "Redemption not available");
-  //   uint256 totalEther = address(this).balance;
-  //   uint256 toRedeem = _amount * totalEther / totalSupply();
-
-  //   _burn(msg.sender, _amount);
-  //   payable(msg.sender).transfer(toRedeem);
-  // }
-
   function createSale(uint256 _amount, uint256 _price) public returns (address) {
     address F_NFTSaleCA = address(
         new F_NFTSale(msg.sender, address(this), _amount, _price)
@@ -106,11 +81,9 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     F_NFTSaleCAs.push(F_NFTSaleCA);
 
     transfer(F_NFTSaleCA, _amount);
-    return F_NFTSaleCA;
-  }
 
-  function allSaleCAs() public view returns (address[] memory) {
-    return F_NFTSaleCAs;
+    sellerAddress[F_NFTSaleCA] = msg.sender;
+    return F_NFTSaleCA;
   }
 
   // 판매컨트랙트 주소 제거 함수
@@ -164,19 +137,24 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     address user;
     uint256 toRedeem;
 
-
-    for (uint256 i = 0; i < partyAddresses.length; i++) {
-      possessions = balanceOf(partyAddresses[i]);
-      user = partyAddresses[i];
+    // 소유권을 가진 유저들에게 낙찰 금액 배분
+    while(partyAddresses.length != 0) {
+      possessions = balanceOf(partyAddresses[0]);
+      user = partyAddresses[0];
       
+      emit Check( possessions, partyAddresses, partyAddresses.length);
       _burn(user, possessions);
 
       toRedeem = possessions * totalEther / totalFractions;
+      if (sellerAddress[user] != address(0)) {
+        SaleContract = IF_Sale(user);
+        SaleContract.destruct();
+        user = sellerAddress[user];
+      }
       payable(user).transfer(toRedeem);
     }
   }
 
-  // Todo: 추후 수정
   function _afterTokenTransfer(
     address from,
     address to,
@@ -185,11 +163,29 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     super._afterTokenTransfer(from, to, amount);
 
     if (to != address(0)) {
-      partyAddresses.push(to);
+      if (partyAddressesIdx[to] == 0) {
+        partyAddresses.push(to);
+        partyAddressesLength += 1;
+        // 배열 첫번째 Item이 partyAddressesIdx[to] == 0에 안걸리기 위해 Idx를 +1해서 저장하기
+        partyAddressesIdx[to] = partyAddressesLength; 
+      }
     }
-    // if (balanceOf(from) == 0) {
-    //   partyAddress
-    // }
+    if (from != address(0) && balanceOf(from) == 0) {
+      // 지워지는 주소의 mapping 삭제
+      uint256 index = partyAddressesIdx[from];
+      delete partyAddressesIdx[from];
+      // 배열 맨 마지막 Item을 삭제되는 위치에 넣어주기
+      address lastUser = partyAddresses[partyAddressesLength - 1];
+      // Idx를 +1해서 저장했으니까 사용할 때 -1
+      partyAddresses[index - 1] = lastUser;
+      partyAddressesLength -= 1;
+      partyAddresses.pop();
+      partyAddressesIdx[lastUser] = index;
+    }
+  }
+
+  function allSaleCAs() public view returns (address[] memory) {
+    return F_NFTSaleCAs;
   }
 
   function getAllAddresses() public view returns (address[] memory) {
