@@ -3,7 +3,7 @@ import style from "./Button.module.scss";
 
 const Button = ({
   children = "button",
-  bg = "danger",
+  bg = "primary",
   size = "default",
   color = "black",
   fillContainer = "false",
