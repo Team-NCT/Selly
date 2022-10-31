@@ -27,3 +27,7 @@ export { default as Button } from "./Button/Button";
 //* Radio
 export { default as Radio } from "./Radio/Radio";
 export { default as RadioList } from "./RadioList/RadioList";
+
+//* Dropdown
+export { default as DropdownItem } from "./DropdownItem/DropdownItem";
+export { default as Dropdown } from "./Dropdown/Dropdown";

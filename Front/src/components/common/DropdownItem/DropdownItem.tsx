@@ -7,7 +7,7 @@ const DropdownItem = ({ value, category, bg = "primary" }: DropdownItemProps) =>
   return (
     <label className={style.opt}>
       <div className={`${style.opt_hover} ${dropdownBG}`}>
-        <input className={style.dropdown} name={category} type="radio" value={value}></input>
+        <input className={style.dropdown_item} name={category} type="radio" value={value}></input>
         <span>{value}</span>
       </div>
     </label>

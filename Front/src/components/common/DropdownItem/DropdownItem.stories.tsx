@@ -3,7 +3,7 @@ import DropdownItem from "./DropdownItem";
 import { DropdownItemProps } from "./DropdownItem.types";
 
 export default {
-  title: "Common/DropdownItem",
+  title: "Common/Input/DropdownItem",
   component: DropdownItem,
   parameters: {
     componentSubtitle: "Dropdown 컴포넌트",

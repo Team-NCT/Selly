@@ -10,7 +10,7 @@ $bg-palette: (
   display: inline-block;
   align-items: center;
   @include font-button($body1, $semibold, $black350);
-  padding: 8px;
+  padding: 4px;
   width: 100%;
 
   cursor: default;
@@ -27,7 +27,7 @@ $bg-palette: (
   }
 }
 
-.dropdown {
+.dropdown_item {
   position: absolute;
   opacity: 0;
 }
