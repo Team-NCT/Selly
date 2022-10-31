@@ -13,30 +13,31 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-#        - id: selly-user-service
-#          uri: lb://SELLY-USER-SERVICE
-#          predicates:
-#            - Path=/selly-user-service/**
-#          filters:
-#            - name: CustomFilter
-#            - name: LoggingFilter
-#              args:
-#                baseMessage: Hi, Logging filter
-#                preLogger: true
-#                postLogger: true
-#            - AddRequestHeader=selly-user-request, selly-user-request-header 2
-#            - AddResponseHeader=selly-user-response, selly-user-response-header 2
-        - id: selly-article-service
-          uri: lb://SELLY-ARTICLE-SERVICE
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
           predicates:
-            - Path=/selly-article-service/**
+            - Path=/selly-user-service/login
+            - Method=POST
           filters:
-            - name: CustomFilter
-            - name: LoggingFilter
-              args:
-                baseMessage: Hi, Logging filter
-                preLogger: true
-                postLogger: true
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+            - CustomAuthorizationHeaderFilter
         - id: selly-trade-service
           uri: lb://SELLY-TRADE-SERVICE
           predicates:
@@ -65,3 +66,7 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
+token:
+  secret: '01234567890123456789012345678901234567890123456789'
+

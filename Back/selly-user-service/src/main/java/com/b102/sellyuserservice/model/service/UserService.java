@@ -11,4 +11,5 @@ public interface UserService extends UserDetailsService {
   UserDto createUser(UserDto userDto);
   UserDto getUserByUserId(Long UserId);
   Iterable<UserEntity> getUserByAll();
+  UserDto getUserDetailsByWallet(String wallet);
 }
