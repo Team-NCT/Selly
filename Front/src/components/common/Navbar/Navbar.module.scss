@@ -1,7 +1,7 @@
 nav {
   @include flex(row);
   @include shadow-nav;
-  min-height: 80px;
+  min-height: $nav_height;
   width: 100%;
   img {
     max-width: 94px;
