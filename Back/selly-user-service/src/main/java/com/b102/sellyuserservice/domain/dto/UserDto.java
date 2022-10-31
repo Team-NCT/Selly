@@ -7,6 +7,9 @@ import java.util.Date;
 @Data
 public class UserDto {
   private String wallet;
+  private String pwd;
+  private String decryptedPwd;
+  private String encryptedPwd;
   private String image;
   private String banner;
   private String userId;

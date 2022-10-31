@@ -13,19 +13,43 @@ spring:
             preLogger: true
             postLogger: true
       routes:
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/**
+#          filters:
+#            - name: CustomFilter
+#            - name: LoggingFilter
+#              args:
+#                baseMessage: Hi, Logging filter
+#                preLogger: true
+#                postLogger: true
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
           predicates:
             - Path=/selly-user-service/**
+            - Method=GET
           filters:
-            - name: CustomFilter
-            - name: LoggingFilter
-              args:
-                baseMessage: Hi, Logging filter
-                preLogger: true
-                postLogger: true
-#            - AddRequestHeader=selly-user-request, selly-user-request-header 2
-#            - AddResponseHeader=selly-user-response, selly-user-response-header 2
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+        #            - AddRequestHeader=selly-user-request, selly-user-request-header 2
+        #            - AddResponseHeader=selly-user-response, selly-user-response-header 2
         - id: selly-article-service
           uri: lb://SELLY-ARTICLE-SERVICE
           predicates:
