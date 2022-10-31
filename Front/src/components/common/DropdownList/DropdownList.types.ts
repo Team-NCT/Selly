@@ -3,17 +3,17 @@ export type DropdownBGType = typeof DropdownBG[number];
 
 export interface DropdownListProps {
   /**
-   * Radio List안에 들어갈 목록
+   * DropdownList 안에 들어갈 목록
    */
   list: Array<string>;
 
   /**
-   * Radio List의 카테고리 명
+   * DropdownList 의 카테고리 명
    */
   category: string;
 
   /**
-   * Radio 배경색
+   * Dropdown 배경색
    */
   bg?: DropdownBGType;
 
