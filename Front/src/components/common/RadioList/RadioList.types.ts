@@ -16,4 +16,9 @@ export interface RadioListProps {
    * Radio 배경색
    */
   bg?: RadioBGType;
+
+  /**
+   * onChange = (e) => {setState(e.target.value)}
+   */
+  onChange: React.FormEventHandler;
 }
