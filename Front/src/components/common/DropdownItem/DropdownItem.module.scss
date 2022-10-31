@@ -9,7 +9,7 @@ $bg-palette: (
   box-sizing: border-box;
   display: inline-block;
   align-items: center;
-  @include font-button($body1, $semibold, $black350);
+  @include font($body2, $bold, $black350);
   padding: 4px;
   width: 100%;
 

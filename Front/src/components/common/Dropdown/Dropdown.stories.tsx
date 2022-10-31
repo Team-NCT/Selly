@@ -14,7 +14,11 @@ export default {
   },
 } as Meta;
 
-export const Default: Story<DropdownProps> = (args) => <Dropdown {...args} />;
+export const Default: Story<DropdownProps> = (args) => (
+  <div style={{ width: "100px" }}>
+    <Dropdown {...args} />
+  </div>
+);
 
 Default.args = {
   list: ["옵션1", "옵션2", "옵션3", "옵션4"],
