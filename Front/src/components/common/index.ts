@@ -10,9 +10,6 @@ export { default as CardList } from "./CardList/CardList";
 export { default as DescCard } from "./DescCard/DescCard";
 export { default as DescCardListItem } from "./DescCardListItem/DescCardListItem";
 export { default as DescCardList } from "./DescCardList/DescCardList";
-export { default as Alert } from "./Alert/Alert";
-export { default as Navbar } from "./Navbar/Navbar";
-export { default as ProfileImage } from "./ProfileImage/ProfileImage";
 
 //* TextInput
 export { default as TextInput } from "./TextInput/TextInput";
@@ -30,4 +27,14 @@ export { default as RadioList } from "./RadioList/RadioList";
 
 //* Dropdown
 export { default as DropdownItem } from "./DropdownItem/DropdownItem";
-export { default as Dropdown } from "./Dropdown/Dropdown";
+export { default as DropdownList } from "./DropdownList/DropdownList";
+
+//* Alert & Modal
+export { default as Alert } from "./Alert/Alert";
+export { default as Modal } from "./Modal/Modal";
+
+//* Navbar
+export { default as Navbar } from "./Navbar/Navbar";
+
+//* Profile
+export { default as ProfileImage } from "./ProfileImage/ProfileImage";

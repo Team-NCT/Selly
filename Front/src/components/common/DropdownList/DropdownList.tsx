@@ -1,8 +1,8 @@
-import { DropdownProps } from "./Dropdown.types";
+import { DropdownListProps } from "./DropdownList.types";
 import style from "./Dropdown.module.scss";
 import { DropdownItem } from "@/components/common";
 
-const Dropdown = ({ list, category, bg = "primary", onChange }: DropdownProps) => {
+const Dropdown = ({ list, category, bg = "primary", onChange }: DropdownListProps) => {
   return (
     <ul className={style.dropdown} onChange={onChange}>
       {list.map((item) => (

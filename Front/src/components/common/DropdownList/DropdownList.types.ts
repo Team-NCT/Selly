@@ -1,7 +1,7 @@
 export const DropdownBG = ["primary", "ocean", "danger"] as const;
 export type DropdownBGType = typeof DropdownBG[number];
 
-export interface DropdownProps {
+export interface DropdownListProps {
   /**
    * Radio List안에 들어갈 목록
    */

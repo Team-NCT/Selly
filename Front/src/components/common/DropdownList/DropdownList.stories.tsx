@@ -1,12 +1,12 @@
 import { Meta, Story } from "@storybook/react";
-import Dropdown from "./Dropdown";
-import { DropdownProps } from "./Dropdown.types";
+import DropdownList from "./DropdownList";
+import { DropdownListProps } from "./DropdownList.types";
 
 export default {
-  title: "Common/Input/Dropdown",
-  component: Dropdown,
+  title: "Common/Input/DropdownList",
+  component: DropdownList,
   parameters: {
-    componentSubtitle: "Dropdown 컴포넌트",
+    componentSubtitle: "DropdownList 컴포넌트",
   },
   argTypes: {
     category: { control: { type: "text" } },
@@ -14,9 +14,9 @@ export default {
   },
 } as Meta;
 
-export const Default: Story<DropdownProps> = (args) => (
+export const Default: Story<DropdownListProps> = (args) => (
   <div style={{ width: "100px" }}>
-    <Dropdown {...args} />
+    <DropdownList {...args} />
   </div>
 );
 
