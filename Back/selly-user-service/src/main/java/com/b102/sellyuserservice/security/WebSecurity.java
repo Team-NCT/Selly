@@ -38,18 +38,13 @@ public class WebSecurity {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//    http.csrf().disable()
-//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//            .and()
-//            .authorizeRequests()
-//            .anyRequest().authenticated()
-//            .and()
-//            .addFilter(new CustomAuthenticationFilter());
-//    return http.build();
+
     http.csrf().disable();
-//    http.authorizeRequests().antMatchers("/users/**").permitAll();
-    http.authorizeRequests().antMatchers("/**")
-            .hasIpAddress("192.168.219.102")
+    http.authorizeRequests().antMatchers("/error/**").permitAll()
+            .antMatchers("/**")
+//            .hasIpAddress("192.168.31.33")
+//            .access("hasIpAddress('192.168.31.33')")
+            .access("hasIpAddress('127.0.0.1')")
             .and()
             .addFilter(getCustomAuthenticationFilter());
     return http.build();

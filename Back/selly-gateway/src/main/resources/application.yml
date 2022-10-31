@@ -48,8 +48,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-        #            - AddRequestHeader=selly-user-request, selly-user-request-header 2
-        #            - AddResponseHeader=selly-user-response, selly-user-response-header 2
+            - CustomAuthorizationHeaderFilter
         - id: selly-article-service
           uri: lb://SELLY-ARTICLE-SERVICE
           predicates:
@@ -78,3 +77,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
+token:
+  secret: '01234567890123456789012345678901234567890123456789'
