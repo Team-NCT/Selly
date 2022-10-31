@@ -1,0 +1,23 @@
+.input_image_label {
+  display: inline-block;
+  width: 200px;
+  aspect-ratio: 1/1;
+
+  img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 1px solid $main-font;
+  }
+
+  div {
+    @include flex-center();
+    width: 100%;
+    aspect-ratio: 1/1;
+    border: 1px solid $main-font;
+
+    span {
+      font-size: 40px;
+    }
+  }
+}
