@@ -26,8 +26,9 @@ $bg-palette: (
   }
 }
 
-dialog {
+.dialog_alert {
   @include flex(row, flex-start, center);
+  @include font($body2, $medium);
   @include shadow-modal;
   position: fixed;
   top: 4px;

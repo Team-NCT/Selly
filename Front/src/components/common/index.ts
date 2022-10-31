@@ -10,10 +10,13 @@ export { default as CardList } from "./CardList/CardList";
 export { default as DescCard } from "./DescCard/DescCard";
 export { default as DescCardListItem } from "./DescCardListItem/DescCardListItem";
 export { default as DescCardList } from "./DescCardList/DescCardList";
-export { default as Alert } from "./Alert/Alert";
-export { default as Navbar } from "./Navbar/Navbar";
-export { default as ProfileImage } from "./ProfileImage/ProfileImage";
 
 //* TextInput
 export { default as TextInput } from "./TextInput/TextInput";
 export { default as Label } from "./Label/Label";
+
+//* etc
+export { default as Navbar } from "./Navbar/Navbar";
+export { default as ProfileImage } from "./ProfileImage/ProfileImage";
+export { default as Alert } from "./Alert/Alert";
+export { default as Modal } from "./Modal/Modal";
