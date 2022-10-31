@@ -43,6 +43,15 @@ spring:
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
           predicates:
+            - Path=/selly-user-service/users/{userId}
+            - Method=PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+            - CustomAuthorizationHeaderFilter
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
             - Path=/selly-user-service/**
             - Method=GET
           filters:
