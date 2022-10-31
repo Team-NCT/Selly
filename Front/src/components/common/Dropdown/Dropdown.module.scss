@@ -1,0 +1,33 @@
+$bg-palette: (
+  primary: $muscat,
+  ocean: $ocean,
+  danger: $sherbet150,
+);
+
+.opt {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  align-items: center;
+  @include font-button($body1, $semibold, $black350);
+  padding: 8px;
+  width: 100%;
+
+  cursor: default;
+}
+
+.opt_hover {
+  padding: 4px 8px 4px 8px;
+  border-radius: $radius-modal;
+}
+
+@each $bg, $color in $bg-palette {
+  .bg-#{$bg}:hover {
+    background: $color;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  opacity: 0;
+}
