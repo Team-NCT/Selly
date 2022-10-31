@@ -38,14 +38,14 @@ const Alert = ({
 
   if (icon) {
     return (
-      <dialog open>
+      <dialog open className={styles.dialog_alert}>
         <div className={`${alertStyle} ${iconStyle}`}>{content}</div>
         {props.children}
       </dialog>
     );
   } else {
     return (
-      <dialog open className={`${alertStyle} ${alertCenter}`}>
+      <dialog open className={`${alertStyle} ${alertCenter} ${styles.dialog_alert}`}>
         {props.children}
       </dialog>
     );
