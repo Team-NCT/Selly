@@ -29,3 +29,11 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
+logging:
+  level:
+    com.b102.sellyuserservice: DEBUG
+
+token:
+  expiration_time: 864000000 
+  secret: '01234567890123456789012345678901234567890123456789'

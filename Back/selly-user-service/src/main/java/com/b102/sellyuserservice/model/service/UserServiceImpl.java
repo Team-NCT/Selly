@@ -57,4 +57,12 @@ public class UserServiceImpl implements UserService {
     return userRepository.findAll();
   }
 
+  @Override
+  public UserDto getUserDetailsByWallet(String wallet) {
+    UserEntity userEntity = userRepository.findByWallet(wallet);
+    if (userEntity == null){
+      throw new UsernameNotFoundException("해당 유저가 없습니다.");
+    }
+    return new ModelMapper().map(userEntity, UserDto.class);
+  }
 }
