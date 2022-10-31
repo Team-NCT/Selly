@@ -5,7 +5,7 @@ import { TextInput } from "@/components/common";
 import { useInputState } from "@/hooks/useInputState";
 
 export default {
-  title: "Common/Label",
+  title: "Common/Input/Label",
   component: Label,
   parameters: {
     componentSubtitle: "Input 라벨 컴포넌트",

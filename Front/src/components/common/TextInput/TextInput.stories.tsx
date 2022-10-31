@@ -4,7 +4,7 @@ import { TextInputProps } from "./TextInput.types";
 import { useInputState } from "@/hooks/useInputState";
 
 export default {
-  title: "Common/TextInput",
+  title: "Common/Input/TextInput",
   component: TextInput,
   parameters: {
     componentSubtitle: "텍스트 Input 컴포넌트: TextInput.stories.tsx에 사용 예시가 있습니다.",

@@ -3,7 +3,7 @@ import RadioList from "./RadioList";
 import { RadioListProps } from "./RadioList.types";
 
 export default {
-  title: "Common/RadioList",
+  title: "Common/Input/RadioList",
   component: RadioList,
   parameters: {
     componentSubtitle: "RadioList 컴포넌트",
