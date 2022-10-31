@@ -3,6 +3,8 @@ nav {
   @include shadow-nav;
   min-height: $nav_height;
   width: 100%;
+  position: fixed;
+  top: 0;
   img {
     max-width: 94px;
     aspect-ratio: 94/39;
