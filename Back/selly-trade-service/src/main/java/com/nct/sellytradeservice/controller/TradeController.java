@@ -1,6 +1,5 @@
 package com.nct.sellytradeservice.controller;
 
-import com.nct.sellytradeservice.domain.dto.ArticleResponse;
 import com.nct.sellytradeservice.domain.dto.ArticleResponseDto;
 import com.nct.sellytradeservice.domain.dto.ArticleUpdateRequest;
 import com.nct.sellytradeservice.model.service.TradeService;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/selly-trade-service")
 @Slf4j
-public class tradeController {
+public class TradeController {
 
   private final TradeService tradeService;
 

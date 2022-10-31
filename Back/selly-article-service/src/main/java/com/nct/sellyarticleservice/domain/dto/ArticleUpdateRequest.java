@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -32,13 +33,13 @@ public class ArticleUpdateRequest {
 
   private String metaDataUrl;
 
-  private Date registTime;
+  private LocalDateTime registTime;
 
   private String contractAddress;
 
-  private Date createRegist;
+  private LocalDateTime createRegist;
 
-  private Date updateRegist;
+  private LocalDateTime updateRegist;
 
   private Long originalAuthor;
 

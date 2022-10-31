@@ -19,7 +19,7 @@ public interface ArticleService {
 
   public Long numberOfArticle();
 
-  public List<Article> articleCategoryFilter(String category);
+  public List<Article> articleCategoryFilter(String category, boolean avaiability);
 
   ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id);
 }

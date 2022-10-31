@@ -4,13 +4,17 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
 @NoArgsConstructor
 @Entity
+@EntityListeners(value= AuditingEntityListener.class)
 public class  Article {
 
   @Id
@@ -33,14 +37,14 @@ public class  Article {
   private String attribute;
 
   private String metaDataUrl;
-
-  private Date registTime;
+  @CreatedDate
+  private LocalDateTime registTime;
 
   private String contractAddress;
 
-  private Date createRegist;
+  private LocalDateTime createRegist;
 
-  private Date updateRegist;
+  private LocalDateTime updateRegist;
 
   private Long originalAuthor;
 
@@ -55,7 +59,7 @@ public class  Article {
   private String tokenId;
 
   @Builder
-  public Article(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, Date registTime, Date createRegist, Date updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner, String tokenId) {
+  public Article(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner, String tokenId) {
     this.articleId = articleId;
     this.availability = availability;
     this.category = category;
@@ -77,7 +81,9 @@ public class  Article {
     this.tokenId = tokenId;
   }
 
-  public void updateArticle(boolean availability) {
+  public void updateArticle(boolean availability, LocalDateTime createRegist) {
+
     this.availability = availability;
+    this.createRegist = createRegist;
   }
 }

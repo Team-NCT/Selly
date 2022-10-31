@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -30,13 +32,13 @@ public class ArticleResponse {
 
   private String metaDataUrl;
 
-  private Date registTime;
+  private LocalDateTime registTime;
 
   private String hashData;
 
-  private Date createRegist;
+  private LocalDateTime createRegist;
 
-  private Date updateRegist;
+  private LocalDateTime updateRegist;
 
   private Long originalAuthor;
 

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -29,13 +30,13 @@ public class ArticleRequest {
 
   private String metaDataUrl;
 
-  private Date registTime;
+  private LocalDateTime registTime;
 
   private String contractAddress;
 
-  private Date createRegist;
+  private LocalDateTime createRegist;
 
-  private Date updateRegist;
+  private LocalDateTime updateRegist;
 
   private Long originalAuthor;
 
@@ -48,7 +49,7 @@ public class ArticleRequest {
   private Long owner;
 
   @Builder
-  public ArticleRequest(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, Date registTime, Date createRegist, Date updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner) {
+  public ArticleRequest(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner) {
     this.articleId = articleId;
     this.availability = availability;
     this.category = category;

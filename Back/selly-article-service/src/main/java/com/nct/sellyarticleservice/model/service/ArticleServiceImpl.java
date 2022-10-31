@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -63,22 +64,23 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public List<Article> articleCategoryFilter(String category) {
+  public List<Article> articleCategoryFilter(String category, boolean availability) {
 
-    return articleRepository.findByCategory(category);
+    return articleRepository.findByCategoryAndAvailability(category, availability);
   }
 
   @Override
   public ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id) {
     Article article = articleRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + id));
-
     article.updateArticle(
-            articleUpdateRequest.isAvailability()
+            articleUpdateRequest.isAvailability(),
+            LocalDateTime.now()
     );
     articleRepository.save(article);
 
     return ArticleResponse.builder()
+            .registTime(articleUpdateRequest.getRegistTime())
             .availability(articleUpdateRequest.isAvailability())
             .build();
   }

@@ -1,4 +1,4 @@
-package com.nct.sellytradeservice.controller;
+package com.nct.sellytradeservice.client;
 
 import com.nct.sellytradeservice.domain.dto.ArticleResponse;
 import com.nct.sellytradeservice.domain.dto.ArticleResponseDto;
