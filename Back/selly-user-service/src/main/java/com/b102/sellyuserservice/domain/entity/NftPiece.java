@@ -13,5 +13,5 @@ public class NftPiece {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long pieceId;
 
-  private 
+  private
 }
