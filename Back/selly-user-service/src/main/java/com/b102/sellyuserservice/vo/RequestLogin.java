@@ -10,4 +10,6 @@ import javax.validation.constraints.NotNull;
 public class RequestLogin {
   @NotNull(message = "Wallet can't be null")
   private String wallet;
+  @NotNull(message = "Password can't be null")
+  private String pwd;
 }
