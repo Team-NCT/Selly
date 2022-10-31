@@ -18,14 +18,12 @@ export { default as ProfileImage } from "./ProfileImage/ProfileImage";
 export { default as TextInput } from "./TextInput/TextInput";
 export { default as Label } from "./Label/Label";
 
-<<<<<<< HEAD
+//* ImageInput
+export { default as ImageInput } from "./ImageInput/ImageInput";
+
 //* Button
 export { default as Button } from "./Button/Button";
 
 //* Radio
 export { default as Radio } from "./Radio/Radio";
 export { default as RadioList } from "./RadioList/RadioList";
-=======
-//* ImageInput
-export { default as ImageInput } from "./ImageInput/ImageInput";
->>>>>>> b5a580172f8565d0b586900a53a53aa6869ae070

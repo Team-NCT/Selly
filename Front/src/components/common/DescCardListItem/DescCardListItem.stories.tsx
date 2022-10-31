@@ -3,7 +3,7 @@ import DescCardListItem from "./DescCardListItem";
 import { DescCardListItemProps } from "./DescCardListItem.types";
 
 export default {
-  title: "Common/DescCardListItem",
+  title: "Common/DescCard/DescCardListItem",
   component: DescCardListItem,
   parameters: {
     componentSubtitle: "NFT 설명 카드",

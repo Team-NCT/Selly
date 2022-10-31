@@ -4,7 +4,7 @@
   &:focus {
     outline: none;
   }
-  margin: 6px 0px;
+  margin: 4px 0px 6px 0px;
 
   &::placeholder {
     @include font($body2, $light, $white350);

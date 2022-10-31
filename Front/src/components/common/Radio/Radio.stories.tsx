@@ -3,7 +3,7 @@ import Radio from "./Radio";
 import { RadioProps } from "./Radio.types";
 
 export default {
-  title: "Common/Radio",
+  title: "Common/Input/Radio",
   component: Radio,
   parameters: {
     componentSubtitle: "Radio 컴포넌트",
