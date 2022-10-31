@@ -1,4 +1,4 @@
-package com.nct.sellytradeservice;
+package com.nct.sellyarticleservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-public class SellyTradeServiceApplication {
+public class SellyArticleServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SellyTradeServiceApplication.class, args);
+		SpringApplication.run(SellyArticleServiceApplication.class, args);
 	}
 
 }

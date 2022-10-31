@@ -1,9 +1,7 @@
 server:
-  port: 8101
+  port: 8091
 
 spring:
-  application:
-    name: selly-trade-service
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/selly?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
@@ -14,8 +12,9 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create
-
+      ddl-auto: update
+  application:
+    name: selly-article-service
 
 eureka:
   client:
@@ -23,3 +22,4 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
