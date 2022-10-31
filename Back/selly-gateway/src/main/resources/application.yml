@@ -61,6 +61,17 @@ spring:
                 baseMessage: Hi, Logging filter
                 preLogger: true
                 postLogger: true
+        - id: selly-trade-service
+          uri: lb://SELLY-TRADE-SERVICE
+          predicates:
+            - Path=/selly-trade-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, Logging filter
+                preLogger: true
+                postLogger: true
 eureka:
   client:
     register-with-eureka: true
