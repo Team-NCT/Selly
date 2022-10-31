@@ -1,7 +1,7 @@
-import { DropdownProps } from "./Dropdown.types";
-import style from "./Dropdown.module.scss";
+import { DropdownItemProps } from "./DropdownItem.types";
+import style from "./DropdownItem.module.scss";
 
-const Dropdown = ({ value, category, bg = "primary" }: DropdownProps) => {
+const DropdownItem = ({ value, category, bg = "primary" }: DropdownItemProps) => {
   const dropdownBG = style[["bg-", bg].join("")];
 
   return (
@@ -14,4 +14,4 @@ const Dropdown = ({ value, category, bg = "primary" }: DropdownProps) => {
   );
 };
 
-export default Dropdown;
+export default DropdownItem;

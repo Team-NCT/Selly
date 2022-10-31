@@ -1,7 +1,7 @@
 export const DropdownBG = ["primary", "ocean", "danger"] as const;
 export type DropdownBGType = typeof DropdownBG[number];
 
-export interface DropdownProps {
+export interface DropdownItemProps {
   /**
    * 텍스트
    */

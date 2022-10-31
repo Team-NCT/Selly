@@ -1,10 +1,10 @@
 import { Meta, Story } from "@storybook/react";
-import Dropdown from "./Dropdown";
-import { DropdownProps } from "./Dropdown.types";
+import DropdownItem from "./DropdownItem";
+import { DropdownItemProps } from "./DropdownItem.types";
 
 export default {
-  title: "Common/Dropdown",
-  component: Dropdown,
+  title: "Common/DropdownItem",
+  component: DropdownItem,
   parameters: {
     componentSubtitle: "Dropdown 컴포넌트",
   },
@@ -15,7 +15,7 @@ export default {
   },
 } as Meta;
 
-export const Default: Story<DropdownProps> = (args) => <Dropdown {...args} />;
+export const Default: Story<DropdownItemProps> = (args) => <DropdownItem {...args} />;
 
 Default.args = {
   value: "옵션",
