@@ -3,7 +3,7 @@ import Card from "./Card";
 import { CardProps } from "./Card.types";
 
 export default {
-  title: "Common/Card",
+  title: "Common/Card/Card",
   component: Card,
   parameters: {
     componentSubtitle: "이미지 카드 모양 컴포넌트",

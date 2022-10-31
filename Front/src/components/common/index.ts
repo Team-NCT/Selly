@@ -18,6 +18,9 @@ export { default as ProfileImage } from "./ProfileImage/ProfileImage";
 export { default as TextInput } from "./TextInput/TextInput";
 export { default as Label } from "./Label/Label";
 
+//* ImageInput
+export { default as ImageInput } from "./ImageInput/ImageInput";
+
 //* Button
 export { default as Button } from "./Button/Button";
 

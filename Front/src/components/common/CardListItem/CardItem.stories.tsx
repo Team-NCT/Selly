@@ -3,7 +3,7 @@ import CardListItem from "./CardListItem";
 import { CardListItemProps } from "./CardListItem.types";
 
 export default {
-  title: "Common/CardListItem",
+  title: "Common/Card/CardListItem",
   component: CardListItem,
   parameters: {
     componentSubtitle: "카드 리스트에 사용되는 컴포넌트",
