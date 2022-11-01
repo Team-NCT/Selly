@@ -1,4 +1,4 @@
-export const RadioBG = ["primary", "ocean", "navy", "danger"] as const;
+export const RadioBG = ["primary", "ocean", "blackberry", "danger"] as const;
 export type RadioBGType = typeof RadioBG[number];
 
 export interface RadioProps {
