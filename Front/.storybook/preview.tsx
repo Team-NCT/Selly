@@ -3,7 +3,7 @@ import React from "react";
 import { addDecorator } from "@storybook/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import store from "../src/redux/store";
+import store from "../src/store";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

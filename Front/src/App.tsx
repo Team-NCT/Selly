@@ -2,7 +2,7 @@ import "@/styles/base/_base.scss";
 import { Route, Routes } from "react-router-dom";
 import { Home, Counter, Test } from "@/pages";
 import { useAppSelector } from "./hooks/useStore";
-import { selectAlert } from "./redux/slices/alertSlice";
+import { selectAlert } from "./store/alertSlice";
 import { createPortal } from "react-dom";
 import { Alert, Navbar } from "./components/common/index";
 
@@ -22,6 +22,7 @@ function App() {
           <Route path="/test" element={<Test />} />
         </Route>
       </Routes>
+
       {/* 알럿 포탈 */}
       {alertState &&
         createPortal(

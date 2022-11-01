@@ -1,5 +1,5 @@
 import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@/redux/store";
+import { RootState } from "@/store";
 
 // State의 타입을 지정한다.
 interface CounterState {

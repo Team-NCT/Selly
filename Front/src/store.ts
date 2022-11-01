@@ -1,10 +1,8 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 
-//! reducer import
-import counter from "./slices/counterSlice";
-import alert from "./slices/alertSlice";
-import modal from "./slices/modalSlice";
+//* reducer import
+import { counter, alert, modal } from "@/store/index";
 
 const reducers = combineReducers({
   counter,
