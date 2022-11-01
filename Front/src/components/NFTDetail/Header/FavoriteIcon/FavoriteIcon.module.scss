@@ -1,0 +1,11 @@
+.button_icon_favorite {
+  @include flex(row, center, center);
+  width: 60px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: $white;
+  span {
+    color: $main-font;
+    font-size: 40px;
+  }
+}
