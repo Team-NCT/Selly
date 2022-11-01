@@ -1,5 +1,5 @@
 import { DropdownListProps } from "./DropdownList.types";
-import style from "./DropdownListnpm .module.scss";
+import style from "./DropdownList.module.scss";
 import { DropdownItem } from "@/components/common";
 
 const Dropdown = ({ list, category, bg = "primary", onChange }: DropdownListProps) => {
