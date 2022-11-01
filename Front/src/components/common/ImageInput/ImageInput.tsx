@@ -1,58 +1,26 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { ImageInputProps } from "./ImageInput.types";
 import style from "./ImageInput.module.scss";
-import {
-  checkImageExtension,
-  encodeFileToBase64,
-  checkImageSize,
-} from "@/helpers/utils/imageInput";
-import { useAlert, OpenAlertArg } from "@/hooks/useAlert";
 
 const ImageInput = ({
   id,
   limit,
   handleInputChange,
   styles = "square",
-  url = "",
+  imageUrl = "",
 }: ImageInputProps) => {
-  const [imageUrl, setImageUrl] = useState(url);
-  const { openAlertModal } = useAlert();
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files![0];
 
-  const imageInputChangeHandler = (event: ChangeEvent) => {
-    const file = (event.target as HTMLInputElement).files![0];
+      //* validation: 업로드한 파일이 없는 경우 리턴
+      if (!file) return;
 
-    //* validation: 업로드한 파일이 없는 경우 리턴
-    if (!file) return;
-
-    //* validation: 업로드 파일 확장자 체크
-    if (!checkImageExtension(file.name)) {
-      const payload: OpenAlertArg = {
-        content: "지원하는 파일 형식이 아닙니다.",
-        style: "error",
-        icon: true,
-      };
-      openAlertModal(payload);
-      return;
-    }
-
-    //* validation: 이미지 용량 체크
-    if (!checkImageSize({ limit, fileSize: file.size })) {
-      const payload: OpenAlertArg = {
-        content: `${limit}mb을 초과하여 업로드 할 수 없습니다.`,
-        style: "error",
-        icon: true,
-      };
-      openAlertModal(payload);
-      return;
-    }
-
-    //* 업로드 파일 미리보기
-    encodeFileToBase64(file).then((res) => setImageUrl(res));
-
-    //* 정상적인 이미지 파일
-    handleInputChange(file);
-  };
-
+      //* 파일을 전달한다.
+      handleInputChange(file);
+    },
+    [handleInputChange]
+  );
   return (
     <label htmlFor={id} className={style.input_image_label}>
       {/* 이미지가 있을 때 */}
@@ -68,13 +36,7 @@ const ImageInput = ({
       )}
 
       {/* input */}
-      <input
-        id={id}
-        type="file"
-        accept="image/*"
-        onChange={(event) => imageInputChangeHandler(event)}
-        hidden
-      />
+      <input id={id} type="file" accept="image/*" onChange={handleChange} hidden />
     </label>
   );
 };
