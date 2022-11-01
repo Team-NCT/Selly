@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 
 // * action creator, selector를 import한다.
-import { selectCounter, increment, decrement } from "@/redux/slices/counterSlice";
+import { selectCounter, increment, decrement } from "@/store/counterSlice";
 
 // * 함수형 컴포넌트
 const Counter = () => {

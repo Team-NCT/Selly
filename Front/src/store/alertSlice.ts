@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { AlertStylesType } from "@/components/common/Alert/Alert.types";
-import { RootState } from "../store";
+import { RootState } from "@/store";
 
 //* state의 타입
 interface AlertState {

@@ -1,6 +1,6 @@
 import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
-import { selectModal, openTest, closeTest } from "@/redux/slices/modalSlice";
+import { selectModal, openTest, closeTest } from "@/store/modalSlice";
 import TestModal from "@/components/test/testModal";
 import { createPortal } from "react-dom";
 

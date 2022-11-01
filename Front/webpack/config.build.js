@@ -19,7 +19,20 @@ const buildConfig = {
       ...devConfig.module.rules.filter(({ test: regExp }) => !regExp.test(".css")),
       {
         test: /\.s?[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              additionalData: `
+              @import "./src/styles/variables/_variables.scss";
+              @import "./src/styles/mixins/_mixins.scss";
+        `,
+            },
+          },
+        ],
       },
     ],
   },
