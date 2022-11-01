@@ -1,6 +1,7 @@
 const { getAbsPath } = require("./config.utils");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
 const path = require("path");
 
 const devConfig = {
@@ -22,6 +23,10 @@ const devConfig = {
     // react를 import하지 않아도 된다.
     new webpack.ProvidePlugin({
       React: "react",
+    }),
+    new Dotenv({ prefix: "SELLY_" }),
+    new webpack.ProvidePlugin({
+      process: "process/browser",
     }),
   ],
   module: {
