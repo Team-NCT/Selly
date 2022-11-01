@@ -25,6 +25,10 @@ export { default as Button } from "./Button/Button";
 export { default as Radio } from "./Radio/Radio";
 export { default as RadioList } from "./RadioList/RadioList";
 
+//* Dropdown
+export { default as DropdownItem } from "./DropdownItem/DropdownItem";
+export { default as DropdownList } from "./DropdownList/DropdownList";
+
 //* Alert & Modal
 export { default as Alert } from "./Alert/Alert";
 export { default as Modal } from "./Modal/Modal";
