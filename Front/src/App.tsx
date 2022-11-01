@@ -1,10 +1,10 @@
 import "@/styles/base/_base.scss";
 import { Route, Routes } from "react-router-dom";
-import { Home, Counter, Test } from "@/pages";
-import { useAppSelector } from "./hooks/useStore";
-import { selectAlert } from "./store/alertSlice";
 import { createPortal } from "react-dom";
-import { Alert, Navbar } from "./components/common/index";
+import { useAppSelector } from "@/hooks/useStore";
+import { selectAlert } from "@/store/alertSlice";
+import { Alert, Navbar } from "@/components";
+import { Home, Counter, Test } from "@/pages";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
