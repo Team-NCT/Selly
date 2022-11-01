@@ -20,5 +20,5 @@ export interface DropdownListProps {
   /**
    * onChange = (e) => {setState(e.target.value)}
    */
-  onChange: React.FormEventHandler;
+  onChange?: React.FormEventHandler;
 }
