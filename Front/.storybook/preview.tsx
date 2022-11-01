@@ -2,6 +2,7 @@ import "!style-loader!css-loader!sass-loader!../src/styles/styles.scss";
 import React from "react";
 import { addDecorator } from "@storybook/react";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import store from "../src/redux/store";
 
 export const parameters = {
@@ -18,4 +19,8 @@ export const parameters = {
   },
 };
 
-addDecorator((story) => <Provider store={store}>{story()}</Provider>);
+addDecorator((story) => (
+  <Provider store={store}>
+    <BrowserRouter>{story()}</BrowserRouter>
+  </Provider>
+));
