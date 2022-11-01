@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { RootState } from "@/store";
 
 //* state의 타입
 interface ModalState {

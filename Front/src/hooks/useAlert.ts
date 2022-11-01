@@ -9,7 +9,7 @@ import {
   resetAlertStyles,
   setIconStyles,
   resetIconStyles,
-} from "@/redux/slices/alertSlice";
+} from "@/store/alertSlice";
 
 import { AlertStylesType } from "@/components/common/Alert/Alert.types";
 

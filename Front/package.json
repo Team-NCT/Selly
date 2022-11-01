@@ -17,8 +17,7 @@
   "license": "ISC",
   "browserslist": [
     "> 1% in KR",
-    "not dead",
-    "ie 11"
+    "not dead"
   ],
   "devDependencies": {
     "@babel/core": "^7.19.6",
