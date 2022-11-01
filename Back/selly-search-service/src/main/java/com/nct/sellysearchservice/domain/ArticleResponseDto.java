@@ -1,7 +1,6 @@
-package com.nct.sellyarticleservice.domain.dto;
+package com.nct.sellysearchservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.nct.sellyarticleservice.domain.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

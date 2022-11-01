@@ -7,12 +7,17 @@ import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
+import org.bouncycastle.math.raw.Mod;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -27,8 +32,14 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public List<Article> findByAll() {
-    return articleRepository.findAll();
+  public List<ArticleResponseDto> findByAll() {
+    List<Article> articleList = articleRepository.findAll();
+    List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
+    articleList.forEach(v -> {
+        articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+      }
+    );
+    return articleResponseDtoList;
   }
 
   @Override
@@ -83,5 +94,49 @@ public class ArticleServiceImpl implements ArticleService{
             .registTime(articleUpdateRequest.getRegistTime())
             .availability(articleUpdateRequest.isAvailability())
             .build();
+  }
+
+  @Override
+  public List<ArticleResponseDto> findBySell(String sell) {
+    boolean status;
+    List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
+    if (Objects.equals(sell, "selling")) {
+      status = true;
+    } else if (Objects.equals(sell, "end")) {
+      status = false;
+    } else {
+      List<Article> articleList = articleRepository.findAll();
+      articleList.forEach(v -> {
+                articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+              });
+              return articleResponseDtoList;
+    }
+    List<Article> articleList = articleRepository.findByStatus(status);
+    articleList.forEach(v -> {
+      articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+    });
+    return articleResponseDtoList;
+  }
+
+  @Override
+  public List<ArticleResponseDto> findByAuction(String auction) {
+    boolean status;
+    List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
+    if (Objects.equals(auction, "selling")) {
+      status = true;
+    } else if (Objects.equals(auction, "end")) {
+      status = false;
+    } else {
+      List<Article> articleList = articleRepository.findAll();
+      articleList.forEach(v -> {
+        articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+      });
+      return articleResponseDtoList;
+    }
+    List<Article> articleList = articleRepository.findByAuction(status);
+    articleList.forEach(v -> {
+      articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+    });
+    return articleResponseDtoList;
   }
 }

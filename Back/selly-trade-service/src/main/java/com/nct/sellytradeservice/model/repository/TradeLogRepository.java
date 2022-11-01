@@ -1,0 +1,12 @@
+package com.nct.sellytradeservice.model.repository;
+
+import com.nct.sellytradeservice.domain.entity.TradeLog;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface TradeLogRepository extends JpaRepository<TradeLog, Long> {
+
+  List<TradeLog> findByStatus(boolean status);
+
+}

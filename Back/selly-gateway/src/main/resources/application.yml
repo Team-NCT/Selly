@@ -58,10 +58,10 @@ spring:
                 baseMessage: Hi, Logging filter
                 preLogger: true
                 postLogger: true
-        - id: selly-exploration-service
-          uri: lb://SELLY-EXPLORATION-SERVICE
+        - id: selly-search-service
+          uri: lb://SELLY-SEARCH-SERVICE
           predicates:
-            - Path=/selly-exploration-service/**
+            - Path=/selly-search-service/**
           filters:
             - name: CustomFilter
             - name: LoggingFilter

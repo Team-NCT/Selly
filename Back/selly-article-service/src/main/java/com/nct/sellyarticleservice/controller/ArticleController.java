@@ -40,7 +40,7 @@ public class ArticleController {
   }
 
   @GetMapping("")
-  public List<Article> getArticleByAll() {
+  public List<ArticleResponseDto> getArticleByAll() {
     return articleService.findByAll();
   }
 
@@ -90,37 +90,37 @@ public class ArticleController {
   }
 
   // 필터
-  @GetMapping("/filter")
-  public List<Article> articleFilter(@RequestParam("criterion")String criterion, @RequestParam("order") String order) {
-    List<Article> articleList = new ArrayList<>();
-    if (criterion == "sale") {
-      switch (order) {
-        case "selling":
-          articleList = articleRepository.findByAvailability(true, Sort.by(Sort.Direction.DESC, "createRegist"));
-          break;
-        case "soldout":
-          articleList = articleRepository.findByAvailability(false, Sort.by(Sort.Direction.DESC, "createRegist"));
-          break;
-        case "all":
-          articleList = articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createRegist"));
-          break;
-      }
-      // 소유 조각 목록에서 내 Id로 조회한 뒤 중복되는 articleId 제거후 반환
-    }else {
-      switch (order) {
-        case "selling":
-          articleList = articleRepository.findByAvailability(true, Sort.by(Sort.Direction.DESC, "createRegist"));
-          break;
-        case "soldout":
-          articleList = articleRepository.findByAvailability(false, Sort.by(Sort.Direction.DESC, "createRegist"));
-          break;
-        case "all":
-          articleList = articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createRegist"));
-          break;
-      }
-    }
-    return articleList;
-  }
+//  @GetMapping("/filter")
+//  public List<Article> articleFilter(@RequestParam("criterion")String criterion, @RequestParam("order") String order) {
+//    List<Article> articleList = new ArrayList<>();
+//    if (criterion == "sale") {
+//      switch (order) {
+//        case "selling":
+//          articleList = articleRepository.findByAvailability(true, Sort.by(Sort.Direction.DESC, "createRegist"));
+//          break;
+//        case "soldout":
+//          articleList = articleRepository.findByAvailability(false, Sort.by(Sort.Direction.DESC, "createRegist"));
+//          break;
+//        case "all":
+//          articleList = articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createRegist"));
+//          break;
+//      }
+//      // 소유 조각 목록에서 내 Id로 조회한 뒤 중복되는 articleId 제거후 반환
+//    }else {
+//      switch (order) {
+//        case "selling":
+//          articleList = articleRepository.findByAvailability(true, Sort.by(Sort.Direction.DESC, "createRegist"));
+//          break;
+//        case "soldout":
+//          articleList = articleRepository.findByAvailability(false, Sort.by(Sort.Direction.DESC, "createRegist"));
+//          break;
+//        case "all":
+//          articleList = articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createRegist"));
+//          break;
+//      }
+//    }
+//    return articleList;
+//  }
 
   // 판매 등록 call
   @PostMapping("/{id}")
@@ -130,4 +130,19 @@ public class ArticleController {
     return ResponseEntity.ok()
             .body(response);
   }
+
+  @GetMapping("/sell-filter")
+  public List<ArticleResponseDto> getArticleBySellStatus(@PathVariable("sell") String sell) {
+    return articleService.findBySell(sell);
+  }
+  @GetMapping("/auction-filter")
+  public List<ArticleResponseDto> getArticleByAuctionStatus(@PathVariable("auction") String auction) {
+    return articleService.findByAuction(auction);
+  }
+
+  @PostMapping("/{articleId")
+  public ResponseEntity<String> response (@PathVariable("articldId") Long articleId) {
+    String response = articleService.regist
+  }
+
 }
