@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Neon, TextInput, ProfileImage } from "@/components/common/index";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
@@ -29,6 +29,8 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleColor);
     };
   });
+
+  const location = useLocation().pathname;
 
   //* hover시 Neon width 변화
   const [explore, setExplore] = useState(50);
@@ -78,9 +80,15 @@ const Navbar = () => {
               }}
               onBlur={() => {
                 setExplore(50);
-              }}>
+              }}
+              onClick={() => setMenuToggle(false)}
+              aria-hidden="true">
               <NavLink to="/test">
-                <Neon color="ocean" positionH="top" positionW="right" width={explore}>
+                <Neon
+                  color="ocean"
+                  positionH="top"
+                  positionW="right"
+                  width={location == "/explore" ? 100 : explore}>
                   Explore
                 </Neon>
               </NavLink>
@@ -111,9 +119,15 @@ const Navbar = () => {
               }}
               onBlur={() => {
                 setCreate(50);
-              }}>
+              }}
+              onClick={() => setMenuToggle(false)}
+              aria-hidden="true">
               <NavLink to="/test">
-                <Neon color="muscat" positionH="bottom" positionW="right" width={create}>
+                <Neon
+                  color="muscat"
+                  positionH="bottom"
+                  positionW="right"
+                  width={location == "/create" ? 100 : create}>
                   Create
                 </Neon>
               </NavLink>
@@ -130,9 +144,15 @@ const Navbar = () => {
               }}
               onBlur={() => {
                 setSell(50);
-              }}>
+              }}
+              onClick={() => setMenuToggle(false)}
+              aria-hidden="true">
               <NavLink to="/test">
-                <Neon color="muscat150" positionH="bottom" positionW="left" width={sell}>
+                <Neon
+                  color="muscat150"
+                  positionH="bottom"
+                  positionW="left"
+                  width={location == "/sell" ? 100 : sell}>
                   Sell
                 </Neon>
               </NavLink>
