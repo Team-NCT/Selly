@@ -1,14 +1,15 @@
 package com.b102.sellyuserservice.model.service;
 
+import com.b102.sellyuserservice.domain.dto.FollowDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
+import com.b102.sellyuserservice.domain.entity.FollowEntity;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
+import com.b102.sellyuserservice.model.repository.FollowRepository;
 import com.b102.sellyuserservice.model.repository.UserRepository;
 import com.b102.sellyuserservice.vo.RequestUpdate;
-import com.b102.sellyuserservice.vo.RequestUser;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,13 +18,14 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
+
+  private final FollowRepository followRepository;
   private final BCryptPasswordEncoder passwordEncoder;
 
 
@@ -54,7 +56,6 @@ public class UserServiceImpl implements UserService {
     userEntity.setBanner(encodeBanner);
     userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
     userRepository.save(userEntity);
-    System.out.println(userEntity);
     return mapper.map(userEntity, UserDto.class);
   }
 
@@ -99,5 +100,14 @@ public class UserServiceImpl implements UserService {
     userRepository.save(userEntity);
     ModelMapper mapper = new ModelMapper();
     return mapper.map(userEntity, UserDto.class);
+  }
+
+  @Override
+  public FollowDto followLike(FollowDto followDto) {
+    ModelMapper mapper = new ModelMapper();
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    FollowEntity followEntity = mapper.map(followDto, FollowEntity.class);
+    followRepository.save(followEntity);
+    return mapper.map(followEntity, FollowDto.class);
   }
 }

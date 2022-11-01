@@ -58,6 +58,15 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
             - CustomAuthorizationHeaderFilter
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/follow
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+            - CustomAuthorizationHeaderFilter
         - id: selly-article-service
           uri: lb://SELLY-ARTICLE-SERVICE
           predicates:

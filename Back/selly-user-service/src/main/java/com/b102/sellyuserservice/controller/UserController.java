@@ -1,11 +1,10 @@
 package com.b102.sellyuserservice.controller;
 
+import com.b102.sellyuserservice.domain.dto.FollowDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.service.UserService;
-import com.b102.sellyuserservice.vo.RequestUpdate;
-import com.b102.sellyuserservice.vo.RequestUser;
-import com.b102.sellyuserservice.vo.ResponseUser;
+import com.b102.sellyuserservice.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -34,7 +33,6 @@ public class UserController {
 
   @PostMapping("/users")
   public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user) throws UnsupportedEncodingException {
-    System.out.println(user);
     ModelMapper mapper = new ModelMapper();
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -87,8 +85,19 @@ public class UserController {
     returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
     returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
     return ResponseEntity.status(HttpStatus.OK).body(returnValue);
-
   }
 
+  @PostMapping("/follow")
+  public ResponseEntity<ResponseFollow> createFollow(@RequestBody RequestFollow follow){
+    ModelMapper mapper = new ModelMapper();
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+    FollowDto followDto = mapper.map(follow, FollowDto.class);
+    FollowDto returnValue = userService.followLike(followDto);
+
+    ResponseFollow responseFollow = mapper.map(returnValue, ResponseFollow.class);
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(responseFollow);
+  }
 
 }
