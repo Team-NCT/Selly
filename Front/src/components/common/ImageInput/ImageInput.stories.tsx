@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Meta, Story } from "@storybook/react";
 import ImageInput from "./ImageInput";
 import { ImageInputProps, ImageInputStyleType } from "./ImageInput.types";
@@ -23,7 +23,7 @@ export default {
 } as Meta;
 
 export const Default: Story<ImageInputProps> = (args) => {
-  //* 이미지 url
+  //* 미리보기 이미지 url
   const [imageUrl, setImageUrl] = useState("");
 
   //* 이미지 file
@@ -32,7 +32,7 @@ export const Default: Story<ImageInputProps> = (args) => {
   //* 용량 제한
   const limit = 5;
 
-  const handleImageFile = (file: File) => {
+  const handleInputChange = useCallback((file: File) => {
     //* validation: 업로드 파일 확장자 체크
     if (!checkImageExtension(file.name)) {
       //! 에러 알럿
@@ -50,11 +50,11 @@ export const Default: Story<ImageInputProps> = (args) => {
 
     //* 정상적인 이미지 파일을 state에 저장한다.
     setImageFile(file);
-  };
+  }, []);
 
   return (
     <div style={{ width: "240px", fontSize: "64px" }}>
-      <ImageInput {...args} imageUrl={imageUrl} handleImageFile={handleImageFile} />
+      <ImageInput {...args} imageUrl={imageUrl} handleInputChange={handleInputChange} />
     </div>
   );
 };

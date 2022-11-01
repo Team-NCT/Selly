@@ -13,6 +13,7 @@ export interface TextInputProps {
 
   /**
    * const [value, handleInputChange] = useInputState()의 handleInputChange를 넘기면 된다.
+   * 만약 유효성 검사를 한다면, useInputState("", 유효성 검사 함수)
    */
   handleInputChange: ChangeEventHandler<HTMLElement & { value: string }>;
 

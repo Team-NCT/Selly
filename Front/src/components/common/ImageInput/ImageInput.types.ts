@@ -16,7 +16,7 @@ export interface ImageInputProps {
   /**
    * 이미지 파일이 업로드 될때, 실행하는 함수
    */
-  handleImageFile: (arg: File) => void;
+  handleInputChange: (arg: File) => void;
 
   /**
    * 미리보기 이미지 url

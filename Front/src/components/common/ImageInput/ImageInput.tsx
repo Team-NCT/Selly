@@ -1,21 +1,26 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { ImageInputProps } from "./ImageInput.types";
 import style from "./ImageInput.module.scss";
 
 const ImageInput = ({
   id,
   limit,
-  handleImageFile,
+  handleInputChange,
   styles = "square",
   imageUrl = "",
 }: ImageInputProps) => {
-  const handleInputChange = (event: ChangeEvent) => {
-    const file = (event.target as HTMLInputElement).files![0];
-    //* validation: 업로드한 파일이 없는 경우 리턴
-    if (!file) return;
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files![0];
 
-    handleImageFile(file);
-  };
+      //* validation: 업로드한 파일이 없는 경우 리턴
+      if (!file) return;
+
+      //* 파일을 전달한다.
+      handleInputChange(file);
+    },
+    [handleInputChange]
+  );
   return (
     <label htmlFor={id} className={style.input_image_label}>
       {/* 이미지가 있을 때 */}
@@ -31,13 +36,7 @@ const ImageInput = ({
       )}
 
       {/* input */}
-      <input
-        id={id}
-        type="file"
-        accept="image/*"
-        onChange={(event) => handleInputChange(event)}
-        hidden
-      />
+      <input id={id} type="file" accept="image/*" onChange={handleChange} hidden />
     </label>
   );
 };

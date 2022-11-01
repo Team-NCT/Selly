@@ -13,9 +13,9 @@ export interface NumberInputProps {
 
   /**
    * const [value, handleInputChange] = useInputState()의 handleInputChange를 넘기면 된다.
-   * 만약, 유효성 검사가 필요할 경우 유효성 검사를 실행하고 다 통과하면 state를 변화시키는 함수를 넘긴다.
+   * 만약 유효성 검사를 한다면, useInputState("", 유효성 검사 함수)
    */
-  handleInputChange: (args: string) => void;
+  handleValueChange: ChangeEventHandler<HTMLElement & { value: string }>;
 
   /**
    * Input 상태: true(정상), false(에러)
