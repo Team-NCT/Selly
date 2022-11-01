@@ -5,10 +5,11 @@ html {
 
 body {
   min-height: 100%;
+  padding-top: 64px;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 ol,
@@ -33,4 +34,40 @@ button {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   border: 0;
   background: transparent;
+}
+
+input {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  margin: auto 16px;
+}
+@media (min-width: 600px) {
+  main {
+    margin: auto 32px;
+    max-width: 840px;
+  }
+}
+@media (min-width: 905px) {
+  main {
+    margin: 0 auto;
+    max-width: 840px;
+  }
+}
+@media (min-width: 1240px) {
+  main {
+    margin: auto 160px;
+    max-width: 1040px;
+  }
+}
+@media (min-width: 1440px) {
+  main {
+    margin: 0 auto;
+    max-width: 1240px;
+  }
 }/*# sourceMappingURL=styles.css.map */
