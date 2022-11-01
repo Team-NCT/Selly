@@ -4,9 +4,12 @@ nav {
   width: 100%;
   position: fixed;
   top: 0;
-  padding: 0 10px;
+  padding: 0 30px;
+  transition: opacity 0.5s linear;
+  z-index: 1000;
   @include laptop {
-    @include flex(row);
+    @include flex(row, space-between);
+    padding: 0 30px;
   }
   &:hover {
     opacity: 1;
@@ -17,17 +20,25 @@ nav {
   }
 }
 
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 998;
+}
+
 .nav_opacity {
   opacity: 0;
 }
 
 .nav_head {
-  @include flex(row, space-between);
+  @include flex(row, space-between, center);
   width: 100%;
-  margin-top: 10px;
+  margin-top: 8px;
   @include laptop {
     width: auto;
     margin-top: 0px;
+    margin-right: 40px;
   }
 }
 
@@ -35,18 +46,28 @@ nav {
   display: none;
   @include laptop {
     @include flex(row, space-between);
+    gap: 20px;
     width: 90%;
   }
 }
 
 .nav_down {
-  @include flex(column);
+  @include flex(column, flex-start, flex-start);
   width: 240px;
   background-color: $white;
   position: absolute;
   right: 0;
+  z-index: -10;
+  height: calc(100vh - 64px);
+  padding-left: 30px;
+  padding-bottom: 30px;
   @include laptop {
-    @include flex(row);
+    @include flex(row, space-between);
+    width: 90%;
+    background-color: transparent;
+    height: 64px;
+    position: relative;
+    padding-bottom: 0;
   }
 }
 
@@ -79,8 +100,11 @@ nav {
 .nav_search {
   width: 90%;
   @include laptop {
-    width: 100%;
+    width: 90%;
     min-width: 536px;
+  }
+  @include desktop {
+    width: 65%;
   }
 }
 
@@ -95,27 +119,28 @@ nav {
 }
 
 .nav_list {
-  @include flex(column);
+  @include flex(column, center, flex-start);
+  margin-top: 40px;
+  width: 90%;
   @include laptop {
     @include flex(row, space-between);
     width: 30%;
     max-width: 300px;
+    margin-top: 0;
   }
 
   li {
     @include font($h5, bold);
-  }
-}
-
-.nav_user {
-  margin-left: 16px;
-  @include laptop {
-    margin: 0;
+    margin-bottom: 40px;
+    @include laptop {
+      margin-bottom: 0;
+    }
   }
 }
 
 .wallet {
   font-size: 32px;
+  width: 100%;
 }
 
 // dropdown
@@ -132,17 +157,76 @@ nav {
 .dropdown_content {
   display: none;
   position: absolute;
+  top: 0;
+  right: 70px;
   background-color: $white;
   min-width: 117px;
-  box-shadow: -11px 11px 22px rgba(216, 217, 221, 0.2), 11px -11px 22px rgba(216, 217, 221, 0.2),
-    -11px -11px 22px rgba(254, 255, 255, 0.9), 11px 11px 28px rgba(216, 217, 221, 0.9);
   z-index: 1;
-  NavLink {
-    @include font($caption, $bold);
+  border-radius: $radius-modal;
+  @include laptop {
+    top: 25px;
+    left: 0;
+  }
+  .dropdown_item {
+    @include font($caption, $bold, $main-font);
     padding: 8px 13px;
     display: block;
+    height: 90%;
+    width: 90%;
+    border-radius: $radius-modal;
+    &:hover {
+      background-color: $ocean;
+    }
+  }
+}
+
+.dropdown_user {
+  position: relative;
+  display: inline-block;
+  &:hover {
+    .dropdown_content_user {
+      @include flex(column);
+    }
+  }
+}
+
+.dropdown_content_user {
+  display: none;
+  position: absolute;
+  top: -150px;
+  right: 160px;
+  background-color: $white;
+  min-width: 117px;
+  z-index: 1;
+  border-radius: $radius-modal;
+  @include laptop {
+    top: 50px;
+    left: -40px;
+  }
+  .dropdown_item {
+    @include font($caption, $bold, $main-font);
+    padding: 8px 13px;
+    display: block;
+    height: 90%;
+    width: 90%;
+    border-radius: $radius-modal;
     &:hover {
       background-color: $muscat;
     }
+  }
+}
+
+.nav_user {
+  @include flex(row);
+  margin-top: auto;
+  @include laptop {
+    margin-top: 0;
+  }
+}
+
+.nav_username {
+  margin-left: 20px;
+  @include laptop {
+    display: none;
   }
 }

@@ -1,4 +1,4 @@
-export const size = ["xs", "sm", "md", "lg", "xl", "xxl"] as const;
+export const size = ["xxs", "xs", "sm", "md", "lg", "xl", "xxl"] as const;
 
 export interface ProfileImageProps {
   /**
