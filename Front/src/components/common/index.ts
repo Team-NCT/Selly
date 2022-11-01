@@ -41,3 +41,6 @@ export { default as Navbar } from "./Navbar/Navbar";
 
 //* Profile
 export { default as ProfileImage } from "./ProfileImage/ProfileImage";
+
+//* SelectBox
+export { default as SelectBox } from "./SelectBox/SelectBox";
