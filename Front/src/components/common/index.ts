@@ -15,6 +15,9 @@ export { default as DescCardList } from "./DescCardList/DescCardList";
 export { default as TextInput } from "./TextInput/TextInput";
 export { default as Label } from "./Label/Label";
 
+//* NumberInput
+export { default as NumberInput } from "./NumberInput/NumberInput";
+
 //* ImageInput
 export { default as ImageInput } from "./ImageInput/ImageInput";
 
