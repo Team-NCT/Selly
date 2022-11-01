@@ -1,31 +1,85 @@
 nav {
-  @include flex(row);
   @include shadow-nav;
-  min-height: 80px;
+  height: 64px;
   width: 100%;
   position: fixed;
   top: 0;
+  padding: 0 10px;
+  @include laptop {
+    @include flex(row);
+  }
+  &:hover {
+    opacity: 1;
+  }
   img {
     max-width: 94px;
     aspect-ratio: 94/39;
   }
 }
 
-.nav_container {
-  width: 90%;
-  @include flex(row, space-between, center);
+.nav_opacity {
+  opacity: 0;
 }
 
 .nav_head {
-  @include flex(row);
+  @include flex(row, space-between);
+  width: 100%;
+  margin-top: 10px;
+  @include laptop {
+    width: auto;
+    margin-top: 0px;
+  }
+}
+
+.nav_row {
+  display: none;
+  @include laptop {
+    @include flex(row, space-between);
+    width: 90%;
+  }
+}
+
+.nav_down {
+  @include flex(column);
+  width: 240px;
+  background-color: $white;
+  position: absolute;
+  right: 0;
+  @include laptop {
+    @include flex(row);
+  }
+}
+
+.navBtn {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  color: transparent;
+  @include laptop {
+    display: none;
+  }
+}
+.navBtn::before,
+.navBtn::after {
+  content: "";
+  position: absolute;
+}
+.navBtn::before {
+  top: 14px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 24px;
+  height: 4px;
+  background: $black350;
+  box-shadow: 0 8px 0 $black350, 0 16px 0 $black350;
 }
 
 .nav_search {
-  width: 100%;
-  margin-left: 66px;
-  @include tablet {
-  }
+  width: 90%;
   @include laptop {
+    width: 100%;
     min-width: 536px;
   }
 }
@@ -42,7 +96,7 @@ nav {
 
 .nav_list {
   @include flex(column);
-  @include tablet {
+  @include laptop {
     @include flex(row, space-between);
     width: 30%;
     max-width: 300px;
@@ -83,7 +137,6 @@ nav {
   box-shadow: -11px 11px 22px rgba(216, 217, 221, 0.2), 11px -11px 22px rgba(216, 217, 221, 0.2),
     -11px -11px 22px rgba(254, 255, 255, 0.9), 11px 11px 28px rgba(216, 217, 221, 0.9);
   z-index: 1;
-  margin-top: 12px;
   NavLink {
     @include font($caption, $bold);
     padding: 8px 13px;
