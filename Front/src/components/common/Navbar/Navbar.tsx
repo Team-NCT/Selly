@@ -6,7 +6,7 @@ import logoImage from "@/assets/images/logo.png";
 import { useInputState } from "@/hooks/useInputState";
 
 const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [value, handleInputChange] = useInputState();
   const [menuToggle, setMenuToggle] = useState(false);
 
@@ -30,9 +30,18 @@ const Navbar = () => {
     };
   });
 
-  //* 외부 클릭시 메뉴 닫힘
+  //* hover시 Neon width 변화
+  const [explore, setExplore] = useState(50);
+  const [create, setCreate] = useState(50);
+  const [sell, setSell] = useState(50);
+  const [wallet, setWallet] = useState(50);
   return (
     <>
+      {menuToggle ? (
+        <div className={styles.overlay} onClick={() => setMenuToggle(false)} aria-hidden="true" />
+      ) : (
+        ""
+      )}
       <nav className={HeaderStatus ? styles.nav_opacity : ""}>
         <h2 className={styles.nav_title}>사이트 네비게이션</h2>
         <div className={styles.nav_head}>
@@ -56,44 +65,125 @@ const Navbar = () => {
             />
           </div>
           <ul className={styles.nav_list}>
-            <li className={styles.dropdown}>
+            <li
+              className={styles.dropdown}
+              onMouseOver={() => {
+                setExplore(100);
+              }}
+              onMouseOut={() => {
+                setExplore(50);
+              }}
+              onFocus={() => {
+                setExplore(100);
+              }}
+              onBlur={() => {
+                setExplore(50);
+              }}>
               <NavLink to="/test">
-                <Neon color="ocean" positionH="top" positionW="right">
+                <Neon color="ocean" positionH="top" positionW="right" width={explore}>
                   Explore
                 </Neon>
               </NavLink>
               <div className={styles.dropdown_content}>
-                <NavLink to="/test">ALL NFTS</NavLink>
-                <NavLink to="/test">Art</NavLink>
-                <NavLink to="/test">Photography</NavLink>
-                <NavLink to="/test">Sports</NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  ALL NFTS
+                </NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Art
+                </NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Photography
+                </NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Sports
+                </NavLink>
               </div>
             </li>
-            <li>
+            <li
+              onMouseOver={() => {
+                setCreate(100);
+              }}
+              onMouseOut={() => {
+                setCreate(50);
+              }}
+              onFocus={() => {
+                setCreate(100);
+              }}
+              onBlur={() => {
+                setCreate(50);
+              }}>
               <NavLink to="/test">
-                <Neon color="muscat" positionH="bottom" positionW="right">
+                <Neon color="muscat" positionH="bottom" positionW="right" width={create}>
                   Create
                 </Neon>
               </NavLink>
             </li>
-            <li>
+            <li
+              onMouseOver={() => {
+                setSell(100);
+              }}
+              onMouseOut={() => {
+                setSell(50);
+              }}
+              onFocus={() => {
+                setSell(100);
+              }}
+              onBlur={() => {
+                setSell(50);
+              }}>
               <NavLink to="/test">
-                <Neon color="muscat150" positionH="bottom" positionW="left">
+                <Neon color="muscat150" positionH="bottom" positionW="left" width={sell}>
                   Sell
                 </Neon>
               </NavLink>
             </li>
           </ul>
           {isLogin ? (
-            <ProfileImage size="xs" profileStyle="round" />
+            <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
+              <ProfileImage size="xxs" profileStyle="round" />
+              <h5 className={styles.nav_username}>김김작가작가작가</h5>
+              <div className={styles.dropdown_content_user}>
+                <h5>Balance</h5>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Profile
+                </NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Collected
+                </NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Created
+                </NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Favorited
+                </NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Settings
+                </NavLink>
+                <NavLink to="/test" className={styles.dropdown_item}>
+                  Logout
+                </NavLink>
+              </div>
+            </div>
           ) : (
-            <div className={styles.nav_user}>
-              <Neon color="lilac" positionH="top" positionW="right">
+            <li
+              onMouseOver={() => {
+                setWallet(100);
+              }}
+              onMouseOut={() => {
+                setWallet(50);
+              }}
+              onFocus={() => {
+                setWallet(100);
+              }}
+              onBlur={() => {
+                setWallet(50);
+              }}>
+              <Neon color="lilac" positionH="top" positionW="right" width={wallet}>
                 <span className={`material-icons-outlined ${styles.wallet}`}>
                   account_balance_wallet
                 </span>
               </Neon>
-            </div>
+            </li>
           )}
         </div>
       </nav>

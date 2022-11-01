@@ -31,7 +31,7 @@ $bg-palette: (
   @include font($body2, $medium);
   @include shadow-modal;
   position: fixed;
-  top: 4px;
+  top: 68px;
   left: 50%;
   transform: translateX(-50%);
   width: 400px;
