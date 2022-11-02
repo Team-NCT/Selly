@@ -31,13 +31,11 @@ const devConfig = {
   ],
   module: {
     rules: [
-      // jsx
+      // typescript
       {
-        test: /\.jsx?$/i,
+        test: /\.(ts|tsx|js|jsx)$/,
+        use: "babel-loader",
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
       },
 
       // scsss
@@ -69,12 +67,6 @@ const devConfig = {
             },
           },
         ],
-      },
-      // typescript
-      {
-        test: /\.(ts|tsx|js|jsx)$/,
-        use: "babel-loader",
-        exclude: /node_modules/,
       },
 
       // asset
