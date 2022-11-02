@@ -1,4 +1,4 @@
-import { GOERLI_ID, METAMASK_DOWNLOAD_LINNK } from "@/constants/metamask";
+import { GOERLI_ID } from "@/constants/metamask";
 import { getWallet, getChainId } from "@/helpers/service";
 import { useEffect, useCallback, useState } from "react";
 
@@ -10,7 +10,7 @@ import { useEffect, useCallback, useState } from "react";
  */
 
 const useCheckLogined = () => {
-  const [walletAccount, setWalletAccount] = useState<string>("notLogined");
+  const [walletAccount, setWalletAccount] = useState<string | null>(null);
 
   //* 로그인 체크
   const checkLogined = useCallback(async () => {
@@ -26,7 +26,7 @@ const useCheckLogined = () => {
     if (chainId === GOERLI_ID && account) {
       setWalletAccount(account);
     } else {
-      setWalletAccount("notLogined");
+      setWalletAccount(null);
     }
 
     //! API연결되면 아이디 존재 여부랑 로그인확인하는 로직 추가

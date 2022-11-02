@@ -1,19 +1,26 @@
 import "@/styles/base/_base.scss";
 import { Route, Routes } from "react-router-dom";
 import { createPortal } from "react-dom";
-import { useAppSelector } from "@/hooks/useStore";
+import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components";
 import { Home, Counter, Test, Create, NFTDetail } from "@/pages";
 import { useCheckLogined } from "@/hooks";
+import { setAccount } from "@/store/loginSlice";
+import { useEffect } from "react";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
 
+  const dispatch = useAppDispatch();
+
   const walletAccount = useCheckLogined();
-  console.log(walletAccount);
+
+  useEffect(() => {
+    dispatch(setAccount(walletAccount));
+  }, [walletAccount, dispatch]);
 
   return (
     <>
