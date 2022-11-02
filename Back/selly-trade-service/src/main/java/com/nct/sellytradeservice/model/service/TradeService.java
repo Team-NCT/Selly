@@ -16,6 +16,6 @@ public interface TradeService {
 
   Long registP2pSell(SellRegistRequest sellRegistRequest);
 
-  String postTradeLog(String trade, TradeRequest tradeRequest);
+  String postTradeLog(Long trade, TradeRequest tradeRequest);
 
 }

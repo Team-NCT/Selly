@@ -3,6 +3,7 @@ package com.nct.sellytradeservice.model.service;
 import com.nct.sellytradeservice.client.ArticleServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.domain.entity.TradeLog;
+import com.nct.sellytradeservice.domain.entity.TradeRegist;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
 import com.nct.sellytradeservice.model.repository.TradeRegistRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -75,12 +77,40 @@ public class TradeServiceImpl implements TradeService {
     articleServiceClient.sellRegist(sellRegistRequest.getArticleId());
     return 4L;
   }
-
+  @Transactional
   @Override
-  public String postTradeLog(String trade, TradeRequest tradeRequest) {
-    TradeLogResponse tradeLogResponse.build()
-    tradeRequest.getArticleId();
-    tradeLogRepository.save()
-    return null;
+  public String postTradeLog(Long trade, TradeRequest tradeRequest) {
+    Optional<TradeRegist> optionalTradeRegist = tradeRegistRepository.findById(trade);
+      if (optionalTradeRegist.isPresent()) {
+        TradeRegist tradeRegist = optionalTradeRegist.get();
+        if (tradeRegist.getPieceCnt() < tradeRequest.getPieceCnt()) {
+          return "조각 재고가 부족합니다.";
+        }
+        // 거래 로그 등록
+        TradeLogRequest tradeLogRequest = TradeLogRequest.builder()
+                .seller(tradeRegist.getSeller())
+                .buyer(tradeRequest.getBuyer())
+                .articleId(trade)
+                .tradePrice(tradeRegist.getTradePrice())
+                .pieceCnt(tradeRequest.getPieceCnt())
+                .contractAddress(tradeRequest.getContractAddress())
+                .build();
+        tradeLogRepository.save(tradeLogRequest.toEntity());
+        // TradeRegist 수정
+        int stock = tradeRegist.getPieceCnt() - tradeRequest.getPieceCnt();
+        boolean status = stock != 0;
+        tradeRegist.updateTradeRegist(
+                stock,
+                status
+        );
+        // 판매자 소유권 삭제 로직 필요
+        if (!status) {
+          articleServiceClient.
+        }
+
+        return "거래 로그 등록 완료";
+      }
+      return "존재하지 않는 거래입니다.";
+
   }
 }

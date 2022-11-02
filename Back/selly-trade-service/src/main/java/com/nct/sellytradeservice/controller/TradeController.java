@@ -50,7 +50,7 @@ public class TradeController {
   }
 
   @PostMapping("/trade-log")
-  public ResponseEntity<String> response (@RequestParam("trade")String trade, @RequestBody TradeRequest tradeRequest) {
+  public ResponseEntity<String> response (@RequestParam("trade")Long trade, @RequestBody TradeRequest tradeRequest) {
     String response = tradeService.postTradeLog(trade, tradeRequest);
 
     return ResponseEntity.ok()
