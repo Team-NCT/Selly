@@ -2,18 +2,22 @@ package com.nct.sellysearchservice.model.service;
 
 import com.nct.sellysearchservice.client.ArticleServiceClient;
 import com.nct.sellysearchservice.client.TradeServiceClient;
-import com.nct.sellysearchservice.domain.ArticleResponseDto;
-import com.nct.sellysearchservice.domain.TradeResponse;
+import com.nct.sellysearchservice.client.UserServiceClient;
+import com.nct.sellysearchservice.domain.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 @RequiredArgsConstructor
-public class SearchServiceImpl {
+@Service
+public class SearchServiceImpl implements SearchService{
 
   private final ArticleServiceClient articleServiceClient;
   private final TradeServiceClient tradeServiceClient;
+  private final UserServiceClient userServiceClient;
   public List<Object> filter(String sell, String auction) {
     List<ArticleResponseDto> articleResponseDtoList = articleServiceClient.articleResponse(sell);
     List<TradeResponse> tradeLogResponseList = tradeServiceClient.tradeResponse(sell);
@@ -64,5 +68,16 @@ public class SearchServiceImpl {
 //        break;
 //    }
     return null;
+  }
+
+  @Override
+  public HashMap<String, Object> getSearchResult(String keyword) {
+    List<ArticleResponse> articleResponseList = articleServiceClient.articleSearchResponse(keyword);
+    List<SearchUserResponse> userResponseList = userServiceClient.userSearchResponse(keyword);
+    HashMap<String, Object> result = new HashMap<>();
+    result.put("user", userResponseList);
+    result.put("article", articleResponseList);
+
+    return result;
   }
 }

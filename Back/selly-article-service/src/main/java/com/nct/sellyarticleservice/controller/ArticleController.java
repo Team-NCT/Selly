@@ -140,9 +140,15 @@ public class ArticleController {
     return articleService.findByAuction(auction);
   }
 
-  @PostMapping("/{articleId")
-  public ResponseEntity<String> response (@PathVariable("articldId") Long articleId) {
-    String response = articleService.regist
+//  @PostMapping("/{articleId")
+//  public ResponseEntity<String> response (@PathVariable("articldId") Long articleId) {
+//    String response = articleService.regist
+//  }
+
+  // 작품 검색
+  @GetMapping("/search/{keyword}")
+  public List<ArticleResponse> articleSearch(@PathVariable("keyword") String keyword) {
+    return articleService.findByKeyword(keyword);
   }
 
 }

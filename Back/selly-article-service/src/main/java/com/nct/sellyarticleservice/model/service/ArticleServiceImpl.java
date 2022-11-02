@@ -77,7 +77,7 @@ public class ArticleServiceImpl implements ArticleService{
   @Override
   public List<Article> articleCategoryFilter(String category, boolean availability) {
 
-    return articleRepository.findByCategoryAndAvailability(category, availability);
+    return articleRepository.findAllByCategoryAndAvailability(category, availability);
   }
 
   @Override
@@ -111,7 +111,7 @@ public class ArticleServiceImpl implements ArticleService{
               });
               return articleResponseDtoList;
     }
-    List<Article> articleList = articleRepository.findByStatus(status);
+    List<Article> articleList = articleRepository.findAllByStatus(status);
     articleList.forEach(v -> {
       articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
     });
@@ -133,10 +133,20 @@ public class ArticleServiceImpl implements ArticleService{
       });
       return articleResponseDtoList;
     }
-    List<Article> articleList = articleRepository.findByAuction(status);
+    List<Article> articleList = articleRepository.findAllByAuction(status);
     articleList.forEach(v -> {
       articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
     });
     return articleResponseDtoList;
+  }
+
+  @Override
+  public List<ArticleResponse> findByKeyword(String keyword) {
+    List<ArticleResponse> articleResponseList = new ArrayList<>();
+    List<Article> articleList = articleRepository.findAllByArticleName(keyword);
+    articleList.forEach( v -> {
+      articleResponseList.add(new ModelMapper().map(v, ArticleResponse.class));
+    });
+    return articleResponseList;
   }
 }

@@ -5,7 +5,9 @@ import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.service.FollowService;
 import com.b102.sellyuserservice.model.service.UserService;
+
 import com.b102.sellyuserservice.vo.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -97,6 +99,11 @@ public class UserController {
     returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
     returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
     return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+  }
+
+  @GetMapping("/search/{keyword}")
+  public List<SearchUserResponse> userSearch(@PathVariable("keyword") String keyword) {
+    return userService.findByKeyword(keyword);
   }
 
 

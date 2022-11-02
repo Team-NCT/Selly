@@ -34,5 +34,5 @@ public
   private LocalDateTime createRegist;
   @LastModifiedDate
   private LocalDateTime updateRegist;
-
+  private boolean certification;
 }

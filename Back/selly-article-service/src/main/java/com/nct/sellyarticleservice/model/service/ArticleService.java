@@ -26,4 +26,6 @@ public interface ArticleService {
   List<ArticleResponseDto> findBySell(String sell);
 
   List<ArticleResponseDto> findByAuction(String auction);
+
+  List<ArticleResponse> findByKeyword(String keyword);
 }
