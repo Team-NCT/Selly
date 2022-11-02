@@ -15,4 +15,7 @@ public interface TradeService {
   List<TradeResponse> findBySell(String sell);
 
   Long registP2pSell(SellRegistRequest sellRegistRequest);
+
+  String postTradeLog(String trade, TradeRequest tradeRequest);
+
 }

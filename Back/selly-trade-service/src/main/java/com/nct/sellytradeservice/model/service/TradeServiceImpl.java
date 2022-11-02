@@ -1,23 +1,16 @@
 package com.nct.sellytradeservice.model.service;
 
 import com.nct.sellytradeservice.client.ArticleServiceClient;
-import com.nct.sellytradeservice.domain.dto.ArticleResponseDto;
-import com.nct.sellytradeservice.domain.dto.ArticleUpdateRequest;
-import com.nct.sellytradeservice.domain.dto.SellRegistRequest;
-import com.nct.sellytradeservice.domain.dto.TradeResponse;
+import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.domain.entity.TradeLog;
-import com.nct.sellytradeservice.domain.entity.TradeRegist;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
 import com.nct.sellytradeservice.model.repository.TradeRegistRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -81,5 +74,13 @@ public class TradeServiceImpl implements TradeService {
     tradeRegistRepository.save(sellRegistRequest.toEntity());
     articleServiceClient.sellRegist(sellRegistRequest.getArticleId());
     return 4L;
+  }
+
+  @Override
+  public String postTradeLog(String trade, TradeRequest tradeRequest) {
+    TradeLogResponse tradeLogResponse.build()
+    tradeRequest.getArticleId();
+    tradeLogRepository.save()
+    return null;
   }
 }

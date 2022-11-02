@@ -1,9 +1,6 @@
 package com.nct.sellytradeservice.controller;
 
-import com.nct.sellytradeservice.domain.dto.ArticleResponseDto;
-import com.nct.sellytradeservice.domain.dto.ArticleUpdateRequest;
-import com.nct.sellytradeservice.domain.dto.SellRegistRequest;
-import com.nct.sellytradeservice.domain.dto.TradeResponse;
+import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
 import com.nct.sellytradeservice.model.service.TradeService;
 import com.nct.sellytradeservice.model.service.TradeServiceImpl;
@@ -50,5 +47,14 @@ public class TradeController {
     Long response = tradeService.registP2pSell(sellRegistRequest);
     return ResponseEntity.ok()
             .body(response);
+  }
+
+  @PostMapping("/trade-log")
+  public ResponseEntity<String> response (@RequestParam("trade")String trade, @RequestBody TradeRequest tradeRequest) {
+    String response = tradeService.postTradeLog(trade, tradeRequest);
+
+    return ResponseEntity.ok()
+            .body(response);
+
   }
 }
