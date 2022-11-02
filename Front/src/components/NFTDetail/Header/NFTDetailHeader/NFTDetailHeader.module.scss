@@ -1,33 +1,63 @@
 .NFT_detail_header {
-  @include flex(row, center, flex-start);
-  position: relative;
-  padding: 40px 0px;
+  @include flex-center;
+  padding: 20px 0px 40px 0px;
   background-color: $white200;
-  .NFT_detail_header_image {
-    @include flex(column, flex-start, center);
-    //TODO_JK: 뷰포트로 적용안되는 오류
-    width: 100vw;
-    gap: 40px;
-    background-color: $white200;
 
-    img {
-      border-radius: $radius-card;
-      width: 320px;
-      aspect-ratio: 1/1;
-      object-fit: cover;
+  @include tablet {
+    padding: 40px 0px;
+  }
+  section {
+    @include flex-center;
+    @include basic-layout;
+    position: relative;
+    width: calc(100% - 32px);
+
+    .NFT_detail_header_image {
+      @include flex(column, flex-start, center);
+      gap: 40px;
+      width: 100%;
+      margin-top: 72px;
+
+      @include tablet {
+        margin-top: 0px;
+      }
+
+      h1 {
+        @include font($h5, $bold, $main-font);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 70%;
+        max-width: 400px;
+      }
+      img {
+        border-radius: $radius-card;
+        width: 100%;
+        max-width: 320px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+      }
     }
-  }
 
-  .NFT_detail_header_left_icon {
-    position: absolute;
-    top: 40px;
-    left: 0;
-  }
-  .NFT_detail_header_right_icon {
-    @include flex(row, center, flex-start);
-    gap: 32px;
-    position: absolute;
-    top: 24px;
-    right: 0;
+    .NFT_detail_header_left_icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .NFT_detail_header_right_icon {
+      @include flex(row, center, flex-start);
+      gap: 8px;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      @include tablet {
+        gap: 16px;
+      }
+
+      @include laptop {
+        gap: 32px;
+      }
+    }
   }
 }

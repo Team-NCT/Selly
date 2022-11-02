@@ -9,7 +9,7 @@ import { useEffect, useCallback, useState } from "react";
  * 로그인 됬을 경우 chainID 반환
  */
 
-export const useCheckLogined = () => {
+const useCheckLogined = () => {
   const [walletAccount, setWalletAccount] = useState<string>("notLogined");
 
   //* 로그인 체크
@@ -53,3 +53,5 @@ export const useCheckLogined = () => {
 
   return walletAccount;
 };
+
+export default useCheckLogined;
