@@ -1,6 +1,6 @@
 import style from "./Title.module.scss";
 import { Label, TextInput } from "@/components/common";
-import { useInputState } from "@/hooks/useInputState";
+import { useInputState } from "@/hooks";
 
 const Title = () => {
   const [value, handleInputChange] = useInputState();
