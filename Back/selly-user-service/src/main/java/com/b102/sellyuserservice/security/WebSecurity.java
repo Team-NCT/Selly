@@ -42,8 +42,6 @@ public class WebSecurity {
     http.csrf().disable();
     http.authorizeRequests().antMatchers("/error/**").permitAll()
             .antMatchers("/**")
-//            .hasIpAddress("192.168.31.33")
-//            .access("hasIpAddress('192.168.31.33')")
             .access("hasIpAddress('127.0.0.1')")
             .and()
             .addFilter(getCustomAuthenticationFilter());

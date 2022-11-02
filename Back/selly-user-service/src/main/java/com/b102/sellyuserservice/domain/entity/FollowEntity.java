@@ -10,29 +10,22 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "users")@EntityListeners(value= AuditingEntityListener.class)
-public
- class UserEntity {
+@Table(name = "follow")
+@EntityListeners(value= AuditingEntityListener.class)
+public class FollowEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long userId;
+  private Long followId;
 
-  @Column(nullable = false, length = 150, unique = true)
-  private String wallet;
-  @Column(nullable = false, unique = true)
-  private String encryptedPwd;
-  @Column(nullable = false, length = 200)
-  private String image;
-  @Column(nullable = false, length = 200)
-  private String banner;
-  @Column(length = 200)
-  private String introduction;
-  @Column(length = 24, unique = true)
-  private String nickname;
+  @Column(nullable = false)
+  private Long followerId;
+
+  @Column(nullable = false)
+  private Long followingId;
+
   @Column(updatable = false)
   @CreatedDate
   private LocalDateTime createRegist;
   @LastModifiedDate
   private LocalDateTime updateRegist;
-
 }
