@@ -6,7 +6,7 @@ html {
 }
 body {
   min-height: 100%;
-  padding-top: 64px;
+  padding-top: 100px;
   user-select: none;
 }
 
@@ -36,7 +36,8 @@ button {
   background: transparent;
 }
 
-input {
+input,
+textarea {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
     Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;

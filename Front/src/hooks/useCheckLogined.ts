@@ -16,9 +16,6 @@ const useCheckLogined = () => {
   const checkLogined = useCallback(async () => {
     //* 메타마스크 설치 여부 체크
     if (!window.ethereum) {
-      if (window.confirm("메타마스크가 설치되어 있지 않습니다. 설치하시겠습니까?")) {
-        window.open(METAMASK_DOWNLOAD_LINNK, "_blank");
-      }
       return;
     }
 
@@ -27,9 +24,9 @@ const useCheckLogined = () => {
 
     //* 네트워크 일치 여부 && 아이디 존재여부 확인
     if (chainId === GOERLI_ID && account) {
-      await setWalletAccount(account);
+      setWalletAccount(account);
     } else {
-      await setWalletAccount("notLogined");
+      setWalletAccount("notLogined");
     }
 
     //! API연결되면 아이디 존재 여부랑 로그인확인하는 로직 추가

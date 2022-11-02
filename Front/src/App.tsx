@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useAppSelector } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components";
-import { Home, Counter, Test, NFTDetail } from "@/pages";
+import { Home, Counter, Test, Create, NFTDetail } from "@/pages";
 import { useCheckLogined } from "@/hooks";
 
 function App() {
@@ -21,9 +21,10 @@ function App() {
         <Route element={<Navbar />}>
           {/* 메인 페이지 */}
           <Route path="/" element={<Home />} />
+          {/* Create 페이지 */}
+          <Route path="/create" element={<Create />} />
           {/* NFT 상세 페이지 */}
           <Route path="/detail/:id" element={<NFTDetail />} />
-
           {/* 테스트 페이지 */}
           <Route path="/counter" element={<Counter />} />
           <Route path="/test" element={<Test />} />
