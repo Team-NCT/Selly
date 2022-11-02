@@ -16,4 +16,7 @@ public interface FollowService {
   Long followerCount(Long followerId);
   Long followingCount(Long followingId);
   List<FollowEntity> myFollowerDetail(Long userId, Long lastFollowingId);
+  List<FollowEntity> myFollowingDetail(Long userId, Long lastFollowerId);
+  Boolean myFollowingCheck(Long followerId, Long followingId);
+  Boolean myFollowerCheck(Long followingId, Long followerId);
 }
