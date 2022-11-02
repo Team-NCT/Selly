@@ -5,11 +5,16 @@ import { useAppSelector } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components";
 import { Home, Counter, Test } from "@/pages";
+import { useCheckLogined } from "./hooks";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
+
+  const walletAccount = useCheckLogined();
+  console.log(walletAccount);
+
   return (
     <>
       <Routes>

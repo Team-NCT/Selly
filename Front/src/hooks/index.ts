@@ -1,3 +1,3 @@
 export { useAlert } from "./useAlert";
-export { useOutsideClickEffect } from "./useOutsideClickEffect";
+export { useCheckLogined } from "./useCheckLogined";
 export { useInputState } from "./useInputState";
