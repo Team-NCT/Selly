@@ -2,6 +2,13 @@ import { GOERLI_ID, METAMASK_DOWNLOAD_LINNK } from "@/constants/metamask";
 import { getWallet, getChainId } from "@/helpers/service";
 import { useEffect, useCallback, useState } from "react";
 
+/**
+ * 사용법
+ * const walletAccount = useCheckLogined();
+ * 로그인 안됬을 경우 "notLogined" 반환
+ * 로그인 됬을 경우 chainID 반환
+ */
+
 export const useCheckLogined = () => {
   const [walletAccount, setWalletAccount] = useState<string>("notLogined");
 
