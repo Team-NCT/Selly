@@ -26,5 +26,4 @@ public interface UserService extends UserDetailsService {
   // 개인정보변경
   UserDto updateUser(Long userId, RequestUpdate user) throws UnsupportedEncodingException;
 
-  FollowDto followLike(FollowDto followDto);
 }

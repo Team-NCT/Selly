@@ -3,6 +3,7 @@ package com.b102.sellyuserservice.controller;
 import com.b102.sellyuserservice.domain.dto.FollowDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
+import com.b102.sellyuserservice.model.service.FollowService;
 import com.b102.sellyuserservice.model.service.UserService;
 import com.b102.sellyuserservice.vo.*;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ import java.util.List;
 public class UserController {
 
   private final UserService userService;
+  private final FollowService followService;
   private final Environment env;
 
   @PostMapping("/users")
@@ -56,9 +58,15 @@ public class UserController {
     userList.forEach(v -> {
       byte[] imageDecode = Base64.getDecoder().decode(v.getImage());
       byte[] bannerDecode = Base64.getDecoder().decode(v.getBanner());
+
       v.setImage(new String(imageDecode, StandardCharsets.UTF_8));
       v.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
-      result.add(new ModelMapper().map(v, ResponseUser.class));
+      ResponseUser responseUser = new ModelMapper().map(v, ResponseUser.class);
+      Long myFollowerCnt = followService.followerCount(responseUser.getUserId());
+      Long myFollowingCnt = followService.followingCount(responseUser.getUserId());
+      responseUser.setFollowerCnt(myFollowerCnt);
+      responseUser.setFollowingCnt(myFollowingCnt);
+      result.add(responseUser);
     });
 
     return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -71,8 +79,12 @@ public class UserController {
     ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
     byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
     byte[] bannerDecode = Base64.getDecoder().decode(returnValue.getBanner());
+    Long myFollowerCnt = followService.followerCount(userId);
+    Long myFollowingCnt = followService.followingCount(userId);
     returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
     returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+    returnValue.setFollowerCnt(myFollowerCnt);
+    returnValue.setFollowingCnt(myFollowingCnt);
     return ResponseEntity.status(HttpStatus.OK).body(returnValue);
   }
 
@@ -87,17 +99,6 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.OK).body(returnValue);
   }
 
-  @PostMapping("/follow")
-  public ResponseEntity<ResponseFollow> createFollow(@RequestBody RequestFollow follow){
-    ModelMapper mapper = new ModelMapper();
-    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-    FollowDto followDto = mapper.map(follow, FollowDto.class);
-    FollowDto returnValue = userService.followLike(followDto);
-
-    ResponseFollow responseFollow = mapper.map(returnValue, ResponseFollow.class);
-
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseFollow);
-  }
 
 }

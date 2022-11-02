@@ -25,7 +25,6 @@ import java.util.Base64;
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
 
-  private final FollowRepository followRepository;
   private final BCryptPasswordEncoder passwordEncoder;
 
 
@@ -36,7 +35,6 @@ public class UserServiceImpl implements UserService {
     if(userEntity == null){
       throw new UsernameNotFoundException(wallet);
     }
-    System.out.println("로그인 성공");
     return new User(userEntity.getWallet(), userEntity.getEncryptedPwd(), true, true, true, true, new ArrayList<>());
   }
 
@@ -65,7 +63,6 @@ public class UserServiceImpl implements UserService {
     if (userEntity == null){
       throw new UsernameNotFoundException("해당 유저가 없습니다.");
     }
-  
     return new ModelMapper().map(userEntity, UserDto.class);
   }
 
@@ -102,12 +99,5 @@ public class UserServiceImpl implements UserService {
     return mapper.map(userEntity, UserDto.class);
   }
 
-  @Override
-  public FollowDto followLike(FollowDto followDto) {
-    ModelMapper mapper = new ModelMapper();
-    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-    FollowEntity followEntity = mapper.map(followDto, FollowEntity.class);
-    followRepository.save(followEntity);
-    return mapper.map(followEntity, FollowDto.class);
-  }
+
 }

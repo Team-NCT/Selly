@@ -52,7 +52,7 @@ spring:
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
           predicates:
-            - Path=/selly-user-service/**
+            - Path=/selly-user-service/users/**
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
@@ -63,6 +63,33 @@ spring:
           predicates:
             - Path=/selly-user-service/follow
             - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+            - CustomAuthorizationHeaderFilter
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/follower/{userId}
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+            - CustomAuthorizationHeaderFilter
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/following/{userId}
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+            - CustomAuthorizationHeaderFilter
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/follow
+            - Method=DELETE
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
