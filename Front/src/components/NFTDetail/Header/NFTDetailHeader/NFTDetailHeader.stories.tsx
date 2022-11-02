@@ -3,7 +3,7 @@ import NFTDetailHeader from "./NFTDetailHeader";
 import { NFTDetailHeaderProps } from "./NFTDetailHeader.types";
 
 export default {
-  title: "NFTDetail/NFTDetailHeader",
+  title: "NFTDetail/Header/NFTDetailHeader",
   component: NFTDetailHeader,
   parameters: {
     componentSubtitle: "NFT 상세 페이지 헤더",
@@ -11,11 +11,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Default: Story<NFTDetailHeaderProps> = (args) => (
-  <main>
-    <NFTDetailHeader {...args} />
-  </main>
-);
+export const Default: Story<NFTDetailHeaderProps> = (args) => <NFTDetailHeader {...args} />;
 
 Default.args = {
   title: "좀비와 함께 춤을",

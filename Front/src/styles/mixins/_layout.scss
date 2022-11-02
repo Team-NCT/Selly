@@ -51,3 +51,27 @@
     @content;
   }
 }
+
+@mixin basic-layout {
+  margin: auto 16px;
+
+  @media (min-width: 600px) {
+    margin: auto 32px;
+    max-width: 840px;
+  }
+
+  @media (min-width: 905px) {
+    margin: 0 auto;
+    max-width: 840px;
+  }
+
+  @media (min-width: #{$breakpoint-laptop}) {
+    margin: auto 160px;
+    max-width: 1040px;
+  }
+
+  @media (min-width: #{$breakpoint-desktop}) {
+    margin: 0 auto;
+    max-width: 1240px;
+  }
+}
