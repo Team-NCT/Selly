@@ -60,4 +60,30 @@ public class FollowServiceImpl implements FollowService{
     return followRepository.findByFollowerIdAndFollowingIdLessThanOrderByFollowingIdDesc(userId, lastFollowingId, PageRequest.of(0, 5));
   }
 
+  @Override
+  public List<FollowEntity> myFollowingDetail(Long userId, Long lastFollowerId) {
+    return followRepository.findByFollowingIdAndFollowerIdLessThanOrderByFollowerIdDesc(userId, lastFollowerId, PageRequest.of(0, 5));
+  }
+
+  @Override
+  public Boolean myFollowingCheck(Long followerId, Long followingId) {
+    FollowEntity followEntity = followRepository.findByFollowerIdAndFollowingId(followerId, followingId);
+    if (followEntity == null){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  @Override
+  public Boolean myFollowerCheck(Long followingId, Long followerId) {
+    FollowEntity followEntity = followRepository.findByFollowerIdAndFollowingId(followingId, followerId);
+    if (followEntity == null){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 }

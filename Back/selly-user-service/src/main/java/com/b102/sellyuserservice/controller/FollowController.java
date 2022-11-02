@@ -5,10 +5,7 @@ import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.FollowEntity;
 import com.b102.sellyuserservice.model.service.FollowService;
 import com.b102.sellyuserservice.model.service.UserService;
-import com.b102.sellyuserservice.vo.RequestFollow;
-import com.b102.sellyuserservice.vo.ResponseFollow;
-import com.b102.sellyuserservice.vo.ResponseFollowerUser;
-import com.b102.sellyuserservice.vo.ResponseMessage;
+import com.b102.sellyuserservice.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -68,7 +65,24 @@ public class FollowController {
       byte[] imageDecode = Base64.getDecoder().decode(userDto.getImage());
       userDto.setImage(new String(imageDecode, StandardCharsets.UTF_8));
       ResponseFollowerUser responseFollowerUser = new ModelMapper().map(userDto, ResponseFollowerUser.class);
+      responseFollowerUser.setMyFollowing(followService.myFollowingCheck(v.getFollowingId(), v.getFollowerId()));
       result.add(responseFollowerUser);
+    });
+    return ResponseEntity.status(HttpStatus.OK).body(result);
+  }
+
+  @GetMapping("following/{userId}")
+  public ResponseEntity<List<ResponseFollowingUser>> searchMyFollowing(@PathVariable("userId") Long userId, @RequestParam Long lastFollowerId){
+    List<FollowEntity> followList = followService.myFollowingDetail(userId, lastFollowerId);
+
+    List<ResponseFollowingUser> result = new ArrayList<>();
+    followList.forEach(v -> {
+      UserDto userDto = userService.getUserByUserId(v.getFollowerId());
+      byte[] imageDecode = Base64.getDecoder().decode(userDto.getImage());
+      userDto.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      ResponseFollowingUser responseFollowingUser = new ModelMapper().map(userDto, ResponseFollowingUser.class);
+      responseFollowingUser.setMyFollower(followService.myFollowerCheck(v.getFollowingId(), v.getFollowerId()));
+      result.add(responseFollowingUser);
     });
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }
