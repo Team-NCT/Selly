@@ -11,7 +11,6 @@ const Image = () => {
         </Neon>
         <caption className={styles.caption_danger}>*</caption>
       </h2>
-      <ImageInput />
     </>
   );
 };
