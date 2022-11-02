@@ -1,0 +1,22 @@
+.create {
+  height: 80px;
+}
+
+.detail {
+  height: 60px;
+}
+
+.property {
+  @include flex(column, center, center);
+  width: 100%;
+  border: 1px solid $black350;
+  background-color: $white150;
+}
+
+.property_type {
+  @include font($body2, $bold);
+}
+
+.property_name {
+  @include font($body2, $regular);
+}

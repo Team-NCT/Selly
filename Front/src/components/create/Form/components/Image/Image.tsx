@@ -73,7 +73,7 @@ const Image = () => {
       <article className={styles.image_input}>
         <ImageInput
           id="create-image"
-          limit={100}
+          limit={10}
           handleInputChange={handleInputChange}
           imageUrl={imageUrl}
         />
