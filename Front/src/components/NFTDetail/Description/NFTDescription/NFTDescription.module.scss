@@ -1,0 +1,15 @@
+.NFT_detail_description_DESC {
+  @include flex(column, flex-start, flex-start);
+  gap: 16px;
+  h1 {
+    @include font($h5, $bold, $main-font);
+  }
+
+  p {
+    @include font($body2, $medium, $main-font);
+  }
+
+  button {
+    @include font($body2, $bold, $main-font);
+  }
+}
