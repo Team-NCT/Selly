@@ -3,7 +3,7 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Neon, TextInput, ProfileImage } from "@/components/common/index";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
-import { useInputState } from "@/hooks/useInputState";
+import { useInputState } from "@/hooks";
 
 const Navbar = () => {
   const [isLogin, setIsLogin] = useState(true);

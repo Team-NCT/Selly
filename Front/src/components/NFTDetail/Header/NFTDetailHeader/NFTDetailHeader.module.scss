@@ -1,6 +1,6 @@
 .NFT_detail_header {
   @include flex-center;
-  padding: 0px 0px 40px 0px;
+  padding: 20px 0px 40px 0px;
   background-color: $white200;
 
   @include tablet {
@@ -10,13 +10,13 @@
     @include flex-center;
     @include basic-layout;
     position: relative;
-    width: 100%;
+    width: calc(100% - 32px);
 
     .NFT_detail_header_image {
       @include flex(column, flex-start, center);
       gap: 40px;
       width: 100%;
-      margin-top: 96px;
+      margin-top: 72px;
 
       @include tablet {
         margin-top: 0px;
@@ -41,14 +41,14 @@
 
     .NFT_detail_header_left_icon {
       position: absolute;
-      top: 32px;
+      top: 0;
       left: 0;
     }
     .NFT_detail_header_right_icon {
       @include flex(row, center, flex-start);
       gap: 8px;
       position: absolute;
-      top: 24px;
+      top: 0;
       right: 0;
 
       @include tablet {

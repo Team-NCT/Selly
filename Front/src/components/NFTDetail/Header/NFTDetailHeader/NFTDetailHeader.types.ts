@@ -5,6 +5,11 @@ export interface NFTDetailHeaderProps {
   title: string;
 
   /**
+   * NFT를 식별하기 위한 ID
+   */
+  id: number;
+
+  /**
    * NFT Image URL
    */
   imageUrl: string;
