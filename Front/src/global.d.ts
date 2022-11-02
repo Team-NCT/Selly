@@ -11,4 +11,5 @@ declare module "*.jpeg";
 
 interface Window {
   Kakao: any;
+  ethereum: any;
 }
