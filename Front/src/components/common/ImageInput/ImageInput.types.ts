@@ -1,5 +1,3 @@
-import { ChangeEvent } from "react";
-
 export const ImageInputStyleType = ["round", "square"] as const;
 
 export interface ImageInputProps {

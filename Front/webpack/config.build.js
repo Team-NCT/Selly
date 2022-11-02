@@ -13,28 +13,10 @@ const buildConfig = {
     filename: "js/[name].min.js",
     chunkFilename: "js/[name].chunk.js",
     assetModuleFilename: "assets/[name].[hash].[ext]",
+    clean: true,
   },
   module: {
-    rules: [
-      ...devConfig.module.rules.filter(({ test: regExp }) => !regExp.test(".css")),
-      {
-        test: /\.s?[ac]ss$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-          {
-            loader: "sass-loader",
-            options: {
-              additionalData: `
-              @import "./src/styles/variables/_variables.scss";
-              @import "./src/styles/mixins/_mixins.scss";
-        `,
-            },
-          },
-        ],
-      },
-    ],
+    rules: [],
   },
   plugins: [new MiniCssExtractPlugin()],
   optimization: {
