@@ -1,15 +1,16 @@
-package com.nct.sellyarticleservice.domain.dto;
+package com.nct.sellysearchservice.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class ArticleResponse {
 
   private Long articleId;

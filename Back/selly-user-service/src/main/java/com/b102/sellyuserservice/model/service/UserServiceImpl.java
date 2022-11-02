@@ -5,6 +5,7 @@ import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.repository.UserRepository;
 import com.b102.sellyuserservice.vo.RequestUpdate;
 import com.b102.sellyuserservice.vo.RequestUser;
+import com.b102.sellyuserservice.vo.SearchUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -19,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -99,5 +101,15 @@ public class UserServiceImpl implements UserService {
     userRepository.save(userEntity);
     ModelMapper mapper = new ModelMapper();
     return mapper.map(userEntity, UserDto.class);
+  }
+
+  @Override
+  public List<SearchUserResponse> findByKeyword(String keyword) {
+    List<SearchUserResponse> userResponseList = new ArrayList<>();
+    List<UserEntity> articleList = userRepository.findAllByNickname(keyword);
+    articleList.forEach( v -> {
+      userResponseList.add(new ModelMapper().map(v, SearchUserResponse.class));
+    });
+    return userResponseList;
   }
 }

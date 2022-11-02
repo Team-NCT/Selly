@@ -47,6 +47,21 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
             - CustomAuthorizationHeaderFilter
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/
+        - id: selly-article-service
+          uri: lb://SELLY-ARTICLE-SERVICE
+          predicates:
+            - Path=/selly-article-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, Logging filter
+                preLogger: true
+                postLogger: true
         - id: selly-trade-service
           uri: lb://SELLY-TRADE-SERVICE
           predicates:
