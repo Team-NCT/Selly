@@ -122,7 +122,7 @@ const Navbar = () => {
               }}
               onClick={() => setMenuToggle(false)}
               aria-hidden="true">
-              <NavLink to="/test">
+              <NavLink to="/create">
                 <Neon
                   color="muscat"
                   positionH="bottom"
