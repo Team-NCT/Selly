@@ -4,8 +4,8 @@ import style from "./BackArrowIcon.module.scss";
 const BackArrowIcon = () => {
   const navigate = useNavigate();
   return (
-    <button onClick={() => navigate(-1)}>
-      <span className={style.back_arrow_icon}></span>
+    <button className={style.button_back_arrow} onClick={() => navigate(-1)}>
+      <span className={style.button_back_arrow_icon}></span>
     </button>
   );
 };
