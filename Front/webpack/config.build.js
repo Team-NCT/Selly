@@ -9,6 +9,7 @@ const buildConfig = {
   mode: "production",
   devtool: "cheap-module-source-map",
   output: {
+    publicPath: "/",
     path: getAbsPath("dist"),
     filename: "js/[name].min.js",
     chunkFilename: "js/[name].chunk.js",

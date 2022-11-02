@@ -1,10 +1,12 @@
 import style from "./ShareDropdown.module.scss";
 import { ShareDropDownProps } from "./ShareDropDown.types";
+import { useKakaoShare } from "@/hooks";
 
-const ShareDropdown = ({ url = "" }: ShareDropDownProps) => {
-  //TODO_JK: 공유하기 로직 추가
+const ShareDropdown = ({ title, id, imageUrl, url = "" }: ShareDropDownProps) => {
+  const { kakaoShare } = useKakaoShare();
   const clickShareButton = () => {
-    alert("공유");
+    console.log(title, id, imageUrl);
+    kakaoShare({ title, id, imageUrl });
   };
   return (
     <ul className={style.dialog_icon_share}>

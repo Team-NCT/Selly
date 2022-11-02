@@ -8,7 +8,7 @@ import { ChangeEventHandler, useCallback, useState } from "react";
  * return <input value={value} onChange={handleInputChange} />
  */
 
-export function useInputState(initialValue = "", transformValue: (value: string) => string = echo) {
+function useInputState(initialValue = "", transformValue: (value: string) => string = echo) {
   const [value, setValue] = useState(initialValue);
 
   const handleValueChange: ChangeEventHandler<HTMLElement & { value: string }> = useCallback(
@@ -24,3 +24,5 @@ export function useInputState(initialValue = "", transformValue: (value: string)
 function echo(v: string) {
   return v;
 }
+
+export default useInputState;

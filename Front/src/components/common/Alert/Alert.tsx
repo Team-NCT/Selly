@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAlert } from "@/hooks/useAlert";
+import { useAlert } from "@/hooks";
 import { AlertProps } from "./Alert.types";
 import styles from "./Alert.module.scss";
 
