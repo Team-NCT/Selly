@@ -62,6 +62,8 @@ public class  Article {
 
   private boolean status;
 
+  private double recentMarketPrice;
+
   @Builder
   public Article(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner, String tokenId, boolean auction, boolean status) {
     this.articleId = articleId;

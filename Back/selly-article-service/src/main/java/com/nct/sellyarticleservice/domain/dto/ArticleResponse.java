@@ -1,5 +1,6 @@
 package com.nct.sellyarticleservice.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArticleResponse {
 
   private Long articleId;
@@ -47,4 +49,6 @@ public class ArticleResponse {
   private Double price;
 
   private Long owner;
+
+  private double recentMarketPrice;
 }

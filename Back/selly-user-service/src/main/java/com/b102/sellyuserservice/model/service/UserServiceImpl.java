@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<SearchUserResponse> findByKeyword(String keyword) {
     List<SearchUserResponse> userResponseList = new ArrayList<>();
-    List<UserEntity> articleList = userRepository.findAllByNickname(keyword);
+    List<UserEntity> articleList = userRepository.findAllByNicknameContaining(keyword);
     articleList.forEach( v -> {
       userResponseList.add(new ModelMapper().map(v, SearchUserResponse.class));
     });

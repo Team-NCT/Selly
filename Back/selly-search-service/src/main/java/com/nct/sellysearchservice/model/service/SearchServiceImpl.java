@@ -77,7 +77,6 @@ public class SearchServiceImpl implements SearchService{
     HashMap<String, Object> result = new HashMap<>();
     result.put("user", userResponseList);
     result.put("article", articleResponseList);
-
     return result;
   }
 }
