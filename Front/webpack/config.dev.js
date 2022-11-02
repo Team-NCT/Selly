@@ -12,6 +12,7 @@ const devConfig = {
     main: getAbsPath("src/index.tsx"),
   },
   output: {
+    publicPath: "/",
     path: getAbsPath("dist"),
     filename: "main.js",
   },

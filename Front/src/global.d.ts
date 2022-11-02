@@ -8,3 +8,7 @@ declare module "*.scss" {
 declare module "*.png";
 declare module "*.jpg";
 declare module "*.jpeg";
+
+interface Window {
+  Kakao: any;
+}

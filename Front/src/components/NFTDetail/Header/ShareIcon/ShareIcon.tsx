@@ -3,7 +3,7 @@ import style from "./ShareIcon.module.scss";
 import { ShareDropDown } from "@/components/NFTDetail/Header";
 import { ShareDropDownProps } from "../ShareDropDown/ShareDropDown.types";
 
-const ShareIcon = ({ url = "" }: ShareDropDownProps) => {
+const ShareIcon = ({ title, id, imageUrl, url = "" }: ShareDropDownProps) => {
   const [dialogStatus, setDialogStatus] = useState(false);
   const handleButtonClick = () => {
     setDialogStatus((prev) => !prev);
@@ -14,7 +14,7 @@ const ShareIcon = ({ url = "" }: ShareDropDownProps) => {
         <span className="material-icons-outlined">share</span>
       </button>
       <dialog open={dialogStatus}>
-        <ShareDropDown url={url} />
+        <ShareDropDown id={id} title={title} imageUrl={imageUrl} url={url} />
       </dialog>
     </div>
   );
