@@ -13,17 +13,6 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-#        - id: selly-user-service
-#          uri: lb://SELLY-USER-SERVICE
-#          predicates:
-#            - Path=/selly-user-service/**
-#          filters:
-#            - name: CustomFilter
-#            - name: LoggingFilter
-#              args:
-#                baseMessage: Hi, Logging filter
-#                preLogger: true
-#                postLogger: true
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
           predicates:
@@ -58,6 +47,7 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
             - CustomAuthorizationHeaderFilter
+<<<<<<< Back/selly-gateway/src/main/resources/application.yml
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
           predicates:
@@ -96,8 +86,11 @@ spring:
             - CustomAuthorizationHeaderFilter
         - id: selly-article-service
           uri: lb://SELLY-ARTICLE-SERVICE
+=======
+        - id: selly-trade-service
+          uri: lb://SELLY-TRADE-SERVICE
           predicates:
-            - Path=/selly-article-service/**
+            - Path=/selly-trade-service/**
           filters:
             - name: CustomFilter
             - name: LoggingFilter
@@ -105,10 +98,10 @@ spring:
                 baseMessage: Hi, Logging filter
                 preLogger: true
                 postLogger: true
-        - id: selly-trade-service
-          uri: lb://SELLY-TRADE-SERVICE
+        - id: selly-search-service
+          uri: lb://SELLY-SEARCH-SERVICE
           predicates:
-            - Path=/selly-trade-service/**
+            - Path=/selly-search-service/**
           filters:
             - name: CustomFilter
             - name: LoggingFilter
@@ -125,3 +118,4 @@ eureka:
 
 token:
   secret: '01234567890123456789012345678901234567890123456789'
+

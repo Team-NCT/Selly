@@ -11,15 +11,19 @@ import java.util.List;
 
 public interface ArticleService {
 
-  public Long createArticle(ArticleRequest articleRequest);
+   Long createArticle(ArticleRequest articleRequest);
 
-  public List<Article> findByAll();
+   List<ArticleResponseDto> findByAll();
 
-  public ArticleResponseDto findById(Long id);
+   ArticleResponseDto findById(Long id);
 
-  public Long numberOfArticle();
+   Long numberOfArticle();
 
-  public List<Article> articleCategoryFilter(String category, boolean avaiability);
+   List<Article> articleCategoryFilter(String category, boolean avaiability);
 
   ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id);
+
+  List<ArticleResponseDto> findBySell(String sell);
+
+  List<ArticleResponseDto> findByAuction(String auction);
 }

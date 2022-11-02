@@ -52,6 +52,8 @@ public class ArticleResponseDto {
   private Long owner;
 
   private String tokenId;
+
+  private boolean auction;
 //
 //  public ArticleResponseDto(Article entity) {
 //    this.articleId = entity.getArticleId();

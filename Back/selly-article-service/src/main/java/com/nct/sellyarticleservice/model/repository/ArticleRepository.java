@@ -13,5 +13,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
   List<Article> findByAvailability(boolean availability, Sort sort);
 
+  List<Article> findByStatus(boolean status);
+
+  List<Article> findByAuction(boolean status);
+
 //  List<Article> findAllByCreateRegistDesc();
 }

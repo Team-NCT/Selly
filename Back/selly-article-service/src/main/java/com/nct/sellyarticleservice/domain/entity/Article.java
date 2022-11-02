@@ -58,8 +58,12 @@ public class  Article {
 
   private String tokenId;
 
+  private boolean auction;
+
+  private boolean status;
+
   @Builder
-  public Article(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner, String tokenId) {
+  public Article(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner, String tokenId, boolean auction, boolean status) {
     this.articleId = articleId;
     this.availability = availability;
     this.category = category;
@@ -79,6 +83,8 @@ public class  Article {
     this.price = price;
     this.owner = owner;
     this.tokenId = tokenId;
+    this.auction = auction;
+    this.status = status;
   }
 
   public void updateArticle(boolean availability, LocalDateTime createRegist) {
