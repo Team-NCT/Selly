@@ -17,7 +17,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
   List<Article> findAllByAuction(boolean status);
 
-  List<Article> findAllByArticleName(String articleName);
+  List<Article> findAllByArticleNameContaining(String articleName);
 
 //  List<Article> findAllByCreateRegistDesc();
 }

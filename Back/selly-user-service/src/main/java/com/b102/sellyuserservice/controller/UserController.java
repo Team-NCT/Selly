@@ -105,7 +105,4 @@ public class UserController {
   public List<SearchUserResponse> userSearch(@PathVariable("keyword") String keyword) {
     return userService.findByKeyword(keyword);
   }
-
-
-
 }

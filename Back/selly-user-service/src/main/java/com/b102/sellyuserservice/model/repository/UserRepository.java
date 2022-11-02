@@ -12,5 +12,5 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
   UserEntity findByWallet(String wallet);
 
-  List<UserEntity> findAllByNickname(String keyword);
+  List<UserEntity> findAllByNicknameContaining(String keyword);
 }

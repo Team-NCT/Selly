@@ -143,7 +143,7 @@ public class ArticleServiceImpl implements ArticleService{
   @Override
   public List<ArticleResponse> findByKeyword(String keyword) {
     List<ArticleResponse> articleResponseList = new ArrayList<>();
-    List<Article> articleList = articleRepository.findAllByArticleName(keyword);
+    List<Article> articleList = articleRepository.findAllByArticleNameContaining(keyword);
     articleList.forEach( v -> {
       articleResponseList.add(new ModelMapper().map(v, ArticleResponse.class));
     });
