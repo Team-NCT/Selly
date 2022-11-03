@@ -25,7 +25,7 @@ const devConfig = {
     new webpack.ProvidePlugin({
       React: "react",
     }),
-    new Dotenv({ prefix: "SELLY_" }),
+    new Dotenv(),
     new webpack.ProvidePlugin({
       process: "process/browser",
     }),
