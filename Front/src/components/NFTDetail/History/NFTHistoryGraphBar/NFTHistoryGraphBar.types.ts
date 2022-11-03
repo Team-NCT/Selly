@@ -6,6 +6,16 @@ export interface NFTHistoryGraphBarProps {
   height: number;
 
   /**
+   * 거래 발생 날짜
+   */
+  date: string;
+
+  /**
+   * 거래 내역 평균 값
+   */
+  average: number;
+
+  /**
    * 거래 내역 바를 마우스 호버 했을 때, 실행하는 함수
    */
   handleMouseOver: () => void;
