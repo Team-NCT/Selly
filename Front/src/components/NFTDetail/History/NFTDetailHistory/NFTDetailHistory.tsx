@@ -5,9 +5,6 @@ import { Neon } from "@/components/common";
 import { calcNFTTransactionHistoryGraph } from "@/helpers/service/calcGraph";
 
 const NFTDetailHistory = ({ transactionHistory, totalAverage }: NFTDetailHistoryProps) => {
-  const handleMouseOver = (index: number) => {
-    alert(index);
-  };
   const calcTransactionHistory = calcNFTTransactionHistoryGraph(transactionHistory);
 
   return (
@@ -23,13 +20,7 @@ const NFTDetailHistory = ({ transactionHistory, totalAverage }: NFTDetailHistory
       </section>
       <ul className={style.NFT_detail_history_graph}>
         {calcTransactionHistory.map((item, index) => (
-          <NFTHistoryGraphBar
-            height={item.height}
-            date={item.date}
-            average={item.average}
-            key={index}
-            handleMouseOver={() => handleMouseOver(index)}
-          />
+          <NFTHistoryGraphBar {...item} key={index} />
         ))}
         <hr />
       </ul>
