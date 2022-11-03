@@ -62,8 +62,13 @@ public class FollowController {
     List<ResponseFollowerUser> result = new ArrayList<>();
     followList.forEach(v -> {
       UserDto userDto = userService.getUserByUserId(v.getFollowingId());
-      byte[] imageDecode = Base64.getDecoder().decode(userDto.getImage());
-      userDto.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      if(userDto.getImage() != null){
+        byte[] imageDecode = Base64.getDecoder().decode(userDto.getImage());
+        userDto.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      } else if (userDto.getImage() == null){
+        userDto.setImage("default");
+      }
+
       ResponseFollowerUser responseFollowerUser = new ModelMapper().map(userDto, ResponseFollowerUser.class);
       responseFollowerUser.setMyFollowing(followService.myFollowingCheck(v.getFollowingId(), v.getFollowerId()));
       result.add(responseFollowerUser);
@@ -78,8 +83,12 @@ public class FollowController {
     List<ResponseFollowingUser> result = new ArrayList<>();
     followList.forEach(v -> {
       UserDto userDto = userService.getUserByUserId(v.getFollowerId());
-      byte[] imageDecode = Base64.getDecoder().decode(userDto.getImage());
-      userDto.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      if(userDto.getImage() != null){
+        byte[] imageDecode = Base64.getDecoder().decode(userDto.getImage());
+        userDto.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      } else if (userDto.getImage() == null){
+        userDto.setImage("default");
+      }
       ResponseFollowingUser responseFollowingUser = new ModelMapper().map(userDto, ResponseFollowingUser.class);
       responseFollowingUser.setMyFollower(followService.myFollowerCheck(v.getFollowingId(), v.getFollowerId()));
       result.add(responseFollowingUser);

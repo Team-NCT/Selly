@@ -14,5 +14,6 @@ public class ResponseUser {
   private String introduction;
   private Long followerCnt;
   private Long followingCnt;
+  private boolean myFollowing;
 }
 
