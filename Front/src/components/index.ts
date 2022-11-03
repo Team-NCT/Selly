@@ -6,4 +6,4 @@ export * from "./icon";
 
 export * from "./NFTDetail/Header";
 
-export * from "./Sell"
+export * from "./Sell";
