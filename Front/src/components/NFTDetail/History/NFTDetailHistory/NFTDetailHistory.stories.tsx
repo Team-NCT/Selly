@@ -12,7 +12,7 @@ export default {
 } as Meta;
 
 export const Default: Story<NFTDetailHistoryProps> = (args) => (
-  <div style={{ width: "600px" }}>
+  <div style={{ maxWidth: "600px" }}>
     <NFTDetailHistory {...args} />
   </div>
 );
