@@ -1,6 +1,7 @@
 package com.b102.sellyuserservice.controller;
 
 import com.b102.sellyuserservice.domain.dto.FollowDto;
+import com.b102.sellyuserservice.domain.dto.NftPieceDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.service.FollowService;
@@ -104,5 +105,29 @@ public class UserController {
   @GetMapping("/search/{keyword}")
   public List<SearchUserResponse> userSearch(@PathVariable("keyword") String keyword) {
     return userService.findByKeyword(keyword);
+  }
+  @PostMapping("/ownership/{userId}")
+  public ResponseEntity<Object> postOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
+    NftPieceDto response = userService.postOwnership(userId, tradeRequest);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  // 특정 유저가 가진 특정 작품의 소유권 조회
+  @GetMapping("/ownership/{userId}")
+  public ResponseEntity<Object> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
+    NftPieceDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+
+  @PutMapping("/ownership/{userId}")
+  public ResponseEntity<Object> updateOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
+    NftPieceDto response = userService.updateOwnership(userId, tradeRequest);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+  @DeleteMapping("/ownership/{userId}")
+  public ResponseEntity<Object> deleteOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
+    NftPieceDto response = userService.deleteOwnership(userId, tradeRequest);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }

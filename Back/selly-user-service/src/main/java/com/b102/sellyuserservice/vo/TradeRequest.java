@@ -1,4 +1,4 @@
-package com.nct.sellytradeservice.domain.dto;
+package com.b102.sellyuserservice.vo;
 
 import lombok.Getter;
 

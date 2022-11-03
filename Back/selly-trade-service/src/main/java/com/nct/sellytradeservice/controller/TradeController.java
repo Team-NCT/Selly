@@ -6,6 +6,7 @@ import com.nct.sellytradeservice.model.service.TradeService;
 import com.nct.sellytradeservice.model.service.TradeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,12 +50,19 @@ public class TradeController {
             .body(response);
   }
 
+  // 거래 API
+  @PostMapping("/trade/{userId}")
+  public ResponseEntity<Object> response(@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
+    Object response = tradeService.trade(sellerId, buyerId, tradeRequest);
+    return ResponseEntity.ok()
+            .body(response);
+  }
+
   @PostMapping("/trade-log")
   public ResponseEntity<String> response (@RequestParam("trade")Long trade, @RequestBody TradeRequest tradeRequest) {
     String response = tradeService.postTradeLog(trade, tradeRequest);
 
     return ResponseEntity.ok()
             .body(response);
-
   }
 }

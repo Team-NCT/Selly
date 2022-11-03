@@ -1,19 +1,26 @@
 package com.b102.sellyuserservice.model.service;
 
 import com.b102.sellyuserservice.domain.dto.FollowDto;
+import com.b102.sellyuserservice.domain.dto.NftPieceDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.FollowEntity;
+import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.repository.FollowRepository;
+import com.b102.sellyuserservice.model.repository.NftPieceRepository;
 import com.b102.sellyuserservice.model.repository.UserRepository;
 
 import com.b102.sellyuserservice.vo.RequestUpdate;
 import com.b102.sellyuserservice.vo.RequestUser;
 import com.b102.sellyuserservice.vo.SearchUserResponse;
 
+import com.b102.sellyuserservice.vo.TradeRequest;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,10 +36,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
-
+  private final NftPieceRepository nftPieceRepository;
   private final BCryptPasswordEncoder passwordEncoder;
-
-
+  private final ModelMapper mapper;
 
   @Override
   public UserDetails loadUserByUsername(String wallet) throws UsernameNotFoundException {
@@ -112,5 +118,36 @@ public class UserServiceImpl implements UserService {
       userResponseList.add(new ModelMapper().map(v, SearchUserResponse.class));
     });
     return userResponseList;
+  }
+
+  @Override
+  public String trade(Long userId, TradeRequest tradeRequest) {
+
+    return null;
+  }
+  @Override
+  public NftPieceDto postOwnership(Long userId, TradeRequest tradeRequest) {
+    NftPiece nftPiece = nftPieceRepository.save(mapper.map(tradeRequest, NftPiece.class));
+    return mapper.map(nftPiece, NftPieceDto.class);
+  }
+  @Override
+  public NftPieceDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
+    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
+    return mapper.map(nftPiece, NftPieceDto.class);
+  }
+
+  @Override
+  public NftPieceDto updateOwnership(Long userId, TradeRequest tradeRequest) {
+    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
+    nftPiece.updateOwnership(
+            nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt(),
+            (nftPiece.getAvgPrice()*nftPiece.getNftPieceCnt() + tradeRequest.getPieceCnt()* tradeRequest.getTradePrice())/(nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt())
+    );
+    return mapper.map(nftPiece, NftPieceDto.class);
+  }
+  @Override
+  public NftPieceDto deleteOwnership(Long userId, TradeRequest tradeRequest) {
+    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
+    return null;
   }
 }

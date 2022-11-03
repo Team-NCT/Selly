@@ -1,11 +1,21 @@
 package com.nct.sellytradeservice.client;
 
+import com.nct.sellytradeservice.domain.dto.NftPieceDto;
+import com.nct.sellytradeservice.domain.dto.NftPieceRequest;
+import com.nct.sellytradeservice.domain.dto.TradeRequest;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @FeignClient(name = "selly-user-service")
 public interface UserServiceClient {
+  @GetMapping("/selly-user-service/{userId}")
+  Optional<NftPieceDto> getOwnership(@PathVariable("userId") Long userId);
+  @PostMapping("/selly-user-service/{userId}")
+  NftPieceDto createOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
   @DeleteMapping("/selly-user-service/{userId}")
-  String ownershipDelete(@PathVariable("userId") Long userId);
+  NftPieceDto deleteOwnership(@PathVariable("userId") Long userId);
+  @PutMapping("/selly-user-service/{userId}")
+  NftPieceDto updateOwnership(@PathVariable("userId") Long userId, @RequestBody NftPieceRequest tradeRequest);
 }

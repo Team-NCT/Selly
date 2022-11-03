@@ -18,4 +18,5 @@ public interface TradeService {
 
   String postTradeLog(Long trade, TradeRequest tradeRequest);
 
+  Object trade(Long sellerId, Long buyerId, TradeRequest tradeRequest);
 }
