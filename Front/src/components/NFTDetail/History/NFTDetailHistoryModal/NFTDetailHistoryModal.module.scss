@@ -1,4 +1,5 @@
 .NFT_detail_history_modal {
+  @include shadow-drop1;
   position: absolute;
   padding: 8px 12px;
   width: max-content;
