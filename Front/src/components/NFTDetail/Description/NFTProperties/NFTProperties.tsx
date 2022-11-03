@@ -27,7 +27,7 @@ const NFTProperties = ({ properties }: NFTPropertiesProps) => {
         })}
       </div>
 
-      {/* 속성이 3개보다 적거나, 속성이 전부 보여졌으면 더보기 버튼이 보이지 않는다. */}
+      {/* 속성이 6개보다 적거나, 속성이 전부 보여졌으면 더보기 버튼이 보이지 않는다. */}
       <button
         onClick={handleButtonClick}
         hidden={properties.length <= 6 || NFTProperties === properties}>
