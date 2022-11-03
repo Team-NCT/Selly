@@ -1,4 +1,3 @@
-import { MouseEvent } from "react";
 export interface NFTHistoryGraphBarProps {
   /**
    * 거래 내역 바 그래프의 높이
