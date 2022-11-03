@@ -24,8 +24,8 @@ public class TradeServiceImpl implements TradeService {
   private final UserServiceClient userServiceClient;
   private final ArticleServiceClient articleServiceClient;
   private final TradeLogRepository tradeLogRepository;
-
   private final TradeRegistRepository tradeRegistRepository;
+
 //  @Override
 //  public String registArticleSell(Long id, ArticleUpdateRequest articleUpdateRequest){
 //    ArticleUpdateRequest.builder()
@@ -74,14 +74,18 @@ public class TradeServiceImpl implements TradeService {
 
   @Transactional
   @Override
-  public Long registP2pSell(SellRegistRequest sellRegistRequest) {
+  public String registP2pSell(SellRegistRequest sellRegistRequest) {
+    Object articleResponseDto = articleServiceClient.articleResponse(sellRegistRequest.getArticleId());
+    articleResponseDto.
+    if (articleResponseDto.getArticleId() == null) {
+      return "존재하지 않는 상품입니다.";
+    }
     tradeRegistRepository.save(sellRegistRequest.toEntity());
-    articleServiceClient.sellRegist(sellRegistRequest.getArticleId());
-    return 4L;
+    return "등록 성공";
   }
   // 거래 API
   @Override
-  public Object trade(Long sellerId, Long buyerId, TradeRequest tradeRequest) {
+  public Object trade(Long sellerId, Long buyerId, TradeRequest tradeRequest) throws NullPointerException {
     Optional<TradeRegist> optionalTradeRegist = tradeRegistRepository.findById(tradeRequest.getArticleId());
     if (optionalTradeRegist.isPresent()) {
       TradeRegist tradeRegist = optionalTradeRegist.get();
@@ -94,30 +98,53 @@ public class TradeServiceImpl implements TradeService {
       Long buyer = tradeRequest.getBuyer();
       Long seller = tradeRegist.getSeller();
       // TradeRegist 수정
-      int stock = tradeRegist.getPieceCnt() - tradeRequest.getPieceCnt();
+      Integer stock = tradeRegist.getPieceCnt() - tradeRequest.getPieceCnt();
       boolean status = stock != 0;
+      System.out.println(status);
+      System.out.println(stock);
       // status가 false(0)면 품절, 품절이면 status = false
-      if (status) {
-        tradeRegist.updateTradeRegist(stock, true);
-      } else {
-        tradeRegist.updateTradeRegist(stock, false);
-      }
+      tradeRegist.updateTradeRegist(stock, status);
+      tradeRegistRepository.save(tradeRegist);
       // 구매자 소유권 생성, 수정
-      Optional<NftPieceDto> oBuyerOwnership = userServiceClient.getOwnership(buyer);
+      Optional<NftPieceDto> oBuyerOwnership = userServiceClient.getOwnership(buyer, tradeRequest);
       if (oBuyerOwnership.isPresent()) {
         NftPieceDto buyerOwnership = oBuyerOwnership.get();
-        NftPieceRequest buyerRequest = NftPieceRequest.builder()
-                .avgPrice(((buyerOwnership.getAvgPrice() * buyerOwnership.getNftPieceCnt())
-                        + (tradeRequest.getTradePrice() * tradeRequest.getPieceCnt()))
-                        / (buyerOwnership.getNftPieceCnt() + tradeRequest.getPieceCnt()))
-                .nftPieceCnt(buyerOwnership.getNftPieceCnt() + tradeRequest.getPieceCnt())
-                .build();
-        userServiceClient.updateOwnership(buyer, buyerRequest);
-      } else {
-        userServiceClient.createOwnership(buyer, tradeRequest);
+        System.out.println("##########################################");
+        System.out.println(buyerOwnership.getUserId());
+        System.out.println(buyerOwnership.getAvgPrice());
+        System.out.println(buyerOwnership.getNftPieceCnt());
+//        double avgPrice = ((buyerOwnership.getAvgPrice() * buyerOwnership.getNftPieceCnt())
+//                + (tradeRequest.getTradePrice() * tradeRequest.getPieceCnt()))
+//                / (buyerOwnership.getNftPieceCnt() + tradeRequest.getPieceCnt());
+//        Long nftPieceCnt = buyerOwnership.getNftPieceCnt() + tradeRequest.getPieceCnt();
+//        System.out.println(avgPrice);
+//        System.out.println("!@!#$!@#$!@#$!@#$!@#$@!$!@#$!@$!@#$!@$@!#$");
+//        System.out.println(nftPieceCnt);
+        if (buyerOwnership.getUserId() != null) {
+          NftPieceRequest buyerRequest = NftPieceRequest.builder()
+                  .avgPrice(((buyerOwnership.getAvgPrice() * buyerOwnership.getNftPieceCnt())
+                          + (tradeRequest.getTradePrice() * tradeRequest.getPieceCnt()))
+                          / (buyerOwnership.getNftPieceCnt() + tradeRequest.getPieceCnt()))
+                  .nftPieceCnt(buyerOwnership.getNftPieceCnt() + tradeRequest.getPieceCnt())
+                  .build();
+          userServiceClient.updateOwnership(buyer, buyerRequest);
+        }
+//
+//        NftPieceRequest buyerRequest = NftPieceRequest.builder()
+//                .articleId(buyerOwnership.getArticleId())
+//                .userId(buyerId)
+//                .nftPieceCnt(nftPieceCnt)
+//                .avgPrice(avgPrice)
+////                .avgPrice(10)
+////                .nftPieceCnt(5L)
+//
+//                .build();
+//        userServiceClient.updateOwnership(buyer, buyerRequest);
       }
+      userServiceClient.createOwnership(buyer, tradeRequest);
+
       // 판매자 소유권 삭제, 수정
-      Optional<NftPieceDto> oSellerOwnership = userServiceClient.getOwnership(buyer);
+      Optional<NftPieceDto> oSellerOwnership = userServiceClient.getOwnership(buyer, tradeRequest);
       if (oSellerOwnership.isPresent()) {
         NftPieceDto sellerOwnership = oSellerOwnership.get();
 //      }
@@ -125,11 +152,14 @@ public class TradeServiceImpl implements TradeService {
         if (!status) {
           userServiceClient.deleteOwnership(seller);
         } else {
+          System.out.println("=========================================");
           NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
                   .avgPrice((sellerOwnership.getAvgPrice() * sellerOwnership.getNftPieceCnt()
                           - tradeRequest.getTradePrice() * tradeRequest.getPieceCnt())
                           / (sellerOwnership.getNftPieceCnt() + tradeRequest.getPieceCnt()))
                   .nftPieceCnt(sellerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt())
+//                  .avgPrice(10)
+//                  .nftPieceCnt(5L)
                   .build();
           userServiceClient.updateOwnership(seller, nftPieceRequest);
         }

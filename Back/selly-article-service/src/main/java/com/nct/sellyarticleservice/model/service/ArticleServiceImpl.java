@@ -43,9 +43,9 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public ArticleResponseDto findById (Long id) {
-    Article entity = articleRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + id));
+  public ArticleResponseDto findById (Long articleId) {
+    Article entity = articleRepository.findById(articleId)
+            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
     if (entity.isAvailability()) {
       return ArticleResponseDto.builder()
               .articleId(entity.getArticleId())

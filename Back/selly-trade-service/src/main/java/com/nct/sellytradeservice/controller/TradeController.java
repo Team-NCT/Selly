@@ -43,15 +43,16 @@ public class TradeController {
     return tradeService.findById(id);
   }
 
+  // 유저간 거래 등록
   @PostMapping("/p2p-sell-regist")
-  public ResponseEntity<Long> response(@RequestBody SellRegistRequest sellRegistRequest) {
-    Long response = tradeService.registP2pSell(sellRegistRequest);
+  public ResponseEntity<Object> response(@RequestBody SellRegistRequest sellRegistRequest) {
+    String response = tradeService.registP2pSell(sellRegistRequest);
     return ResponseEntity.ok()
             .body(response);
   }
 
   // 거래 API
-  @PostMapping("/trade/{userId}")
+  @PostMapping("/trade")
   public ResponseEntity<Object> response(@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
     Object response = tradeService.trade(sellerId, buyerId, tradeRequest);
     return ResponseEntity.ok()

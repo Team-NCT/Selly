@@ -10,12 +10,12 @@ import java.util.Optional;
 
 @FeignClient(name = "selly-user-service")
 public interface UserServiceClient {
-  @GetMapping("/selly-user-service/{userId}")
-  Optional<NftPieceDto> getOwnership(@PathVariable("userId") Long userId);
-  @PostMapping("/selly-user-service/{userId}")
+  @GetMapping("/ownership/{userId}")
+  Optional<NftPieceDto> getOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
+  @PostMapping("/ownership/{userId}")
   NftPieceDto createOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
-  @DeleteMapping("/selly-user-service/{userId}")
+  @DeleteMapping("/ownership/{userId}")
   NftPieceDto deleteOwnership(@PathVariable("userId") Long userId);
-  @PutMapping("/selly-user-service/{userId}")
+  @PutMapping("/ownership/{userId}")
   NftPieceDto updateOwnership(@PathVariable("userId") Long userId, @RequestBody NftPieceRequest tradeRequest);
 }
