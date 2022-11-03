@@ -1,4 +1,4 @@
-import { GOERLI_ID, METAMASK_DOWNLOAD_LINNK } from "@/constants/metamask";
+import { GOERLI_ID, METAMASK_DOWNLOAD_LINK } from "@/constants/metamask";
 
 interface SystemError {
   code: string | number;
@@ -55,6 +55,6 @@ export const login = async () => {
 
     //! 로그인 api 연결
   } else {
-    window.open(METAMASK_DOWNLOAD_LINNK, "_blank");
+    window.open(METAMASK_DOWNLOAD_LINK, "_blank");
   }
 };
