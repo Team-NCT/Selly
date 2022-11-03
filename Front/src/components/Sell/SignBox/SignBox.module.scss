@@ -1,0 +1,43 @@
+.sign_box {
+  @include flex(row, space-between, center);
+  width: 430px; 
+}
+
+.sign_box_section {
+  @include flex(column, center, flex-start);
+  @include shadow-drop4;
+  width: 342px;
+  border-radius: $radius-card;
+  padding: 16px 16px;
+  gap: 12px;
+  word-break: keep-all;
+  
+  .sign_box_title {
+    @include font($h5, $bold, $main-font);
+  }
+
+  .sign_box_desc {
+    @include font($body2, $medium, $main-font);
+    line-height: 150%;
+  }
+}
+
+.sign_box_idx {
+  @include flex-center;
+  @include font($h5, $bold, $main-font);
+  @include shadow-drop4;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: $white;
+}
+
+.sign_box_idx_active {
+  @include flex-center;
+  @include font($h5, $bold, $main-font);
+  @include shadow-drop4;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: $muscat;
+}
