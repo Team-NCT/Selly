@@ -45,3 +45,6 @@ export { default as ProfileImage } from "./ProfileImage/ProfileImage";
 
 //* SelectBox
 export { default as SelectBox } from "./SelectBox/SelectBox";
+
+//* PropertyCard
+export { default as PropertyCard } from "./PropertyCard/PropertyCard";

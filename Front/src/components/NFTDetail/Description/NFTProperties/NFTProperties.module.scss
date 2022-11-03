@@ -1,0 +1,19 @@
+.NFT_detail_description_properties {
+  @include flex(column, flex-start, flex-start);
+  gap: 16px;
+  h1 {
+    @include font($h5, $bold, $main-font);
+  }
+
+  .NFT_detail_description_properties_cards {
+    @include grid(calc(33.33333% - 22px));
+    column-gap: 32px;
+    row-gap: 16px;
+    width: 100%;
+  }
+
+  button {
+    @include font($body2, $bold, $main-font);
+    align-self: flex-end;
+  }
+}
