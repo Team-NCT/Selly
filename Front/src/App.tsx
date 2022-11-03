@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components";
-import { Home, Counter, Test, Create, NFTDetail } from "@/pages";
+import { Home, Counter, Test, Create, NFTDetail, Sell } from "@/pages";
 import { useCheckLogined } from "@/hooks";
 import { setAccount } from "@/store/loginSlice";
 import { useEffect } from "react";
@@ -35,6 +35,7 @@ function App() {
           {/* 테스트 페이지 */}
           <Route path="/counter" element={<Counter />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/Sell" element={<Sell />} />
         </Route>
       </Routes>
 
