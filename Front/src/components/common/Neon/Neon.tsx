@@ -18,10 +18,10 @@ const Neon = ({
   const neonHorizontal = style[["horizontal-", horizontal].join("")];
 
   return (
-    <p
+    <span
       className={`${style.neonText} ${neonColor} ${style[positionH]} ${style[positionW]} ${neonWidth} ${neonHeight} ${neonVertical} ${neonHorizontal}`}>
       {children}
-    </p>
+    </span>
   );
 };
 
