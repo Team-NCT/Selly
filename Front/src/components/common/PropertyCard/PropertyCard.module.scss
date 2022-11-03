@@ -15,8 +15,10 @@
 
 .property_type {
   @include font($body2, $bold);
+  line-height: 26px;
 }
 
 .property_name {
   @include font($body2, $regular);
+  line-height: 26px;
 }
