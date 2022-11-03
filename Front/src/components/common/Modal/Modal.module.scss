@@ -1,6 +1,6 @@
 .overlay {
   position: fixed;
-  top: 64px;
+  top: 0;
   left: 0;
   bottom: 0;
   right: 0;
@@ -9,7 +9,7 @@
 
 .dialog_modal {
   @include flex-center;
-  position: absolute;
+  position: fixed;
   top: 50vh;
   left: 50vw;
   transform: translate(-50%, -50%);

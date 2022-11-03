@@ -68,7 +68,7 @@ const Image = () => {
           id="create-image">
           Upload Image
         </Label>
-        <caption className={styles.caption_danger}>*</caption>
+        <span className={styles.caption_danger}>*</span>
       </h2>
       <article className={styles.image_input}>
         <ImageInput
