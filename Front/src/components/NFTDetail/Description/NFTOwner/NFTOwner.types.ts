@@ -2,15 +2,15 @@ export interface NFTOwnerProps {
   /**
    * NFT 소유자 uid
    */
-  ownerUid: number;
+  originalAuthor: number;
 
   /**
    * NFT 소유자 닉네임
    */
-  ownerName: string;
+  nickname: string;
 
   /**
    * NFT 소유자 profileImage
    */
-  ownerProfileUrl?: string;
+  image?: string;
 }

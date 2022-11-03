@@ -1,5 +1,6 @@
 .NFT_detail_description_properties {
   @include flex(column, flex-start, flex-start);
+  width: 100%;
   gap: 16px;
   h1 {
     @include font($h5, $bold, $main-font);
