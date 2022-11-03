@@ -14,6 +14,7 @@ export { default as DescCardList } from "./DescCardList/DescCardList";
 //* TextInput
 export { default as TextInput } from "./TextInput/TextInput";
 export { default as Label } from "./Label/Label";
+export { default as TextArea } from "./TextArea/TextArea";
 
 //* NumberInput
 export { default as NumberInput } from "./NumberInput/NumberInput";
@@ -44,3 +45,6 @@ export { default as ProfileImage } from "./ProfileImage/ProfileImage";
 
 //* SelectBox
 export { default as SelectBox } from "./SelectBox/SelectBox";
+
+//* PropertyCard
+export { default as PropertyCard } from "./PropertyCard/PropertyCard";

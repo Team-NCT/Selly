@@ -6,3 +6,7 @@
 .caption_danger {
   color: $sherbet150;
 }
+
+.image_input {
+  @include font($body1, $bold);
+}

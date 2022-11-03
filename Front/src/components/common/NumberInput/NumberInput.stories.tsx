@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react";
 import NumberInput from "./NumberInput";
 import { NumberInputProps } from "./NumberInput.types";
 import { isNumber } from "@/helpers/utils/numberValidation";
-import { useInputState } from "@/hooks/useInputState";
+import { useInputState } from "@/hooks";
 
 export default {
   title: "Common/Input/NumberInput",
