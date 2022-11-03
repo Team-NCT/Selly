@@ -1,0 +1,77 @@
+$bg-palette: (
+  primary: $muscat,
+  ocean: $ocean,
+  blackberry: $navy350,
+  danger: $sherbet150,
+  light: $white,
+  disabled: $white300,
+);
+
+@each $bg, $color in $bg-palette {
+  .bg-#{$bg} {
+    background: $color;
+    border: 2px solid $color;
+
+    &.outline {
+      background: transparent;
+      color: $color;
+    }
+
+    &.none {
+      background: transparent;
+      border: 2px solid transparent;
+      color: $color;
+    }
+
+    &.white {
+      color: $white;
+    }
+
+    &.black {
+      color: $black350;
+    }
+
+    &.white:hover {
+      background: $white;
+      border: 2px solid $color;
+      color: $color;
+    }
+
+    &.black:hover {
+      opacity: 0.7;
+      background: $white;
+      border: 2px solid $color;
+    }
+
+    &.outline:hover {
+      opacity: 0.7;
+      border: 2px solid transparent;
+    }
+
+    &.none:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.button {
+  border-radius: $radius-btn;
+  @include font-button;
+
+  &.default {
+    padding: 8px 40px 8px 40px;
+  }
+
+  &.small {
+    padding: 8px 30px 8px 30px;
+  }
+
+  &.xsmall {
+    padding: 8px 20px 8px 20px;
+  }
+
+  &.fillContainer {
+    width: 100%;
+    padding: 8px;
+  }
+}

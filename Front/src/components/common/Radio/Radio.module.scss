@@ -1,0 +1,105 @@
+$bg-palette: (
+  primary: $muscat,
+  ocean: $ocean,
+  blackberry: $navy350,
+  danger: $sherbet150,
+);
+
+.opt {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  align-items: center;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  cursor: default;
+}
+
+.opt__label {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 20px;
+  width: 100%;
+  padding: 4px 8px 4px 36px;
+  color: $black;
+  vertical-align: top;
+  text-align: left;
+}
+
+.opt__label::before,
+.opt__label::after {
+  position: absolute;
+  box-sizing: border-box;
+  top: 14px;
+  left: 4px;
+  transform: translateY(-50%);
+}
+.opt__label::before {
+  content: "";
+  border: 3px solid $black;
+  background: $white;
+  opacity: 0.6;
+}
+
+:checked + .opt__label::after {
+  content: "";
+}
+:focus + .opt__label,
+:checked + .opt__label {
+  color: $black350;
+}
+:focus + .opt__label::before,
+:checked + .opt__label::before {
+  opacity: 1;
+}
+
+@media (hover) {
+  :hover > .opt__label {
+    color: $black350;
+  }
+  :hover > .opt__label::before {
+    opacity: 1;
+  }
+}
+:disabled .opt__label,
+:disabled + .opt__label {
+  color: $white300;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+}
+:disabled .opt__label::before,
+:disabled .opt__label::after,
+:disabled + .opt__label::before,
+:disabled + .opt__label::after {
+  opacity: 0.33;
+}
+
+.radio {
+  position: absolute;
+  opacity: 0;
+}
+
+.radio__label::before {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+@each $bg, $color in $bg-palette {
+  .bg-#{$bg} {
+    &.radio__label::after {
+      width: 10px;
+      height: 10px;
+      margin-left: 5px;
+      background: $color;
+      border-radius: 50%;
+    }
+  }
+
+  :checked + .bg-#{$bg}::before {
+    border-color: $color;
+  }
+}

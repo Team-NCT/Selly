@@ -1,0 +1,26 @@
+.input_number {
+  width: 100%;
+  padding: 8px 2px 4px 2px;
+  &:focus {
+    outline: none;
+  }
+  margin: 4px 0px 6px 0px;
+
+  &::placeholder {
+    @include font($body2, $light, $white350);
+  }
+}
+
+.input_true {
+  @include font($body2, $medium, $main-font);
+  border-bottom: 2px solid $main-font;
+}
+
+.input_false {
+  @include font($body2, $medium, $sherbet150);
+  border-bottom: 2px solid $sherbet150;
+}
+
+.input_error {
+  @include font($caption, $regular, $sherbet150);
+}

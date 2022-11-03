@@ -1,0 +1,18 @@
+.overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: $modal-bg;
+}
+
+.dialog_modal {
+  @include flex-center;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  background-color: $white;
+  border-radius: $radius-modal;
+}

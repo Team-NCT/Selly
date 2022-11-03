@@ -1,0 +1,61 @@
+$bg-palette: (
+  primary: $muscat,
+  ocean: $ocean,
+  danger: $sherbet150,
+);
+
+.value {
+  padding: 8px;
+  border-radius: 4px;
+  @include shadow-drop4;
+  @include font($body2, $bold, $black350);
+  background: $white;
+  margin-bottom: 1px;
+  width: 100%;
+  z-index: -10;
+  border: 2px solid $white;
+  box-sizing: border-box;
+  text-align: start;
+  display: flex;
+  justify-content: space-between;
+}
+
+@each $bg, $color in $bg-palette {
+  .bg-#{$bg}:hover {
+    border: 2px solid $color;
+  }
+}
+
+.valueText {
+  overflow: hidden;
+  width: 70%;
+}
+
+.arrow {
+  display: inline-block;
+  position: relative;
+  margin: 4px;
+  width: 10px;
+  height: 10px;
+}
+.arrow::before,
+.arrow::after {
+  content: "";
+  position: absolute;
+}
+.arrow::before {
+  width: 100%;
+  height: 100%;
+  border: 2px solid $black350;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.arrowTop {
+  transform: rotate(45deg);
+  top: 2px;
+}
+.arrowBottom {
+  transform: rotate(225deg);
+  bottom: 2px;
+}

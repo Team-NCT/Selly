@@ -1,0 +1,58 @@
+$bg-palette: (
+  success: $muscat,
+  info: $ocean,
+  error: $sherbet150,
+  warning: $marmalade100,
+);
+
+@each $style, $color in $bg-palette {
+  .style-#{$style} {
+    background-color: $color;
+  }
+}
+
+.style-error {
+  color: $white;
+}
+
+@keyframes showModal {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0%, 0);
+  }
+}
+
+.dialog_alert {
+  @include flex(row, flex-start, center);
+  @include font($body2, $medium);
+  @include shadow-modal;
+  position: fixed;
+  top: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  padding: 16px;
+  border-radius: $radius-alert;
+  flex-wrap: nowrap;
+  animation-delay: 0s;
+  animation-duration: 2s;
+  animation-name: showModal;
+}
+
+.iconStyle {
+  @include flex;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  border-radius: 50%;
+  color: $white;
+  font-size: 12px;
+}
+
+.alertCenter {
+  @include flex(row, center, center);
+}
