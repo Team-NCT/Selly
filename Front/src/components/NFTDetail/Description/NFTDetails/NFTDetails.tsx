@@ -9,6 +9,8 @@ const NFTDetail = ({ contractAddress, primaryCnt, tokenId }: NFTDetailsProps) =>
       <Neon color="marmalade150" positionH="bottom" positionW="right">
         <h1>Details</h1>
       </Neon>
+
+      {/* Details 컨텐츠 */}
       <div className={style.NFT_detail_description_details_list}>
         <div>
           <h2>ContractAddress</h2>

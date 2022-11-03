@@ -43,5 +43,17 @@ Default.args = {
       value: "대머리",
       trait_type: "head",
     },
+    {
+      value: "대머리",
+      trait_type: "head",
+    },
+    {
+      value: "대머리",
+      trait_type: "head",
+    },
+    {
+      value: "대머리",
+      trait_type: "head",
+    },
   ],
 };

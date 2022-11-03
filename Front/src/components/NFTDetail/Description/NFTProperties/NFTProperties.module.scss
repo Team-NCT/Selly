@@ -11,4 +11,9 @@
     row-gap: 16px;
     width: 100%;
   }
+
+  button {
+    @include font($body2, $bold, $main-font);
+    align-self: flex-end;
+  }
 }
