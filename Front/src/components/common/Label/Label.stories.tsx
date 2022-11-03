@@ -2,7 +2,7 @@ import { Meta, Story } from "@storybook/react";
 import Label from "./Label";
 import { LabelProps } from "./Label.types";
 import { TextInput } from "@/components/common";
-import { useInputState } from "@/hooks/useInputState";
+import { useInputState } from "@/hooks";
 
 export default {
   title: "Common/Input/Label",
