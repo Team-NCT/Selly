@@ -21,9 +21,9 @@ public
   private String wallet;
   @Column(nullable = false, unique = true)
   private String encryptedPwd;
-  @Column(nullable = false, length = 200)
+  @Column(length = 200)
   private String image;
-  @Column(nullable = false, length = 200)
+  @Column(length = 200)
   private String banner;
   @Column(length = 200)
   private String introduction;
