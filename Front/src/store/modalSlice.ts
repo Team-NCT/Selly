@@ -1,13 +1,15 @@
-import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
 //* state의 타입
 interface ModalState {
   test: boolean;
+  property: boolean;
 }
 
 const initialState: ModalState = {
   test: false,
+  property: false,
 };
 
 const slice = createSlice({
@@ -22,6 +24,14 @@ const slice = createSlice({
     openTest: (state) => {
       state.test = true;
     },
+
+    closeProperty: (state) => {
+      state.property = false;
+    },
+
+    openProperty: (state) => {
+      state.property = true;
+    },
   },
 });
 
@@ -33,6 +43,6 @@ export const selectModal = createSelector(
   (modal) => modal
 );
 
-export const { closeTest, openTest } = slice.actions;
+export const { closeTest, openTest, closeProperty, openProperty } = slice.actions;
 
 export default slice.reducer;

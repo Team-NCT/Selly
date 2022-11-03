@@ -16,3 +16,16 @@
 .form_title_desc_bold {
   @include font($caption, $semibold, $main-font);
 }
+
+.form_property_container {
+  @include flex(row, flex-start);
+  width: 100%;
+  gap: 8px;
+}
+
+.form_property_item {
+  width: 30%;
+  @include laptop {
+    width: 15%;
+  }
+}

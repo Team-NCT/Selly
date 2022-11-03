@@ -1,0 +1,49 @@
+.property_modal_container {
+  @include flex(column, flex-start, flex-start);
+  margin: 24px;
+  width: 80vw;
+  max-width: 552px;
+  height: 80vh;
+  max-height: 380px;
+}
+
+.property_modal_label {
+  @include font($h5, $medium);
+}
+
+.property_modal_header {
+  @include flex(row, flex-start);
+  @include font($body1, $bold);
+  width: 100%;
+}
+
+.property_modal_title {
+  flex-grow: 1;
+}
+
+.property_modal_title_type {
+  flex-grow: 5;
+}
+
+.property_modal_title_name {
+  flex-grow: 4;
+}
+
+.property_modal_content {
+  @include flex(row, flex-start);
+  width: 100%;
+}
+
+.property_modal_add_button {
+  @include flex-center;
+  width: 100%;
+}
+
+.property_modal_input {
+  @include flex(row, flex-start, center);
+  gap: 16px;
+}
+
+.property_modal_delete {
+  @include font($h5, $bold);
+}
