@@ -5,3 +5,5 @@ export * from "./common";
 export * from "./icon";
 
 export * from "./NFTDetail/Header";
+
+export * from "./Sell"

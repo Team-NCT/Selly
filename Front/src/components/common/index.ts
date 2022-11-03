@@ -44,6 +44,3 @@ export { default as ProfileImage } from "./ProfileImage/ProfileImage";
 
 //* SelectBox
 export { default as SelectBox } from "./SelectBox/SelectBox";
-
-//* SelectCard
-export { default as SelectCard } from "./SelectCard/SelectCard";

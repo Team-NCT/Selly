@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useAppSelector } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components";
-import { Home, Counter, Test } from "@/pages";
+import { Home, Counter, Test, Sell } from "@/pages";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
@@ -20,6 +20,7 @@ function App() {
           {/* 테스트 페이지 */}
           <Route path="/counter" element={<Counter />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/Sell" element={<Sell />} />
         </Route>
       </Routes>
 
