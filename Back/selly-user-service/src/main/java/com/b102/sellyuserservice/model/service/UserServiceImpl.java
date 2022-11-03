@@ -49,14 +49,21 @@ public class UserServiceImpl implements UserService {
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     UserEntity userEntity = mapper.map(userDto, UserEntity.class); // UserDto Type을 UserEntity Type으로 변경
     Base64.Encoder encoder = Base64.getEncoder();
-    String encodeImg = null;
-    String encodeBanner = null;
-    byte[] imageEncode =  encoder.encode(userDto.getImage().getBytes());
-    byte[] bannerEncode =  encoder.encode(userDto.getBanner().getBytes());
-    encodeImg = new String(imageEncode, "UTF-8");
-    encodeBanner = new String(bannerEncode, "UTF-8");
-    userEntity.setImage(encodeImg);
-    userEntity.setBanner(encodeBanner);
+
+    if (userEntity.getBanner() != null){
+      String encodeBanner = null;
+      byte[] bannerEncode =  encoder.encode(userDto.getBanner().getBytes());
+      encodeBanner = new String(bannerEncode, "UTF-8");
+      userEntity.setBanner(encodeBanner);
+    }
+
+    if (userEntity.getImage() != null) {
+      String encodeImg = null;
+      byte[] imageEncode =  encoder.encode(userDto.getImage().getBytes());
+      encodeImg = new String(imageEncode, "UTF-8");
+      userEntity.setImage(encodeImg);
+    }
+
     userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
     userRepository.save(userEntity);
     return mapper.map(userEntity, UserDto.class);
@@ -89,14 +96,20 @@ public class UserServiceImpl implements UserService {
   public UserDto updateUser(Long userId, RequestUpdate user) throws UnsupportedEncodingException {
     UserEntity userEntity = userRepository.findByUserId(userId);
     Base64.Encoder encoder = Base64.getEncoder();
-    String encodeImg = null;
-    String encodeBanner = null;
-    byte[] imageEncode =  encoder.encode(user.getImage().getBytes());
-    byte[] bannerEncode =  encoder.encode(user.getBanner().getBytes());
-    encodeImg = new String(imageEncode, "UTF-8");
-    encodeBanner = new String(bannerEncode, "UTF-8");
-    userEntity.setBanner(encodeImg);
-    userEntity.setImage(encodeBanner);
+    if (user.getImage() != null){
+      String encodeImg = null;
+      byte[] imageEncode =  encoder.encode(user.getImage().getBytes());
+      encodeImg = new String(imageEncode, "UTF-8");
+      userEntity.setImage(encodeImg);
+    }
+
+    if (user.getBanner() != null){
+      String encodeBanner = null;
+      byte[] bannerEncode =  encoder.encode(user.getBanner().getBytes());
+      encodeBanner = new String(bannerEncode, "UTF-8");
+      userEntity.setBanner(encodeBanner);
+    }
+
     userEntity.setIntroduction(user.getIntroduction());
     userEntity.setNickname(user.getNickname());
     userRepository.save(userEntity);

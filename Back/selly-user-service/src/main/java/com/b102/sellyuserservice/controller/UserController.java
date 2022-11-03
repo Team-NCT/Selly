@@ -44,11 +44,19 @@ public class UserController {
     UserDto returnValue = userService.createUser(userDto);
 
     ResponseUser responseUser = mapper.map(returnValue, ResponseUser.class);
-    byte[] imageDecode = Base64.getDecoder().decode(responseUser.getImage());
-    byte[] bannerDecode = Base64.getDecoder().decode(responseUser.getBanner());
-    responseUser.setImage(new String(imageDecode, StandardCharsets.UTF_8));
-    responseUser.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+    if(responseUser.getImage() != null){
+      byte[] imageDecode = Base64.getDecoder().decode(responseUser.getImage());
+      responseUser.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+    } else if(responseUser.getImage() == null){
+      responseUser.setImage("default");
+    }
 
+    if(responseUser.getBanner() != null){
+      byte[] bannerDecode = Base64.getDecoder().decode(responseUser.getBanner());
+      responseUser.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+    } else if(responseUser.getBanner() == null){
+      responseUser.setBanner("default");
+    }
     return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
   }
 
@@ -58,11 +66,20 @@ public class UserController {
 
     List<ResponseUser> result = new ArrayList<>();
     userList.forEach(v -> {
-      byte[] imageDecode = Base64.getDecoder().decode(v.getImage());
-      byte[] bannerDecode = Base64.getDecoder().decode(v.getBanner());
+      if(v.getImage() != null){
+        byte[] imageDecode = Base64.getDecoder().decode(v.getImage());
+        v.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      } else if (v.getImage() == null){
+        v.setImage("default");
+      }
 
-      v.setImage(new String(imageDecode, StandardCharsets.UTF_8));
-      v.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+      if(v.getBanner() != null){
+        byte[] bannerDecode = Base64.getDecoder().decode(v.getBanner());
+        v.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+      } else if (v.getBanner() == null){
+        v.setBanner("default");
+      }
+
       ResponseUser responseUser = new ModelMapper().map(v, ResponseUser.class);
       Long myFollowerCnt = followService.followerCount(responseUser.getUserId());
       Long myFollowingCnt = followService.followingCount(responseUser.getUserId());
@@ -79,14 +96,50 @@ public class UserController {
     UserDto userDto = userService.getUserByUserId(userId);
 
     ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
-    byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
-    byte[] bannerDecode = Base64.getDecoder().decode(returnValue.getBanner());
+    if(returnValue.getImage() != null){
+      byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
+      returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+    } else if (returnValue.getImage() == null){
+      returnValue.setImage("default");
+    }
+
+    if (returnValue.getBanner() != null){
+      byte[] bannerDecode = Base64.getDecoder().decode(returnValue.getBanner());
+      returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+    } else if (returnValue.getBanner() == null){
+      returnValue.setBanner("default");
+    }
     Long myFollowerCnt = followService.followerCount(userId);
     Long myFollowingCnt = followService.followingCount(userId);
-    returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
-    returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
     returnValue.setFollowerCnt(myFollowerCnt);
     returnValue.setFollowingCnt(myFollowingCnt);
+    return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+  }
+
+  @GetMapping("/users/{profileId}/{userId}")
+  public ResponseEntity<ResponseUser> getOtherUser(@PathVariable("profileId") Long profileId, @PathVariable("userId") Long userId) throws UnsupportedEncodingException {
+    UserDto userDto = userService.getUserByUserId(profileId);
+
+    ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
+    if(returnValue.getImage() != null){
+      byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
+      returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+    } else if (returnValue.getImage() == null){
+      returnValue.setImage("default");
+    }
+
+    if (returnValue.getBanner() != null){
+      byte[] bannerDecode = Base64.getDecoder().decode(returnValue.getBanner());
+      returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+    } else if (returnValue.getBanner() == null){
+      returnValue.setBanner("default");
+    }
+    Long myFollowerCnt = followService.followerCount(userId);
+    Long myFollowingCnt = followService.followingCount(userId);
+    returnValue.setFollowerCnt(myFollowerCnt);
+    returnValue.setFollowingCnt(myFollowingCnt);
+    Boolean myFollowing =  followService.myFollowingCheck(profileId, userId);
+    returnValue.setMyFollowing(myFollowing);
     return ResponseEntity.status(HttpStatus.OK).body(returnValue);
   }
 
@@ -94,10 +147,20 @@ public class UserController {
   public ResponseEntity<ResponseUser> updateUser(@PathVariable("userId") Long userId, @RequestBody RequestUpdate user) throws UnsupportedEncodingException {
     UserDto userDto = userService.updateUser(userId, user);
     ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
-    byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
-    byte[] bannerDecode = Base64.getDecoder().decode(returnValue.getBanner());
-    returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
-    returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+    if(returnValue.getImage() != null){
+      byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
+      returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+    } else if (returnValue.getImage() == null){
+      returnValue.setImage("default");
+    }
+
+    if (returnValue.getBanner() != null){
+      byte[] bannerDecode = Base64.getDecoder().decode(returnValue.getBanner());
+      returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+    } else if (returnValue.getBanner() == null){
+      returnValue.setBanner("default");
+    }
+
     return ResponseEntity.status(HttpStatus.OK).body(returnValue);
   }
 
