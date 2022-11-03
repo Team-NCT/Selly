@@ -6,21 +6,25 @@ spring:
     name: selly-gateway
   cloud:
     gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowed-origins: "http://localhost:3000"
-            allow-credentials: true
-            allowed-headers:
-              - "*"
-            allowed-methods:
-              - "*"
       default-filters:
+#        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
         - name: GlobalFilter
           args:
             baseMessage: Spring Cloud Gateway GlobalFilter
             preLogger: true
             postLogger: true
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowedOrigins: 'http://localhost:3000'
+#            allow-credentials: true
+#            allowedHeaders: '*'
+#            allowedMethods:
+#              - PUT
+#              - GET
+#              - POST
+#              - DELETE
+#              - OPTIONS
       routes:
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
