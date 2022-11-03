@@ -6,6 +6,15 @@ spring:
     name: selly-gateway
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowed-origins: "http://localhost:3000"
+            allow-credentials: true
+            allowedHeaders:
+              - "*"
+            allowedMethods:
+              - "*"
       default-filters:
         - name: GlobalFilter
           args:
