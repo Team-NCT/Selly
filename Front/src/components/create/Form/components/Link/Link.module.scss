@@ -1,8 +1,0 @@
-.form_link {
-  @include flex(row, flex-start);
-  @include font($body1, $semibold);
-}
-
-.input_desc {
-  @include font($caption, $regular);
-}
