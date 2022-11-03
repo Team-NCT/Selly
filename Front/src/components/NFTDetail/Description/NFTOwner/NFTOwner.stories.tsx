@@ -14,6 +14,6 @@ export default {
 export const Default: Story<NFTOwnerProps> = (args) => <NFTOwner {...args} />;
 
 Default.args = {
-  ownerName: "김김작가작가작가작가작가",
-  ownerUid: 1,
+  nickname: "김김작가작가작가작가작가",
+  originalAuthor: 1,
 };
