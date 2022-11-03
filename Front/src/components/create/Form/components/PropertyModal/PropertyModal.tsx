@@ -34,6 +34,7 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
   }, [modalProperties]);
 
   const [value, handleInputChange] = useInputState();
+  console.log(modalProperties);
 
   return (
     <Modal close={close}>

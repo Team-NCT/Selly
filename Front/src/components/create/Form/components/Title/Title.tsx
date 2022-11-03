@@ -10,7 +10,7 @@ const Title = () => {
         <Label color="sherbet" positionH="bottom" positionW="right" id="create-title">
           Title
         </Label>
-        <caption className={style.caption_danger}>*</caption>
+        <span className={style.caption_danger}>*</span>
       </h2>
       <TextInput
         id="create-title"
