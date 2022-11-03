@@ -1,1 +1,1 @@
-export { getWallet, changeNetwork, getChainId } from "./sellyMetamask";
+export { getWallet, changeNetwork, getChainId, login } from "./sellyMetamask";
