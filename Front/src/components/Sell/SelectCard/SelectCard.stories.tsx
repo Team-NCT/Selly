@@ -3,7 +3,7 @@ import SelectCard from "./SelectCard";
 import { SelectCardProps } from "./SelectCard.types";
 
 export default {
-  title: "Common/SelectCard/SelectCard",
+  title: "Sell/SelectCard/SelectCard",
   component: SelectCard,
   parameters: {
     componentSubtitle: "NFT 선택 카드",

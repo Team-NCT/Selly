@@ -3,7 +3,7 @@ import SelectCardList from "./SelectCardList";
 import { SelectCardListProps } from "./SelectCardList.types";
 
 export default {
-  title: "Common/SelectCard/SelectCardList",
+  title: "Sell/SelectCard/SelectCardList",
   component: SelectCardList,
   parameters: {
     componentSubtitle: "NFT 선택 카드 리스트",
