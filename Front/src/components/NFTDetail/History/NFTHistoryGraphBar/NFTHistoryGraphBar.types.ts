@@ -1,4 +1,3 @@
-import { MouseEvent } from "react";
 export interface NFTHistoryGraphBarProps {
   /**
    * 거래 내역 바 그래프의 높이
@@ -16,7 +15,12 @@ export interface NFTHistoryGraphBarProps {
   average: number;
 
   /**
-   * 거래 내역 바를 마우스 호버 했을 때, 실행하는 함수
+   * 최고가
    */
-  handleMouseOver: () => void;
+  highest: number;
+
+  /**
+   * 최저가
+   */
+  lowest: number;
 }
