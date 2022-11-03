@@ -4,7 +4,7 @@ import { SelectCard } from "@/components";
 import { useState } from "react";
 
 const SelectCardList = ({ data, setNFTValue }: SelectCardListProps) => {
-  const [selectedNum, setSelectedNum] = useState<number>();
+  const [selectedNum, setSelectedNum] = useState(-1);
 
   //TODO_YK: 인자로 받을 setNFTValue 함수로 idx뿐만 아니라 받아온 NFT 데이터를 넣어주기
   const setValue = (idx: number) => {

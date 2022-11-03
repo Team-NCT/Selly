@@ -1,4 +1,4 @@
-import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
+import { OpenAlertArg, useAlert } from "@/hooks";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { selectModal, openTest, closeTest } from "@/store/modalSlice";
 import TestModal from "@/components/test/testModal";

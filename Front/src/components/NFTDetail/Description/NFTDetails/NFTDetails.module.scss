@@ -1,0 +1,37 @@
+.NFT_detail_description_details {
+  @include flex(column, flex-start, flex-start);
+  gap: 16px;
+  width: 100%;
+
+  h1 {
+    @include font($h5, $bold, $main-font);
+  }
+
+  .NFT_detail_description_details_list {
+    @include flex(column, flex-start, flex-start);
+    gap: 12px;
+    width: 100%;
+    div {
+      @include flex(row, space-between, flex-start);
+      width: 100%;
+      h2 {
+        @include font($body2, $bold, $main-font);
+      }
+      p {
+        @include font($body2, $medium, $main-font);
+        max-width: 30%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        justify-items: flex-end;
+      }
+      a {
+        @include font($body2, $medium, $ocean250);
+        max-width: 30%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}

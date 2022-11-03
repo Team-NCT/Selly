@@ -12,6 +12,7 @@ const devConfig = {
     main: getAbsPath("src/index.tsx"),
   },
   output: {
+    publicPath: "/",
     path: getAbsPath("dist"),
     filename: "main.js",
   },
@@ -24,7 +25,7 @@ const devConfig = {
     new webpack.ProvidePlugin({
       React: "react",
     }),
-    new Dotenv({ prefix: "SELLY_" }),
+    new Dotenv(),
     new webpack.ProvidePlugin({
       process: "process/browser",
     }),
