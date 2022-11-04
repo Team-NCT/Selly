@@ -1,0 +1,4 @@
+.leftSection {
+  @include flex(column, flex-start, flex-start);
+  padding-bottom: 50px;
+}

@@ -37,7 +37,7 @@ const Username = () => {
         status={staus}
         value={username}
         errorMessage={errorMessage}
-        placeHolder="닉네임을 입력해 주세요"
+        placeHolder="닉네임을 입력해 주세요."
       />
     </>
   );

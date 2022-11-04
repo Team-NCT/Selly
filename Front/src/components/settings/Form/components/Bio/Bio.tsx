@@ -37,7 +37,7 @@ const Bio = () => {
         status={staus}
         value={username}
         errorMessage={errorMessage}
-        placeHolder="간단한 소개를 입력해주세요"
+        placeHolder="간단한 소개를 입력해 주세요."
       />
     </>
   );
