@@ -4,7 +4,7 @@ import { useInputState } from "@/hooks";
 import { useEffect, useState } from "react";
 
 const Bio = () => {
-  const [username, setUsername] = useInputState("ss");
+  const [username, setUsername] = useInputState("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [staus, setStaus] = useState<boolean>(true);
 

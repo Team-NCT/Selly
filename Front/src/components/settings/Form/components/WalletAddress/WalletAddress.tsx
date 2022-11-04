@@ -1,7 +1,8 @@
 import { Label } from "@/components/common";
 import style from "./WalletAddress.module.scss";
-import { OpenAlertArg, useAlert } from "@/hooks";
+import { useAlert } from "@/hooks";
 import { CopyIcon } from "@/components/icon";
+import { copyAlertData } from "@/helpers/utils/copyHandler";
 
 type Props = {
   address: string;
@@ -9,23 +10,10 @@ type Props = {
 
 const WalletAddress = ({ address = "" }: Props) => {
   const { openAlertModal } = useAlert();
-  const copyHanler = async () => {
-    try {
-      await navigator.clipboard.writeText(address);
-      const data: OpenAlertArg = {
-        content: "복사 되었습니다.",
-        style: "success",
-        icon: true,
-      };
-      openAlertModal(data);
-    } catch (error) {
-      const data: OpenAlertArg = {
-        content: "복사 실패했습니다.",
-        style: "error",
-        icon: true,
-      };
-      openAlertModal(data);
-    }
+
+  const copyHandler = () => {
+    const alertData = copyAlertData(address);
+    openAlertModal(alertData);
   };
 
   return (
@@ -41,9 +29,9 @@ const WalletAddress = ({ address = "" }: Props) => {
         width={22}>
         Wallet Address
       </Label>
-      <div className={style.input_text} onClick={copyHanler} aria-hidden="true">
-        {address}
-        <CopyIcon />
+      <div className={style.address} onClick={copyHandler} aria-hidden="true">
+        <span className={style.text}>{address}</span>
+        <CopyIcon disabled />
       </div>
     </section>
   );
