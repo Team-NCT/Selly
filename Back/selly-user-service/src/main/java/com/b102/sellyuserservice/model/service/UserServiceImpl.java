@@ -137,6 +137,17 @@ public class UserServiceImpl implements UserService {
     return null;
   }
   @Override
+  //public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
+  public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
+    System.out.println("소유권 찾기 시작");
+    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId())
+            .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
+    System.out.println(userId);
+    System.out.println(tradeRequest.getArticleId());
+    return new NftPieceResponseDto(nftPiece);
+  //  return nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
+  }
+  @Override
   public NftPieceDto postOwnership(Long userId, TradeRequest tradeRequest) {
     NftPiece nftPiece = nftPieceRepository.save(mapper.map(tradeRequest, NftPiece.class));
     return mapper.map(nftPiece, NftPieceDto.class);
@@ -148,16 +159,6 @@ public class UserServiceImpl implements UserService {
 //    System.out.println(tradeRequest.getArticleId());
 //    return mapper.map(nftPiece, NftPieceDto.class);
 //  }
-@Override
-//public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
-public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
-  NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId())
-          .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
-  System.out.println(userId);
-  System.out.println(tradeRequest.getArticleId());
-  return new NftPieceResponseDto(nftPiece);
-//  return nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
-}
 
   @Override
   public NftPieceDto updateOwnership(Long userId, NftPieceRequest tradeRequest) {

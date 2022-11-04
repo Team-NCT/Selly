@@ -191,6 +191,8 @@ public class UserController {
 //  }
   @GetMapping("/ownership/{userId}")
   public ResponseEntity<NftPieceResponseDto> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
+    System.out.println("소유권 검색");
+    System.out.println(userId);
     NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
 //    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
     return ResponseEntity.status(HttpStatus.OK).body(response);
