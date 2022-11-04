@@ -1,0 +1,45 @@
+.NFT_transction {
+  @include shadow-drop3;
+  @include flex(column, center, center);
+  border-radius: 16px;
+  width: 100%;
+
+  section {
+    @include flex-center;
+    width: 100%;
+    gap: 0px;
+    button {
+      width: 50%;
+      padding: 12px 0px 16px 0px;
+      font-size: $body1;
+      font-weight: $bold;
+      background-color: $white150;
+      color: $black;
+      border-top: 8px solid $white150;
+    }
+  }
+}
+
+.NFT_transaction_select_FRACTION {
+  .fraction {
+    background-color: $white;
+    color: $main-font;
+    border-top: 8px solid $muscat;
+  }
+}
+
+.NFT_transaction_select_AUCTION {
+  .auction {
+    background-color: $white;
+    color: $main-font;
+    border-top: 8px solid $muscat;
+  }
+}
+
+.fraction {
+  border-radius: 16px 0px 0px 0px;
+}
+
+.auction {
+  border-radius: 0px 16px 0px 0px;
+}
