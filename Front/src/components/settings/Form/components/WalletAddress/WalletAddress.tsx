@@ -2,7 +2,7 @@ import { Label } from "@/components/common";
 import style from "./WalletAddress.module.scss";
 import { useAlert } from "@/hooks";
 import { CopyIcon } from "@/components/icon";
-import { copyAlertData } from "@/helpers/utils/copyHandler";
+import { copyAlertData } from "@/helpers/utils/copyFuction";
 
 type Props = {
   address: string;
