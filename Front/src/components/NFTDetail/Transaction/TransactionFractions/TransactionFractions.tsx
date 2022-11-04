@@ -1,5 +1,5 @@
 const TransactionFractions = () => {
-  return <dialog></dialog>;
+  return <form></form>;
 };
 
 export default TransactionFractions;

@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { tapType } from "./NFTDetailTransaction.types";
 import style from "./NFTDetailTransaction.module.scss";
-import {
-  TransactionFractionsForm,
-  TransactionAuctionForm,
-} from "@/components/NFTDetail/Transaction";
+import { TransactionFractions, TransactionAuction } from "@/components/NFTDetail/Transaction";
 
 const NFTDetailTransaction = () => {
   //* Tab 상태
@@ -25,8 +22,8 @@ const NFTDetailTransaction = () => {
           경매 / 경매 등록
         </button>
       </section>
-      {tab === "FRACTION" && <TransactionFractionsForm />}
-      {tab === "AUCTION" && <TransactionAuctionForm />}
+      {tab === "FRACTION" && <TransactionFractions />}
+      {tab === "AUCTION" && <TransactionAuction />}
     </section>
   );
 };
