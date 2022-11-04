@@ -1,9 +1,8 @@
 import { Modal, Label, Button, TextInput } from "@/components/common";
 import { PropertyModalProps } from "./PropertyModal.types";
 import style from "./PropertyModal.module.scss";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { propertyType } from "../Property/Property.types";
-import { useInputState } from "@/hooks";
 
 const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps) => {
   //* create 페이지의 properties를 받아와서 modal의 변수에 저장, 6개보다 작다면 빈 input 보여주기
@@ -13,28 +12,57 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
       setModalProperties([...properties, { type: "", name: "" }]);
     }
   }, []);
+
   //* add property 버튼을 누르면 빈 객체가 추가된다.
   const addPropertyHandler = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     if (modalProperties.length == 0) {
       setModalProperties([{ type: "", name: "" }]);
     }
-    if (
-      modalProperties.length < 6 &&
-      modalProperties[-1].type.trim() &&
-      modalProperties[-1].name.trim()
-    ) {
-      setModalProperties([...properties, { type: "", name: "" }]);
+    if (modalProperties.length < 6) {
+      setModalProperties([...modalProperties, { type: "", name: "" }]);
     }
   };
+
   //* properties의 개수가 6개가 되면 true가 되어 추가하기 버튼이 보이지 않는다.
   const [isMax, setIsMax] = useState<boolean>(false);
   useEffect(() => {
     setIsMax(modalProperties.length >= 6);
   }, [modalProperties]);
 
-  const [value, handleInputChange] = useInputState();
-  console.log(modalProperties);
+  //* input 삭제
+  const deleteHandler = (event: React.MouseEvent, index: number) => {
+    event.preventDefault();
+    const changeProperties = [...modalProperties];
+    changeProperties.splice(index, 1);
+    setModalProperties(changeProperties);
+  };
+
+  //* input 입력
+  const changeTypeHandler = (event: React.ChangeEvent, index: number) => {
+    //* event.target.value를 활용하여 해당 index의 type속성 값을 변경시키는 함수
+    const target = event.target as HTMLInputElement;
+    const changeProperties = [...modalProperties];
+    changeProperties[index].type = target.value;
+    setModalProperties(changeProperties);
+  };
+  const changeNameHandler = (event: React.ChangeEvent, index: number) => {
+    //* event.target.value를 활용하여 해당 index의 name속성 값을 변경시키는 함수
+    const target = event.target as HTMLInputElement;
+    const changeProperties = [...modalProperties];
+    changeProperties[index].name = target.value;
+    setModalProperties(changeProperties);
+  };
+
+  //* 저장
+  const saveHandler = (event: React.MouseEvent) => {
+    event.preventDefault();
+    const saveProperties = modalProperties.filter(
+      (property) => property.type.trim() && property.name.trim()
+    );
+    setProperties(saveProperties);
+    close();
+  };
 
   return (
     <Modal close={close}>
@@ -51,20 +79,30 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
           <div>
             {modalProperties.map((modalProperty, idx) => (
               <div key={idx} className={style.property_modal_input}>
-                <span className={style.property_modal_delete}>X</span>
+                <button
+                  className={style.property_modal_delete}
+                  onClick={(e) => deleteHandler(e, idx)}>
+                  X
+                </button>
                 <TextInput
                   value={modalProperty.type}
                   id={idx.toString()}
                   status={true}
-                  handleInputChange={handleInputChange}
+                  handleInputChange={(e) => {
+                    changeTypeHandler(e, idx);
+                  }}
                   maxLength={10}
+                  placeHolder="Head"
                 />
                 <TextInput
                   value={modalProperty.name}
                   id={idx.toString()}
                   status={true}
-                  handleInputChange={handleInputChange}
+                  handleInputChange={(e) => {
+                    changeNameHandler(e, idx);
+                  }}
                   maxLength={10}
+                  placeHolder="Black"
                 />
               </div>
             ))}
@@ -76,6 +114,12 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
               + Add Property
             </Button>
           )}
+        </section>
+        <section>
+          <Button bg="disabled" color="none" onClick={() => close()}>
+            취소
+          </Button>
+          <Button onClick={(e) => saveHandler(e)}>저장</Button>
         </section>
       </form>
     </Modal>

@@ -31,25 +31,22 @@ $bg-palette: (
       color: $black350;
     }
 
-    &.white:hover {
+    &.white:active {
       background: $white;
       border: 2px solid $color;
       color: $color;
     }
 
-    &.black:hover {
-      opacity: 0.7;
+    &.black:active {
       background: $white;
-      border: 2px solid $color;
     }
 
-    &.outline:hover {
-      opacity: 0.7;
+    &.outline:active {
       border: 2px solid transparent;
     }
 
-    &.none:hover {
-      opacity: 0.7;
+    &.none:active {
+      opacity: 0.5;
     }
   }
 }
