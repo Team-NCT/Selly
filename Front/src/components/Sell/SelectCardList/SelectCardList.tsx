@@ -10,17 +10,17 @@ const SelectCardList = ({ data, setNFTValue }: SelectCardListProps) => {
   const setValue = (idx: number) => {
     setSelectedNum(idx);
     //setNFTValue
-  }
+  };
 
   return (
     <ul className={style.card_list}>
       {data.map((item, idx) => (
         <SelectCard
-          key={idx} 
+          key={idx}
           url={item.url}
           title={item.title}
           idx={idx}
-          isSelected={idx===selectedNum}
+          isSelected={idx === selectedNum}
           setValue={setValue}
         />
       ))}

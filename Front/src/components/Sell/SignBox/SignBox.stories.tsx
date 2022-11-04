@@ -1,6 +1,6 @@
 import { Meta, Story } from "@storybook/react";
 import SignBox from "./SignBox";
-import { SignBoxProps } from "./SignBox.types"; 
+import { SignBoxProps } from "./SignBox.types";
 
 export default {
   title: "Sell/SignBox/SignBox",
