@@ -1,4 +1,4 @@
-interface NFTDetailHistoryType {
+export interface NFTDetailHistoryType {
   date: string;
   average: number;
   lowest: number;

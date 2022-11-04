@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const handleColor = () => {
     setHeaderColor(window.pageYOffset);
-    ScrollY > 72 ? setHeaderStatus(true) : setHeaderStatus(false);
+    ScrollY > 64 ? setHeaderStatus(true) : setHeaderStatus(false);
   };
 
   useEffect(() => {
@@ -147,7 +147,7 @@ const Navbar = () => {
               }}
               onClick={() => setMenuToggle(false)}
               aria-hidden="true">
-              <NavLink to="/test">
+              <NavLink to="/sell">
                 <Neon
                   color="muscat150"
                   positionH="bottom"

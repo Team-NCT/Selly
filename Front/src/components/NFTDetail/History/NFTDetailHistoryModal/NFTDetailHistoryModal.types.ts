@@ -1,16 +1,16 @@
 export interface NFTDetailHistoryModalProps {
   /**
-   * 거래 날짜
-   */
-  date: string;
-
-  /**
    * 최고가
    */
-  highst: number;
+  highest: number;
 
   /**
    * 최저가
    */
   lowest: number;
+
+  /**
+   * open 여부
+   */
+  open: boolean;
 }
