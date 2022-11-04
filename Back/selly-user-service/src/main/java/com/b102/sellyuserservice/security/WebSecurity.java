@@ -10,11 +10,13 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsUtils;
 
 import java.util.Arrays;
 import java.util.logging.Filter;
@@ -39,12 +41,32 @@ public class WebSecurity {
     this.userService = userService;
     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
   }
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource(){
+    CorsConfiguration corsConfiguration = new CorsConfiguration();
+    corsConfiguration.addAllowedOrigin("http://localhost:3000");
+    corsConfiguration.addAllowedHeader("*");
+    corsConfiguration.addAllowedMethod("*");
+    corsConfiguration.setAllowCredentials(true);
+    corsConfiguration.setMaxAge(3600L);
 
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", corsConfiguration);
+    return source;
+
+  }
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-    http.csrf().disable();
-    http.authorizeRequests().antMatchers("/error/**").permitAll()
+    http
+//            .cors().configurationSource(corsConfigurationSource()).and()
+//            .httpBasic().disable()
+            .csrf().disable()
+            .cors().configurationSource(corsConfigurationSource()).and()
+//            .and()
+//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//            .and()
+            .authorizeRequests().antMatchers("/error/**").permitAll()
             .antMatchers("/**")
 //            .access("hasIpAddress('127.0.0.1')")
             .permitAll()
@@ -54,25 +76,12 @@ public class WebSecurity {
   }
 
 
+
   private CustomAuthenticationFilter getCustomAuthenticationFilter()  throws Exception{
     CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManager(authenticationConfiguration), userService, env);
     return customAuthenticationFilter;
   }
 
-
-
-//  @Bean
-//public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//  http.authorizeRequests()
-//          .antMatchers("/**")
-//          .permitAll()
-//          .anyRequest()
-//          .authenticated()
-//          .and()
-//          .httpBasic();
-//  http.addFilterAfter(new CustomFilter(), BasicAuthenticationFilter.class);
-//  return http.build();
-//}
 
 
 }

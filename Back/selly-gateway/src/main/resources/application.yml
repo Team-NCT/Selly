@@ -14,7 +14,7 @@ spring:
             preLogger: true
             postLogger: true
 #      globalcors:
-#        cors-configurations:
+#        corsConfigurations:
 #          '[/**]':
 #            allowedOrigins: 'http://localhost:3000'
 #            allow-credentials: true
