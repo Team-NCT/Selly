@@ -2,6 +2,7 @@ import { TextInput, Label } from "@/components/common";
 import { checkNumEngKor } from "@/helpers/utils/checkLanguage";
 import { useInputState } from "@/hooks";
 import { useEffect, useState } from "react";
+import style from "./Username.module.scss";
 
 const Username = () => {
   const [username, setUsername] = useInputState();
@@ -18,7 +19,7 @@ const Username = () => {
   }, [username]);
 
   return (
-    <>
+    <section className={style.section}>
       <Label
         color="ocean"
         height={60}
@@ -28,7 +29,7 @@ const Username = () => {
         positionW="right"
         vertical={10}
         width={25}>
-        Username
+        <span className={style.text}>Username</span>
       </Label>
       <TextInput
         handleInputChange={setUsername}
@@ -39,7 +40,7 @@ const Username = () => {
         errorMessage={errorMessage}
         placeHolder="닉네임을 입력해 주세요."
       />
-    </>
+    </section>
   );
 };
 

@@ -1,4 +1,14 @@
+.section {
+  @include flex(row, space-between, flex-start);
+  margin-top: 60px;
+}
+
 .leftSection {
   @include flex(column, flex-start, flex-start);
-  padding-bottom: 50px;
+  gap: 44px;
+}
+
+.rightSection {
+  @include flex(column, flex-start, flex-start);
+  gap: 44px;
 }
