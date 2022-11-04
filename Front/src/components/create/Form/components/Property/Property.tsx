@@ -20,7 +20,7 @@ const Property = () => {
   //* properties를 누르면 property를 설정하는 모달이 뜬다.
   const { property } = useAppSelector(selectModal);
   const dispatch = useAppDispatch();
-  const openModal = (e: React.FormEvent<EventTarget>) => {
+  const openModal = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(openProperty());
   };

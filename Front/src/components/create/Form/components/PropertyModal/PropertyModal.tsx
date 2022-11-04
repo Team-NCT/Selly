@@ -11,7 +11,7 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
     if (properties.length < 6) {
       setModalProperties([...properties, { type: "", name: "" }]);
     }
-  }, []);
+  }, [properties]);
 
   //* add property 버튼을 누르면 빈 객체가 추가된다.
   const addPropertyHandler = (e: React.FormEvent<EventTarget>) => {
