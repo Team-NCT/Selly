@@ -1,15 +1,17 @@
 package com.b102.sellyuserservice.model.service;
 
 import com.b102.sellyuserservice.domain.dto.FollowDto;
+import com.b102.sellyuserservice.domain.dto.NftPieceDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
+import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
-import com.b102.sellyuserservice.vo.RequestUpdate;
-import com.b102.sellyuserservice.vo.SearchUserResponse;
+import com.b102.sellyuserservice.vo.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public interface UserService extends UserDetailsService {
@@ -29,5 +31,15 @@ public interface UserService extends UserDetailsService {
   UserDto updateUser(Long userId, RequestUpdate user) throws UnsupportedEncodingException;
 
   List<SearchUserResponse> findByKeyword(String keyword);
+
+  String trade(Long userId, TradeRequest tradeRequest);
+
+  NftPieceDto postOwnership(Long userId, TradeRequest tradeRequest);
+//  NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest);
+NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest);
+
+  NftPieceDto deleteOwnership(Long userId, TradeRequest tradeRequest);
+
+  NftPieceDto updateOwnership(Long userId, NftPieceRequest tradeRequest);
 
 }
