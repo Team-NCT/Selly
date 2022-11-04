@@ -3,6 +3,7 @@ package com.b102.sellyuserservice.controller;
 import com.b102.sellyuserservice.domain.dto.FollowDto;
 import com.b102.sellyuserservice.domain.dto.NftPieceDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
+import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.service.FollowService;
 import com.b102.sellyuserservice.model.service.UserService;
@@ -25,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -118,9 +120,15 @@ public class UserController {
 //    Object response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
 //    return ResponseEntity.status(HttpStatus.OK).body(response);
 //  }
+//  @GetMapping("/ownership/{userId}")
+//  public ResponseEntity<NftPieceResponseDto> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
+//    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
+//    return ResponseEntity.status(HttpStatus.OK).body(response);
+//  }
   @GetMapping("/ownership/{userId}")
   public ResponseEntity<NftPieceResponseDto> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
     NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
+//    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

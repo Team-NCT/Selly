@@ -13,5 +13,6 @@ public interface ArticleServiceClient {
   void sellRegist(@PathVariable("articleId") Long articleId);
 
   @GetMapping("/selly-article-service/{id}")
-  Object articleResponse(@PathVariable("id") Long id);
+//  Object articleResponse(@PathVariable("id") Long id);
+  ArticleResponseDto articleResponse(@PathVariable("id") Long id);
 }

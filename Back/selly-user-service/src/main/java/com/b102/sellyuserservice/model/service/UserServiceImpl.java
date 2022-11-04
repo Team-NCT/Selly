@@ -28,6 +28,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -135,12 +136,14 @@ public class UserServiceImpl implements UserService {
 //    return mapper.map(nftPiece, NftPieceDto.class);
 //  }
 @Override
+//public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
 public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
   NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId())
           .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
   System.out.println(userId);
   System.out.println(tradeRequest.getArticleId());
   return new NftPieceResponseDto(nftPiece);
+//  return nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
 }
 
   @Override
@@ -149,13 +152,13 @@ public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRe
             .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
     Long NftPieceCntL = tradeRequest.getNftPieceCnt();
     Integer NftPieceCnt = NftPieceCntL.intValue();
-    nftPiece.updateOwnership(
-//            nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt(),
-//            (nftPiece.getAvgPrice()*nftPiece.getNftPieceCnt() + tradeRequest.getPieceCnt()* tradeRequest.getTradePrice())/(nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt())
-            NftPieceCnt,
-            tradeRequest.getAvgPrice()
-    );
-    nftPieceRepository.save(nftPiece);
+//    nftPiece.updateOwnership(
+////            nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt(),
+////            (nftPiece.getAvgPrice()*nftPiece.getNftPieceCnt() + tradeRequest.getPieceCnt()* tradeRequest.getTradePrice())/(nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt())
+//            NftPieceCnt,
+//            tradeRequest.getAvgPrice()
+//    );
+//    nftPieceRepository.save(nftPiece);
     return mapper.map(nftPiece, NftPieceDto.class);
   }
   @Override

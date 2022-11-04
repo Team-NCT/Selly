@@ -2,8 +2,10 @@ package com.nct.sellytradeservice.client;
 
 import com.nct.sellytradeservice.domain.dto.NftPieceDto;
 import com.nct.sellytradeservice.domain.dto.NftPieceRequest;
+import com.nct.sellytradeservice.domain.dto.NftPieceResponseDto;
 import com.nct.sellytradeservice.domain.dto.TradeRequest;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -11,7 +13,10 @@ import java.util.Optional;
 @FeignClient(name = "selly-user-service")
 public interface UserServiceClient {
   @GetMapping("/ownership/{userId}")
-  Optional<NftPieceDto> getOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
+//  Optional<NftPieceDto> getOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
+//  Optional<NftPieceDto> getOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
+//  NftPieceDto getOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
+  ResponseEntity<NftPieceResponseDto> getOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
   @PostMapping("/ownership/{userId}")
   NftPieceDto createOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
   @DeleteMapping("/ownership/{userId}")
