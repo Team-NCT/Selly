@@ -32,6 +32,9 @@ public class TradeRegist {
 
   private boolean status;
 
+  public TradeRegist() {
+  }
+
   @Builder
   public TradeRegist(Long seller, Long articleId, double tradePrice, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status) {
     this.seller = seller;
@@ -47,4 +50,5 @@ public class TradeRegist {
     this.pieceCnt = pieceCnt;
     this.status = status;
   }
+
 }
