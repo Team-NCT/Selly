@@ -1,5 +1,5 @@
 import { TextInput, Label } from "@/components/common";
-import { checkLanguage } from "@/helpers/utils/checkLanguage";
+import { checkNumEngKor } from "@/helpers/utils/checkLanguage";
 import { useInputState } from "@/hooks";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ const Bio = () => {
   const [staus, setStaus] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!checkLanguage(username)) {
+    if (!checkNumEngKor(username)) {
       setErrorMessage("한글, 영어, 숫자의 조합만 가능합니다.");
       setStaus(false);
     } else {
