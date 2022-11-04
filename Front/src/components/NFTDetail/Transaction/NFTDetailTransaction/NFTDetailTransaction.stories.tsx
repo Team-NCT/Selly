@@ -1,6 +1,6 @@
 import { Meta, Story } from "@storybook/react";
 import NFTDetailTransaction from "./NFTDetailTransaction";
-import {} from "./NFTDetailTransaction.types";
+import { NFTDetailTransactionProps } from "./NFTDetailTransaction.types";
 
 export default {
   title: "NFTDetail/Transaction/NFTDetailTransaction",
@@ -11,10 +11,15 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Default: Story = (args) => (
-  <div style={{ width: "400px" }}>
+export const Default: Story<NFTDetailTransactionProps> = (args) => (
+  <div style={{ maxWidth: "600px" }}>
     <NFTDetailTransaction {...args} />
   </div>
 );
 
-Default.args = {};
+Default.args = {
+  auctionEndTime: "",
+  auctionStatus: true,
+  bidPrice: 0,
+  lowPrice: 0,
+};
