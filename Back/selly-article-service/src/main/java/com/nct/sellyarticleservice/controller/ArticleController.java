@@ -29,9 +29,9 @@ public class ArticleController {
   private final ArticleServiceImpl articleService;
 
   private final ArticleRepository articleRepository;
-  @GetMapping("/{id}")
-  public ArticleResponseDto findById (@PathVariable("id") Long id) {
-    return articleService.findById(id);
+  @GetMapping("/{articleId}")
+  public Object findById (@PathVariable("articleId") Long articleId) {
+    return articleService.findById(articleId);
   }
 
   @PostMapping("/create")

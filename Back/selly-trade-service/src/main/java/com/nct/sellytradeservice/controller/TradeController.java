@@ -1,14 +1,12 @@
 package com.nct.sellytradeservice.controller;
 
-import com.nct.sellytradeservice.domain.dto.ArticleResponseDto;
-import com.nct.sellytradeservice.domain.dto.ArticleUpdateRequest;
-import com.nct.sellytradeservice.domain.dto.SellRegistRequest;
-import com.nct.sellytradeservice.domain.dto.TradeResponse;
+import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
 import com.nct.sellytradeservice.model.service.TradeService;
 import com.nct.sellytradeservice.model.service.TradeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,9 +43,26 @@ public class TradeController {
     return tradeService.findById(id);
   }
 
+  // 유저간 거래 등록
   @PostMapping("/p2p-sell-regist")
-  public ResponseEntity<Long> response(@RequestBody SellRegistRequest sellRegistRequest) {
-    Long response = tradeService.registP2pSell(sellRegistRequest);
+  public ResponseEntity<Object> response(@RequestBody SellRegistRequest sellRegistRequest) {
+    String response = tradeService.registP2pSell(sellRegistRequest);
+    return ResponseEntity.ok()
+            .body(response);
+  }
+
+  // 거래 API
+  @PostMapping("/trade")
+  public ResponseEntity<Object> response(@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
+    Object response = tradeService.trade(sellerId, buyerId, tradeRequest);
+    return ResponseEntity.ok()
+            .body(response);
+  }
+
+  @PostMapping("/trade-log")
+  public ResponseEntity<String> response (@RequestParam("trade")Long trade, @RequestBody TradeRequest tradeRequest) {
+    String response = tradeService.postTradeLog(trade, tradeRequest);
+
     return ResponseEntity.ok()
             .body(response);
   }

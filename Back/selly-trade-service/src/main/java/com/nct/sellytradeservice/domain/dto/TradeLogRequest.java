@@ -1,44 +1,27 @@
-package com.nct.sellytradeservice.domain.entity;
+package com.nct.sellytradeservice.domain.dto;
 
+import com.nct.sellytradeservice.domain.entity.TradeLog;
 import lombok.Builder;
+import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Entity
-public class TradeLog {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long tradeId;
-
+@Getter
+public class TradeLogRequest {
   private Long seller;
-
   private Long buyer;
-
   private Long articleId;
-
   private Double tradePrice;
-
   private Integer pieceCnt;
-
   private LocalDateTime tradeTime;
-
   private LocalDateTime tradeRegistTime;
-
   private LocalDateTime createRegist;
-
   private LocalDateTime updateRegist;
-
   private boolean status;
-
   private String contractAddress;
 
   @Builder
-  public TradeLog(Long seller, Long buyer, Long articleId, Double tradePrice, Integer pieceCnt, String contractAddress) {
+  public TradeLogRequest (Long seller, Long buyer, Long articleId, Double tradePrice, Integer pieceCnt, String contractAddress) {
     this.seller = seller;
     this.buyer = buyer;
     this.articleId = articleId;
@@ -46,5 +29,16 @@ public class TradeLog {
     this.pieceCnt = pieceCnt;
     this.tradeTime = LocalDateTime.now();
     this.contractAddress = contractAddress;
+  }
+
+  public TradeLog toEntity() {
+    return TradeLog.builder()
+            .seller(seller)
+            .buyer(buyer)
+            .articleId(articleId)
+            .tradePrice(tradePrice)
+            .pieceCnt(pieceCnt)
+            .contractAddress(contractAddress)
+            .build();
   }
 }

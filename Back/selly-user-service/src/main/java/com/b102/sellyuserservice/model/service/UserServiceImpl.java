@@ -1,19 +1,23 @@
 package com.b102.sellyuserservice.model.service;
 
 import com.b102.sellyuserservice.domain.dto.FollowDto;
+import com.b102.sellyuserservice.domain.dto.NftPieceDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.FollowEntity;
+import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.repository.FollowRepository;
+import com.b102.sellyuserservice.model.repository.NftPieceRepository;
 import com.b102.sellyuserservice.model.repository.UserRepository;
 
-import com.b102.sellyuserservice.vo.RequestUpdate;
-import com.b102.sellyuserservice.vo.RequestUser;
-import com.b102.sellyuserservice.vo.SearchUserResponse;
+import com.b102.sellyuserservice.vo.*;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,15 +28,15 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
-
+  private final NftPieceRepository nftPieceRepository;
   private final BCryptPasswordEncoder passwordEncoder;
-
-
+  private final ModelMapper mapper;
 
   @Override
   public UserDetails loadUserByUsername(String wallet) throws UsernameNotFoundException {
@@ -125,5 +129,55 @@ public class UserServiceImpl implements UserService {
       userResponseList.add(new ModelMapper().map(v, SearchUserResponse.class));
     });
     return userResponseList;
+  }
+
+  @Override
+  public String trade(Long userId, TradeRequest tradeRequest) {
+
+    return null;
+  }
+  @Override
+  public NftPieceDto postOwnership(Long userId, TradeRequest tradeRequest) {
+    NftPiece nftPiece = nftPieceRepository.save(mapper.map(tradeRequest, NftPiece.class));
+    return mapper.map(nftPiece, NftPieceDto.class);
+  }
+//  @Override
+//  public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
+//    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
+//    System.out.println(userId);
+//    System.out.println(tradeRequest.getArticleId());
+//    return mapper.map(nftPiece, NftPieceDto.class);
+//  }
+@Override
+//public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
+public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
+  NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId())
+          .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
+  System.out.println(userId);
+  System.out.println(tradeRequest.getArticleId());
+  return new NftPieceResponseDto(nftPiece);
+//  return nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
+}
+
+  @Override
+  public NftPieceDto updateOwnership(Long userId, NftPieceRequest tradeRequest) {
+    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId())
+            .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
+    Long NftPieceCntL = tradeRequest.getNftPieceCnt();
+    Integer NftPieceCnt = NftPieceCntL.intValue();
+//    nftPiece.updateOwnership(
+////            nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt(),
+////            (nftPiece.getAvgPrice()*nftPiece.getNftPieceCnt() + tradeRequest.getPieceCnt()* tradeRequest.getTradePrice())/(nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt())
+//            NftPieceCnt,
+//            tradeRequest.getAvgPrice()
+//    );
+//    nftPieceRepository.save(nftPiece);
+    return mapper.map(nftPiece, NftPieceDto.class);
+  }
+  @Override
+  public NftPieceDto deleteOwnership(Long userId, TradeRequest tradeRequest) {
+    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId())
+            .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
+    return mapper.map(nftPiece, NftPieceDto.class);
   }
 }
