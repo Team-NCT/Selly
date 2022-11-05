@@ -2,6 +2,7 @@ import { TextInput, Label } from "@/components/common";
 import { checkNumEngKor } from "@/helpers/utils/checkLanguage";
 import { useInputState } from "@/hooks";
 import { useEffect, useState } from "react";
+import style from "./Bio.module.scss";
 
 const Bio = () => {
   const [username, setUsername] = useInputState("");
@@ -18,7 +19,7 @@ const Bio = () => {
   }, [username]);
 
   return (
-    <>
+    <section className={style.section}>
       <Label
         color="ocean"
         height={60}
@@ -28,7 +29,7 @@ const Bio = () => {
         positionW="right"
         vertical={10}
         width={90}>
-        Bio
+        <span className={style.text}>Bio</span>
       </Label>
       <TextInput
         handleInputChange={setUsername}
@@ -37,9 +38,9 @@ const Bio = () => {
         status={staus}
         value={username}
         errorMessage={errorMessage}
-        placeHolder="간단한 소개를 입력해주세요"
+        placeHolder="간단한 소개를 입력해 주세요."
       />
-    </>
+    </section>
   );
 };
 

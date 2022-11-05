@@ -1,0 +1,7 @@
+.section {
+  width: 100%;
+}
+
+.text {
+  @include font($body1, $semibold);
+}
