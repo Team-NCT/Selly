@@ -19,7 +19,14 @@
 
 .form_property_container {
   @include flex(row, flex-start);
+  flex-wrap: wrap;
   width: 100%;
+  gap: 8px;
+}
+
+.form_property_button {
+  @include flex(row, flex-start);
+  flex-wrap: wrap;
   gap: 8px;
 }
 
