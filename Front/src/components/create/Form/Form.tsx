@@ -57,10 +57,14 @@ const Form = () => {
             <Description />
           </div>
         </div>
-        <Link />
-        <button onClick={(e) => e.preventDefault()}></button>
+        <div className={style.form_item}>
+          <Link />
+          <button onClick={(e) => e.preventDefault()}></button>
+        </div>
         <Property />
-        <Button form="create-form">create</Button>
+        <div className={style.submit_button}>
+          <Button form="create-form">create</Button>
+        </div>
       </section>
     </form>
   );

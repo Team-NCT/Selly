@@ -1,6 +1,7 @@
 import { Label, PropertyCard } from "@/components/common";
 import React, { useEffect, useState } from "react";
 import style from "./Property.module.scss";
+import style_form from "../../Form.module.scss";
 import { PropertyType } from "./Property.types";
 import PropertyModal from "../PropertyModal/PropertyModal";
 import { selectModal, closeProperty, openProperty } from "@/store/modalSlice";
@@ -31,48 +32,46 @@ const Property = () => {
   const el = document.getElementById("modal-root")!;
 
   return (
-    <>
-      <div className={style.form_title}>
-        <h2 className={style.form_title_label}>
-          <Label
-            color="muscat100"
-            positionH="top"
-            positionW="left"
-            id="create-property"
-            height={65}
-            vertical={5}>
-            Properties
-          </Label>
-        </h2>
-        <span className={style.form_title_desc}>
+    <div className={style.form_container}>
+      <div className={style_form.form_margin}>
+        <Label
+          color="muscat100"
+          positionH="top"
+          positionW="left"
+          id="create-property"
+          height={65}
+          vertical={5}>
+          <h2 className={style.form_title_label}>Properties</h2>
+        </Label>
+        <div className={style.form_title_desc}>
           NFT를 나타내줄 수 있는 속성을 지정해주세요. 최대{" "}
           <span className={style.form_title_desc_bold}>6개</span>까지 생성 가능합니다.
-        </span>
-        <button className={style.form_property_container} onClick={(e) => openModal(e)}>
-          {properties.map((property, idx) => (
-            <div className={`${style.form_property_item} property`} key={idx}>
-              <PropertyCard {...property}></PropertyCard>
-            </div>
-          ))}
-          {isMax ? (
-            ""
-          ) : (
-            <div className={style.form_property_item}>
-              <PropertyCard type="추가하기" name="+"></PropertyCard>
-            </div>
-          )}
-        </button>
-        {property &&
-          createPortal(
-            <PropertyModal
-              close={closeModal}
-              properties={properties}
-              setProperties={setProperties}
-            />,
-            el
-          )}
+        </div>
       </div>
-    </>
+      <button className={style.form_property_container} onClick={(e) => openModal(e)}>
+        {properties.map((property, idx) => (
+          <div className={`${style.form_property_item} property`} key={idx}>
+            <PropertyCard {...property}></PropertyCard>
+          </div>
+        ))}
+        {isMax ? (
+          ""
+        ) : (
+          <div className={style.form_property_item}>
+            <PropertyCard type="추가하기" name="+"></PropertyCard>
+          </div>
+        )}
+      </button>
+      {property &&
+        createPortal(
+          <PropertyModal
+            close={closeModal}
+            properties={properties}
+            setProperties={setProperties}
+          />,
+          el
+        )}
+    </div>
   );
 };
 
