@@ -3,6 +3,7 @@ import { Button } from "@/components/common";
 import { Description, Image, Title, Link, Property } from "./components";
 import createNFT from "@/helpers/utils/createNFT";
 import { OpenAlertArg, useAlert } from "@/hooks";
+import style from "./Form.module.scss";
 
 const Form = () => {
   const { openAlertModal } = useAlert();
@@ -45,17 +46,23 @@ const Form = () => {
     }
   };
   return (
-    <>
-      <form id="create-form" onSubmit={(e) => submitHandler(e)}>
-        <Image></Image>
-        <Title></Title>
-        <Description></Description>
-        <Link></Link>
+    <form id="create-form" onSubmit={(e) => submitHandler(e)}>
+      <section className={style.form_container}>
+        <div className={style.image_title_description}>
+          <div className={style.image}>
+            <Image />
+          </div>
+          <div className={style.title_description}>
+            <Title />
+            <Description />
+          </div>
+        </div>
+        <Link />
         <button onClick={(e) => e.preventDefault()}></button>
-        <Property></Property>
+        <Property />
         <Button form="create-form">create</Button>
-      </form>
-    </>
+      </section>
+    </form>
   );
 };
 

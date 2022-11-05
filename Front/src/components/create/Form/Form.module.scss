@@ -1,0 +1,19 @@
+.form_container {
+  @include flex(column, flex-start, flex-start);
+}
+
+.image {
+  width: 100%;
+}
+
+.image_title_description {
+  width: 100%;
+  @include flex(column, flex-start, center);
+  @include laptop {
+    @include flex(row);
+  }
+}
+
+.title_description {
+  width: 100%;
+}
