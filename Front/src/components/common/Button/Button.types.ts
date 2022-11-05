@@ -45,4 +45,6 @@ export interface ButtonProps {
    * 버튼 함수
    */
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+
+  form?: string;
 }

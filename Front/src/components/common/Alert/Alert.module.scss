@@ -12,7 +12,7 @@ $bg-palette: (
 }
 
 .style-error {
-  color: $white;
+  color: $white !important;
 }
 
 @keyframes showModal {

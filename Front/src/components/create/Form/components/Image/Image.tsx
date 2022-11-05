@@ -53,6 +53,7 @@ const Image = () => {
 
       //* 정상적인 이미지 파일을 state에 저장한다.
       setImageFile(file);
+      console.log(imageFile);
     },
     [openAlertModal]
   );
