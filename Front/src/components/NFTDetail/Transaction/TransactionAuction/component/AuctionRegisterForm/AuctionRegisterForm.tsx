@@ -19,7 +19,7 @@ const AuctionRegisterForm = ({ auctionStatus }: AuctionRegisterFormProps) => {
           </p>
         </div>
         <div className={style.NFT_detail_transaction_price_description}>
-          <p>누군가가 경매 최소 시작가를 입찰하면 </p>
+          <p>경매 최소 시작가를 입찰하면, </p>
           <p>
             경매가 시작되고 <strong>3일 동안 </strong>
             진행됩니다.
