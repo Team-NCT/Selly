@@ -1,6 +1,6 @@
 .NFT_transction {
   @include shadow-drop3;
-  @include flex(column, center, center);
+  @include flex(column, flex-start, center);
   border-radius: 16px;
   width: 100%;
 

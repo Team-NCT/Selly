@@ -2,22 +2,23 @@
   @include flex(column, center, center);
   gap: 48px;
   width: 100%;
-  height: 480px;
+  min-height: 432px;
   padding: 0px 24px;
 
   @include tablet {
-    height: 424px;
-    padding: 0px 40px;
+    min-height: 424px;
+    padding: 24px 40px;
   }
 
   .NFT_detail_transaction_description {
     align-self: flex-start;
-    > p {
-      @include font($body2, $medium, $black300);
+    > li {
+      @include font($caption, $medium, $black300);
       line-height: 24px;
       display: inline;
 
       @include tablet {
+        @include font($body2, $medium, $black300);
         display: block;
       }
     }
