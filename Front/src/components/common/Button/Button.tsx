@@ -6,6 +6,8 @@ const Button = ({
   bg = "primary",
   size = "default",
   color = "black",
+  type = "submit",
+  hidden = false,
   onClick,
 }: ButtonProps) => {
   const buttonBg = style[["bg-", bg].join("")];
@@ -13,6 +15,8 @@ const Button = ({
   return (
     <button
       className={`${style.button} ${buttonBg} ${style[size]} ${style[color]}`}
+      type={type}
+      hidden={hidden}
       onClick={onClick}>
       {children}
     </button>
