@@ -37,6 +37,11 @@ export interface ButtonProps {
   hidden?: boolean;
 
   /**
+   * disabled 속성
+   */
+  disabled?: boolean;
+
+  /**
    * 버튼 함수
    */
   onClick?: React.MouseEventHandler<HTMLButtonElement>;

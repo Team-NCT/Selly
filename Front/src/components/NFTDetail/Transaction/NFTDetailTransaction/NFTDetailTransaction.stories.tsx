@@ -18,8 +18,10 @@ export const Default: Story<NFTDetailTransactionProps> = (args) => (
 );
 
 Default.args = {
-  auctionEndTime: "",
-  auctionStatus: true,
-  bidPrice: 0,
-  lowPrice: 0,
+  auction: {
+    auctionEndTime: "",
+    auctionStatus: true,
+    bidPrice: 0,
+    lowPrice: 0,
+  },
 };
