@@ -1,15 +1,49 @@
+import React from "react";
 import { Button } from "@/components/common";
-import React, { useState } from "react";
 import { Description, Image, Title, Link, Property } from "./components";
+import createNFT from "@/helpers/utils/createNFT";
+import { OpenAlertArg, useAlert } from "@/hooks";
 
 const Form = () => {
-  const submitHandler = (e: React.FormEvent) => {
-    e.preventDefault();
-    // console.log(e.target);
-    console.log("test", e.target[0].files);
+  const { openAlertModal } = useAlert();
+  const submitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    const target = event.target as unknown as HTMLInputElement[];
+
+    //* image가 없으면 error alert
+    if (target[0].files?.length === 0) {
+      const data: OpenAlertArg = {
+        content: "이미지는 필수 항목입니다.",
+        style: "error",
+        icon: false,
+      };
+      openAlertModal(data);
+      return;
+    }
+
+    //* title이 없으면 error alert
+    else if (target[1].value?.trim().length === 0) {
+      const data: OpenAlertArg = {
+        content: "작품명은 필수 항목입니다.",
+        style: "error",
+        icon: false,
+      };
+      openAlertModal(data);
+      return;
+    } else {
+      //* IPFS에 업로드하는 함수
+      const promise = createNFT(event);
+      //* 업로드 후 metadataURl, ImageURL, title을 반환한다.
+      promise.then((data) => {
+        const metadataUrl = data?.metadataUrl;
+        const imageUrl = data?.imageUrl;
+        const title = data?.title;
+        console.log("metadata", metadataUrl);
+        console.log("image", imageUrl);
+        console.log("title", title);
+      });
+    }
   };
-  //* 이미지 file
-  const [imageFile, setImageFile] = useState<File>();
   return (
     <>
       <form id="create-form" onSubmit={(e) => submitHandler(e)}>
@@ -17,7 +51,7 @@ const Form = () => {
         <Title></Title>
         <Description></Description>
         <Link></Link>
-        <button></button>
+        <button onClick={(e) => e.preventDefault()}></button>
         <Property></Property>
         <Button form="create-form">create</Button>
       </form>
