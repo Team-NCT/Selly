@@ -1,0 +1,9 @@
+.section {
+  width: 100%;
+  @include flex(column, flex-start, flex-start);
+  gap: 20px;
+}
+
+.labelText {
+  @include font($body1, $semibold);
+}

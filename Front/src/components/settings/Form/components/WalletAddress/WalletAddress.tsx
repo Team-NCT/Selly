@@ -17,7 +17,7 @@ const WalletAddress = ({ address = "" }: Props) => {
   };
 
   return (
-    <section>
+    <section className={style.section}>
       <Label
         color="ocean"
         height={60}
@@ -27,7 +27,7 @@ const WalletAddress = ({ address = "" }: Props) => {
         positionW="right"
         vertical={10}
         width={22}>
-        Wallet Address
+        <span className={style.labelText}>Wallet Address</span>
       </Label>
       <div className={style.address} onClick={copyHandler} aria-hidden="true">
         <span className={style.text}>{address}</span>
