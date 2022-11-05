@@ -8,6 +8,7 @@ const NumberInput = (props: NumberInputProps) => {
     <>
       <input
         className={`${style.input_number} ${style[`input_${status}`]}`}
+        value={value}
         type="number"
         onChange={handleValueChange}
         {...attrs}></input>

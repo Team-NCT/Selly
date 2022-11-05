@@ -27,6 +27,21 @@ export interface ButtonProps {
   color?: ButtonColorType;
 
   /**
+   * 버튼 타입
+   */
+  type?: "submit" | "button";
+
+  /**
+   * hidden 속성
+   */
+  hidden?: boolean;
+
+  /**
+   * disabled 속성
+   */
+  disabled?: boolean;
+
+  /**
    * 버튼 함수
    */
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
