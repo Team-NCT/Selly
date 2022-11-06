@@ -43,6 +43,7 @@ const Form = () => {
         console.log("image", imageUrl);
         console.log("title", title);
       });
+      //@ TodoJY: 서버에 요청 보내기
     }
   };
   return (
