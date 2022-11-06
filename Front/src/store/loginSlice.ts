@@ -2,11 +2,11 @@ import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
 interface AccountState {
-  account: string | null;
+  account: { nickname: string | null; address: string | null };
 }
 
 const initialState: AccountState = {
-  account: null,
+  account: { nickname: null, address: null },
 };
 
 const slice = createSlice({
@@ -14,8 +14,12 @@ const slice = createSlice({
   initialState,
 
   reducers: {
-    setAccount: (state, action: PayloadAction<string | null>) => {
-      state.account = action.payload;
+    setAccount: (
+      state,
+      action: PayloadAction<{ nickname: string | null; address: string | null }>
+    ) => {
+      state.account.address = action.payload.address;
+      state.account.nickname = action.payload.nickname;
     },
   },
 });

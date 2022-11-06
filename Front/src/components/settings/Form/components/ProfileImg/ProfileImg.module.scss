@@ -7,3 +7,7 @@
 .labelText {
   @include font($body1, $semibold);
 }
+
+.caption_danger {
+  color: $sherbet150;
+}

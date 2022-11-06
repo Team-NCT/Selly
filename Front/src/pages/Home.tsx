@@ -10,7 +10,7 @@ function Home() {
   return (
     <>
       <h1>Home</h1>
-      <h1>account 주소: {account}</h1>
+      <h1>account 주소: {account.address}</h1>
       <Button onClick={login}>로그인</Button>
       <h1>user: {process.env.SELLY_USER_SERVICE_API}</h1>
       <h1>trade: {process.env.SELLY_TRADE_SERVICE_API}</h1>

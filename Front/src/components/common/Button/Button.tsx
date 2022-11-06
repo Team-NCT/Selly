@@ -16,7 +16,7 @@ const Button = ({
   if (!disabled) {
     buttonBg = style[["bg-", bg].join("")];
   } else {
-    buttonBg = style["bg-disabled"];
+    buttonBg = style.disabled;
   }
 
   return (

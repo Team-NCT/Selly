@@ -8,7 +8,11 @@ import {
 import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
 import style from "./BannerImg.module.scss";
 
-const BannerImg = () => {
+export interface initialProps {
+  initialUrl: string;
+}
+
+const BannerImg = ({ initialUrl }: initialProps) => {
   //* 알럿
   const { openAlertModal } = useAlert();
 
@@ -16,7 +20,7 @@ const BannerImg = () => {
   const limit = 100;
 
   //* 미리보기 이미지 url
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(initialUrl);
 
   //* 이미지 file
   const [imageFile, setImageFile] = useState<File>();

@@ -21,3 +21,17 @@ export const checkNumEngKor = (text: string) => {
 
   return true;
 };
+
+//* 비속어 체크
+
+export const checkBadWord = (text: string) => {
+  const badWords = ["병신", "시발", "바보", "개새끼", "ㅅ1발", "ㅄ", "ㅅㅂ", "죽어"];
+  const check = badWords.some((item) => text.includes(item));
+  return !check;
+};
+
+//* 글자 길이 체크
+export const checkValueLength = (text: string, min: number) => {
+  const check = text.length >= min;
+  return check;
+};
