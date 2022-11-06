@@ -1,0 +1,10 @@
+// .category {
+//   @include flex(column, flex-start, stretch);
+// }
+
+.category_label {
+  Label {
+    @include font($body2, $bold);
+  }
+  border-bottom: 1px solid black;
+}

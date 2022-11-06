@@ -1,0 +1,11 @@
+.sell_info_form {
+  @include flex(column, flex-start, stretch);
+  @include shadow-drop4;
+  gap: 32px;
+  padding: 16px;
+
+  .total_price {
+    @include font($body1, $semibold);
+    @include flex(row, space-between, center);
+  }
+}

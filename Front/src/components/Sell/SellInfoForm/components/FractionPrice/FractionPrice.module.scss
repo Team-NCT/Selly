@@ -1,0 +1,5 @@
+.fraction_price_label {
+  Label {
+    @include font($body2, $bold);
+  }
+}

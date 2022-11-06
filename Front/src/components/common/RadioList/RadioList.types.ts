@@ -18,6 +18,11 @@ export interface RadioListProps {
   bg?: RadioBGType;
 
   /**
+   * 기본 checked로 넣을 default 값
+   */
+  defaultValue?: string;
+
+  /**
    * onChange = (e) => {setState(e.target.value)}
    */
   onChange: React.FormEventHandler;
