@@ -1,3 +1,6 @@
+// selectNFT의 필요한 정보를 저장할 타입
+import { SelectNFTState } from "@/store/selectNFTSlice";
+
 export interface SelectCardProps {
   /**
    * NFT 이미지 url
@@ -20,7 +23,7 @@ export interface SelectCardProps {
   idx: number;
 
   /**
-   * 클릭했을 때 클릭한 카드의 데이터를 받아올 함수
+   * 클릭했을 때 클릭한 선택된 카드의 idx를 저장할 변수
    */
   setValue: (idx: number) => void;
 }

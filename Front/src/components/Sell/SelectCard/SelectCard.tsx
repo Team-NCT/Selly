@@ -2,6 +2,7 @@ import { SelectCardProps } from "./SelectCard.types";
 import style from "./SelectCard.module.scss";
 import { Button } from "@/components";
 import { useState, useCallback } from "react";
+import { setNFTValue } from "@/store/selectNFTSlice";
 
 const SelectCard = ({ url, title, isSelected, idx, setValue }: SelectCardProps) => {
   const [selectedText, setSelectedText] = useState("Selected");

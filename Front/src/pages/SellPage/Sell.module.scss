@@ -1,0 +1,16 @@
+.sell_title {
+  @include font($h2, $bold);
+  margin-bottom: 24px;
+}
+
+.content {
+  @include flex(row, space-between, stretch);
+
+  .select_section {
+    width: 72%;
+  }
+
+  .selected_NFT_section {
+    width: 20%;
+  }
+}
