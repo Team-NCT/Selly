@@ -1,11 +1,11 @@
 import { SellInfoFormProps } from "./SellInfoForm.types";
 import style from "./SellInfoForm.module.scss";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components";
 import { FractionCode, FractionNum, FractionPrice, Category } from "./components";
 
 const SellInfoForm = ({}: SellInfoFormProps) => {
-  const [submittable, setSubmittable] = useState(false);
+  const [submittable, setSubmittable] = useState(true);
   const [values, setValues] = useState({
     category: "Digital",
     code: "",
@@ -14,7 +14,7 @@ const SellInfoForm = ({}: SellInfoFormProps) => {
   });
   // TODO_YK: 각 인풋폼의 유효성 검사 정확히 만들기
   // TODO_YK: 카드 선택 + 유효성 검사 만족시 버튼 disabled false로 만드는 로직 추가하기
-  const changeHandler = (event: any) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value,
