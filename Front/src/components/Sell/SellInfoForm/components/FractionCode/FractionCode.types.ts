@@ -1,4 +1,4 @@
 export interface FractionCodeProps {
   value: string;
-  changeHandler: any;
+  changeHandler: React.FormEventHandler<Element>;
 }
