@@ -10,6 +10,6 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Default: Story = (args) => <TransactionFractionsBuy />;
+export const Default: Story = () => <TransactionFractionsBuy />;
 
 Default.args = {};

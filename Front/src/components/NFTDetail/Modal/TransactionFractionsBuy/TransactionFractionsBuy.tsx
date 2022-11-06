@@ -65,6 +65,10 @@ const TransactionFractionsBuy = () => {
           <Label id="buy-fraction" color="lilac150" positionH="bottom" positionW="right">
             구매 조각 개수
           </Label>
+          <p className={style.NFT_detail_buy_input_description}>
+            구매할 수 있는 조각 개수: {count} 개
+          </p>
+          <p className={style.NFT_detail_buy_input_description}>선택된 조각 가격: {price} ETH</p>
           <div>
             <NumberInput
               id="buy-fraction"
@@ -73,15 +77,13 @@ const TransactionFractionsBuy = () => {
               errorMessage={errorMessage}
               handleValueChange={handleInputChange}
             />
-            <p className={style.NFT_detail_buy_input_description}>
-              구매할 수 있는 조각 개수: {count} 개
-            </p>
-            <p className={style.NFT_detail_buy_input_description}>선택된 조각 가격: {price} ETH</p>
           </div>
         </section>
         <div className={style.NFT_detail_buy_price}>
           <p>지불 금액(가스비 제외): </p>
-          <p>{totalPrice} ETH </p>
+          <p>
+            약 {fPointCheck(totalPrice.toString(), 4) ? totalPrice : totalPrice.toFixed(4)} ETH{" "}
+          </p>
         </div>
         <Button size="fillContainer" disabled={buttonStatus}>
           조각 구매하기
