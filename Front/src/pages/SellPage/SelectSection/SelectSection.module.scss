@@ -1,0 +1,8 @@
+.step_title {
+  @include flex(row, flex-start, flext-start);
+  gap: 16px;
+}
+
+.desc {
+  @include font($body2, $regular);
+}

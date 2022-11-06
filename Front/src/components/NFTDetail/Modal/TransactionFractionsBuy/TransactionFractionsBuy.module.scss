@@ -1,0 +1,51 @@
+.NFT_detail_buy {
+  @include flex(column, center, flex-start);
+  gap: 40px;
+  width: calc(100vw - 32px);
+  max-width: 624px;
+  padding: 40px 40px 32px 40px;
+
+  @include tablet {
+    padding: 60px 60px 40px 60px;
+  }
+
+  @include laptop {
+    width: 624px;
+    padding: 80px 80px 60px 80px;
+  }
+  h1 {
+    @include font($h5, 800, $main-font);
+
+    @include tablet {
+      @include font($h4, 800, $main-font);
+    }
+  }
+
+  .NFT_detail_buy_input {
+    @include flex(column, flex-start, flex-start);
+    gap: 8px;
+    width: 100%;
+    .NFT_detail_buy_input_description {
+      @include font($caption, $medium, $main-font);
+    }
+
+    div {
+      width: 100%;
+      min-height: 59px;
+    }
+  }
+
+  .NFT_detail_buy_price {
+    margin-top: -16px;
+
+    p {
+      @include font($body2, $semibold, $main-font);
+      line-height: 24px;
+
+      @include tablet {
+        @include font($body1, $semibold, $main-font);
+        display: inline;
+      }
+    }
+  }
+}

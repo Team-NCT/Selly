@@ -14,7 +14,7 @@ export const isNumber = (value: string): boolean => {
  */
 export const numberinRange = (max: number, min: number, value: string): boolean => {
   const number = Number(value);
-  return number < max && min > number;
+  return number < max && min < number;
 };
 
 /**

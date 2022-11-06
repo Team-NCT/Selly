@@ -13,7 +13,7 @@ const Bio = () => {
   const dispatch = useAppDispatch();
   const { profileData } = useAppSelector(selectProfileData);
 
-  const chaneBio = (event: React.FormEvent) => {
+  const changeBio = (event: React.FormEvent) => {
     const form = event.target as HTMLFormElement;
     dispatch(setIntroduction(form.value));
   };
@@ -51,7 +51,7 @@ const Bio = () => {
       </Label>
       {profileData.introduction ? "" : <span className={style.caption_danger}>*</span>}
       <TextInput
-        handleInputChange={chaneBio}
+        handleInputChange={changeBio}
         id="Bio"
         maxLength={100}
         status={status}
