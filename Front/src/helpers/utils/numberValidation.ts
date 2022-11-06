@@ -26,6 +26,7 @@ export const numberinRange = (max: number, min: number, value: string): boolean 
  * ex) value: 0.00025 limit: 4 => false
  */
 export const fPointCheck = (value: string, limit: number) => {
+  if (!value.includes(".")) return true;
   const decimal = value.substring(value.indexOf("."));
-  return decimal.length <= limit;
+  return decimal.length - 1 <= limit;
 };

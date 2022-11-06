@@ -1,12 +1,13 @@
 .NFT_detail_transction_auction {
   @include flex(column, center, center);
-  gap: 48px;
+  gap: 32px;
   width: 100%;
   min-height: 432px;
-  padding: 0px 24px;
+  padding: 24px 24px;
 
   @include tablet {
-    min-height: 424px;
+    gap: 40px;
+    min-height: 400px;
     padding: 24px 40px;
   }
 
