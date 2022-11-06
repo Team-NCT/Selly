@@ -108,6 +108,14 @@ spring:
           uri: lb://SELLY-USER-SERVICE
           predicates:
             - Path=/selly-user-service/ownership/{userId}
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+        - id: selly-user-service
+          uri: lb://SELLY-USER-SERVICE
+          predicates:
+            - Path=/selly-user-service/ownership/{userId}
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
@@ -116,7 +124,7 @@ spring:
           uri: lb://SELLY-USER-SERVICE
           predicates:
             - Path=/selly-user-service/ownership/{userId}
-            - Method=GET
+            - Method=PUT
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}

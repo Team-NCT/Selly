@@ -39,4 +39,12 @@ public class NftPiece {
     this.nftPieceCnt = nftPieceCnt;
     this.avgPrice = avgPrice;
   }
+
+  public void postNftPiece(Long pieceId, Long articleId, Long userId, Integer nftPieceCnt, double avgPrice){
+    this.pieceId = pieceId;
+    this.articleId = articleId;
+    this.userId = userId;
+    this.nftPieceCnt = nftPieceCnt;
+    this.avgPrice = avgPrice;
+  }
 }

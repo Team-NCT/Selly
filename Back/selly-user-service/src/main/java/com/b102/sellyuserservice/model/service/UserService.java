@@ -36,9 +36,9 @@ public interface UserService extends UserDetailsService {
 
   NftPieceDto postOwnership(Long userId, TradeRequest tradeRequest);
 //  NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest);
-  NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest);
+  NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, Long articleId);
 
-  NftPieceDto deleteOwnership(Long userId, TradeRequest tradeRequest);
+  String deleteOwnership(Long userId, Long articleId);
 
   NftPieceDto updateOwnership(Long userId, NftPieceRequest tradeRequest);
 

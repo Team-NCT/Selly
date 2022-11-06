@@ -172,6 +172,14 @@ public class UserController {
   public List<SearchUserResponse> userSearch(@PathVariable("keyword") String keyword) {
     return userService.findByKeyword(keyword);
   }
+  @GetMapping("/get-ownership")
+  public ResponseEntity<NftPieceResponseDto> getOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId) throws IllegalArgumentException {
+    System.out.println("소유권 검색");
+    System.out.println(userId);
+    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, articleId);
+//    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
   @PostMapping("/ownership/{userId}")
   public ResponseEntity<Object> postOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
     NftPieceDto response = userService.postOwnership(userId, tradeRequest);
@@ -189,14 +197,6 @@ public class UserController {
 //    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
 //    return ResponseEntity.status(HttpStatus.OK).body(response);
 //  }
-  @GetMapping("/ownership/{userId}")
-  public ResponseEntity<NftPieceResponseDto> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-    System.out.println("소유권 검색");
-    System.out.println(userId);
-    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-//    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-    return ResponseEntity.status(HttpStatus.OK).body(response);
-  }
 
 
   @PutMapping("/ownership/{userId}")
@@ -205,8 +205,8 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
   @DeleteMapping("/ownership/{userId}")
-  public ResponseEntity<Object> deleteOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-    NftPieceDto response = userService.deleteOwnership(userId, tradeRequest);
+  public ResponseEntity<Object> deleteOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId) {
+    String response = userService.deleteOwnership(userId, articleId);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }
