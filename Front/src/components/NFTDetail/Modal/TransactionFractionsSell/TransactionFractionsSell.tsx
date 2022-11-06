@@ -152,7 +152,7 @@ const TransactionFractionsSell = () => {
         </div>
         <Button
           size="fillContainer"
-          disabled={!countState.buttonStatus && !priceState.buttonStatus}>
+          disabled={!(!countState.buttonStatus && !priceState.buttonStatus)}>
           조각 판매하기
         </Button>
       </form>
