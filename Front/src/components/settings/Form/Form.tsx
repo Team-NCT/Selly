@@ -25,6 +25,7 @@ const Form = () => {
   const { account } = useAppSelector(selectAccount);
   const { profleStatus } = useAppSelector(selectProfleStatus);
   const address = account.address ? account.address : "";
+  console.log(profleStatus);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,7 +59,7 @@ const Form = () => {
         </div>
       </section>
       <div className={style.button}>
-        <Button disabled={!profleStatus}>SAVE</Button>
+        <Button disabled={!(profleStatus.bioStatus && profleStatus.usernameStatus)}>SAVE</Button>
       </div>
     </form>
   );

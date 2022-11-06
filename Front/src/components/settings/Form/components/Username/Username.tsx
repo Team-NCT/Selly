@@ -3,7 +3,7 @@ import { checkNumEngKor, checkBadWord, checkValueLength } from "@/helpers/utils/
 import { useInputState } from "@/hooks";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { selectAccount } from "@/store/loginSlice";
-import { setProfleStatus } from "@/store/profileStatusSlice";
+import { setUsernameStatus } from "@/store/profileStatusSlice";
 import { useEffect, useState } from "react";
 import style from "./Username.module.scss";
 
@@ -32,7 +32,7 @@ const Username = ({ initialUsernmae }: initialProps) => {
       } else {
         setStatus(true);
       }
-      dispatch(setProfleStatus(status && !!username));
+      dispatch(setUsernameStatus(status && !!username));
     }, 200);
 
     return () => {

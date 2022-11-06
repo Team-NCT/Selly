@@ -2,11 +2,11 @@ import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
 interface ProfleStatusState {
-  profleStatus: boolean;
+  profleStatus: { usernameStatus: boolean; bioStatus: boolean };
 }
 
 const initialState: ProfleStatusState = {
-  profleStatus: false,
+  profleStatus: { usernameStatus: false, bioStatus: false },
 };
 
 const slice = createSlice({
@@ -14,8 +14,11 @@ const slice = createSlice({
   initialState,
 
   reducers: {
-    setProfleStatus: (state, action: PayloadAction<boolean>) => {
-      state.profleStatus = action.payload;
+    setUsernameStatus: (state, action: PayloadAction<boolean>) => {
+      state.profleStatus.usernameStatus = action.payload;
+    },
+    setBioStatus: (state, action: PayloadAction<boolean>) => {
+      state.profleStatus.bioStatus = action.payload;
     },
   },
 });
@@ -28,5 +31,5 @@ export const selectProfleStatus = createSelector(
   (profleStatus) => profleStatus
 );
 
-export const { setProfleStatus } = slice.actions;
+export const { setUsernameStatus, setBioStatus } = slice.actions;
 export default slice.reducer;

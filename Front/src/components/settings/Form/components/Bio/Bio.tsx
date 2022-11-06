@@ -2,7 +2,7 @@ import { TextInput, Label } from "@/components/common";
 import { checkBadWord, checkValueLength } from "@/helpers/utils/checkLanguage";
 import { useInputState } from "@/hooks";
 import { useAppDispatch } from "@/hooks/useStore";
-import { setProfleStatus } from "@/store/profileStatusSlice";
+import { setBioStatus } from "@/store/profileStatusSlice";
 
 import { useEffect, useState } from "react";
 import style from "./Bio.module.scss";
@@ -27,7 +27,7 @@ const Bio = ({ initialBio }: initialProps) => {
       } else {
         setStatus(true);
       }
-      dispatch(setProfleStatus(status && !!bio));
+      dispatch(setBioStatus(status && !!bio));
     }, 200);
 
     return () => {
