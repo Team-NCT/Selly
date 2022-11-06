@@ -1,8 +1,6 @@
-.form_title {
+.form_container {
   @include flex(column, flex-start, flex-start);
-  @include laptop {
-    @include flex(row, flex-start);
-  }
+  width: 100%;
 }
 
 .form_title_label {
@@ -11,6 +9,7 @@
 
 .form_title_desc {
   @include font($caption, $regular, $black200);
+  margin-top: 4px;
 }
 
 .form_title_desc_bold {
