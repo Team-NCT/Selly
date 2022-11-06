@@ -1,4 +1,4 @@
-import { Button, ImageInput, Label } from "@/components/common";
+import { ImageInput, Label } from "@/components/common";
 import { useCallback, useState } from "react";
 import {
   checkImageExtension,
@@ -7,31 +7,12 @@ import {
 } from "@/helpers/utils/fileValidation";
 import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
 import style from "./BannerImg.module.scss";
-import Cropper from "react-easy-crop";
-import getCroppedImg from "@/helpers/utils/cropImage";
 
-const BannerImg = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState();
-  const [croppedImage, setCroppedImage] = useState();
-  const [croppedArea, setCroppedArea] = useState();
+export interface initialProps {
+  initialUrl: string;
+}
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-    setCroppedImage(croppedArea);
-  }, []);
-  const showCroppedImage = useCallback(async () => {
-    try {
-      const croppedImage = await getCroppedImg(imageUrl, croppedAreaPixels);
-      console.log("donee", { croppedImage });
-      setCroppedImage(croppedImage);
-    } catch (e) {
-      console.error(e);
-    }
-  }, [croppedAreaPixels]);
-
+const BannerImg = ({ initialUrl }: initialProps) => {
   //* 알럿
   const { openAlertModal } = useAlert();
 
@@ -39,7 +20,7 @@ const BannerImg = () => {
   const limit = 100;
 
   //* 미리보기 이미지 url
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(initialUrl);
 
   //* 이미지 file
   const [imageFile, setImageFile] = useState<File>();
@@ -47,7 +28,6 @@ const BannerImg = () => {
   //* 이미지 파일이 업로드될 때 실행되는 함수
   const handleInputChange = useCallback(
     (file: File) => {
-      setIsOpen(true);
       //* validation: 업로드 파일 확장자 체크
       if (!checkImageExtension(file.name)) {
         //! 에러 알럿
@@ -100,35 +80,11 @@ const BannerImg = () => {
         <ImageInput
           handleInputChange={handleInputChange}
           id="banner-img"
-          imageUrl={croppedImage}
+          imageUrl={imageUrl}
           limit={10}
           styles="square"
         />
-        <img src={croppedImage} alt="" />
       </div>
-      <dialog open={isOpen} className={style.dialog}>
-        <div className={style.crop}>
-          <Cropper
-            image={imageUrl}
-            crop={crop}
-            zoom={zoom}
-            aspect={24 / 5}
-            onCropChange={setCrop}
-            onCropComplete={onCropComplete}
-            onZoomChange={setZoom}
-          />
-        </div>
-        <div className={style.controls}>
-          <Button
-            onClick={(event) => {
-              event.preventDefault();
-              setIsOpen(false);
-              showCroppedImage();
-            }}>
-            닫기
-          </Button>
-        </div>
-      </dialog>
     </section>
   );
 };

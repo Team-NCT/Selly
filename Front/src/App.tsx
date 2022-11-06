@@ -16,11 +16,11 @@ function App() {
 
   const dispatch = useAppDispatch();
 
-  const walletAccount = useCheckLogined();
+  const accountData = useCheckLogined();
 
   useEffect(() => {
-    dispatch(setAccount(walletAccount));
-  }, [walletAccount, dispatch]);
+    dispatch(setAccount({ address: accountData.address, nickname: accountData.nickname }));
+  }, [accountData, dispatch]);
 
   return (
     <>

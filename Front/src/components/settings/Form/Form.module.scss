@@ -1,14 +1,35 @@
 .section {
   @include flex(row, space-between, flex-start);
   margin-top: 60px;
+
+  @media (max-width: 800px) {
+    @include flex(column, flex-start, flex-start);
+  }
 }
 
 .leftSection {
   @include flex(column, flex-start, flex-start);
   gap: 44px;
+
+  @media (max-width: 800px) {
+    margin-bottom: 44px;
+    width: 100%;
+  }
 }
 
 .rightSection {
   @include flex(column, flex-start, flex-start);
   gap: 44px;
+
+  @media (max-width: 800px) {
+    @include flex(row, space-between, flex-start);
+    margin-bottom: 44px;
+    width: 100%;
+  }
+}
+
+.button {
+  @media (max-width: 800px) {
+    @include flex(row, center);
+  }
 }

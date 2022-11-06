@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 
 //* Store
-import { counter, alert, modal, account } from "@/store/index";
+import { counter, alert, modal, account, profleStatus } from "@/store/index";
 
 //* API
 import { NFTDetailAPI } from "@/api";
@@ -13,6 +13,7 @@ const reducers = combineReducers({
   modal,
   [NFTDetailAPI.reducerPath]: NFTDetailAPI.reducer,
   account,
+  profleStatus,
 });
 
 const store = configureStore({
