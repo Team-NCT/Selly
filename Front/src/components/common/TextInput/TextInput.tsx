@@ -6,6 +6,7 @@ const TextInput = ({
   value,
   handleInputChange,
   status,
+  name = "",
   maxLength,
   minLength = 0,
   placeHolder = "",
@@ -17,6 +18,7 @@ const TextInput = ({
         className={`${style.input_text} ${style[`input_${status}`]}`}
         type="text"
         id={id}
+        name={name}
         maxLength={maxLength}
         minLength={minLength}
         placeholder={placeHolder}

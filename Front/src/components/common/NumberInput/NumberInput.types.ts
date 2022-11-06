@@ -23,6 +23,11 @@ export interface NumberInputProps {
   status: boolean;
 
   /**
+   * Input 이름
+   */
+  name?: string;
+
+  /**
    * 최대 값
    */
   max?: number;
