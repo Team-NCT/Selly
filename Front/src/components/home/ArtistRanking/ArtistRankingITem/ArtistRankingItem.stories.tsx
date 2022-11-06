@@ -1,4 +1,5 @@
 import { Meta, Story } from "@storybook/react";
+import { ArtistRankingProps } from "./AritstRankingItem.type";
 import ArtistRankingItem from "./ArtistRankingItem";
 
 export default {
@@ -10,6 +11,15 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Default: Story = () => <ArtistRankingItem />;
+export const Default: Story<ArtistRankingProps> = (args) => <ArtistRankingItem {...args} />;
 
-Default.args = {};
+Default.args = {
+  userId: 1,
+  nickname: "RenJun",
+  image:
+    "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA4MjVfMjM3%2FMDAxNjYxNDMxNzkyNDQ3.XFn0xxdsMX1bwa_aftpCDbB5bBk6N-5p-iLqalTFoKwg.1XuRs8gP33ATBAveQzrffmYBdjoVrMsbMyU3eeMfb6Eg.JPEG.lhm11o1%2FIMG_9841.JPG&type=a340",
+  isAuth: true,
+  wallet: "0xc42d1449259b62CB93a079658640ba7dB6AD0D13",
+  followerCnt: 323,
+  NFTCnt: 825,
+};
