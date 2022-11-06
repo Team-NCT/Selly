@@ -1,0 +1,57 @@
+.NFT_detail_sell_status {
+  @include flex(column, center, flex-start);
+  gap: 32px;
+  width: calc(100vw - 32px);
+  max-width: 560px;
+  padding: 32px;
+
+  @include tablet {
+    padding: 40px;
+  }
+
+  @include laptop {
+    max-width: 640px;
+    padding: 60px;
+  }
+
+  h1 {
+    @include font($h5, 800, $main-font);
+
+    @include tablet {
+      @include font($h4, 800, $main-font);
+    }
+  }
+
+  ul {
+    @include flex(column, flex-start, center);
+    @include hide-scroll;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 8px;
+    height: 264px;
+    overflow-y: scroll;
+
+    @include tablet {
+      width: 100%;
+      height: 240px;
+      padding: 16px 24px;
+    }
+
+    li {
+      @include flex(row, space-between, center);
+      @include font($body2, $semibold, $main-font);
+      width: 100%;
+
+      p {
+        width: 30%;
+      }
+
+      button {
+        @include shadow-modal;
+        @include font($body2, $semibold, $navy350);
+        padding: 6px 10px;
+        border-radius: $radius-btn;
+      }
+    }
+  }
+}
