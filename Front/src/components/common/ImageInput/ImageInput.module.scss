@@ -29,10 +29,22 @@
 
 .input_image_square {
   border-radius: 8px;
+}
+
+.input_true {
   border: 2px solid $main-font;
+}
+
+.input_false {
+  border: 2px solid $sherbet150;
 }
 
 .input_image_round {
   border-radius: 50%;
   background-color: $muscat100;
+}
+
+.input_error {
+  @include font($caption, $regular, $sherbet150);
+  margin-top: 10px;
 }
