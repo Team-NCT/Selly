@@ -29,7 +29,7 @@ function Sell() {
         </section>
         <section className={style.selected_NFT_section}>
           <h2>Selected NFT</h2>
-          <SelectedCard url={NFTValue.articleUrl} title={NFTValue.testidx} />
+          <SelectedCard url={NFTValue.articleUrl} title={NFTValue.articleName} />
           <SellInfoForm step={step} changeStep={changeStep} />
         </section>
       </article>
