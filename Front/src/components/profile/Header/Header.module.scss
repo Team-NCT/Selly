@@ -1,0 +1,16 @@
+.header {
+}
+
+.title {
+  @include font($h2, $bold);
+}
+
+.caption_danger {
+  color: $sherbet150;
+  margin-left: 15px;
+}
+
+.banner {
+  width: 100%;
+  height: 200px;
+}
