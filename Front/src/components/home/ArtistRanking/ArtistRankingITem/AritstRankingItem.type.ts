@@ -6,4 +6,5 @@ export interface ArtistRankingProps {
   wallet: string;
   followerCnt: number;
   NFTCnt: number;
+  rank: number;
 }

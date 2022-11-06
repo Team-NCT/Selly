@@ -22,4 +22,5 @@ Default.args = {
   wallet: "0xc42d1449259b62CB93a079658640ba7dB6AD0D13",
   followerCnt: 323,
   NFTCnt: 825,
+  rank: 1,
 };

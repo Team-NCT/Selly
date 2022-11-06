@@ -1,0 +1,4 @@
+.item_container {
+  @include flex(row);
+  width: 100%;
+}
