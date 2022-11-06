@@ -2,14 +2,30 @@ import { SelectCardListProps } from "./SelectCardList.types";
 import style from "./SelectCardList.module.scss";
 import { SelectCard } from "@/components";
 import { useState } from "react";
+import { setNFTValue, resetNFTValue, SelectNFTState } from "@/store/selectNFTSlice";
+import { useAppDispatch } from "@/hooks";
 
-const SelectCardList = ({ data, setNFTValue }: SelectCardListProps) => {
+const SelectCardList = ({ data }: SelectCardListProps) => {
   const [selectedNum, setSelectedNum] = useState(-1);
+  const dispatch = useAppDispatch();
 
-  //TODO_YK: 인자로 받을 setNFTValue 함수로 idx뿐만 아니라 받아온 NFT 데이터를 넣어주기
+  //TODO_YK: NFT정보 가져와서 CA 같은 다른 정보들도 rest로 넣어주기
   const setValue = (idx: number) => {
     setSelectedNum(idx);
-    //setNFTValue
+    if (idx < 0) {
+      dispatch(resetNFTValue());
+    } else {
+      dispatch(
+        setNFTValue({
+          CA: "0x123",
+          tokenId: "12345",
+          metaDataUrl: "http",
+          articleName: data[idx].title,
+          articleUrl: data[idx].url,
+          testidx: String(idx),
+        })
+      );
+    }
   };
 
   return (

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { SelectCardList, SelectedCard } from "@/components/Sell";
+import style from "./Sell.module.scss";
+import { Neon, SelectedCard, SellInfoForm } from "@/components";
 import { SelectSection, SignSection } from "./";
+import { useAppSelector } from "@/hooks";
+import { selectNFTValue } from "@/store/selectNFTSlice";
 
-type stepType = "SELECT" | "SIGN";
+export type stepType = "SELECT" | "SIGN";
 
 function Sell() {
   const [step, setStep] = useState<stepType>("SELECT");
+  const NFTValue = useAppSelector(selectNFTValue);
 
   const changeStep = (step: stepType) => {
     setStep(step);
@@ -13,23 +17,20 @@ function Sell() {
 
   return (
     <main>
-      <h1>Sell NFT</h1>
-      <article className="content">
-        <section className="select-section">
-          <div className="step-button">
-            <h2 onClick={() => changeStep("SELECT")}>판매 정보 등록</h2>
-            <p>{">"}</p>
-            <h2 onClick={() => changeStep("SIGN")}>서명하기</h2>
-          </div>
+      <h1 className={style.sell_title}>
+        <Neon color="muscat150" positionH="top" positionW="right">
+          Sell NFT
+        </Neon>
+      </h1>
+      <article className={style.content}>
+        <section className={style.select_section}>
           {step === "SELECT" && <SelectSection />}
           {step === "SIGN" && <SignSection />}
         </section>
-        <section className="Selected-NFT-section">
+        <section className={style.selected_NFT_section}>
           <h2>Selected NFT</h2>
-          <SelectedCard
-            url="https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-            title="좀비와 함께 춤을"
-          />
+          <SelectedCard url={NFTValue.articleUrl} title={NFTValue.testidx} />
+          <SellInfoForm step={step} changeStep={changeStep} />
         </section>
       </article>
     </main>
