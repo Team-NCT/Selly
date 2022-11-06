@@ -16,4 +16,9 @@ export interface RadioProps {
    * Radio 배경색
    */
   bg?: RadioBGType;
+
+  /**
+   * checked 상태
+   */
+  isChecked?: boolean;
 }

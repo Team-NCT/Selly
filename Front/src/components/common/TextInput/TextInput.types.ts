@@ -23,6 +23,11 @@ export interface TextInputProps {
   status: boolean;
 
   /**
+   * Input 이름
+   */
+  name?: string;
+
+  /**
    * 최대 글자 수
    */
   maxLength: number;
