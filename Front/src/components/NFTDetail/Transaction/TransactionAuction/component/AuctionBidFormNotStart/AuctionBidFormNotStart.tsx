@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, FormEvent } from "react";
 import style from "./AuctionBidFormNotStart.module.scss";
 import { AuctionBidFormNotStartProps } from "./AuctionBidFormNotStart.types";
 import { Button, NumberInput } from "@/components/common";
@@ -30,6 +30,12 @@ const AuctionBidForm = ({ auctionStatus, lowPrice }: AuctionBidFormNotStartProps
     [lowPrice]
   );
 
+  const handleSubmitForm = (event: FormEvent) => {
+    event.preventDefault();
+    // TODO_JK 데이터 전송 (API)
+    alert(value + "전송");
+  };
+
   const [value, handleInputChange] = useInputState("", checkInputValidation);
   const [inputStatus, setInputStatus] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -51,7 +57,7 @@ const AuctionBidForm = ({ auctionStatus, lowPrice }: AuctionBidFormNotStartProps
           </p>
         </div>
       </section>
-      <form className={style.NFT_detail_transaction_form}>
+      <form className={style.NFT_detail_transaction_form} onSubmit={handleSubmitForm}>
         <div className={style.NFT_detail_transaction_input}>
           <label htmlFor="auction-bid"> 경매 입찰가</label>
           <div>

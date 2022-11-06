@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, FormEvent } from "react";
 import style from "./AuctionRegisterForm.module.scss";
 import { AuctionRegisterFormProps } from "./AuctionRegisterForm.types";
 import { Button, NumberInput } from "@/components/common";
@@ -25,6 +25,12 @@ const AuctionRegisterForm = ({ auctionStatus }: AuctionRegisterFormProps) => {
     return value;
   }, []);
 
+  const handleSubmitForm = (event: FormEvent) => {
+    event.preventDefault();
+    // TODO_JK 데이터 전송 (API)
+    alert(value + "전송");
+  };
+
   const [value, handleInputChange] = useInputState("", checkInputValidation);
   const [inputStatus, setInputStatus] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -47,7 +53,7 @@ const AuctionRegisterForm = ({ auctionStatus }: AuctionRegisterFormProps) => {
           </p>
         </div>
       </section>
-      <form className={style.NFT_detail_transaction_form}>
+      <form className={style.NFT_detail_transaction_form} onSubmit={handleSubmitForm}>
         <div className={style.NFT_detail_transaction_input}>
           <label htmlFor="auction-register"> 경매 최소 시작가</label>
           <div>
