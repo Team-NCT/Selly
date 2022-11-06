@@ -7,3 +7,35 @@
 .labelText {
   @include font($body1, $semibold);
 }
+
+.dialog {
+  @include shadow-drop1;
+  position: absolute;
+  padding: 8px 12px;
+  width: max-content;
+  border-radius: $radius-modal;
+
+  transform: translate(50%, -50%);
+  width: 500px;
+  height: 500px;
+}
+
+.crop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 80px;
+}
+
+.controls {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0%;
+  width: 100%;
+  padding: 0 16px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}

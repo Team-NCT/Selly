@@ -4,8 +4,12 @@ $bg-palette: (
   blackberry: $navy350,
   danger: $sherbet150,
   light: $white,
-  disabled: $white300,
 );
+
+.disabled {
+  background: $white300;
+  border: 2px solid $white300;
+}
 
 @each $bg, $color in $bg-palette {
   .bg-#{$bg} {

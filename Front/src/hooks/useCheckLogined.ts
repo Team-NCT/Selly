@@ -10,7 +10,13 @@ import { useEffect, useCallback, useState } from "react";
  */
 
 const useCheckLogined = () => {
-  const [walletAccount, setWalletAccount] = useState<string | null>(null);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [userNickname, setuserNickname] = useState<string | null>("뚤기");
+
+  const accountData = {
+    address: walletAddress,
+    nickname: userNickname,
+  };
 
   //* 로그인 체크
   const checkLogined = useCallback(async () => {
@@ -25,18 +31,18 @@ const useCheckLogined = () => {
 
       //* 네트워크 일치 여부 && 아이디 존재여부 확인
       if (chainId === GOERLI_ID && account) {
-        setWalletAccount(account);
+        setWalletAddress(account);
       } else {
-        console.log(setWalletAccount);
+        console.log(walletAddress);
       }
 
       //! API연결되면 아이디 존재 여부랑 로그인확인하는 로직 추가
 
-      return walletAccount;
+      return accountData;
     } catch {
-      setWalletAccount(null);
+      setWalletAddress(null);
     }
-  }, [walletAccount]);
+  }, [walletAddress, accountData]);
 
   //* 로그인 확인 이벤트 등록
   useEffect(() => {
@@ -53,7 +59,7 @@ const useCheckLogined = () => {
     }
   });
 
-  return walletAccount;
+  return accountData;
 };
 
 export default useCheckLogined;
