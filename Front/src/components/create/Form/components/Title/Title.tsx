@@ -29,6 +29,7 @@ const Title = ({ setIsTitleTrue }: TitleProps) => {
         <h2 className={form_style.form_title}>Title</h2>
       </Label>
       <span className={style.caption_danger}>*</span>
+      <p className={style.input_desc}>최대 20글자까지 입력 가능합니다.</p>
       <TextInput
         id="create-title"
         value={value}
@@ -37,7 +38,6 @@ const Title = ({ setIsTitleTrue }: TitleProps) => {
         status={isTrue}
         placeHolder="작품명을 입력해주세요."
         errorMessage="작품명은 필수 항목입니다."></TextInput>
-      <p className={style.input_desc}>최대 20글자까지 입력 가능합니다.</p>
     </div>
   );
 };

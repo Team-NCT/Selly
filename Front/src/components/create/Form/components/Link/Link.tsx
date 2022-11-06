@@ -37,6 +37,7 @@ const Link = ({ setIsLinkTrue }: LinkProps) => {
         horizontal={5}>
         <h2 className={form_style.form_title}>External Link</h2>
       </Label>
+      <p className={style.input_desc}>최대 100글자까지 입력 가능합니다.</p>
       <TextInput
         id="create-link"
         value={value}
@@ -45,7 +46,6 @@ const Link = ({ setIsLinkTrue }: LinkProps) => {
         status={isTrue}
         placeHolder="해당 작품에 연결하고 싶은 사이트 링크를 입력해주세요."
         errorMessage="Link는 http:// 혹은 https://로 시작해야 합니다."></TextInput>
-      <p className={style.input_desc}>최대 100글자까지 입력 가능합니다.</p>
     </div>
   );
 };

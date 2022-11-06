@@ -4,4 +4,5 @@
 
 .input_desc {
   @include font($caption, $regular);
+  margin-top: 4px;
 }
