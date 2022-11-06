@@ -6,24 +6,19 @@ import {
   checkImageSize,
 } from "@/helpers/utils/fileValidation";
 import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+import { setImage, setImageFile, selectProfileData } from "@/store/profileDataSlice";
 import style from "./ProfileImg.module.scss";
 
-export interface initialProps {
-  initialUrl: string;
-}
+const ProfileImg = () => {
+  const dispatch = useAppDispatch();
+  const { profileData } = useAppSelector(selectProfileData);
 
-const ProfileImg = ({ initialUrl }: initialProps) => {
   //* 알럿
   const { openAlertModal } = useAlert();
 
   //* 파일 최대 용량
   const limit = 100;
-
-  //* 미리보기 이미지 url
-  const [imageUrl, setImageUrl] = useState(initialUrl);
-
-  //* 이미지 file
-  const [imageFile, setImageFile] = useState<File>();
 
   //* 이미지 파일이 업로드될 때 실행되는 함수
   const handleInputChange = useCallback(
@@ -53,12 +48,12 @@ const ProfileImg = ({ initialUrl }: initialProps) => {
       }
 
       //* 업로드 파일 미리보기
-      encodeFileToBase64(file).then((res) => setImageUrl(res));
+      encodeFileToBase64(file).then((res) => dispatch(setImage(res)));
 
       //* 정상적인 이미지 파일을 state에 저장한다.
-      setImageFile(file);
+      dispatch(setImageFile(file));
     },
-    [openAlertModal]
+    [openAlertModal, dispatch]
   );
 
   return (
@@ -80,7 +75,7 @@ const ProfileImg = ({ initialUrl }: initialProps) => {
         <ImageInput
           handleInputChange={handleInputChange}
           id="image-input"
-          imageUrl={imageUrl}
+          imageUrl={profileData.image}
           limit={10}
           styles="round"
         />

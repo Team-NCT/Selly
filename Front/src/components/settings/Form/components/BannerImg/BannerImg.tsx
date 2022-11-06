@@ -1,29 +1,24 @@
 import { ImageInput, Label } from "@/components/common";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import {
   checkImageExtension,
   encodeFileToBase64,
   checkImageSize,
 } from "@/helpers/utils/fileValidation";
 import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+import { setBanner, setBannerFile, selectProfileData } from "@/store/profileDataSlice";
 import style from "./BannerImg.module.scss";
 
-export interface initialProps {
-  initialUrl: string;
-}
-
-const BannerImg = ({ initialUrl }: initialProps) => {
+const BannerImg = () => {
   //* 알럿
   const { openAlertModal } = useAlert();
 
   //* 파일 최대 용량
   const limit = 100;
 
-  //* 미리보기 이미지 url
-  const [imageUrl, setImageUrl] = useState(initialUrl);
-
-  //* 이미지 file
-  const [imageFile, setImageFile] = useState<File>();
+  const dispatch = useAppDispatch();
+  const { profileData } = useAppSelector(selectProfileData);
 
   //* 이미지 파일이 업로드될 때 실행되는 함수
   const handleInputChange = useCallback(
@@ -53,12 +48,12 @@ const BannerImg = ({ initialUrl }: initialProps) => {
       }
 
       //* 업로드 파일 미리보기
-      encodeFileToBase64(file).then((res) => setImageUrl(res));
+      encodeFileToBase64(file).then((res) => dispatch(setBanner(res)));
 
       //* 정상적인 이미지 파일을 state에 저장한다.
-      setImageFile(file);
+      dispatch(setBannerFile(file));
     },
-    [openAlertModal]
+    [openAlertModal, dispatch]
   );
 
   return (
@@ -80,7 +75,7 @@ const BannerImg = ({ initialUrl }: initialProps) => {
         <ImageInput
           handleInputChange={handleInputChange}
           id="banner-img"
-          imageUrl={imageUrl}
+          imageUrl={profileData.banner}
           limit={10}
           styles="square"
         />
