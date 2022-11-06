@@ -1,0 +1,79 @@
+.NFT_detail_transaction_price {
+  @include flex(row, space-between, center);
+  width: 100%;
+
+  .NFT_detail_transaction_price_content {
+    @include flex(column, flex-start, flex-start);
+    @include font($body2, $medium, $main-font);
+    gap: 8px;
+
+    strong {
+      font-size: $h5;
+    }
+  }
+
+  .NFT_detail_transaction_price_description {
+    width: 50%;
+    @include font($caption, $regular, $black200);
+
+    @include tablet {
+      width: 60%;
+      font-size: $body2;
+      line-height: 24px;
+    }
+
+    p {
+      display: inline;
+      text-align: right;
+
+      @include tablet {
+        display: block;
+      }
+    }
+
+    strong {
+      font-weight: $semibold;
+      color: $main-font;
+    }
+  }
+}
+
+.NFT_detail_transaction_form {
+  width: 100%;
+
+  .NFT_detail_transaction_input {
+    @include flex-center;
+    width: 100%;
+    margin-bottom: 40px;
+
+    label {
+      width: 40%;
+      font-weight: $bold;
+
+      @include tablet {
+        width: 30%;
+      }
+    }
+    div {
+      width: 60%;
+      min-height: 59px;
+    }
+  }
+  .NFT_detail_transaction_button {
+    width: 100%;
+  }
+}
+
+.status-true {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+
+.status-false {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  gap: 0px;
+}

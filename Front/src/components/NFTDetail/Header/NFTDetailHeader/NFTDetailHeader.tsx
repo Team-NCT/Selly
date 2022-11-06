@@ -1,6 +1,7 @@
 import { NFTDetailHeaderProps } from "./NFTDetailHeader.types";
 import style from "./NFTDetailHeader.module.scss";
-import { BackArrowIcon, FavoriteIcon, ShareIcon } from "@/components";
+import { BackArrowIcon } from "@/components";
+import { FavoriteIcon, ShareIcon } from "../";
 
 const NFTDetailHeader = ({ title, id, imageUrl, favoriteStatus, url }: NFTDetailHeaderProps) => {
   return (

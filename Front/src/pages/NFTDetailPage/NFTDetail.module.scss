@@ -1,0 +1,25 @@
+.NFT_detail {
+  @include flex(column, flex-start, center);
+  gap: 64px;
+  padding: 40px 0px;
+
+  @include laptop {
+    @include flex(row, space-between, flex-start);
+    gap: 10%;
+  }
+
+  > div {
+    @include flex(column, flex-start, center);
+    flex-grow: 1;
+    gap: 64px;
+    order: -1;
+    width: 100%;
+    max-width: 624px;
+
+    @include laptop {
+      gap: 64px;
+      order: 1;
+      width: 50%;
+    }
+  }
+}

@@ -2,16 +2,16 @@ import { Modal, Label, Button, TextInput } from "@/components/common";
 import { PropertyModalProps } from "./PropertyModal.types";
 import style from "./PropertyModal.module.scss";
 import React, { useEffect, useState } from "react";
-import { propertyType } from "../Property/Property.types";
+import { PropertyType } from "../Property/Property.types";
 
 const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps) => {
   //* create 페이지의 properties를 받아와서 modal의 변수에 저장, 6개보다 작다면 빈 input 보여주기
-  const [modalProperties, setModalProperties] = useState<propertyType[]>(properties);
+  const [modalProperties, setModalProperties] = useState<PropertyType[]>(properties);
   useEffect(() => {
     if (properties.length < 6) {
       setModalProperties([...properties, { type: "", name: "" }]);
     }
-  }, []);
+  }, [properties]);
 
   //* add property 버튼을 누르면 빈 객체가 추가된다.
   const addPropertyHandler = (e: React.FormEvent<EventTarget>) => {

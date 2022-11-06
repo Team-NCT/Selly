@@ -6,13 +6,25 @@ const Button = ({
   bg = "primary",
   size = "default",
   color = "black",
+  type = "submit",
+  hidden = false,
+  disabled = false,
   onClick,
 }: ButtonProps) => {
-  const buttonBg = style[["bg-", bg].join("")];
+  //* 버튼이 disabled 상태이면 버튼 색상을 disabled로 변경
+  let buttonBg;
+  if (!disabled) {
+    buttonBg = style[["bg-", bg].join("")];
+  } else {
+    buttonBg = style["bg-disabled"];
+  }
 
   return (
     <button
       className={`${style.button} ${buttonBg} ${style[size]} ${style[color]}`}
+      type={type}
+      hidden={hidden}
+      disabled={disabled}
       onClick={onClick}>
       {children}
     </button>

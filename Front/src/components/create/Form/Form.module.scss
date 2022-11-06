@@ -1,0 +1,57 @@
+.form_container {
+  @include flex(column, flex-start, flex-start);
+  gap: 40px;
+}
+
+.image_title_description {
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+  gap: 40px;
+  flex-wrap: wrap;
+  @include tablet {
+    @include flex(row, flex-start, flex-start);
+  }
+}
+
+.image {
+  width: 100%;
+  min-width: 300px;
+  flex: 1;
+  @include laptop {
+    flex: 1;
+  }
+  @include desktop {
+    flex: 1.4;
+  }
+}
+
+.title_description {
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+  min-width: 300px;
+  gap: 40px;
+  flex: 1;
+  @include laptop {
+    flex: 1.5;
+  }
+  @include desktop {
+    flex: 3;
+  }
+}
+
+.form_item {
+  width: 100%;
+}
+
+.form_title {
+  @include font($body1, $semibold);
+}
+
+.form_margin {
+  margin-bottom: 16px;
+}
+
+.submit_button {
+  @include flex-center;
+  width: 100%;
+}

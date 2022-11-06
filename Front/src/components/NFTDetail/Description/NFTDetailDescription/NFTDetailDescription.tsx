@@ -18,7 +18,7 @@ const NFTDetailDescription = ({
   image,
 }: NFTDetailDescriptionProps) => {
   return (
-    <section className={style.NFT_detail_descriotion}>
+    <section className={style.NFT_detail_description}>
       <NFTOwner nickname={nickname} originalAuthor={originalAuthor} image={image} />
       <NFTDescription description={description} />
       <NFTProperties properties={properties} />

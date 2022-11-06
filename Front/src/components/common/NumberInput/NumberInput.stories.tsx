@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useCallback } from "react";
+import { useCallback } from "react";
 import { Meta, Story } from "@storybook/react";
 import NumberInput from "./NumberInput";
 import { NumberInputProps } from "./NumberInput.types";

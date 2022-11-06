@@ -1,5 +1,6 @@
 .header {
   @include flex(row, flex-start, flex-end);
+  margin-bottom: 50px;
 }
 
 .header_title {

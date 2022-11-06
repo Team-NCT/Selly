@@ -1,4 +1,5 @@
 import styles from "./Image.module.scss";
+import style_form from "../../Form.module.scss";
 import { Label, ImageInput } from "@/components/common";
 import { useCallback, useState } from "react";
 import {
@@ -17,9 +18,6 @@ const Image = () => {
 
   //* 미리보기 이미지 url
   const [imageUrl, setImageUrl] = useState("");
-
-  //* 이미지 file
-  const [imageFile, setImageFile] = useState<File>();
 
   //* 이미지 파일이 업로드될 때 실행되는 함수
   const handleInputChange = useCallback(
@@ -50,15 +48,12 @@ const Image = () => {
 
       //* 업로드 파일 미리보기
       encodeFileToBase64(file).then((res) => setImageUrl(res));
-
-      //* 정상적인 이미지 파일을 state에 저장한다.
-      setImageFile(file);
     },
     [openAlertModal]
   );
   return (
-    <>
-      <h2 className={styles.form_title}>
+    <div className={style_form.form_item}>
+      <div className={style_form.form_margin}>
         <Label
           color="lilac"
           positionH="top"
@@ -66,10 +61,10 @@ const Image = () => {
           horizontal={2}
           width={30}
           id="create-image">
-          Upload Image
+          <h2 className={style_form.form_title}>Upload Image</h2>
         </Label>
         <span className={styles.caption_danger}>*</span>
-      </h2>
+      </div>
       <article className={styles.image_input}>
         <ImageInput
           id="create-image"
@@ -78,7 +73,7 @@ const Image = () => {
           imageUrl={imageUrl}
         />
       </article>
-    </>
+    </div>
   );
 };
 

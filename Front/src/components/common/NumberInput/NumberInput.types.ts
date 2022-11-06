@@ -46,4 +46,9 @@ export interface NumberInputProps {
    * status가 false면 보여줄 에러 메시지
    */
   errorMessage?: string;
+
+  /**
+   * disabled 상태
+   */
+  disabled?: boolean;
 }

@@ -1,0 +1,31 @@
+.NFT_detail_transction_auction {
+  @include flex(column, center, center);
+  gap: 32px;
+  width: 100%;
+  min-height: 432px;
+  padding: 24px 24px;
+
+  @include tablet {
+    gap: 40px;
+    min-height: 400px;
+    padding: 24px 40px;
+  }
+
+  .NFT_detail_transaction_description {
+    align-self: flex-start;
+    > li {
+      @include font($caption, $medium, $black300);
+      line-height: 24px;
+      display: inline;
+
+      @include tablet {
+        @include font($body2, $medium, $black300);
+        display: block;
+      }
+    }
+
+    strong {
+      color: $black350;
+    }
+  }
+}
