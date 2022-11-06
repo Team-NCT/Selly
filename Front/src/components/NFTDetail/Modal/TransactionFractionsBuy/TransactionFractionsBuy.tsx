@@ -57,12 +57,6 @@ const TransactionFractionsBuy = () => {
     alert(payload + "전송");
   };
 
-  useEffect(() => {
-    return () => {
-      dispatch(resetFractionSaleData());
-    };
-  }, [dispatch]);
-
   return (
     <Modal close={() => dispatch(closeBuy())}>
       <form className={style.NFT_detail_buy} onSubmit={handlerFormSumbit}>

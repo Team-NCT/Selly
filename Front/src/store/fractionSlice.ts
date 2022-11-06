@@ -11,8 +11,8 @@ interface FractionState {
 
 const initialState: FractionState = {
   saleContract: "",
-  count: 20,
-  price: 0.0025,
+  count: 0,
+  price: 0,
 };
 
 const slice = createSlice({
@@ -21,10 +21,14 @@ const slice = createSlice({
 
   reducers: {
     setFractionSaleData: (state, action: PayloadAction<FractionState>) => {
-      state = action.payload;
+      state.saleContract = action.payload.saleContract;
+      state.count = action.payload.count;
+      state.price = action.payload.price;
     },
     resetFractionSaleData: (state) => {
-      state = { saleContract: "", count: 0, price: 0 };
+      state.saleContract = "";
+      state.count = 0;
+      state.price = 0;
     },
   },
 });
