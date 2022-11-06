@@ -1,0 +1,53 @@
+.NFT_detail_transction_fractions {
+  @include flex(column, center, center);
+  gap: 48px;
+  width: 100%;
+  min-height: 432px;
+  padding: 16px 24px 24px 24px;
+
+  @include tablet {
+    gap: 40px;
+    min-height: 400px;
+    padding: 24px 40px;
+  }
+
+  ul {
+    @include flex(column, flex-start, center);
+    @include hide-scroll;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 8px;
+    height: 264px;
+    overflow-y: scroll;
+
+    @include tablet {
+      width: 90%;
+      height: 240px;
+      padding: 16px 24px;
+    }
+
+    li {
+      @include flex(row, space-between, center);
+      @include font($body2, $semibold, $main-font);
+      width: 100%;
+
+      p {
+        width: 30%;
+      }
+
+      button {
+        @include shadow-modal;
+        @include font($body2, $semibold, $navy350);
+        padding: 6px 10px;
+        border-radius: $radius-btn;
+      }
+    }
+  }
+
+  > div {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+  }
+}
