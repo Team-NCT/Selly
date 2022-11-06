@@ -6,14 +6,11 @@ $bg-palette: (
 );
 
 .opt {
+  @include font($body2, $bold);
   position: relative;
   box-sizing: border-box;
   display: inline-block;
   align-items: center;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
   cursor: default;
 }
 
@@ -31,10 +28,11 @@ $bg-palette: (
 
 .opt__label::before,
 .opt__label::after {
+  @include shadow-drop5;
   position: absolute;
   box-sizing: border-box;
   top: 14px;
-  left: 4px;
+  left: 0px;
   transform: translateY(-50%);
 }
 .opt__label::before {

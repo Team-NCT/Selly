@@ -19,16 +19,20 @@ function SelectSection() {
 
   useEffect(() => {
     getOwnERC721NFTs();
+    //* 다음 step으로 넘어갈 시 스크롤 맨 위로
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <>
-      <div className={style.step_title}>
-        <h2>판매 정보 등록</h2>
-        <p>{">"}</p>
-        <h2>서명하기</h2>
-      </div>
-      <h3 className={style.desc}>판매할 NFT를 선택하고, 판매 정보를 입력해주세요.</h3>
+      <header className={style.header}>
+        <div className={style.step_title}>
+          <h3 className={style.step_sell}>판매 정보 등록</h3>
+          <div className={style.step_arrow}></div>
+          <h3 className={style.step_sign}>서명하기</h3>
+        </div>
+        <h3 className={style.desc}>판매할 NFT를 선택하고, 판매 정보를 입력해주세요.</h3>
+      </header>
       {NFTdatas ? <SelectCardList data={NFTdatas} /> : <></>}
     </>
   );

@@ -13,7 +13,13 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext }: SignBoxPr
       <div className={isActive ? style.sign_box_idx_active : style.sign_box_idx}>{idx}</div>
       <div className={style.sign_box_section}>
         <h1 className={style.sign_box_title}>
-          <Neon color="muscat" positionH="top" positionW="right" width={isActive ? 64 : 0}>
+          <Neon
+            color="muscat"
+            positionH="top"
+            positionW="right"
+            width={isActive ? 60 : 0}
+            height={70}
+            horizontal={4}>
             {title}
           </Neon>
         </h1>

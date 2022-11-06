@@ -13,12 +13,14 @@ function Sell() {
 
   const changeStep = (step: stepType) => {
     setStep(step);
+    //* step 넘어갈 때 스크롤 맨 위로
+    window.scrollTo(0, 0);
   };
 
   return (
     <main>
       <h1 className={style.sell_title}>
-        <Neon color="muscat150" positionH="top" positionW="right">
+        <Neon color="muscat150" positionH="top" positionW="left" vertical={0} width={48}>
           Sell NFT
         </Neon>
       </h1>
