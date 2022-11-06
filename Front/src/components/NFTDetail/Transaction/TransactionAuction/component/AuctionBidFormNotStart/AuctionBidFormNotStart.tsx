@@ -1,13 +1,39 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import style from "./AuctionBidFormNotStart.module.scss";
 import { AuctionBidFormNotStartProps } from "./AuctionBidFormNotStart.types";
 import { Button, NumberInput } from "@/components/common";
 import { useInputState } from "@/hooks";
+import { fPointCheck } from "@/helpers/utils/numberValidation";
 
 const AuctionBidForm = ({ auctionStatus, lowPrice }: AuctionBidFormNotStartProps) => {
-  const [value, handleInputChange] = useInputState();
+  const checkInputValidation = useCallback(
+    (value: string) => {
+      setInputStatus(true);
+
+      if (Number(value) < lowPrice) {
+        setInputStatus(false);
+        setErrorMessage("최소 경매 시작 금액 이상을 입력해주세요");
+        setButtonStatus(true);
+        return value;
+      }
+
+      if (!fPointCheck(value, 4)) {
+        setInputStatus(false);
+        setErrorMessage("소수점은 4자리까지 입력 할 수 있습니다");
+        setButtonStatus(true);
+        return value;
+      }
+
+      setButtonStatus(false);
+      return value;
+    },
+    [lowPrice]
+  );
+
+  const [value, handleInputChange] = useInputState("", checkInputValidation);
   const [inputStatus, setInputStatus] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [buttonStatus, setButtonStatus] = useState(true);
   return (
     <>
       <section className={style.NFT_detail_transaction_price}>
@@ -28,18 +54,20 @@ const AuctionBidForm = ({ auctionStatus, lowPrice }: AuctionBidFormNotStartProps
       <form className={style.NFT_detail_transaction_form}>
         <div className={style.NFT_detail_transaction_input}>
           <label htmlFor="auction-bid"> 경매 입찰가</label>
-          <NumberInput
-            id="auction-bid"
-            value={value}
-            min={lowPrice}
-            handleValueChange={handleInputChange}
-            status={inputStatus}
-            errorMessage={errorMessage}
-          />
+          <div>
+            <NumberInput
+              id="auction-bid"
+              value={value}
+              min={lowPrice}
+              handleValueChange={handleInputChange}
+              status={inputStatus}
+              errorMessage={errorMessage}
+            />
+          </div>
         </div>
         <div
           className={`${style.NFT_detail_transaction_button} ${style[`status-${auctionStatus}`]}`}>
-          <Button bg="primary" size="fillContainer">
+          <Button bg="primary" size="fillContainer" disabled={buttonStatus}>
             입찰 하기
           </Button>
           <Button bg="disabled" size="fillContainer" type="button" hidden={!auctionStatus}>
