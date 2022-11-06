@@ -1,4 +1,4 @@
-.NFT_detail_buy {
+.NFT_detail_sell {
   @include flex(column, center, flex-start);
   gap: 40px;
   width: calc(100vw - 32px);
@@ -14,6 +14,7 @@
     max-width: 624px;
     padding: 80px 80px 60px 80px;
   }
+
   h1 {
     @include font($h5, 800, $main-font);
 
@@ -22,23 +23,32 @@
     }
   }
 
-  .NFT_detail_buy_input {
+  .NFT_detail_sell_input {
     @include flex(column, flex-start, flex-start);
-    gap: 8px;
+    gap: 24px;
     width: 100%;
-    .NFT_detail_buy_input_description {
-      @include font($caption, $medium, $main-font);
+
+    .NFT_detail_sell_input_count {
+      width: 100%;
+      .NFT_detail_sell_input_description {
+        @include font($caption, $medium, $main-font);
+        margin-left: 16px;
+      }
+      div {
+        min-height: 59px;
+      }
     }
 
-    div {
+    .NFT_detail_sell_input_price {
       width: 100%;
-      min-height: 59px;
+      div {
+        min-height: 59px;
+      }
     }
   }
 
-  .NFT_detail_buy_price {
+  .NFT_detail_sell_price {
     margin-top: -16px;
-
     p {
       @include font($body2, $semibold, $main-font);
       line-height: 24px;
