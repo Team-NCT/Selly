@@ -25,4 +25,14 @@ export interface ImageInputProps {
    * 이미지가 보이는 공간 스타일
    */
   styles?: typeof ImageInputStyleType[number];
+
+  /**
+   * Input 상태: true(정상), false(에러)
+   */
+  status?: boolean;
+
+  /**
+   * status가 false면 보여줄 에러 메시지
+   */
+  errorMessage?: string;
 }

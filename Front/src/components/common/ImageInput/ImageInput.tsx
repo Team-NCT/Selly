@@ -8,6 +8,8 @@ const ImageInput = ({
   handleInputChange,
   styles = "square",
   imageUrl = "",
+  status = true,
+  errorMessage = "",
 }: ImageInputProps) => {
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -22,22 +24,25 @@ const ImageInput = ({
     [handleInputChange]
   );
   return (
-    <label htmlFor={id} className={style.input_image_label}>
-      {/* 이미지가 있을 때 */}
-      {imageUrl && <img src={imageUrl} alt={id} className={style[`input_image_${styles}`]}></img>}
+    <>
+      <label htmlFor={id} className={style.input_image_label}>
+        {/* 이미지가 있을 때 */}
+        {imageUrl && <img src={imageUrl} alt={id} className={style[`input_image_${styles}`]}></img>}
 
-      {/* 이미지가 없을 때 */}
-      {!imageUrl && (
-        <div className={style[`input_image_${styles}`]}>
-          <span className="material-icons-outlined">add_photo_alternate</span>
-          <span className={style.input_image_desc}> GIF, JPG, JPEG, PNG, WEBP</span>
-          <span className={style.input_image_desc}>파일 크기: 최대 {limit} MB</span>
-        </div>
-      )}
+        {/* 이미지가 없을 때 */}
+        {!imageUrl && (
+          <div className={`${style[`input_image_${styles}`]} ${style[`input_${status}`]}`}>
+            <span className="material-icons-outlined">add_photo_alternate</span>
+            <span className={style.input_image_desc}> GIF, JPG, JPEG, PNG, WEBP</span>
+            <span className={style.input_image_desc}>파일 크기: 최대 {limit} MB</span>
+          </div>
+        )}
 
-      {/* input */}
-      <input id={id} type="file" accept="image/*" onChange={handleChange} hidden />
-    </label>
+        {/* input */}
+        <input id={id} type="file" accept="image/*" onChange={handleChange} hidden />
+      </label>
+      {!status && <p className={style.input_error}>{errorMessage}</p>}
+    </>
   );
 };
 

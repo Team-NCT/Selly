@@ -1,4 +1,4 @@
-export const ButtonBG = ["primary", "ocean", "blackberry", "danger", "white"] as const;
+export const ButtonBG = ["primary", "ocean", "blackberry", "danger", "white", "disabled"] as const;
 export type ButtonBGType = typeof ButtonBG[number];
 
 export type ButtonSizeType = "default" | "small" | "xsmall" | "fillContainer";

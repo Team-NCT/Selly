@@ -115,7 +115,7 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
             </Button>
           )}
         </section>
-        <section>
+        <section className={style.proerty_button}>
           <Button bg="disabled" color="none" onClick={() => close()}>
             취소
           </Button>

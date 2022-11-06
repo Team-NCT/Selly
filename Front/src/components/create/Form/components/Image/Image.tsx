@@ -1,15 +1,20 @@
 import styles from "./Image.module.scss";
 import style_form from "../../Form.module.scss";
 import { Label, ImageInput } from "@/components/common";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   checkImageExtension,
   encodeFileToBase64,
   checkImageSize,
 } from "@/helpers/utils/fileValidation";
 import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
+import { ImageProps } from "../../Form.types";
 
-const Image = () => {
+const Image = ({ setIsImageTrue }: ImageProps) => {
+  const [isTrue, setIsTrue] = useState<boolean>(false);
+  useEffect(() => {
+    setIsImageTrue(isTrue);
+  }, [isTrue, setIsImageTrue]);
   //* 알럿
   const { openAlertModal } = useAlert();
 
@@ -48,9 +53,11 @@ const Image = () => {
 
       //* 업로드 파일 미리보기
       encodeFileToBase64(file).then((res) => setImageUrl(res));
+      setIsTrue(true);
     },
     [openAlertModal]
   );
+
   return (
     <div className={style_form.form_item}>
       <div className={style_form.form_margin}>
@@ -71,6 +78,8 @@ const Image = () => {
           limit={10}
           handleInputChange={handleInputChange}
           imageUrl={imageUrl}
+          status={isTrue}
+          errorMessage="이미지는 필수 항목입니다."
         />
       </article>
     </div>
