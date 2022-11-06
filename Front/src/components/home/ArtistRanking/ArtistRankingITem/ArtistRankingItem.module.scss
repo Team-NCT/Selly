@@ -2,3 +2,9 @@
   @include flex(row);
   width: 100%;
 }
+
+.item_artist_wallet {
+  width: 106px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
