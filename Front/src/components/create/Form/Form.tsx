@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/common";
 import { Description, Image, Title, Link, Property } from "./components";
-import createNFT from "@/helpers/utils/createNFT";
+import createNFT from "@/helpers/service/createNFT";
 import { OpenAlertArg, useAlert } from "@/hooks";
 import style from "./Form.module.scss";
 

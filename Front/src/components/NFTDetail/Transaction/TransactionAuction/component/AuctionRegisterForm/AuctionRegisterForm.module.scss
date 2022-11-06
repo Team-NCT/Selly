@@ -1,11 +1,13 @@
 .NFT_detail_transaction_price {
   @include flex(row, space-between, center);
   width: 100%;
+  gap: 40px;
 
   .NFT_detail_transaction_price_content {
     @include flex(column, flex-start, flex-start);
     @include font($body2, $medium, $main-font);
     gap: 8px;
+    flex-shrink: 0;
 
     strong {
       font-size: $h5;
@@ -13,18 +15,16 @@
   }
 
   .NFT_detail_transaction_price_description {
-    width: 50%;
-    @include font($caption, $regular, $black100);
+    @include font($caption, $regular, $black200);
 
     @include tablet {
-      width: 60%;
       font-size: $body2;
       line-height: 24px;
     }
 
     p {
       display: inline;
-      text-align: end;
+      text-align: right;
 
       @include tablet {
         display: block;
@@ -44,7 +44,7 @@
   .NFT_detail_transaction_input {
     @include flex-center;
     width: 100%;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
     label {
       width: 40%;
       font-weight: $bold;
@@ -53,8 +53,10 @@
         width: 30%;
       }
     }
-    input {
+
+    div {
       width: 60%;
+      min-height: 59px;
     }
   }
 }
