@@ -25,7 +25,7 @@ const TransactionFractions = () => {
           <li key={item.saleContract}>
             <p>{numberAddComma(item.count)} 개 </p>
             <p>{item.price}ETH</p>
-            <button onClick={() => dispatch(openBuy)}>구매 하기</button>
+            <button onClick={() => dispatch(openBuy())}>구매 하기</button>
           </li>
         ))}
       </ul>
@@ -34,10 +34,10 @@ const TransactionFractions = () => {
           bg="blackberry"
           color="outline"
           size="fillContainer"
-          onClick={() => dispatch(openSell)}>
+          onClick={() => dispatch(openSell())}>
           조각 판매하기
         </Button>
-        <Button size="fillContainer" onClick={() => dispatch(openSellStatus)}>
+        <Button size="fillContainer" onClick={() => dispatch(openSellStatus())}>
           판매 현황
         </Button>
       </div>
