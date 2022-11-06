@@ -1,7 +1,7 @@
-import { FormEvent, useEffect, useState, useCallback } from "react";
+import { FormEvent, useState, useCallback } from "react";
 import { Modal, Label, NumberInput, Button } from "@/components/common";
 import { useInputState, useAppSelector, useAppDispatch } from "@/hooks";
-import { selectFraction, resetFractionSaleData } from "@/store/fractionSlice";
+import { selectFraction } from "@/store/fractionSlice";
 import { closeBuy } from "@/store/modalSlice";
 import style from "./TransactionFractionsBuy.module.scss";
 import { fPointCheck } from "@/helpers/utils/numberValidation";
