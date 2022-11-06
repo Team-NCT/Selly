@@ -23,9 +23,9 @@ export const checkNumEngKor = (text: string) => {
 };
 
 //* 비속어 체크
-const badWords = ["병신", "시발", "바보", "개새끼", "ㅅ1발", "ㅄ", "ㅅㅂ", "죽어"];
 
 export const checkBadWord = (text: string) => {
+  const badWords = ["병신", "시발", "바보", "개새끼", "ㅅ1발", "ㅄ", "ㅅㅂ", "죽어"];
   const check = badWords.some((item) => text.includes(item));
   return !check;
 };

@@ -1,6 +1,5 @@
 import { TextInput, Label } from "@/components/common";
 import { checkNumEngKor, checkBadWord, checkValueLength } from "@/helpers/utils/checkLanguage";
-import { useInputState } from "@/hooks";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { selectAccount } from "@/store/loginSlice";
 import { setUsernameStatus } from "@/store/profileStatusSlice";
@@ -13,10 +12,15 @@ export interface initialProps {
 
 const Username = ({ initialUsernmae }: initialProps) => {
   const { account } = useAppSelector(selectAccount);
-  const [username, setUsername] = useInputState(initialUsernmae);
+  const [username, setUsername] = useState(initialUsernmae);
   const [status, setStatus] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const dispatch = useAppDispatch();
+
+  const chaneUsername = (event: React.FormEvent) => {
+    const form = event.target as HTMLFormElement;
+    setUsername(form.value);
+  };
 
   useEffect(() => {
     const debounce = setTimeout(async () => {
@@ -55,7 +59,7 @@ const Username = ({ initialUsernmae }: initialProps) => {
       </Label>
       {username ? "" : <span className={style.caption_danger}>*</span>}
       <TextInput
-        handleInputChange={setUsername}
+        handleInputChange={chaneUsername}
         id="username"
         maxLength={12}
         status={status}
