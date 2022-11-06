@@ -4,7 +4,8 @@
   width: 80vw;
   max-width: 552px;
   height: 80vh;
-  max-height: 380px;
+  max-height: 470px;
+  gap: 20px;
 }
 
 .property_modal_label {
@@ -12,7 +13,7 @@
 }
 
 .property_modal_header {
-  @include flex(row, flex-start);
+  @include flex(row, center);
   @include font($body1, $bold);
   width: 100%;
 }
@@ -22,7 +23,7 @@
 }
 
 .property_modal_title_type {
-  flex-grow: 5;
+  flex-grow: 4;
 }
 
 .property_modal_title_name {
@@ -30,8 +31,9 @@
 }
 
 .property_modal_content {
-  @include flex(row, flex-start);
+  @include flex(row, center, flex-start);
   width: 100%;
+  flex: 1;
 }
 
 .property_modal_add_button {
@@ -46,4 +48,10 @@
 
 .property_modal_delete {
   @include font($h5, $bold);
+}
+
+.proerty_button {
+  @include flex(row, flex-end, flex-end);
+  width: 100%;
+  gap: 5px;
 }
