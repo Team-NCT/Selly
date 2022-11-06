@@ -5,11 +5,17 @@ import { RootState } from "@/store";
 interface ModalState {
   test: boolean;
   property: boolean;
+  buy: boolean;
+  sell: boolean;
+  sellStatus: boolean;
 }
 
 const initialState: ModalState = {
   test: false,
   property: false,
+  buy: false,
+  sell: false,
+  sellStatus: false,
 };
 
 const slice = createSlice({
@@ -32,6 +38,30 @@ const slice = createSlice({
     openProperty: (state) => {
       state.property = true;
     },
+
+    closeBuy: (state) => {
+      state.buy = false;
+    },
+
+    openBuy: (state) => {
+      state.buy = true;
+    },
+
+    closeSell: (state) => {
+      state.sell = false;
+    },
+
+    openSell: (state) => {
+      state.sell = true;
+    },
+
+    closeSellStatus: (state) => {
+      state.sellStatus = false;
+    },
+
+    openSellStatus: (state) => {
+      state.sellStatus = true;
+    },
   },
 });
 
@@ -43,6 +73,17 @@ export const selectModal = createSelector(
   (modal) => modal
 );
 
-export const { closeTest, openTest, closeProperty, openProperty } = slice.actions;
+export const {
+  closeTest,
+  openTest,
+  closeProperty,
+  openProperty,
+  closeBuy,
+  openBuy,
+  closeSell,
+  openSell,
+  closeSellStatus,
+  openSellStatus,
+} = slice.actions;
 
 export default slice.reducer;
