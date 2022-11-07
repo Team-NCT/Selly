@@ -3,7 +3,7 @@ import style from "./Sell.module.scss";
 import { Neon, SelectedCard, SellInfoForm } from "@/components";
 import { SelectSection, SignSection } from "./";
 import { useAppSelector } from "@/hooks";
-import { selectNFTValue } from "@/store/selectNFTSlice";
+import { selectNFTValue, SelectNFTState } from "@/store/selectNFTSlice";
 
 export type stepType = "SELECT" | "SIGN";
 
