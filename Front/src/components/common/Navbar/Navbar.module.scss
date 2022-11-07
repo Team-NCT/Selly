@@ -152,6 +152,7 @@ nav {
 }
 
 .dropdown_content {
+  @include shadow-drop5;
   display: none;
   position: absolute;
   top: 0;
@@ -188,6 +189,7 @@ nav {
 }
 
 .dropdown_content_user {
+  @include shadow-drop5;
   display: none;
   position: absolute;
   top: -150px;

@@ -1,0 +1,27 @@
+.header {
+  @include flex(column, flex-start, flex-start);
+  gap: 8px;
+
+  .step_title {
+    @include flex(row, flex-start, center);
+    @include font($h5, $bold);
+    gap: 16px;
+
+    .step_sell {
+      color: $black100;
+    }
+
+    .step_arrow {
+      width: 14px;
+      height: 14px;
+      border-top: 3px solid $black200;
+      border-right: 3px solid $black200;
+      transform: translate(-3.5px, 3.5px);
+      rotate: 45deg;
+    }
+  }
+
+  .desc {
+    @include font($body2, $regular);
+  }
+}
