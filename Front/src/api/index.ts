@@ -1,1 +1,1 @@
-export { default as NFTDetailAPI } from "./NFTDetailAPI/NFTDetailAPI";
+export * from "./server";
