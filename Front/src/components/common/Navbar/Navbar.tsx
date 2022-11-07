@@ -164,7 +164,7 @@ const Navbar = () => {
               <h5 className={styles.nav_username}>김김작가작가작가</h5>
               <div className={styles.dropdown_content_user}>
                 <h5>Balance</h5>
-                <NavLink to="/test" className={styles.dropdown_item}>
+                <NavLink to="/profile" className={styles.dropdown_item}>
                   Profile
                 </NavLink>
                 <NavLink to="/test" className={styles.dropdown_item}>
@@ -176,7 +176,7 @@ const Navbar = () => {
                 <NavLink to="/test" className={styles.dropdown_item}>
                   Favorited
                 </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
+                <NavLink to="/settings" className={styles.dropdown_item}>
                   Settings
                 </NavLink>
                 <NavLink to="/test" className={styles.dropdown_item}>

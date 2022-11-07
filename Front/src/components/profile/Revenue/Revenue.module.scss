@@ -1,0 +1,28 @@
+.section {
+  width: 100%;
+  height: 152px;
+  @include shadow-modal;
+  @include flex(column);
+}
+
+.column {
+  width: 100%;
+  @include flex(row, space-between);
+  padding: 32px;
+}
+
+.tile {
+  @include font($h5, $regular);
+}
+
+.content {
+  @include font($h4, $semibold);
+}
+
+.plus {
+  color: $sherbet150;
+}
+
+.minus {
+  color: $ocean200;
+}
