@@ -1,7 +1,7 @@
-export { default as Home } from "./Home";
+export { default as Home } from "./Home/Home";
 export { default as Counter } from "./Counter";
 export { default as Test } from "./Test";
-export { default as Create } from "./Create";
-export { default as NFTDetail } from "./NFTDetailPage/NFTDetail";
-export { default as Sell } from "./SellPage/Sell";
-export { Settings } from "./userPage";
+export { default as Create } from "./Create/Create";
+export { default as NFTDetail } from "./NFTDetail/NFTDetail";
+export { default as Sell } from "./Sell/Sell";
+export { Settings } from "./User";

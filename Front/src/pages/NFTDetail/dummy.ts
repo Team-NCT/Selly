@@ -59,8 +59,8 @@ export const args3 = {
   auction: {
     auctionEndTime: "",
     auctionStatus: true,
-    bidPrice: 0,
-    lowPrice: 0,
+    bidPrice: 3.2323,
+    lowPrice: 2.1212,
   },
 };
 
