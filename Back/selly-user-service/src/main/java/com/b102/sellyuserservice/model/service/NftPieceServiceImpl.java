@@ -12,6 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -84,14 +86,15 @@ public class NftPieceServiceImpl implements NftPieceService{
 //            (nftPiece.getAvgPrice()*nftPiece.getNftPieceCnt() + tradeRequest.getPieceCnt()* tradeRequest.getTradePrice())/(nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt())
 //            nftPieceCnt + tradeRequest.getNftPieceCnt(),
             nftPieceRequest.getNftPieceCnt(),
-            nftPieceRequest.getAvgPrice()
+            nftPieceRequest.getAvgPrice(),
+            nftPieceRequest.isTrade()
     );
     nftPieceRepository.save(nftPiece);
     return mapper.map(nftPiece, NftPieceDto.class);
   }
 
   @Override
-  public NftPieceDto postOrEditOnership(Long userId, TradeRequest tradeRequest) {
+  public NftPieceDto postOrEditOwnership(Long userId, TradeRequest tradeRequest) {
     Optional<NftPiece> optionalOwnership = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
     if (optionalOwnership.isPresent()) {
       NftPiece nftPiece = optionalOwnership.get();
@@ -116,6 +119,18 @@ public class NftPieceServiceImpl implements NftPieceService{
       postOwnership(userId, nftPieceRequest);
     }
     return null;
+  }
+
+  // NFT 조각 판매 현황
+  @Override
+  public List<NftPieceResponseDto> findTradeNftPieceList(Long userId, Long articleId) {
+    List<NftPiece> tradeNftPieceList = nftPieceRepository.findByUserIdAndArticleIdAndTrade(userId, articleId, true);
+    List<NftPieceResponseDto> nftPieceResponseDtoList = new ArrayList<>();
+    tradeNftPieceList.forEach( v ->{
+      nftPieceResponseDtoList.add(new ModelMapper().map(v, NftPieceResponseDto.class));
+            }
+    );
+    return nftPieceResponseDtoList;
   }
 
   @Override

@@ -89,12 +89,19 @@ public class TradeServiceImpl implements TradeService {
               .articleId(sellRegistRequest.getArticleId())
               .nftPieceCnt(sellRegistRequest.getPieceCnt())
               .avgPrice(sellRegistRequest.getTradePrice())
+              .trade(true)
               .build();
       userServiceClient.createOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
       System.out.println(sellRegistRequest.getPieceCnt());
       System.out.println(sellRegistRequest.getTradePrice());
       System.out.println("판매자 소유권 등록 완료");
     }
+    NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
+            .userId(sellRegistRequest.getSeller())
+            .articleId(sellRegistRequest.getArticleId())
+            .trade(true)
+            .build();
+    userServiceClient.updateOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
     tradeRegistRepository.save(sellRegistRequest.toEntity());
     return "등록 성공";
   }

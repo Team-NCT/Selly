@@ -1,9 +1,12 @@
 package com.b102.sellyuserservice.model.service;
 
 import com.b102.sellyuserservice.domain.dto.NftPieceDto;
+import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.vo.NftPieceRequest;
 import com.b102.sellyuserservice.vo.NftPieceResponseDto;
 import com.b102.sellyuserservice.vo.TradeRequest;
+
+import java.util.List;
 
 public interface NftPieceService {
   NftPieceDto postOwnership(Long userId, NftPieceRequest nftPieceRequest);
@@ -14,5 +17,7 @@ public interface NftPieceService {
 
   NftPieceDto updateOwnership(Long userId, NftPieceRequest tradeRequest);
 
-  NftPieceDto postOrEditOnership(Long userId, TradeRequest tradeRequest);
+  NftPieceDto postOrEditOwnership(Long userId, TradeRequest tradeRequest);
+
+  List<NftPieceResponseDto> findTradeNftPieceList(Long userId, Long articleId);
 }

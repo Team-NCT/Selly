@@ -12,6 +12,8 @@ public class NftPieceResponseDto {
   private Long userId;
   private Integer nftPieceCnt;
   private double avgPrice;
+  private String contractAddress;
+
 
   @Builder
   public NftPieceResponseDto(Long articleId, Long userId, Integer nftPieceCnt, double avgPrice) {
