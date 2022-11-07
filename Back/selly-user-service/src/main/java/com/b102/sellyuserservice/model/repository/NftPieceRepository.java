@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface NftPieceRepository extends JpaRepository<NftPiece, Long> {
   Optional<NftPiece> findByUserIdAndArticleId(Long userId, Long articleId);
+
+  Integer countByUserId(Long userId);
 }

@@ -5,10 +5,13 @@ import com.nct.sellytradeservice.domain.entity.TradeRegist;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class SellRegistRequest {
   private Long seller;
@@ -19,9 +22,10 @@ public class SellRegistRequest {
   private String contractAddress;
 
   private boolean status;
+  private boolean articleOwner;
 
   @Builder
-  public SellRegistRequest(Long seller, Long articleId, double tradePrice, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status) {
+  public SellRegistRequest(Long seller, Long articleId, double tradePrice, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status, boolean articleOwner) {
     this.seller = seller;
     this.articleId = articleId;
     this.tradePrice = tradePrice;
@@ -29,6 +33,7 @@ public class SellRegistRequest {
 //    this.tradeRegistTime = LocalDateTime.now();
     this.contractAddress = contractAddress;
     this.status = status;
+    this.articleOwner = articleOwner;
   }
 
   public TradeRegist toEntity() {

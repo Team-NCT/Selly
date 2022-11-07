@@ -29,105 +29,112 @@ spring:
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
           predicates:
-            - Path=/selly-user-service/login
-            - Method=POST
+            - Path=/selly-user-service/**
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/users
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/users/{userId}
-            - Method=PUT
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-            - CustomAuthorizationHeaderFilter
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/users/{userId}
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-            - CustomAuthorizationHeaderFilter
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/follow
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-            - CustomAuthorizationHeaderFilter
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/users/{profileId}/{userId}
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/follower/{userId}
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-            - CustomAuthorizationHeaderFilter
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/following/{userId}
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-            - CustomAuthorizationHeaderFilter
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/follow
-            - Method=DELETE
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-            - CustomAuthorizationHeaderFilter
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/ownership/{userId}
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/ownership/{userId}
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/ownership/{userId}
-            - Method=PUT
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/login
+#            - Method=POST
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/users
+#            - Method=POST
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/users/{userId}
+#            - Method=PUT
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/users/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/follow
+#            - Method=POST
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/users/{profileId}/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/follower/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/following/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/follow
+#            - Method=DELETE
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/ownership/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/ownership/{userId}
+#            - Method=POST
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/ownership/{userId}
+#            - Method=PUT
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
         - id: selly-article-service
           uri: lb://SELLY-ARTICLE-SERVICE
           predicates:

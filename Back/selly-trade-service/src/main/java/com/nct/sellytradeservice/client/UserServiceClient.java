@@ -15,10 +15,14 @@ public interface UserServiceClient {
   @GetMapping("/get-ownership")
 //  ResponseEntity<NftPieceResponseDto> getOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId);
   ResponseEntity<NftPieceResponseDto> getOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId);
+  @PostMapping("/create-or-edit-ownership/{userId}")
+  NftPieceDto createOrEditOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
+
   @PostMapping("/ownership/{userId}")
-  NftPieceDto createOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
+  NftPieceDto createOwnership(@PathVariable("userId") Long userId, @RequestBody NftPieceRequest nftPieceRequest);
   @DeleteMapping(value = "/ownership/{userId}", produces = "application/json")
   void deleteOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId);
   @PutMapping("/ownership/{userId}")
   NftPieceDto updateOwnership(@PathVariable("userId") Long userId, @RequestBody NftPieceRequest tradeRequest);
+
 }
