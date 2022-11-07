@@ -1,10 +1,44 @@
 .item_container {
-  @include flex(row);
+  @include flex(row, space-between);
   width: 100%;
 }
 
+.item_artist_section {
+  @include flex(row, flex-start);
+  gap: 40px;
+}
+
+.item_rank {
+  @include font($body1, $medium);
+}
+
+.item_artist {
+  @include flex(row, flex-start);
+  gap: 8px;
+}
+
+.item_artist_info {
+  min-width: 192px;
+}
+
+.item_artist_nickname {
+  @include font($body1, $semibold);
+}
+
 .item_artist_wallet {
+  @include font($body2, $regular, $black100);
   width: 106px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.item_cnt_section {
+  @include flex(row);
+  gap: 32px;
+}
+
+.item_artist_cnt {
+  @include flex-center;
+  @include font($body1, $medium);
+  min-width: 64px;
 }

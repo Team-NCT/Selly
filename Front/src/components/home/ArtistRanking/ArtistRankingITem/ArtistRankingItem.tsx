@@ -5,18 +5,21 @@ import { ProfileImage } from "@/components/common";
 const ArtistRankingItem = (props: ArtistRankingProps) => {
   return (
     <section className={style.item_container}>
-      <div className={style.item_rank}>{props.rank}</div>
-      <div className={style.item_artist_image}>
-        <ProfileImage size="xs" profileStyle="square" url={props.image} />
+      <div className={style.item_artist_section}>
+        <div className={style.item_rank}>{props.rank}</div>
+        <div className={style.item_artist}>
+          <ProfileImage size="xs" profileStyle="square" url={props.image} />
+          <div className={style.item_artist_info}>
+            <span className={style.item_artist_nickname}>{props.nickname}</span>
+            {props.isAuth && <span>✓</span>}
+            <div className={style.item_artist_wallet}>{props.wallet}</div>
+          </div>
+        </div>
       </div>
-      <div className={style.item_artist_info}>
-        <span className={style.item_artist_nickname}>{props.nickname}</span>
-        {props.isAuth && <span>✓</span>}
-        <div className={style.item_artist_wallet}>{props.wallet}</div>
+      <div className={style.item_cnt_section}>
+        <div className={style.item_artist_cnt}>{props.followerCnt}</div>
+        <div className={style.item_artist_cnt}>{props.NFTCnt}</div>
       </div>
-
-      <div className={style.item_artist_follwer}>{props.followerCnt}</div>
-      <div className={style.item_artist_NFT}>{props.NFTCnt}</div>
     </section>
   );
 };
