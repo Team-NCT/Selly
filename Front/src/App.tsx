@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components";
-import { Home, Counter, Test, Create, NFTDetail, Sell, Settings } from "@/pages";
+import { Home, Counter, Test, Create, NFTDetail, Sell, Settings, Profile } from "@/pages";
 import { useCheckLogined } from "@/hooks";
 import { setAccount } from "@/store/loginSlice";
 import { useEffect } from "react";
@@ -34,6 +34,8 @@ function App() {
           <Route path="/detail/:id" element={<NFTDetail />} />
           {/* setting 페이지 */}
           <Route path="/settings" element={<Settings />} />
+          {/* profile 페이지 */}
+          <Route path="/profile" element={<Profile />} />
 
           {/* 테스트 페이지 */}
           <Route path="/counter" element={<Counter />} />
