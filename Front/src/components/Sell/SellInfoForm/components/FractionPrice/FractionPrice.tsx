@@ -4,7 +4,7 @@ import { FractionPriceProps } from "./FractionPrice.types";
 import { useState, useEffect } from "react";
 import { isNumber, numberinRange, fPointCheck } from "@/helpers/utils/numberValidation";
 
-const FractionPrice = ({ value, changeHandler }: FractionPriceProps) => {
+const FractionPrice = ({ value, changeHandler, setIsPriceTrue }: FractionPriceProps) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [status, setStatus] = useState<boolean>(true);
 
@@ -13,8 +13,10 @@ const FractionPrice = ({ value, changeHandler }: FractionPriceProps) => {
     if (!isNumber(value) || !numberinRange(99999, 0, value) || !fPointCheck(value, 4)) {
       setErrorMessage("소수점은 4자리까지 입력하실 수 있습니다.");
       setStatus(false);
+      setIsPriceTrue(false);
     } else {
       setStatus(true);
+      setIsPriceTrue(true);
     }
   }, [value]);
 

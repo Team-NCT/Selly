@@ -4,7 +4,7 @@ import { FractionCodeProps } from "./FractionCode.types";
 import { useState, useEffect } from "react";
 import { checkEnglish } from "@/helpers/utils/checkLanguage";
 
-const FractionCode = ({ value, changeHandler }: FractionCodeProps) => {
+const FractionCode = ({ value, changeHandler, setIsCodeTrue }: FractionCodeProps) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [status, setStatus] = useState<boolean>(true);
 
@@ -13,8 +13,10 @@ const FractionCode = ({ value, changeHandler }: FractionCodeProps) => {
     if (!checkEnglish.test(value)) {
       setErrorMessage("영어의 조합만 가능합니다.");
       setStatus(false);
+      setIsCodeTrue(false);
     } else {
       setStatus(true);
+      setIsCodeTrue(true);
     }
   }, [value]);
 
