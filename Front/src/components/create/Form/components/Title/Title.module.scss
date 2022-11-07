@@ -6,3 +6,7 @@
   @include font($caption, $regular);
   margin-top: 4px;
 }
+
+.input {
+  min-height: 60px;
+}
