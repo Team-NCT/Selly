@@ -13,7 +13,6 @@ const TransactionFractionsBuy = () => {
   const checkInputValidation = useCallback(
     (value: string) => {
       setInputStatus(true);
-      if (!value) return value;
       if (Number(value) <= 0) {
         setInputStatus(false);
         setErrorMessage("0보다 큰 값을 입력해주세요");
