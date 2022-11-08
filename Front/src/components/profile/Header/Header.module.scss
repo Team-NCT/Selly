@@ -59,6 +59,11 @@
     margin-left: 164px;
     gap: 32px;
   }
+
+  @media (max-width: 474px) {
+    @include flex(column, space-between, flex-start);
+    gap: 4px;
+  }
 }
 
 .profilImage {
@@ -77,6 +82,14 @@
   @include mobile {
     width: 160px;
     gap: 32px;
+  }
+
+  @media (max-width: 474px) {
+    width: 100%;
+    @include flex(row, center);
+    font-size: 10%;
+    margin-bottom: 0;
+    gap: 12%;
   }
 }
 

@@ -35,7 +35,7 @@ function App() {
           {/* setting 페이지 */}
           <Route path="/settings" element={<Settings />} />
           {/* profile 페이지 */}
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           {/* sell 페이지 */}
           <Route path="/Sell" element={<Sell />} />
         </Route>
