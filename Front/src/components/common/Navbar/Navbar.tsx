@@ -159,15 +159,6 @@ const Navbar = () => {
                 <NavLink to="/profile" className={styles.dropdown_item}>
                   Profile
                 </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
-                  Collected
-                </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
-                  Created
-                </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
-                  Favorited
-                </NavLink>
                 <NavLink to="/settings" className={styles.dropdown_item}>
                   Settings
                 </NavLink>
