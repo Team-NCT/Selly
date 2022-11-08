@@ -1,5 +1,5 @@
 import style from "./Category.module.scss";
-import { RadioList, Label } from "@/components";
+import { RadioList, Label } from "@/components/common";
 import { CategoryProps } from "./Category.types";
 
 const CATEGORY_LIST = ["Digital", "Analog", "Photography"];

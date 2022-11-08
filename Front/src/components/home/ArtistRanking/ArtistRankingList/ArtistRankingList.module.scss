@@ -1,0 +1,4 @@
+.artist_ranking_list {
+  @include flex(column);
+  gap: 32px;
+}

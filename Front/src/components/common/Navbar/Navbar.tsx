@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { Neon, TextInput, ProfileImage } from "@/components/common/index";
+import { Neon, TextInput, ProfileImage } from "@/components/common";
+import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
 import { useInputState } from "@/hooks";
@@ -55,17 +56,8 @@ const Navbar = () => {
             onClick={() => (menuToggle ? setMenuToggle(false) : setMenuToggle(true))}
           />
         </div>
-        {/* 임시 검색 */}
         <div className={menuToggle ? styles.nav_down : styles.nav_row}>
-          <div className={styles.nav_search}>
-            <TextInput
-              id="input-text"
-              status={true}
-              maxLength={10}
-              value={value}
-              handleInputChange={handleInputChange}
-            />
-          </div>
+          <SearchInput />
           <ul className={styles.nav_list}>
             <li
               className={styles.dropdown}

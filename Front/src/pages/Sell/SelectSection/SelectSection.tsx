@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { SelectCardList } from "@/components";
+import { SelectCardList } from "@/components/Sell";
 import style from "./SelectSection.module.scss";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { useAppSelector } from "@/hooks";

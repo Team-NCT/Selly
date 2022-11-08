@@ -4,7 +4,6 @@ import { configureStore } from "@reduxjs/toolkit";
 //* Store
 
 import {
-  counter,
   alert,
   modal,
   account,
@@ -19,7 +18,6 @@ import {
 import { NFTDetailAPI } from "@/api/server";
 
 const reducers = combineReducers({
-  counter,
   alert,
   modal,
   account,

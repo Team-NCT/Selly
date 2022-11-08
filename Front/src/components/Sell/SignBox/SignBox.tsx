@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "./SignBox.module.scss";
 import { SignBoxProps } from "./SignBox.types";
-import { Neon, Button } from "@/components";
+import { Neon, Button } from "@/components/common";
 
 const SignBox = ({ title, desc, idx, isActive, signFunction, goNext }: SignBoxProps) => {
   const [isCompleted, setIsCompleted] = useState(false);

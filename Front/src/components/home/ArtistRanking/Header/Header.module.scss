@@ -1,0 +1,6 @@
+.header {
+  @include font($h2, $bold);
+  @include flex(row, flex-start);
+  width: 100%;
+  gap: 10px;
+}
