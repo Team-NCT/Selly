@@ -5,6 +5,7 @@ import { SIGN_DATAS } from "./SignDatas";
 
 function SignSection() {
   const listener = (event) => {
+    console.log(event);
     const confirmationMessage = "정말 닫으시겠습니까?";
     event.returnValue = confirmationMessage;
     return confirmationMessage;
@@ -13,8 +14,14 @@ function SignSection() {
   useEffect(() => {
     window.addEventListener("beforeunload", listener);
     return () => {
-      alert("ddddd");
       window.removeEventListener("beforeunload", listener);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("sss??");
+    return () => {
+      console.log("ffffffff");
     };
   }, []);
 

@@ -13,7 +13,7 @@ export interface SellInfoState {
 
 // State 초기값
 const initialState: SellInfoState = {
-  category: "",
+  category: "Digital",
   code: "",
   num: "",
   price: "",
