@@ -1,0 +1,65 @@
+.radio {
+  position: absolute;
+  opacity: 0;
+}
+
+$bg-palette: (
+  primary: $muscat,
+  ocean: $ocean,
+  blackberry: $navy350,
+  danger: $sherbet150,
+);
+
+.opt {
+  @include font($body2, $bold);
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  align-items: center;
+  cursor: default;
+}
+
+.opt__label {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 20px;
+  width: 100%;
+  padding: 4px 8px 4px 36px;
+  color: $black;
+  vertical-align: top;
+  text-align: left;
+}
+
+:checked + .opt__label {
+  content: "";
+}
+:focus + .opt__label,
+:checked + .opt__label {
+  color: $muscat;
+}
+:focus + .opt__label::before,
+:checked + .opt__label::before {
+  opacity: 1;
+}
+
+@media (hover) {
+  :hover > .opt__label {
+    color: $black350;
+  }
+  :hover > .opt__label::before {
+    opacity: 1;
+  }
+}
+
+.radio__label::before {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+@each $bg, $color in $bg-palette {
+  :checked + .bg-#{$bg}::before {
+    border-color: $color;
+  }
+}
