@@ -1,0 +1,27 @@
+.search_form_dialog_article {
+  width: 100%;
+  margin-bottom: 8px;
+
+  a {
+    @include flex(row, space-between, center);
+    @include font($body2, $medium, $main-font);
+    width: 100%;
+
+    div {
+      @include flex(row, flex-start, center);
+      width: 60%;
+      gap: 16px;
+
+      .search_form_dialog_article_name {
+        max-width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      img {
+        width: 40px;
+      }
+    }
+  }
+}
