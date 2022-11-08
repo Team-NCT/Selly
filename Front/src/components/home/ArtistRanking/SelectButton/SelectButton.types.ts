@@ -1,3 +1,3 @@
 export interface SelectButtonProps {
-  setIsTrending: (arg: boolean) => void;
+  setIsTotal: (arg: boolean) => void;
 }

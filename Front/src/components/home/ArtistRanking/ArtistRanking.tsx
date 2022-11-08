@@ -6,11 +6,11 @@ import SelectButton from "./SelectButton/SelectButton";
 import style from "./ArtistRanking.module.scss";
 
 const ArtistRanking = () => {
-  const [isTrending, setIsTrending] = useState(true);
+  const [isTotal, setIsTotal] = useState(true);
   return (
     <div className={style.ranking_container}>
       <Header />
-      <SelectButton setIsTrending={setIsTrending} />
+      <SelectButton setIsTotal={setIsTotal} />
       <ArtistRankingList {...arg1}></ArtistRankingList>
     </div>
   );

@@ -1,11 +1,14 @@
 .item_container {
-  @include flex(row, space-between);
+  @include flex(row, space-between, stretch);
   width: 100%;
 }
 
 .item_artist_section {
   @include flex(row, flex-start);
   gap: 40px;
+  @media (min-width: 800px) {
+    gap: 10px;
+  }
 }
 
 .item_rank {
@@ -20,7 +23,7 @@
 }
 
 .item_artist_info {
-  min-width: 192px;
+  min-width: 140px;
 }
 
 .item_artist_nickname {
@@ -37,10 +40,16 @@
 .item_cnt_section {
   @include flex(row);
   gap: 32px;
+  @media (min-width: 800px) {
+    gap: 10px;
+  }
+  @include laptop {
+    gap: 32px;
+  }
 }
 
 .item_artist_cnt {
   @include flex-center;
   @include font($body1, $medium);
-  min-width: 64px;
+  min-width: 50px;
 }

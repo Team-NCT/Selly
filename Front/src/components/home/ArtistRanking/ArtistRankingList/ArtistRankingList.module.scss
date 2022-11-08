@@ -1,4 +1,15 @@
 .artist_ranking_list {
-  @include flex(column);
+  @include flex(column, flex-start, stretch);
+  width: 100%;
   gap: 32px;
+
+  @media (min-width: 800px) {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include desktop {
+    column-gap: 100px;
+  }
 }
