@@ -5,7 +5,8 @@ import { setProfileData } from "@/store/profileDataSlice";
 
 const initialState = {
   nickname: "띠용",
-  introduction: "안녕하세요.",
+  introduction:
+    "안녕안녕 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요",
   image:
     "https://user-images.githubusercontent.com/97648143/200227851-cfc7fcca-7b1d-497d-8b40-f2e16e0a490e.png",
   banner:
