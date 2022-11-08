@@ -1,7 +1,8 @@
 import { Network, Alchemy } from "alchemy-sdk";
+import { ALECHMY_API_KEY } from "@/constants/blockchain";
 
 const settings = {
-  apiKey: process.env.SELLY_ALCHEMY_API_KEY,
+  apiKey: ALECHMY_API_KEY,
   network: Network.ETH_GOERLI,
 };
 
