@@ -1,14 +1,28 @@
 .section {
   width: 100%;
-  height: 152px;
+
   @include shadow-modal;
   @include flex(column);
+  padding: 32px 4% 32px 4%;
+
+  @media (max-width: 900px) {
+    padding: 32px;
+  }
 }
 
 .column {
   width: 100%;
-  @include flex(row, space-between);
-  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+
+  @media (max-width: 900px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45%, auto));
+    justify-content: space-between;
+    gap: 10%;
+  }
 }
 
 .tile {

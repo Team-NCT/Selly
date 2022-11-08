@@ -28,6 +28,7 @@ const Header = () => {
             <div className={style.address}>{account.address}</div>
             <CopyIcon disabled />
           </div>
+          <div className={style.bio}>{profileData.introduction}</div>
         </div>
         <div className={style.rightSection}>
           <div className={style.followSection}>
