@@ -2,7 +2,7 @@ import { NumberInputProps } from "./NumberInput.types";
 import style from "./NumberInput.module.scss";
 
 const NumberInput = (props: NumberInputProps) => {
-  const { handleValueChange, status, errorMessage, value, ...attrs } = props;
+  const { handleValueChange, status, errorMessage, value, placeHolder = "", ...attrs } = props;
 
   return (
     <>
@@ -10,6 +10,7 @@ const NumberInput = (props: NumberInputProps) => {
         className={`${style.input_number} ${style[`input_${status}`]}`}
         value={value}
         type="number"
+        placeholder={placeHolder}
         onChange={handleValueChange}
         {...attrs}></input>
       {!status && <p className={style.input_error}>{errorMessage}</p>}

@@ -5,8 +5,8 @@ import { useState } from "react";
 import { setNFTValue, resetNFTValue, SelectNFTState } from "@/store/selectNFTSlice";
 import { useAppDispatch } from "@/hooks";
 
-const SelectCardList = ({ data }: SelectCardListProps) => {
-  const [selectedNum, setSelectedNum] = useState(-1);
+const SelectCardList = ({ data, defaultSelectedIdx = -1 }: SelectCardListProps) => {
+  const [selectedNum, setSelectedNum] = useState(defaultSelectedIdx);
   const dispatch = useAppDispatch();
 
   //TODO_YK: NFT정보 가져와서 CA 같은 다른 정보들도 rest로 넣어주기
@@ -22,6 +22,7 @@ const SelectCardList = ({ data }: SelectCardListProps) => {
           metaDataUrl: data[idx].tokenUri.raw,
           articleName: data[idx].title,
           articleUrl: data[idx].rawMetadata.image,
+          selectIdx: idx,
         })
       );
     }

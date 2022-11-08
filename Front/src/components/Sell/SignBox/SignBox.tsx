@@ -1,16 +1,34 @@
-import { SignBoxProps } from "./SignBox.types";
+import { useState } from "react";
 import style from "./SignBox.module.scss";
+import { SignBoxProps } from "./SignBox.types";
 import { Neon, Button } from "@/components";
 
 const SignBox = ({ title, desc, idx, isActive, signFunction, goNext }: SignBoxProps) => {
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [signable, setSignable] = useState(true);
+  const [buttonText, setButtonText] = useState("서명하기");
+
   const onClickHandler = () => {
-    signFunction();
-    goNext(idx);
+    setSignable(false);
+    setButtonText("서명 중");
+    signFunction().then((res) => {
+      if (res) {
+        setIsCompleted(true);
+        goNext(idx);
+      } else {
+        setButtonText("서명하기");
+        setSignable(true);
+        alert("블록체인 통신 상태 ERROR");
+        console.error("블록체인 통신 상태 ERROR");
+      }
+    });
   };
 
   return (
     <div className={style.sign_box}>
-      <div className={isActive ? style.sign_box_idx_active : style.sign_box_idx}>{idx}</div>
+      <div className={isActive || isCompleted ? style.sign_box_idx_active : style.sign_box_idx}>
+        {idx}
+      </div>
       <div className={style.sign_box_section}>
         <h1 className={style.sign_box_title}>
           <Neon
@@ -25,8 +43,8 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext }: SignBoxPr
         </h1>
         <p className={style.sign_box_desc}>{desc}</p>
         {isActive && (
-          <Button size="fillContainer" onClick={onClickHandler}>
-            서명하기
+          <Button size="fillContainer" onClick={onClickHandler} disabled={!signable}>
+            {buttonText}
           </Button>
         )}
       </div>

@@ -16,7 +16,7 @@ import {
 } from "@/store/index";
 
 //* API
-import { NFTDetailAPI } from "@/api";
+import { NFTDetailAPI } from "@/api/server";
 
 const reducers = combineReducers({
   counter,
