@@ -5,7 +5,7 @@ const Revenue = () => {
     totalAssets: "24.0012",
     principal: "16.0000",
     revenue: "7.6821",
-    yield: "31.5",
+    yield: "1031.5",
     profit: true,
   };
 
