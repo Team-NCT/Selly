@@ -1,10 +1,11 @@
 import { FormEvent, useState, useCallback, useRef, useEffect } from "react";
+import style from "./SearchInput.module.scss";
 import { SearchIcon } from "@/components/icon";
 import { SearchResult } from "@/components/search";
-import style from "./SearchInput.module.scss";
 import { SearchResultType } from "@/types/search.type";
 import { useInputState } from "@/hooks";
 import { getViewportSize } from "@/helpers/utils/getViewportSize";
+import { LAPTOP } from "@/constants/size";
 
 const result: SearchResultType = {
   user: [
@@ -53,8 +54,8 @@ const SearchInput = () => {
   //* 키워드 검색
   const requestSearchKeyword = useCallback(
     (value: string) => {
-      if (getViewportSize().width < 1240) {
-        alert("나 작아");
+      //* tablet 사이즈 부터 사이즈를 줄인다
+      if (getViewportSize().width < LAPTOP) {
         return value;
       }
       setResultStatus(true);
