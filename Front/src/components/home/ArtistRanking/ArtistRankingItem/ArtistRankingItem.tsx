@@ -11,8 +11,10 @@ const ArtistRankingItem = (props: ArtistRankingProps) => {
         <div className={style.item_artist}>
           <ProfileImage size="xs" profileStyle="square" url={props.image} />
           <div className={style.item_artist_info}>
-            <span className={style.item_artist_nickname}>{props.nickname}</span>
-            {props.isAuth && <span>✓</span>}
+            <div>
+              <span className={style.item_artist_nickname}>{props.nickname}</span>
+              {props.isAuth && <span>✓</span>}
+            </div>
             <div className={style.item_artist_wallet}>{props.wallet}</div>
           </div>
         </div>

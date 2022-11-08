@@ -5,7 +5,10 @@
 
 .item_artist_section {
   @include flex(row, flex-start);
-  gap: 40px;
+  gap: 12px;
+  @media (min-width: 470px) {
+    gap: 40px;
+  }
   @media (min-width: 800px) {
     gap: 10px;
   }
@@ -23,11 +26,22 @@
 }
 
 .item_artist_info {
+  @include flex(column, space-evenly, flex-start);
+  height: 64px;
   min-width: 140px;
 }
 
 .item_artist_nickname {
-  @include font($body1, $semibold);
+  @include font($body2, $semibold);
+  @media (min-width: 520px) {
+    @include font($body1, $semibold);
+  }
+  @media (min-width: 800px) {
+    @include font($body2, $semibold);
+  }
+  @include laptop {
+    @include font($body1, $semibold);
+  }
 }
 
 .item_artist_wallet {
@@ -39,8 +53,14 @@
 
 .item_cnt_section {
   @include flex(row);
-  gap: 32px;
+  gap: 0;
+  @media (min-width: 470px) {
+    gap: 32px;
+  }
   @media (min-width: 800px) {
+    gap: 0;
+  }
+  @media (min-width: 890px) {
     gap: 10px;
   }
   @include laptop {

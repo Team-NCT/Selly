@@ -1,0 +1,39 @@
+.title_container {
+  @include flex(row, space-between);
+  @include font($body2, $medium);
+  width: 100%;
+  @include tablet {
+    gap: 32px;
+  }
+  @media (min-width: 890) {
+    gap: 16px;
+  }
+  @include laptop {
+    gap: 32px;
+  }
+  @include desktop {
+    gap: 100px;
+  }
+}
+
+.title_section {
+  @include flex(row, flex-start);
+  width: 100%;
+}
+
+.section_display {
+  display: none;
+  @media (min-width: 800px) {
+    display: flex;
+  }
+}
+
+.title_rank {
+  width: 36px;
+  @media (min-width: 470px) {
+    width: 64px;
+  }
+  @include tablet {
+    width: 34px;
+  }
+}
