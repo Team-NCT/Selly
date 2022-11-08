@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArticleResponse {
 

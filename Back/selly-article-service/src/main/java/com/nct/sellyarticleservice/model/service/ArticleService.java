@@ -1,21 +1,18 @@
 package com.nct.sellyarticleservice.model.service;
 
-import com.nct.sellyarticleservice.domain.dto.ArticleRequest;
-import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
-import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
-import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
+import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
-import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface ArticleService {
 
-   Long createArticle(ArticleRequest articleRequest);
+  ResponseArticle createArticle(RequestArticleCreate requestArticleCreate);
 
-   List<ArticleResponseDto> findByAll();
+  List<ResponseArticle> findByAll();
 
-   ArticleResponseDto findById(Long articleId);
+   ResponseArticle findById(Long articleId);
 
    Long numberOfArticle();
 
@@ -23,9 +20,9 @@ public interface ArticleService {
 
   ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id);
 
-  List<ArticleResponseDto> findBySell(String sell);
+  List<ResponseArticle> findBySell(String sell);
 
-  List<ArticleResponseDto> findByAuction(String auction);
+  List<ResponseArticle> findByAuction(String auction);
 
   List<ArticleResponse> findByKeyword(String keyword);
 }

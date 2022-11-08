@@ -1,16 +1,12 @@
 package com.nct.sellyarticleservice.model.service;
 
-import com.nct.sellyarticleservice.domain.dto.ArticleRequest;
-import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
-import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
-import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
+import com.nct.sellyarticleservice.client.SellyContractServiceClient;
+import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
-import org.bouncycastle.math.raw.Mod;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,48 +20,56 @@ import java.util.Objects;
 public class ArticleServiceImpl implements ArticleService{
 
   private final ArticleRepository articleRepository;
+  private final SellyContractServiceClient sellyContractServiceClient;
+  private ModelMapper mapper = new ModelMapper();
 
   @Transactional
   @Override
-  public Long createArticle(ArticleRequest articleRequest) {
-    return articleRepository.save(articleRequest.toEntity()).getArticleId();
+  public ResponseArticle createArticle(RequestArticleCreate requestArticleCreate) {
+    System.out.println("일단 여기까지 들어옴");
+    requestArticleCreate.setMetaDataUrl("https://skywalker.infura-ipfs.io/ipfs/"+requestArticleCreate.getMetaDataUrl());
+    requestArticleCreate.setArticleImgUrl("https://skywalker.infura-ipfs.io/ipfs/" + requestArticleCreate.getArticleImgUrl());
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    Article article = mapper.map(requestArticleCreate, Article.class);
+    ResponseListen responseListen = sellyContractServiceClient.getListen(requestArticleCreate.getWallet());
+    System.out.println(responseListen);
+    article.setContractAddress(responseListen.getContractAddress());
+    article.setTokenId(responseListen.getToken());
+    articleRepository.save(article);
+    return mapper.map(article, ResponseArticle.class);
   }
 
   @Override
-  public List<ArticleResponseDto> findByAll() {
+  public List<ResponseArticle> findByAll() {
     List<Article> articleList = articleRepository.findAll();
-    List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
+    List<ResponseArticle> responseArticleList = new ArrayList<>();
     articleList.forEach(v -> {
-        articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+        responseArticleList.add(new ModelMapper().map(v, ResponseArticle.class));
       }
     );
-    return articleResponseDtoList;
+    return responseArticleList;
   }
 
   @Override
-  public ArticleResponseDto findById (Long articleId) {
+  public ResponseArticle findById (Long articleId) {
     Article entity = articleRepository.findById(articleId)
             .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
     if (entity.isAvailability()) {
-      return ArticleResponseDto.builder()
+      return ResponseArticle.builder()
               .articleId(entity.getArticleId())
               .articleName(entity.getArticleName())
               .articleImgUrl(entity.getArticleImgUrl())
               .metaDataUrl(entity.getMetaDataUrl())
               .availability(entity.isAvailability())
-              .articleIntroduction(entity.getArticleIntroduction())
-              .originalAuthor(entity.getOriginalAuthor())
               .tokenId(entity.getTokenId())
               .contractAddress(entity.getContractAddress())
               .build();
     }
-    return ArticleResponseDto.builder()
+    return ResponseArticle.builder()
             .articleId(entity.getArticleId())
             .articleName(entity.getArticleName())
             .articleImgUrl(entity.getArticleImgUrl())
             .metaDataUrl(entity.getMetaDataUrl())
-            .articleIntroduction(entity.getArticleIntroduction())
-            .originalAuthor(entity.getOriginalAuthor())
             .build();
   }
 
@@ -97,9 +101,9 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public List<ArticleResponseDto> findBySell(String sell) {
+  public List<ResponseArticle> findBySell(String sell) {
     boolean status;
-    List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
+    List<ResponseArticle> responseArticleList = new ArrayList<>();
     if (Objects.equals(sell, "selling")) {
       status = true;
     } else if (Objects.equals(sell, "end")) {
@@ -107,21 +111,21 @@ public class ArticleServiceImpl implements ArticleService{
     } else {
       List<Article> articleList = articleRepository.findAll();
       articleList.forEach(v -> {
-                articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+                responseArticleList.add(new ModelMapper().map(v, ResponseArticle.class));
               });
-              return articleResponseDtoList;
+              return responseArticleList;
     }
     List<Article> articleList = articleRepository.findAllByStatus(status);
     articleList.forEach(v -> {
-      articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+      responseArticleList.add(new ModelMapper().map(v, ResponseArticle.class));
     });
-    return articleResponseDtoList;
+    return responseArticleList;
   }
 
   @Override
-  public List<ArticleResponseDto> findByAuction(String auction) {
+  public List<ResponseArticle> findByAuction(String auction) {
     boolean status;
-    List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
+    List<ResponseArticle> responseArticleList = new ArrayList<>();
     if (Objects.equals(auction, "selling")) {
       status = true;
     } else if (Objects.equals(auction, "end")) {
@@ -129,15 +133,15 @@ public class ArticleServiceImpl implements ArticleService{
     } else {
       List<Article> articleList = articleRepository.findAll();
       articleList.forEach(v -> {
-        articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+        responseArticleList.add(new ModelMapper().map(v, ResponseArticle.class));
       });
-      return articleResponseDtoList;
+      return responseArticleList;
     }
     List<Article> articleList = articleRepository.findAllByAuction(status);
     articleList.forEach(v -> {
-      articleResponseDtoList.add(new ModelMapper().map(v, ArticleResponseDto.class));
+      responseArticleList.add(new ModelMapper().map(v, ResponseArticle.class));
     });
-    return articleResponseDtoList;
+    return responseArticleList;
   }
 
   @Override
