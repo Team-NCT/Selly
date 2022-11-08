@@ -23,9 +23,10 @@ public class SellRegistRequest {
 
   private boolean status;
   private boolean articleOwner;
+  private String saleContractAddress;
 
   @Builder
-  public SellRegistRequest(Long seller, Long articleId, double tradePrice, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status, boolean articleOwner) {
+  public SellRegistRequest(Long seller, Long articleId, double tradePrice, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status, boolean articleOwner, String saleContractAddress) {
     this.seller = seller;
     this.articleId = articleId;
     this.tradePrice = tradePrice;
@@ -34,6 +35,7 @@ public class SellRegistRequest {
     this.contractAddress = contractAddress;
     this.status = status;
     this.articleOwner = articleOwner;
+    this.saleContractAddress = saleContractAddress;
   }
 
   public TradeRegist toEntity() {
@@ -45,6 +47,7 @@ public class SellRegistRequest {
             .tradeRegistTime(LocalDateTime.now())
             .contractAddress(contractAddress)
             .status(status)
+            .saleContractAddress(saleContractAddress)
             .build();
   }
 }

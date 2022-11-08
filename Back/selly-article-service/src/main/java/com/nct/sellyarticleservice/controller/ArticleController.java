@@ -30,8 +30,8 @@ public class ArticleController {
 
   private final ArticleRepository articleRepository;
   @GetMapping("/{articleId}")
-  public Object findById (@PathVariable("articleId") Long articleId) {
-    return articleService.findById(articleId);
+  public ArticleResponseDto findById (@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
+    return articleService.findById(articleId, userId);
   }
 
   @PostMapping("/create")

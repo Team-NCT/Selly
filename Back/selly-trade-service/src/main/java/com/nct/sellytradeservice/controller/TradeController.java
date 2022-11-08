@@ -4,6 +4,7 @@ import com.nct.sellytradeservice.client.FeignClientException;
 import com.nct.sellytradeservice.client.UserServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
+import com.nct.sellytradeservice.model.service.TradeService;
 import com.nct.sellytradeservice.model.service.TradeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ import java.util.List;
 @Slf4j
 public class TradeController {
 
-  private final TradeServiceImpl tradeService;
+  private final TradeService tradeService;
   private final TradeLogRepository tradeLogRepository;
   private final UserServiceClient userServiceClient;
 
@@ -40,9 +41,13 @@ public class TradeController {
 //            .body(response);
 //  }
 
-  @GetMapping("/{id}")
-  public ArticleResponseDto articleResponse(@PathVariable("id") Long id) {
-    return tradeService.findById(id);
+  @GetMapping("/{articleId}")
+  public Object articleResponse(@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
+    ArticleResponseDto articleResponseDto = tradeService.findById(articleId, userId);
+    if (articleResponseDto.getOwner() != null) {
+      return articleResponseDto;
+    }
+    return "존재하지 않는 값입니다.";
   }
 
   // 유저간 거래 등록
@@ -75,6 +80,16 @@ public class TradeController {
     return ResponseEntity.ok()
             .body(response);
   }
+  @GetMapping("/trade-log")
+  public List<TradeRegistResponse> tradeRegistResponseList() {
+    return tradeService.getTradeRegistList();
+  }
+
+  @GetMapping("/trade-log/{userId}")
+  public List<TradeRegistResponse> userTradeRegistResponseList(@PathVariable("userId") Long userId) {
+    return tradeService.getUserTradeRegistList(userId);
+  }
+
 
 //  @GetMapping("/ownership/{userId}")
 //  public ResponseEntity<Object> userOwnership (@PathVariable("userId") Long userId, @) {

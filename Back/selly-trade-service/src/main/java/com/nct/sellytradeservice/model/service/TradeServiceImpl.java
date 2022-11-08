@@ -9,14 +9,14 @@ import com.nct.sellytradeservice.model.repository.TradeLogRepository;
 import com.nct.sellytradeservice.model.repository.TradeRegistRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.modelmapper.convention.MatchingStrategies;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +26,8 @@ public class TradeServiceImpl implements TradeService {
   private final ArticleServiceClient articleServiceClient;
   private final TradeLogRepository tradeLogRepository;
   private final TradeRegistRepository tradeRegistRepository;
+
+  private ModelMapper mapper= new ModelMapper();
 
 //  @Override
 //  public String registArticleSell(Long id, ArticleUpdateRequest articleUpdateRequest){
@@ -37,9 +39,14 @@ public class TradeServiceImpl implements TradeService {
 //  }
 
   @Override
-  public ArticleResponseDto findById(Long id) {
-    return articleServiceClient.articleResponse(id);
+  public ArticleResponseDto findById(Long articleId, Long userId) {
+    Object responseObject =  articleServiceClient.articleResponse(articleId, userId);
+    return (ArticleResponseDto) articleServiceClient.articleResponse(articleId, userId);
+//    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//  return new ModelMapper().map(responseObject, ArticleResponseDto.class);
+
   }
+
 
   @Override
   public List<TradeResponse> findAll() {
@@ -77,12 +84,10 @@ public class TradeServiceImpl implements TradeService {
   @Transactional
   @Override
   public String registP2pSell(SellRegistRequest sellRegistRequest) {
-//    Object articleResponseDto = articleServiceClient.articleResponse(sellRegistRequest.getArticleId());
-//    articleResponseDto.
-//    if (articleResponseDto.getArticleId() == null) {
-//      return "존재하지 않는 상품입니다.";
-//    }
+    Object articleResponseDto = articleServiceClient.articleResponse(sellRegistRequest.getArticleId(), sellRegistRequest.getSeller());
+    String setSaleContractAddress = "setSaleContractAddress";
     sellRegistRequest.setStatus(true);
+    sellRegistRequest.setSaleContractAddress(setSaleContractAddress);
     if (sellRegistRequest.isArticleOwner()) {
       NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
               .userId(sellRegistRequest.getSeller())
@@ -311,6 +316,53 @@ public class TradeServiceImpl implements TradeService {
     }
     return "존재하지 않는 거래입니다.";
   }
+
+  // NFT 조각 판매 리스트 요청
+  @Override
+  public List<TradeRegistResponse> getTradeRegistList() {
+    Sort sort = Sort.by(
+            Sort.Order.asc("tradePrice"),
+            Sort.Order.desc("tradeRegistTime")
+    );
+    List<TradeRegist> tradeRegistList = tradeRegistRepository.findAll(sort);
+    List<TradeRegistResponse> tradeRegistResponseList = new ArrayList<>();
+    tradeRegistList.forEach( v -> {
+              TradeRegistResponse tradeRegistResponse = TradeRegistResponse.builder()
+                      .seller(v.getSeller())
+                      .saleContractAddress(v.getSaleContractAddress())
+                      .tradePrice(v.getTradePrice())
+                      .pieceCnt(v.getPieceCnt())
+                      .build();
+//              tradeRegistResponseList.add(new ModelMapper().map(v, TradeRegistResponse.class));
+              tradeRegistResponseList.add(tradeRegistResponse);
+      }
+    );
+    return tradeRegistResponseList;
+  }
+
+  // 특정 유저 NFT 조각 판매 리스트 요청
+  @Override
+  public List<TradeRegistResponse> getUserTradeRegistList(Long userId) {
+    Sort sort = Sort.by(
+            Sort.Order.desc("tradePrice"),
+            Sort.Order.asc("tradeRegistTime")
+    );
+    List<TradeRegist> tradeRegistList = tradeRegistRepository.findBySeller(userId, sort);
+    List<TradeRegistResponse> tradeRegistResponseList = new ArrayList<>();
+    tradeRegistList.forEach( v -> {
+      TradeRegistResponse tradeRegistResponse = TradeRegistResponse.builder()
+              .seller(v.getSeller())
+              .saleContractAddress(v.getSaleContractAddress())
+              .tradePrice(v.getTradePrice())
+              .pieceCnt(v.getPieceCnt())
+              .build();
+//              tradeRegistResponseList.add(new ModelMapper().map(v, TradeRegistResponse.class));
+              tradeRegistResponseList.add(tradeRegistResponse);
+            }
+    );
+    return tradeRegistResponseList;
+  }
+
   //거래 내역 등록 API
   @Transactional
   @Override
@@ -331,5 +383,29 @@ public class TradeServiceImpl implements TradeService {
         return "거래 로그 등록 완료";
       }
     return "존재하지 않는 거래입니다.";
+  }
+
+  // 거래 히스토리 조회
+  @GetMapping("/tradeLog")
+  public List<TradeLog> findTradeLogByArticleId(Long articleId) {
+    List<TradeLog> tradeLogList = tradeLogRepository.findByArticleId(articleId);
+    HashMap<String, Object> result = new HashMap<>();
+    List<TradeLogResponse> resultList = new ArrayList<>();
+    double sumPrice = 0;
+    int quantity = 0;
+    double maxPrice=0;
+    double minPrice = Double.MAX_VALUE;
+    for (TradeLog tradeLog: tradeLogList) {
+      sumPrice += tradeLog.getTradePrice();
+      quantity += tradeLog.getPieceCnt();
+    }
+//    List<TradeLog> tradeLogList1 = tradeLogRepository.findTop5ByArticleIdOrderByDesc(articleId);
+//    for (TradeLog tradeLog : tradeLogList1) {
+//
+//    }
+    double avgPrice = sumPrice/quantity;
+    result.put("avgPrice", avgPrice);
+
+    return null;
   }
 }

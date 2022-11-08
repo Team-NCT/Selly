@@ -17,7 +17,7 @@ import java.util.Date;
 public class ArticleResponseDto {
   private Long articleId;
 
-  private boolean availability;
+//  private boolean availability;
 
   private String category;
 
@@ -53,7 +53,12 @@ public class ArticleResponseDto {
 
   private String tokenId;
 
-  private boolean auction;
+//  private boolean auction;
+
+  private String ownerImg;
+  private String ownerNickname;
+  private boolean certification;
+  private boolean bookMark;
 //
 //  public ArticleResponseDto(Article entity) {
 //    this.articleId = entity.getArticleId();

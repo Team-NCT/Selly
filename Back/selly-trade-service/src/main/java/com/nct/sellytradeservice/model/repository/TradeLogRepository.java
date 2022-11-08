@@ -8,5 +8,7 @@ import java.util.List;
 public interface TradeLogRepository extends JpaRepository<TradeLog, Long> {
 
   List<TradeLog> findByStatus(boolean status);
+  List<TradeLog> findByArticleId(Long articleId);
+//  List<TradeLog> findTop5ByArticleIdOrderByDesc(Long articleId);
 
 }

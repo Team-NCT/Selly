@@ -8,7 +8,7 @@ import java.util.List;
 public interface TradeService {
 //  String registArticleSell(Long id, ArticleUpdateRequest articleUpdateRequest);
 
-  ArticleResponseDto findById(Long id);
+  ArticleResponseDto findById(Long articleId, Long userId);
 
   List<TradeResponse> findAll();
 
@@ -19,4 +19,8 @@ public interface TradeService {
   String postTradeLog(Long trade, TradeRequest tradeRequest);
 
   Object trade(Long sellerId, Long buyerId, TradeRequest tradeRequest);
+
+  List<TradeRegistResponse> getTradeRegistList();
+
+  List<TradeRegistResponse> getUserTradeRegistList(Long userId);
 }

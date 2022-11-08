@@ -1,6 +1,7 @@
 package com.nct.sellytradeservice.domain.entity;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.Date;
-
+@Getter
 @Entity
 public class TradeLog {
   @Id

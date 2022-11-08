@@ -1,11 +1,13 @@
 package com.nct.sellyarticleservice.model.service;
 
+import com.nct.sellyarticleservice.client.UserServiceClient;
 import com.nct.sellyarticleservice.domain.dto.ArticleRequest;
 import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
 import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
 import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
+import com.nct.sellyarticleservice.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
 import org.bouncycastle.math.raw.Mod;
 import org.modelmapper.ModelMapper;
@@ -18,12 +20,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class ArticleServiceImpl implements ArticleService{
 
   private final ArticleRepository articleRepository;
+  private final UserServiceClient userServiceClient;
 
   @Transactional
   @Override
@@ -43,30 +47,59 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public ArticleResponseDto findById (Long articleId) {
-    Article entity = articleRepository.findById(articleId)
-            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
-    if (entity.isAvailability()) {
+  public ArticleResponseDto findById (Long articleId, Long userId) {
+    ArticleResponseDto articleResponseDto = new ArticleResponseDto();
+    Optional<Article> optionalArticle = articleRepository.findById(articleId);
+    if (optionalArticle.isPresent()) {
+      Article article = optionalArticle.get();
+      ResponseUser responseUser = userServiceClient.getUser(article.getOwner());
       return ArticleResponseDto.builder()
-              .articleId(entity.getArticleId())
-              .articleName(entity.getArticleName())
-              .articleImgUrl(entity.getArticleImgUrl())
-              .metaDataUrl(entity.getMetaDataUrl())
-              .availability(entity.isAvailability())
-              .articleIntroduction(entity.getArticleIntroduction())
-              .originalAuthor(entity.getOriginalAuthor())
-              .tokenId(entity.getTokenId())
-              .contractAddress(entity.getContractAddress())
+              .owner(article.getOwner())
+              .ownerImg(responseUser.getImage())
+              .ownerNickname(responseUser.getNickname())
+              .certification(responseUser.isCertification())
+              .articleImgUrl(article.getArticleImgUrl())
+              .contractAddress(article.getContractAddress())
+              .tokenId(article.getTokenId())
+              .metaDataUrl(article.getMetaDataUrl())
+//            .bookMark()
               .build();
     }
-    return ArticleResponseDto.builder()
-            .articleId(entity.getArticleId())
-            .articleName(entity.getArticleName())
-            .articleImgUrl(entity.getArticleImgUrl())
-            .metaDataUrl(entity.getMetaDataUrl())
-            .articleIntroduction(entity.getArticleIntroduction())
-            .originalAuthor(entity.getOriginalAuthor())
-            .build();
+    return articleResponseDto;
+//    Article entity = articleRepository.findById(articleId)
+//            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
+//    ResponseUser responseUser = userServiceClient.getUser(entity.getOwner());
+//    if (entity.isAvailability()) {
+//      return ArticleResponseDto.builder()
+//              .owner(entity.getOwner())
+//              .ownerImg(responseUser.getImage())
+//              .ownerNickname(responseUser.getNickname())
+//              .certification(responseUser.isCertification())
+//              .articleImgUrl(entity.getArticleImgUrl())
+//              .contractAddress(entity.getContractAddress())
+//              .tokenId(entity.getTokenId())
+//              .metaDataUrl(entity.getMetaDataUrl())
+//              .build();
+//    }
+//    return ArticleResponseDto.builder()
+//            .articleId(entity.getArticleId())
+//            .articleName(entity.getArticleName())
+//            .articleImgUrl(entity.getArticleImgUrl())
+//            .metaDataUrl(entity.getMetaDataUrl())
+//            .articleIntroduction(entity.getArticleIntroduction())
+//            .originalAuthor(entity.getOriginalAuthor())
+//            .build();
+//    return ArticleResponseDto.builder()
+//            .owner(entity.getOwner())
+//            .ownerImg(responseUser.getImage())
+//            .ownerNickname(responseUser.getNickname())
+//            .certification(responseUser.isCertification())
+//            .articleImgUrl(entity.getArticleImgUrl())
+//            .contractAddress(entity.getContractAddress())
+//            .tokenId(entity.getTokenId())
+//            .metaDataUrl(entity.getMetaDataUrl())
+////            .bookMark()
+//            .build();
   }
 
   @Override

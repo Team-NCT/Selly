@@ -12,7 +12,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @Entity
 @EntityListeners(value= AuditingEntityListener.class)
 public class TradeRegist {
@@ -31,12 +30,13 @@ public class TradeRegist {
   private String contractAddress;
 
   private boolean status;
+  private String saleContractAddress;
 
   public TradeRegist() {
   }
 
   @Builder
-  public TradeRegist(Long seller, Long articleId, double tradePrice, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status) {
+  public TradeRegist(Long seller, Long articleId, double tradePrice, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status, String saleContractAddress) {
     this.seller = seller;
     this.articleId = articleId;
     this.tradePrice = tradePrice;
@@ -44,6 +44,7 @@ public class TradeRegist {
     this.tradeRegistTime = tradeRegistTime;
     this.contractAddress = contractAddress;
     this.status = status;
+    this.saleContractAddress = saleContractAddress;
   }
 
   public void updateTradeRegist(Integer pieceCnt, boolean status) {

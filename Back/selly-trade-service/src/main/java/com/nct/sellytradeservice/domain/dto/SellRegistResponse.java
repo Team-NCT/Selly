@@ -8,4 +8,6 @@ public class SellRegistResponse {
   private Double price;
   private Integer primaryCnt;
   private boolean availability;
+  private String saleContractAddress;
+
 }

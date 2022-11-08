@@ -43,7 +43,7 @@ public class NftPieceController {
       NftPiece nftPiece = optionalNftPiece.get();
       return nftPiece.getNftPieceCnt();
     }
-    return "false";
+    return 0;
   }
   @GetMapping("/get-ownership")
   public ResponseEntity<NftPieceResponseDto> getOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId) throws IllegalArgumentException {
