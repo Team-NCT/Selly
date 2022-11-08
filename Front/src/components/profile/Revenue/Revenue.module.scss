@@ -27,10 +27,18 @@
 
 .tile {
   @include font($h5, $regular);
+
+  @include mobile {
+    @include font($body1, $regular);
+  }
 }
 
 .content {
   @include font($h4, $semibold);
+
+  @media (max-width: 474px) {
+    @include font($h5, $regular);
+  }
 }
 
 .plus {
