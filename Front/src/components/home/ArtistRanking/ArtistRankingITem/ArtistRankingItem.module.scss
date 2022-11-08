@@ -10,6 +10,7 @@
 
 .item_rank {
   @include font($body1, $medium);
+  min-width: 24px;
 }
 
 .item_artist {

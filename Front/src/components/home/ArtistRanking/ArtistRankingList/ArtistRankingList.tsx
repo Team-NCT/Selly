@@ -4,9 +4,9 @@ import style from "./ArtistRankingList.module.scss";
 
 const ArtistRankingList = ({ artistRankingList }: ArtistRankingListProps) => {
   return (
-    <div>
+    <div className={style.artist_ranking_list}>
       {artistRankingList.map((artistRank, idx) => (
-        <div key={idx + 1} className={style.artist_ranking_item}>
+        <div key={idx + 1}>
           <ArtistRankingItem {...artistRank} rank={idx + 1} />
         </div>
       ))}
