@@ -33,13 +33,4 @@ public interface UserService extends UserDetailsService {
   List<SearchUserResponse> findByKeyword(String keyword);
 
   String trade(Long userId, TradeRequest tradeRequest);
-
-  NftPieceDto postOwnership(Long userId, TradeRequest tradeRequest);
-//  NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest);
-NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest);
-
-  NftPieceDto deleteOwnership(Long userId, TradeRequest tradeRequest);
-
-  NftPieceDto updateOwnership(Long userId, NftPieceRequest tradeRequest);
-
 }

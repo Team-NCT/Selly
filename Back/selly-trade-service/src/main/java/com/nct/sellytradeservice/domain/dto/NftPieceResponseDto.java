@@ -1,6 +1,5 @@
 package com.nct.sellytradeservice.domain.dto;
 
-//import com.b102.sellyuserservice.domain.entity.NftPiece;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +11,8 @@ public class NftPieceResponseDto {
   private Long userId;
   private Integer nftPieceCnt;
   private double avgPrice;
+  private String contractAddress;
+
 
   @Builder
   public NftPieceResponseDto(Long articleId, Long userId, Integer nftPieceCnt, double avgPrice) {
@@ -20,11 +21,4 @@ public class NftPieceResponseDto {
     this.nftPieceCnt = nftPieceCnt;
     this.avgPrice = avgPrice;
   }
-
-//  public NftPieceResponseDto(NftPiece nftPiece) {
-//    this.articleId = nftPiece.getArticleId();
-//    this.userId = nftPiece.getUserId();
-//    this.nftPieceCnt = nftPiece.getNftPieceCnt();
-//    this.avgPrice = nftPiece.getAvgPrice();
-//  }
 }

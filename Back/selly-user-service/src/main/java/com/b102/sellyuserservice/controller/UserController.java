@@ -6,6 +6,7 @@ import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.service.FollowService;
+import com.b102.sellyuserservice.model.service.NftPieceService;
 import com.b102.sellyuserservice.model.service.UserService;
 
 import com.b102.sellyuserservice.vo.*;
@@ -35,6 +36,7 @@ import java.util.Optional;
 public class UserController {
 
   private final UserService userService;
+  private final NftPieceService nftPieceService;
   private final FollowService followService;
   private final Environment env;
 
@@ -170,40 +172,5 @@ public class UserController {
   @GetMapping("/search/{keyword}")
   public List<SearchUserResponse> userSearch(@PathVariable("keyword") String keyword) {
     return userService.findByKeyword(keyword);
-  }
-  @PostMapping("/ownership/{userId}")
-  public ResponseEntity<Object> postOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-    NftPieceDto response = userService.postOwnership(userId, tradeRequest);
-    return ResponseEntity.status(HttpStatus.OK).body(response);
-  }
-
-  // 특정 유저가 가진 특정 작품의 소유권 조회
-//  @GetMapping("/ownership/{userId}")
-//  public ResponseEntity<Object> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-//    Object response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-//    return ResponseEntity.status(HttpStatus.OK).body(response);
-//  }
-//  @GetMapping("/ownership/{userId}")
-//  public ResponseEntity<NftPieceResponseDto> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-//    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-//    return ResponseEntity.status(HttpStatus.OK).body(response);
-//  }
-  @GetMapping("/ownership/{userId}")
-  public ResponseEntity<NftPieceResponseDto> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-//    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-    return ResponseEntity.status(HttpStatus.OK).body(response);
-  }
-
-
-  @PutMapping("/ownership/{userId}")
-  public ResponseEntity<Object> updateOwnership(@PathVariable("userId") Long userId, @RequestBody NftPieceRequest tradeRequest) {
-    NftPieceDto response = userService.updateOwnership(userId, tradeRequest);
-    return ResponseEntity.status(HttpStatus.OK).body(response);
-  }
-  @DeleteMapping("/ownership/{userId}")
-  public ResponseEntity<Object> deleteOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-    NftPieceDto response = userService.deleteOwnership(userId, tradeRequest);
-    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }

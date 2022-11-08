@@ -1,8 +1,9 @@
 package com.nct.sellytradeservice.controller;
 
+import com.nct.sellytradeservice.client.FeignClientException;
+import com.nct.sellytradeservice.client.UserServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
-import com.nct.sellytradeservice.model.service.TradeService;
 import com.nct.sellytradeservice.model.service.TradeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class TradeController {
 
   private final TradeServiceImpl tradeService;
   private final TradeLogRepository tradeLogRepository;
+  private final UserServiceClient userServiceClient;
 
   @GetMapping("/all")
   public List<TradeResponse> findAll() {
@@ -53,17 +55,31 @@ public class TradeController {
 
   // 거래 API
   @PostMapping("/trade")
-  public ResponseEntity<Object> response(@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
-    Object response = tradeService.trade(sellerId, buyerId, tradeRequest);
+  public ResponseEntity<Object> trade (@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
+    Object response = null;
+    try {
+      response = tradeService.trade(sellerId, buyerId, tradeRequest);
+    } catch (FeignClientException e) {
+      if (!Integer.valueOf(HttpStatus.NOT_FOUND.value()).equals(e.getStatus())) {
+        throw e;
+      }
+    }
     return ResponseEntity.ok()
             .body(response);
   }
 
   @PostMapping("/trade-log")
-  public ResponseEntity<String> response (@RequestParam("trade")Long trade, @RequestBody TradeRequest tradeRequest) {
+  public ResponseEntity<String> tradeLog (@RequestParam("trade")Long trade, @RequestBody TradeRequest tradeRequest) {
     String response = tradeService.postTradeLog(trade, tradeRequest);
 
     return ResponseEntity.ok()
             .body(response);
   }
+
+//  @GetMapping("/ownership/{userId}")
+//  public ResponseEntity<Object> userOwnership (@PathVariable("userId") Long userId, @) {
+//    System.out.println(userId);
+//    NftPieceResponseDto nftPieceResponseDto = userServiceClient.getOwnership(userId, tradeRequest);
+//    return ResponseEntity.ok().body(nftPieceResponseDto);
+//  }
 }
