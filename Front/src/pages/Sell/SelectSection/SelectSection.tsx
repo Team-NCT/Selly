@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SelectCardList } from "@/components";
+import { SelectCardList } from "@/components/Sell";
 import style from "./SelectSection.module.scss";
 import { getNFTsForOwnerAPI } from "@/api";
 

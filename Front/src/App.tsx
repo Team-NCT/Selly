@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { createPortal } from "react-dom";
 import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
-import { Alert, Navbar } from "@/components";
+import { Alert, Navbar } from "@/components/common";
 import { Home, Create, NFTDetail, Sell, Settings, Profile } from "@/pages";
 import { useCheckLogined } from "@/hooks";
 import { setAccount } from "@/store/loginSlice";
