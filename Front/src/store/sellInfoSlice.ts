@@ -40,7 +40,7 @@ const slice = createSlice({
 
 //* createSelector는 성능 관리를 위해 생성하고 export한다.
 //* 상태가 변하지 않으면 캐시된 데이터를 반환한다.
-export const selectCounter = createSelector(
+export const selectSellInfo = createSelector(
   // 입력 셀렉터
   (state: RootState) => state.sellInfo,
 

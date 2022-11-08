@@ -1,4 +1,4 @@
-.search_input {
+.search_form {
   position: relative;
   width: 90%;
   flex-shrink: 0;
@@ -8,8 +8,9 @@
   }
 
   input {
+    @include font($body1, $medium, $main-font);
     width: 100%;
-    padding: 8px 2px 4px 2px;
+    padding: 8px 30px 4px 2px;
     border-bottom: 2px solid $main-font;
     background-color: transparent;
 

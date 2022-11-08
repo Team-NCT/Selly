@@ -1,5 +1,5 @@
 import { stepType } from "@/pages/Sell/Sell";
 
-export interface SellInfoFormProps {
+export interface SellInfoCardProps {
   changeStep: (step: stepType) => void;
 }

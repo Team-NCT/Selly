@@ -3,28 +3,25 @@ import style from "./SellInfoForm.module.scss";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/common";
 import { FractionCode, FractionNum, FractionPrice, Category } from "./components";
-import { setSellInfo, SellInfoState } from "@/store/sellInfoSlice";
+import { setSellInfo, SellInfoState, selectSellInfo } from "@/store/sellInfoSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 
-const SellInfoForm = ({ step, changeStep }: SellInfoFormProps) => {
+const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
+  const dispatch = useAppDispatch();
+  const NFTValue = useAppSelector(selectNFTValue);
+  const sellInfo = useAppSelector(selectSellInfo);
+
   //* 유효성 검사를 모두 통과하면 Continue 버튼이 활성화된다.
   const [isCodeTrue, setIsCodeTrue] = useState<boolean>(false);
   const [isNumTrue, setIsNumTrue] = useState<boolean>(false);
   const [isPriceTrue, setIsPriceTrue] = useState<boolean>(false);
   const [submittable, setSubmittable] = useState(false);
-  const [values, setValues] = useState<SellInfoState>({
-    category: "Digital",
-    code: "",
-    num: "",
-    price: "",
-  });
-
-  const dispatch = useAppDispatch();
-  const NFTValue = useAppSelector(selectNFTValue);
+  const [values, setValues] = useState<SellInfoState>(sellInfo);
 
   // TODO_YK: 각 인풋폼의 유효성 검사 정확히 만들기
   // TODO_YK: 카드 선택 + 유효성 검사 만족시 버튼 disabled false로 만드는 로직 추가하기
+
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
@@ -36,12 +33,6 @@ const SellInfoForm = ({ step, changeStep }: SellInfoFormProps) => {
     event.preventDefault();
     dispatch(setSellInfo(values));
     changeStep("SIGN");
-  };
-
-  const editHandler = (event: React.MouseEvent) => {
-    // submit 이벤트 방지
-    event.preventDefault();
-    changeStep("SELECT");
   };
 
   //TODO_YK 유효성 검사 제대로 만들기
@@ -79,16 +70,9 @@ const SellInfoForm = ({ step, changeStep }: SellInfoFormProps) => {
           <p>총 가격</p>
           <p>{values.num * values.price} ETH</p>
         </div>
-        {step === "SELECT" && (
-          <Button size="fillContainer" disabled={!submittable}>
-            Continue
-          </Button>
-        )}
-        {step === "SIGN" && (
-          <Button size="fillContainer" onClick={editHandler}>
-            EDIT
-          </Button>
-        )}
+        <Button size="fillContainer" disabled={!submittable}>
+          Continue
+        </Button>
       </form>
     </article>
   );
