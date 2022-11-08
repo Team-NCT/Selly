@@ -2,24 +2,27 @@
   margin-top: 64px;
   @include flex(row, flex-start);
   gap: 32px;
-  @include font($h4, $semibold);
+  font-size: 24px;
+  font-weight: 600;
+  transition: 0.5s;
 
-  @media (max-width: 800px) {
-    @include font($body1, $semibold);
+  @media (max-width: 710px) {
+    @include font($h5, $semibold);
+    margin-top: 40px;
     gap: 20px;
-  }
-
-  @include mobile {
-    @include font($body1, $semibold);
-    gap: 16px;
-  }
-
-  @media (max-width: 500px) {
-    @include font($caption, $semibold);
-    gap: 10px;
   }
 }
 
 .defualt {
   color: $black;
+}
+
+.mobileTab {
+  width: 100%;
+  @include flex(row, space-between);
+  margin-top: -20px;
+}
+
+.selectBox {
+  width: 200px;
 }

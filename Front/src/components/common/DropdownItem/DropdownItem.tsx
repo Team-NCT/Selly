@@ -1,13 +1,19 @@
 import { DropdownItemProps } from "./DropdownItem.types";
 import style from "./DropdownItem.module.scss";
 
-const DropdownItem = ({ value, category, bg = "primary" }: DropdownItemProps) => {
+const DropdownItem = ({ value, category, bg = "primary", idx }: DropdownItemProps) => {
   const dropdownBG = style[["bg-", bg].join("")];
+  const isSelect = idx === 0 ? true : false;
 
   return (
     <label className={style.opt}>
       <div className={`${style.opt_hover} ${dropdownBG}`}>
-        <input className={style.dropdown_item} name={category} type="radio" value={value}></input>
+        <input
+          className={style.dropdown_item}
+          name={category}
+          type="radio"
+          value={value}
+          checked={isSelect}></input>
         <span>{value}</span>
       </div>
     </label>

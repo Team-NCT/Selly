@@ -16,4 +16,9 @@ export interface DropdownItemProps {
    * 호버 배경색
    */
   bg?: DropdownBGType;
+
+  /**
+   * 0번은 기본 선택
+   */
+  idx: number;
 }

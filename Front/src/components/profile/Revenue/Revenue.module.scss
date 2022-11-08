@@ -27,6 +27,7 @@
 
 .tile {
   @include font($h5, $regular);
+  margin-bottom: 8px;
 
   @include mobile {
     @include font($body1, $regular);

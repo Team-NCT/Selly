@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 const SelectBox = ({ list, category, bg = "primary", onChange }: SelectBoxProps) => {
   const valueBorder = style[["bg-", bg].join("")];
-  const [selected, setSelected] = useState("선택");
+  const [selected, setSelected] = useState(list[0]);
   const [isOpen, setIsOpen] = useState(false);
   const arrowStyle = isOpen ? style.arrowTop : style.arrowBottom;
   const selectRef = useRef<HTMLDivElement>(null);
@@ -46,7 +46,7 @@ const SelectBox = ({ list, category, bg = "primary", onChange }: SelectBoxProps)
   }, [selected]);
 
   return (
-    <section onChange={onChange}>
+    <section onChange={onChange} className={style.selectBox}>
       <div
         className={`${style.value} ${valueBorder}`}
         onClick={() => {
