@@ -1,7 +1,7 @@
 import { SellInfoFormProps } from "./SellInfoForm.types";
 import style from "./SellInfoForm.module.scss";
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components";
+import { Button } from "@/components/common";
 import { FractionCode, FractionNum, FractionPrice, Category } from "./components";
 import { setSellInfo, SellInfoState } from "@/store/sellInfoSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";

@@ -1,6 +1,6 @@
 import { SelectCardProps } from "./SelectCard.types";
 import style from "./SelectCard.module.scss";
-import { Button } from "@/components";
+import { Button } from "@/components/common";
 import { useState, useCallback } from "react";
 import { setNFTValue } from "@/store/selectNFTSlice";
 
