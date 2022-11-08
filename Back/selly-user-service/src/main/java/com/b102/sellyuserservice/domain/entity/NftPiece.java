@@ -22,17 +22,34 @@ public class NftPiece {
   private Long userId;
   private Integer nftPieceCnt;
   private double avgPrice;
+  private boolean trade;
+  private String contractAddress;
+
   @CreatedDate
   private LocalDateTime createRegist;
   @LastModifiedDate
   private LocalDateTime updateRegist;
 
-  public void updateOwnership(Integer nftPieceCnt, double avgPrice) {
+  public void updateOwnership(Integer nftPieceCnt, double avgPrice, boolean trade) {
   this.nftPieceCnt = nftPieceCnt;
   this.avgPrice = avgPrice;
+  this.trade = trade;
+  }
+  public void updateTrade(boolean trade) {
+    this.trade = trade;
   }
   @Builder
-  public NftPiece(Long pieceId, Long articleId, Long userId, Integer nftPieceCnt, double avgPrice) {
+  public NftPiece(Long pieceId, Long articleId, Long userId, Integer nftPieceCnt, double avgPrice, String contractAddress, boolean trade) {
+    this.pieceId = pieceId;
+    this.articleId = articleId;
+    this.userId = userId;
+    this.nftPieceCnt = nftPieceCnt;
+    this.avgPrice = avgPrice;
+    this.contractAddress = contractAddress;
+    this.trade = trade;
+  }
+
+  public void postNftPiece(Long pieceId, Long articleId, Long userId, Integer nftPieceCnt, double avgPrice){
     this.pieceId = pieceId;
     this.articleId = articleId;
     this.userId = userId;

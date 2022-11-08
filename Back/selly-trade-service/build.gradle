@@ -33,6 +33,7 @@ dependencies {
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+	implementation group: 'org.json', name: 'json', version: '20220924'
 
 }
 

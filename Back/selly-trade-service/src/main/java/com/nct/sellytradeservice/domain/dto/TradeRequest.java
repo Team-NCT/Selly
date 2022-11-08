@@ -1,5 +1,6 @@
 package com.nct.sellytradeservice.domain.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
