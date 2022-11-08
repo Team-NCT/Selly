@@ -8,7 +8,7 @@ import {
   TransactionFractionsBuy,
   TransactionFractionsSell,
   TransactionSellStatus,
-} from "@/components";
+} from "@/components/NFTDetail";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import { selectModal, closeBuy, closeSell, closeSellStatus } from "@/store/modalSlice";
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SignBoxList } from "@/components";
+import { SignBoxList } from "@/components/Sell";
 import style from "./SignSection.module.scss";
 import { SIGN_DATAS } from "./SignDatas";
 

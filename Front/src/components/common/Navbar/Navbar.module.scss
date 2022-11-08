@@ -98,13 +98,6 @@ nav {
   box-shadow: 0 8px 0 $black350, 0 16px 0 $black350;
 }
 
-.nav_search {
-  width: 90%;
-  @include laptop {
-    width: 65%;
-  }
-}
-
 .nav_title {
   position: absolute;
   top: 0;

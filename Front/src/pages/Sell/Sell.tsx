@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import style from "./Sell.module.scss";
-import { Neon, SelectedCard, SellInfoForm } from "@/components";
+import { Neon } from "@/components/common";
+import { SelectedCard, SellInfoForm } from "@/components/Sell";
 import { SelectSection, SignSection } from ".";
 import { useAppSelector } from "@/hooks";
 import { selectNFTValue, SelectNFTState } from "@/store/selectNFTSlice";

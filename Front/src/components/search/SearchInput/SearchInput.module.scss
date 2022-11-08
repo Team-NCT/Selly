@@ -1,0 +1,35 @@
+.search_input {
+  position: relative;
+  width: 90%;
+  flex-shrink: 0;
+
+  @include laptop {
+    width: 65%;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px 2px 4px 2px;
+    border-bottom: 2px solid $main-font;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      @include font($body2, $light, $black100);
+    }
+  }
+
+  svg {
+    top: 2px;
+    right: 4px;
+    position: absolute;
+
+    @include laptop {
+      top: 0;
+      right: 16px;
+    }
+  }
+}

@@ -1,0 +1,4 @@
+.ranking_container {
+  @include flex(column);
+  gap: 32px;
+}

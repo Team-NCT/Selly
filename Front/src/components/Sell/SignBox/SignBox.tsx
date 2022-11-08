@@ -1,6 +1,6 @@
 import { SignBoxProps } from "./SignBox.types";
 import style from "./SignBox.module.scss";
-import { Neon, Button } from "@/components";
+import { Neon, Button } from "@/components/common";
 
 const SignBox = ({ title, desc, idx, isActive, signFunction, goNext }: SignBoxProps) => {
   const onClickHandler = () => {

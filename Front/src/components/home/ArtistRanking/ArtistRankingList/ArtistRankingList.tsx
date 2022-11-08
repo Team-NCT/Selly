@@ -1,4 +1,4 @@
-import ArtistRankingItem from "../ArtistRankingITem/ArtistRankingItem";
+import ArtistRankingItem from "../ArtistRankingItem/ArtistRankingItem";
 import { ArtistRankingListProps } from "./ArtistRankingList.types";
 import style from "./ArtistRankingList.module.scss";
 

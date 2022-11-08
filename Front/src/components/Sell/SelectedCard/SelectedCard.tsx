@@ -1,6 +1,6 @@
 import { SelectedCardProps } from "./SelectedCard.types";
 import style from "./SelectedCard.module.scss";
-import { Card } from "@/components";
+import { Card } from "@/components/common";
 
 const SelectedCard = ({ url, title }: SelectedCardProps) => {
   return (

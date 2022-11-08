@@ -10,6 +10,7 @@
 
 .item_rank {
   @include font($body1, $medium);
+  text-align: center;
   min-width: 24px;
 }
 
