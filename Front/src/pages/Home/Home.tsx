@@ -4,7 +4,9 @@ import ArtistRanking from "@/components/home/ArtistRanking/ArtistRanking";
 function Home() {
   return (
     <div className={style.home}>
-      <ArtistRanking />
+      <main>
+        <ArtistRanking />
+      </main>
     </div>
   );
 }
