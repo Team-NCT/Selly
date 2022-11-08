@@ -25,6 +25,7 @@ function Profile() {
       })
     );
   }, []);
+
   return (
     <>
       <Banner />

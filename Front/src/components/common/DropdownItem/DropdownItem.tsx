@@ -1,9 +1,9 @@
 import { DropdownItemProps } from "./DropdownItem.types";
 import style from "./DropdownItem.module.scss";
 
-const DropdownItem = ({ value, category, bg = "primary", idx }: DropdownItemProps) => {
+const DropdownItem = ({ value, category, bg = "primary", defualtValue }: DropdownItemProps) => {
   const dropdownBG = style[["bg-", bg].join("")];
-  const isSelect = idx === 0 ? true : false;
+  const isSelect = defualtValue === value ? true : false;
 
   return (
     <label className={style.opt}>

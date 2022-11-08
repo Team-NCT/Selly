@@ -18,7 +18,7 @@ export interface DropdownItemProps {
   bg?: DropdownBGType;
 
   /**
-   * 0번은 기본 선택
+   * 처음 선택될 옵션
    */
-  idx: number;
+  defualtValue?: string;
 }
