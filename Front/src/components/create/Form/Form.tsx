@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common";
 import { Description, Image, Title, Link, Property } from "./components";
-import createNFT from "@/helpers/service/createNFT";
+import { createNFT } from "@/api/IPFS";
 import style from "./Form.module.scss";
 import { useNavigate } from "react-router-dom";
 

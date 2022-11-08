@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { SelectCardList } from "@/components/Sell";
 import style from "./SelectSection.module.scss";
-import { getNFTsForOwnerAPI } from "@/api";
+import { selectNFTValue } from "@/store/selectNFTSlice";
+import { useAppSelector } from "@/hooks";
 
-function SelectSection() {
-  // TODO_YK: alchemy 깃헙에서 type 가져오기
-  const [NFTdatas, setNFTdatas] = useState<any>("");
-
-  const getOwnERC721NFTs = async () => {
-    const { ownedNfts } = await getNFTsForOwnerAPI("sss");
-    let datas = [];
-    datas = ownedNfts.filter((nft) => {
-      return nft.tokenType === "ERC721";
-    });
-    console.log(datas);
-    setNFTdatas(datas);
-  };
+// TODO_YK: alchemy 깃헙에서 type 가져오기!!
+function SelectSection({ datas }: any) {
+  const NFTValue = useAppSelector(selectNFTValue);
 
   useEffect(() => {
-    getOwnERC721NFTs();
     //* 다음 step으로 넘어갈 시 스크롤 맨 위로
     window.scrollTo(0, 0);
   }, []);
@@ -33,7 +23,7 @@ function SelectSection() {
         </div>
         <h3 className={style.desc}>판매할 NFT를 선택하고, 판매 정보를 입력해주세요.</h3>
       </header>
-      {NFTdatas ? <SelectCardList data={NFTdatas} /> : <></>}
+      {datas ? <SelectCardList data={datas} defaultSelectedIdx={NFTValue.selectIdx} /> : <></>}
     </>
   );
 }

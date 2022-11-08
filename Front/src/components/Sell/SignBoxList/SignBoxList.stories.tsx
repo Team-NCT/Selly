@@ -16,8 +16,9 @@ export const Default: Story<SignBoxListProps> = (args) => <SignBoxList {...args}
 const defaultProps = {
   title: "금고 생성하기",
   desc: "NFT의 조각을 생성하기 위해서 NFT를 보관할 금고를 생성하여야 합니다.",
-  signFunction: () => {
+  signFunction: async () => {
     console.log("이얏호!!");
+    return true;
   },
 };
 
