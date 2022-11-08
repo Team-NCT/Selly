@@ -17,12 +17,11 @@ const SelectCardList = ({ data }: SelectCardListProps) => {
     } else {
       dispatch(
         setNFTValue({
-          CA: "0x123",
-          tokenId: "12345",
-          metaDataUrl: "http",
+          CA: data[idx].contract.address,
+          tokenId: data[idx].tokenId,
+          metaDataUrl: data[idx].tokenUri.raw,
           articleName: data[idx].title,
-          articleUrl: data[idx].url,
-          testidx: String(idx),
+          articleUrl: data[idx].rawMetadata.image,
         })
       );
     }
@@ -33,7 +32,7 @@ const SelectCardList = ({ data }: SelectCardListProps) => {
       {data.map((item, idx) => (
         <SelectCard
           key={idx}
-          url={item.url}
+          url={item.rawMetadata.image}
           title={item.title}
           idx={idx}
           isSelected={idx === selectedNum}

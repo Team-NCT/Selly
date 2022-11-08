@@ -1,4 +1,4 @@
-import { stepType } from "@/pages/SellPage/Sell";
+import { stepType } from "@/pages/Sell/Sell";
 
 export interface SellInfoFormProps {
   step: stepType;

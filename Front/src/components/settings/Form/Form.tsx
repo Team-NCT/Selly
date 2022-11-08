@@ -16,12 +16,12 @@ export interface InitialStateProps {
 
 //* 내프로필 API와 연결할 예정
 const initialState = {
-  nickname: "사슴",
-  introduction: "사슴 사냥",
+  nickname: "띠용",
+  introduction: "안녕하세요.",
   image:
-    "https://w.namu.la/s/6d37d2792f61b69511edc288e16598d0722ff0407af67089c0004ddeda7ad7b9bdc0b2e4880db9548efe21f2082a4c34545902a67aaa00eafce75c7f89fcdcb8eeae5357f92572f0758218fb6961e1f7b7e989a1abd448bfc6001607f77bba8a",
+    "https://user-images.githubusercontent.com/97648143/200227851-cfc7fcca-7b1d-497d-8b40-f2e16e0a490e.png",
   banner:
-    "https://w.namu.la/s/6d37d2792f61b69511edc288e16598d0722ff0407af67089c0004ddeda7ad7b9bdc0b2e4880db9548efe21f2082a4c34545902a67aaa00eafce75c7f89fcdcb8eeae5357f92572f0758218fb6961e1f7b7e989a1abd448bfc6001607f77bba8a",
+    "https://user-images.githubusercontent.com/97648143/200227313-2782cc12-af1e-4bca-b48a-f3aaaca871e0.png",
 };
 
 const Form = () => {
@@ -39,7 +39,6 @@ const Form = () => {
         banner: initialState.banner,
       })
     );
-    console.log(profileData);
   }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

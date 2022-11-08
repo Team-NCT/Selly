@@ -1,0 +1,29 @@
+.sell_title {
+  @include font($h2, $bold);
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 14fr 1fr minmax(212px, 4fr);
+  margin-bottom: 24px;
+
+  .select_section {
+    @include flex(column, flex-start, flex-start);
+    grid-column-start: 1;
+    grid-column-end: 2;
+    gap: 40px;
+  }
+
+  .selected_NFT_section {
+    @include flex(column, flex-start, center);
+    grid-column-start: 3;
+    grid-column-end: 4;
+    gap: 12px;
+
+    h2 {
+      align-self: flex-start;
+    }
+  }
+}

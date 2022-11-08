@@ -11,7 +11,7 @@ import { useEffect, useCallback, useState } from "react";
 
 const useCheckLogined = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
-  const [userNickname, setuserNickname] = useState<string | null>("뚤기");
+  const [userNickname, setuserNickname] = useState<string | null>("띠용");
 
   const accountData = {
     address: walletAddress,

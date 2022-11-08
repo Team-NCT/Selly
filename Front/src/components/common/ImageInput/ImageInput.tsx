@@ -8,8 +8,6 @@ const ImageInput = ({
   handleInputChange,
   styles = "square",
   imageUrl = "",
-  status = true,
-  errorMessage = "",
 }: ImageInputProps) => {
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +29,7 @@ const ImageInput = ({
 
         {/* 이미지가 없을 때 */}
         {!imageUrl && (
-          <div className={`${style[`input_image_${styles}`]} ${style[`input_${status}`]}`}>
+          <div className={style[`input_image_${styles}`]}>
             <span className="material-icons-outlined">add_photo_alternate</span>
             <span className={style.input_image_desc}> GIF, JPG, JPEG, PNG, WEBP</span>
             <span className={style.input_image_desc}>파일 크기: 최대 {limit} MB</span>
@@ -41,7 +39,6 @@ const ImageInput = ({
         {/* input */}
         <input id={id} type="file" accept="image/*" onChange={handleChange} hidden />
       </label>
-      {!status && <p className={style.input_error}>{errorMessage}</p>}
     </>
   );
 };

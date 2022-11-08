@@ -1,96 +1,102 @@
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
 
-const testEventAbi: AbiItem[] = [
+export const web3 = new Web3(
+  new Web3.providers.HttpProvider(
+    `https://$goerli.infura.io/v3/${process.env.SELLY_INFURA_API_KEY}`
+  )
+);
+
+export const testEventAbi: AbiItem[] = [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": false,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address",
       },
       {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      }
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
     ],
-    "name": "AddTokenId",
-    "type": "event"
+    name: "AddTokenId",
+    type: "event",
   },
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": false,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address",
       },
       {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      }
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
     ],
-    "name": "CurrentTokenId",
-    "type": "event"
+    name: "CurrentTokenId",
+    type: "event",
   },
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": false,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
     ],
-    "name": "TestCall",
-    "type": "event"
+    name: "TestCall",
+    type: "event",
   },
   {
-    "inputs": [],
-    "name": "addTokenId",
-    "outputs": [
+    inputs: [],
+    name: "addTokenId",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "currentTokenId",
-    "outputs": [
+    inputs: [],
+    name: "currentTokenId",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "testCall",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
+    inputs: [],
+    name: "testCall",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
 ];
 
 export const testEventCA = "0x88e4e1454A2e09B43824e64724576417FBe76909";

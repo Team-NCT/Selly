@@ -1,0 +1,11 @@
+.emptyCard {
+  // TODO_YK: 카드 선택 시 아래 흰색 공간이 뜨는데 현재 모르겠음
+  @include flex;
+  @include font($body1, $semibold);
+  @include shadow-drop5;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: $radius-card;
+  background-color: $white200;
+}
