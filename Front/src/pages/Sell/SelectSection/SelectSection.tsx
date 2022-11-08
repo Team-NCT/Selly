@@ -8,11 +8,6 @@ import { useAppSelector } from "@/hooks";
 function SelectSection({ datas }: any) {
   const NFTValue = useAppSelector(selectNFTValue);
 
-  useEffect(() => {
-    //* 다음 step으로 넘어갈 시 스크롤 맨 위로
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <>
       <header className={style.header}>
