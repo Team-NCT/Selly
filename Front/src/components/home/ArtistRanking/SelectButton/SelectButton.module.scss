@@ -1,0 +1,13 @@
+.item_active {
+  @include font($h3, $medium, $black350);
+}
+
+.item_inactive {
+  @include font($h3, $medium, $black);
+}
+
+.selct_container {
+  @include flex(row, flex-end);
+  width: 100%;
+  gap: 20px;
+}
