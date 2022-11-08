@@ -1,20 +1,18 @@
 package com.nct.sellyarticleservice.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter
+@Data
 @NoArgsConstructor
 @Entity
-@EntityListeners(value= AuditingEntityListener.class)
+@Table(name = "article")@EntityListeners(value= AuditingEntityListener.class)
 public class  Article {
 
   @Id
@@ -30,23 +28,20 @@ public class  Article {
 
   private String articleImgUrl;
 
-  private String articleIntroduction;
-
-  private String connectionLink;
-
-  private String attribute;
-
+  @Column(nullable = false, length = 200, unique = true)
   private String metaDataUrl;
+
   @CreatedDate
   private LocalDateTime registTime;
 
   private String contractAddress;
 
+  @Column(updatable = false)
+  @CreatedDate
   private LocalDateTime createRegist;
 
+  @LastModifiedDate
   private LocalDateTime updateRegist;
-
-  private Long originalAuthor;
 
   private Integer primaryCnt;
 
@@ -66,31 +61,27 @@ public class  Article {
 
   private String ownershipContractAddress;
 
-  @Builder
-  public Article(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner, String tokenId, boolean auction, boolean status) {
-    this.articleId = articleId;
-    this.availability = availability;
-    this.category = category;
-    this.articleName = articleName;
-    this.articleImgUrl = articleImgUrl;
-    this.articleIntroduction = articleIntroduction;
-    this.connectionLink = connectionLink;
-    this.attribute = attribute;
-    this.metaDataUrl = metaDataUrl;
-    this.registTime = registTime;
-    this.createRegist = createRegist;
-    this.updateRegist = updateRegist;
-    this.contractAddress = contractAddress;
-    this.originalAuthor = originalAuthor;
-    this.primaryCnt = primaryCnt;
-    this.currentCnt = currentCnt;
-    this.price = price;
-    this.owner = owner;
-    this.tokenId = tokenId;
-    this.auction = auction;
-    this.status = status;
-  }
-
+//  @Builder
+//  public Article(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner, String tokenId, boolean auction, boolean status) {
+//    this.articleId = articleId;
+//    this.availability = availability;
+//    this.category = category;
+//    this.articleName = articleName;
+//    this.articleImgUrl = articleImgUrl;
+//    this.metaDataUrl = metaDataUrl;
+//    this.registTime = registTime;
+//    this.createRegist = createRegist;
+//    this.updateRegist = updateRegist;
+//    this.contractAddress = contractAddress;
+//    this.primaryCnt = primaryCnt;
+//    this.currentCnt = currentCnt;
+//    this.price = price;
+//    this.owner = owner;
+//    this.tokenId = tokenId;
+//    this.auction = auction;
+//    this.status = status;
+//  }
+//
   public void updateArticle(boolean availability, LocalDateTime createRegist) {
 
     this.availability = availability;

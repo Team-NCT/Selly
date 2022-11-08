@@ -168,6 +168,13 @@ spring:
                 baseMessage: Hi, Logging filter
                 preLogger: true
                 postLogger: true
+        - id : selly-contract-service
+          uri: lb://SELLY-CONTRACT-SERVICE
+          predicates:
+            - Path=/selly-contract-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-contract-service/(?<segment>.*), /$\{segment}
 eureka:
   client:
     register-with-eureka: true
