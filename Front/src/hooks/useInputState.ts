@@ -18,7 +18,7 @@ function useInputState(initialValue = "", transformValue: (value: string) => str
     [transformValue]
   );
 
-  return [value, handleValueChange] as const;
+  return [value, handleValueChange, setValue] as const;
 }
 
 function echo(v: string) {
