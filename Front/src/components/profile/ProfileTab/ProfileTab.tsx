@@ -23,7 +23,9 @@ const ProfileTab = () => {
   });
 
   const windowResize = useCallback(() => {
-    setWindowWidth(getViewportSize().width);
+    setTimeout(() => {
+      setWindowWidth(getViewportSize().width);
+    }, 200);
   }, [setWindowWidth]);
 
   return (
@@ -43,13 +45,12 @@ const ProfileTab = () => {
           </div>
         ) : (
           tabItems.map((item) => (
-            <div
+            <button
               key={item}
               onClick={() => {
                 setSelectedTab(item);
               }}
-              className={selectedTab === item ? "" : style.defualt}
-              aria-hidden>
+              className={selectedTab === item ? style.selected : style.defualt}>
               <Neon
                 color="muscat"
                 positionH="bottom"
@@ -57,7 +58,7 @@ const ProfileTab = () => {
                 width={selectedTab === item ? 50 : 0}>
                 {item}
               </Neon>
-            </div>
+            </button>
           ))
         )}
       </div>

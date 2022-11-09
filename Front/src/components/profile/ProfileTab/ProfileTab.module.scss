@@ -1,3 +1,12 @@
+@mixin profileTab_Font {
+  font-size: 24px;
+  font-weight: 600;
+
+  @media (max-width: 710px) {
+    @include font($h5, $semibold);
+  }
+}
+
 .section {
   @include flex(column, flex-start, flex-start);
   width: 100%;
@@ -22,6 +31,11 @@
 
 .defualt {
   color: $black;
+  @include profileTab_Font;
+}
+
+.selected {
+  @include profileTab_Font;
 }
 
 .mobileTab {
