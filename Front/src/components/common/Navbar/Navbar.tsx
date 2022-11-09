@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { Neon, TextInput, ProfileImage } from "@/components/common";
+import { Neon, ProfileImage } from "@/components/common";
 import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
-import { useInputState } from "@/hooks";
 import { useAppSelector } from "@/hooks/useStore";
 import { selectAccount } from "@/store/loginSlice";
+import { useLoginMutation } from "@/api/server/loginAPI";
+import { loginSelly } from "@/api/blockchain";
 
 const Navbar = () => {
   //* account 정보
   const { account } = useAppSelector(selectAccount);
+  //* 로그인 API
+  const [login] = useLoginMutation();
 
-  const [isLogin, setIsLogin] = useState(true);
-  const [value, handleInputChange] = useInputState();
+  const loginHandler = () => {
+    loginSelly(login);
+  };
+
   const [menuToggle, setMenuToggle] = useState(false);
 
   //* 아래로 스크롤 시 navbar 사라짐
@@ -155,7 +160,7 @@ const Navbar = () => {
               </NavLink>
             </li>
           </ul>
-          {isLogin ? (
+          {account.address ? (
             <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
               <ProfileImage size="xxs" profileStyle="round" />
               <h5 className={styles.nav_username}>김김작가작가작가</h5>
@@ -186,11 +191,13 @@ const Navbar = () => {
               onBlur={() => {
                 setWallet(50);
               }}>
-              <Neon color="lilac" positionH="top" positionW="right" width={wallet}>
-                <span className={`material-icons-outlined ${styles.wallet}`}>
-                  account_balance_wallet
-                </span>
-              </Neon>
+              <button onClick={loginHandler}>
+                <Neon color="lilac" positionH="top" positionW="right" width={wallet}>
+                  <span className={`material-icons-outlined ${styles.wallet}`}>
+                    account_balance_wallet
+                  </span>
+                </Neon>
+              </button>
             </li>
           )}
         </div>

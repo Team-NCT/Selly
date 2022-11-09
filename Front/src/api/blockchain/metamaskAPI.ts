@@ -39,7 +39,7 @@ export const changeNetwork = async (chainId: string) => {
   }
 };
 
-export const login = async () => {
+export const loginSelly = async (fc: any) => {
   //* metamask 설치 여부 확인 로직
 
   if (window.ethereum) {
@@ -51,9 +51,11 @@ export const login = async () => {
     }
 
     const account = await getWallet();
-    console.log("로그인", account);
 
-    //! 로그인 api 연결
+    await fc({
+      wallet: account,
+      pwd: account,
+    });
   } else {
     window.open(METAMASK_DOWNLOAD_LINK, "_blank");
   }

@@ -6,7 +6,7 @@ interface AccountState {
     nickname: string | null;
     address: string | null;
     userId: number | null;
-    token: string | null;
+    token: string | null | undefined;
   };
 }
 
@@ -31,7 +31,7 @@ const slice = createSlice({
       state.account.nickname = action.payload.nickname;
       state.account.userId = action.payload.userId;
     },
-    setToken: (state, action: PayloadAction<{ token: string | null }>) => {
+    setToken: (state, action: PayloadAction<{ token: string | null | undefined }>) => {
       state.account.token = action.payload.token;
     },
   },
