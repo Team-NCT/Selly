@@ -1,6 +1,6 @@
 import { GOERLI_ID } from "@/constants/metamask";
-import { getWallet, getChainId } from "@/helpers/service";
-import { useEffect, useCallback, useState } from "react";
+import { getWallet, getChainId } from "@/api/blockchain";
+import { useEffect, useCallback, useState, useMemo } from "react";
 
 /**
  * 사용법
@@ -12,11 +12,6 @@ import { useEffect, useCallback, useState } from "react";
 const useCheckLogined = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [userNickname, setuserNickname] = useState<string | null>("김작가작가작가김작가작가");
-
-  const accountData = {
-    address: walletAddress,
-    nickname: userNickname,
-  };
 
   //* 로그인 체크
   const checkLogined = useCallback(async () => {
@@ -36,13 +31,11 @@ const useCheckLogined = () => {
         console.log(walletAddress);
       }
 
-      //! API연결되면 아이디 존재 여부랑 로그인확인하는 로직 추가
-
-      return accountData;
+      return [walletAddress, userNickname];
     } catch {
       setWalletAddress(null);
     }
-  }, [walletAddress, accountData]);
+  }, [walletAddress, userNickname]);
 
   //* 로그인 확인 이벤트 등록
   useEffect(() => {
@@ -58,7 +51,7 @@ const useCheckLogined = () => {
     }
   });
 
-  return accountData;
+  return [walletAddress, userNickname];
 };
 
 export default useCheckLogined;

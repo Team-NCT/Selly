@@ -16,7 +16,8 @@ const initialState = {
 };
 
 function Profile() {
-  const [login, { data: loginData, isSuccess, isError, error }] = useLoginMutation();
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
   const testData = {
     wallet: "0xf7A70bF5441A6b523d35F0002f3bd037BcbC2f6211",
     pwd: "0xf7A70bF5441A6b523d35F0002f3bd037BcbC2f6211",
@@ -26,7 +27,6 @@ function Profile() {
     await login(testData);
   };
 
-  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
       setProfileData({
