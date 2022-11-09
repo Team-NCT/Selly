@@ -1,16 +1,11 @@
 package com.nct.sellyarticleservice.controller;
 
-import com.nct.sellyarticleservice.domain.dto.ArticleRequest;
-import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
-import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
-import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
+import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
 import com.nct.sellyarticleservice.model.service.ArticleServiceImpl;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/selly-article-service")
@@ -35,12 +31,12 @@ public class ArticleController {
   }
 
   @PostMapping("/create")
-  public Long createArticle(@RequestBody ArticleRequest articleRequest) throws SQLException{
-    return articleService.createArticle(articleRequest);
+  public ResponseArticle createArticle(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException{
+    return articleService.createArticle(requestArticleCreate);
   }
 
   @GetMapping("")
-  public List<ArticleResponseDto> getArticleByAll() {
+  public List<ResponseArticle> getArticleByAll() {
     return articleService.findByAll();
   }
 
@@ -132,11 +128,11 @@ public class ArticleController {
   }
 
   @GetMapping("/sell-filter")
-  public List<ArticleResponseDto> getArticleBySellStatus(@PathVariable("sell") String sell) {
+  public List<ResponseArticle> getArticleBySellStatus(@PathVariable("sell") String sell) {
     return articleService.findBySell(sell);
   }
   @GetMapping("/auction-filter")
-  public List<ArticleResponseDto> getArticleByAuctionStatus(@PathVariable("auction") String auction) {
+  public List<ResponseArticle> getArticleByAuctionStatus(@PathVariable("auction") String auction) {
     return articleService.findByAuction(auction);
   }
 

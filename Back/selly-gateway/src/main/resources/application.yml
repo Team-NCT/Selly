@@ -7,24 +7,24 @@ spring:
   cloud:
     gateway:
       default-filters:
-#        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
-        - name: GlobalFilter
-          args:
-            baseMessage: Spring Cloud Gateway GlobalFilter
-            preLogger: true
-            postLogger: true
-#      globalcors:
-#        corsConfigurations:
-#          '[/**]':
-#            allowedOrigins: 'http://localhost:3000'
-#            allow-credentials: true
-#            allowedHeaders: '*'
-#            allowedMethods:
-#              - PUT
-#              - GET
-#              - POST
-#              - DELETE
-#              - OPTIONS
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:3000'
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring Cloud Gateway GlobalFilter
+#            preLogger: true
+#            postLogger: true
       routes:
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
@@ -168,6 +168,13 @@ spring:
                 baseMessage: Hi, Logging filter
                 preLogger: true
                 postLogger: true
+        - id : selly-contract-service
+          uri: lb://SELLY-CONTRACT-SERVICE
+          predicates:
+            - Path=/selly-contract-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-contract-service/(?<segment>.*), /$\{segment}
 eureka:
   client:
     register-with-eureka: true
