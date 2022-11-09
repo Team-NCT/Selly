@@ -1,6 +1,6 @@
 import { SelectCardListProps } from "./SelectCardList.types";
 import style from "./SelectCardList.module.scss";
-import { SelectCard } from "@/components/Sellss";
+import { SelectCard } from "@/components/sell";
 import { useState } from "react";
 import { setNFTValue, resetNFTValue } from "@/store/selectNFTSlice";
 import { useAppDispatch } from "@/hooks";
