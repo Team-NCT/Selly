@@ -12,12 +12,12 @@ import { LAPTOP } from "@/constants/size";
 const SearchInput = () => {
   const [resultStatus, setResultStatus] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<SearchResultType>({ user: [], article: [] });
+  const [value, handleValueChange, setValue] = useInputState("");
   const formRef = useRef<HTMLFormElement>(null);
-  const { disappearTag } = useClickOutSide(formRef, () => setResultStatus(false));
   const navigate = useNavigate();
   const location = useLocation();
-  const [value, handleValueChange, setValue] = useInputState("");
   const [fetchSearchResult] = useLazyFetchSearchResultQuery();
+  const { disappearTag } = useClickOutSide(formRef, () => setResultStatus(false));
 
   //@ description:검색 결과를 반환하는 함수
   const requestSearchKeyword = useCallback(
@@ -52,7 +52,6 @@ const SearchInput = () => {
 
   //* 페이지 이동 시, 검색 자동완성 다이얼로그가 사라진다.
   useEffect(() => {
-    console.log(location);
     setResultStatus(false);
     setValue("");
   }, [location, setValue]);
@@ -60,7 +59,6 @@ const SearchInput = () => {
   //* 자동완성 기능
   useEffect(() => {
     if (!value) {
-      setResultStatus(false);
       return;
     }
     if (getViewportSize().width < LAPTOP) {
