@@ -22,7 +22,7 @@ export interface SignBoxProps {
   /**
    * 각 서명 박스에 들어갈 함수
    */
-  signFunction: () => void;
+  signFunction: () => Promise<boolean>;
 
   /**
    * 클릭했을 때 다음 박스로 넘어가도록 하는 함수

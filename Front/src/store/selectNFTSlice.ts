@@ -8,6 +8,7 @@ export interface SelectNFTState {
   metaDataUrl: string;
   articleName: string;
   articleUrl: string;
+  selectIdx: number;
 }
 
 // State 초기값
@@ -17,6 +18,7 @@ const initialState: SelectNFTState = {
   metaDataUrl: "",
   articleName: "",
   articleUrl: "",
+  selectIdx: -1,
 };
 
 //* slice를 생성합니다.
@@ -35,6 +37,7 @@ const slice = createSlice({
       state.metaDataUrl = action.payload.metaDataUrl;
       state.articleName = action.payload.articleName;
       state.articleUrl = action.payload.articleUrl;
+      state.selectIdx = action.payload.selectIdx;
     },
     resetNFTValue: (state) => {
       state.CA = "";
@@ -42,6 +45,7 @@ const slice = createSlice({
       state.metaDataUrl = "";
       state.articleName = "";
       state.articleUrl = "";
+      state.selectIdx = -1;
     },
   },
 });

@@ -1,13 +1,13 @@
 .sell_title {
   @include font($h2, $bold);
-  margin-top: 24px;
+  margin-top: 48px;
   margin-bottom: 24px;
 }
 
 .content {
   display: grid;
   grid-template-columns: 14fr 1fr minmax(212px, 4fr);
-  margin-bottom: 24px;
+  padding-bottom: 48px;
 
   .select_section {
     @include flex(column, flex-start, flex-start);
