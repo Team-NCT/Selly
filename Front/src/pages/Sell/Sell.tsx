@@ -44,13 +44,13 @@ function Sell() {
       <article className={style.content}>
         <section className={style.select_section}>
           {step === "SELECT" && <SelectSection datas={NFTdatas} />}
-          {step === "SIGN" && <SignSection />}
+          {step === "SIGN" && <SignSection changeStep={changeStep} />}
         </section>
         <section className={style.selected_NFT_section}>
           <h2>Selected NFT</h2>
           <SelectedCard url={NFTValue.articleUrl} title={NFTValue.articleName} />
           {step === "SELECT" && <SellInfoForm changeStep={changeStep} />}
-          {step === "SIGN" && <SellInfoCard changeStep={changeStep} />}
+          {step === "SIGN" && <SellInfoCard />}
         </section>
       </article>
     </main>

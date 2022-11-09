@@ -1,50 +1,48 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "@/components/common";
-import { SignBoxList } from "@/components/sell";
 import style from "./SignSection.module.scss";
+import { useAppSelector, useCallbackPrompt } from "@/hooks";
+import { selectModal } from "@/store/modalSlice";
+import { SignBoxList, ConfirmModal } from "@/components/sell";
 import { SIGN_DATAS } from "./SignDatas";
-import { useNavigate } from "react-router-dom";
-import { setNFTValue, resetNFTValue } from "@/store/selectNFTSlice";
-import { resetSellInfo } from "@/store/sellInfoSlice";
-import { useAppDispatch, useCallbackPrompt } from "@/hooks";
-import { closeConfirm } from "@/store/modalSlice";
-import { default as ConfirmModal } from "./ConfirmModal";
+import { stepType } from "@/pages/Sell/Sell";
 
-function SignSection() {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [showDialog, setShowDialog] = useState<boolean>(true);
+export interface SignSectionProps {
+  changeStep: (step: stepType) => void;
+}
+
+function SignSection({ changeStep }: SignSectionProps) {
+  const [showDialog, setShowDialog] = useState<boolean>(false);
   const [showPrompt, confirmNavigation, cancelNavigation] = useCallbackPrompt(showDialog);
-  const el = document.getElementById("modal-root")!;
 
-  useEffect(() => {
-    return () => {
-      dispatch(closeConfirm());
-    };
-  }, []);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const el = document.getElementById("modal-root")!;
+  const { confirm } = useAppSelector(selectModal);
 
   const listener = (event: BeforeUnloadEvent) => {
-    console.log(event);
-    console.log(typeof event);
     event.preventDefault();
     event.returnValue = "";
   };
 
   useEffect(() => {
     window.addEventListener("beforeunload", listener);
+    setShowDialog(true);
     return () => {
       window.removeEventListener("beforeunload", listener);
     };
   }, []);
 
-  const onclickHandler = () => {
-    dispatch(resetNFTValue());
-    dispatch(resetSellInfo());
-    navigate("/");
-  };
   return (
     <>
+      {(showPrompt || confirm) &&
+        createPortal(
+          <ConfirmModal
+            changeStep={changeStep}
+            confirmNavigation={confirmNavigation}
+            cancelNavigation={cancelNavigation}
+          />,
+          el
+        )}
       <header className={style.header}>
         <div className={style.step_title}>
           <h3 className={style.step_sell}>판매 정보 등록</h3>
@@ -58,15 +56,6 @@ function SignSection() {
         </h3>
       </header>
       <SignBoxList data={SIGN_DATAS} />
-      <Button onClick={onclickHandler}>버튼</Button>
-      {showPrompt &&
-        createPortal(
-          <ConfirmModal
-            confirmNavigation={confirmNavigation}
-            cancelNavigation={cancelNavigation}
-          />,
-          el
-        )}
     </>
   );
 }

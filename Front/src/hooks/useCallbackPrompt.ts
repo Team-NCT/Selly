@@ -1,22 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import type { History, Blocker, Transition } from "history";
 import { useBlocker } from ".";
 
-export default function useCallbackPrompt(when: boolean): (boolean | (() => void))[] {
+export default function useCallbackPrompt(when: boolean): [boolean, () => void, () => void] {
   const navigate = useNavigate();
   const location = useLocation();
   const [showPrompt, setShowPrompt] = useState(false);
-  const [lastLocation, setLastLocation] = useState<any>(null);
+  const [lastLocation, setLastLocation] = useState<Transition>();
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
-
-  const cancelNavigation = useCallback(() => {
-    setShowPrompt(false);
-  }, []);
 
   // handle blocking when user click on another route prompt will be shown
   const handleBlockedNavigation = useCallback(
-    (nextLocation: any) => {
+    (nextLocation: Transition) => {
       // in if condition we are checking next location and current location are equals or not
       if (!confirmedNavigation && nextLocation.location.pathname !== location.pathname) {
         setShowPrompt(true);
@@ -27,6 +24,10 @@ export default function useCallbackPrompt(when: boolean): (boolean | (() => void
     },
     [confirmedNavigation]
   );
+
+  const cancelNavigation = useCallback(() => {
+    setShowPrompt(false);
+  }, []);
 
   const confirmNavigation = useCallback(() => {
     setShowPrompt(false);
