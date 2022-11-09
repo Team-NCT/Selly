@@ -7,49 +7,134 @@ spring:
   cloud:
     gateway:
       default-filters:
-        - name: GlobalFilter
-          args:
-            baseMessage: Spring Cloud Gateway GlobalFilter
-            preLogger: true
-            postLogger: true
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:3000'
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring Cloud Gateway GlobalFilter
+#            preLogger: true
+#            postLogger: true
       routes:
-#        - id: selly-user-service
-#          uri: lb://SELLY-USER-SERVICE
-#          predicates:
-#            - Path=/selly-user-service/**
-#          filters:
-#            - name: CustomFilter
-#            - name: LoggingFilter
-#              args:
-#                baseMessage: Hi, Logging filter
-#                preLogger: true
-#                postLogger: true
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/login
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-        - id: selly-user-service
-          uri: lb://SELLY-USER-SERVICE
-          predicates:
-            - Path=/selly-user-service/users
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
           predicates:
             - Path=/selly-user-service/**
-            - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
-        #            - AddRequestHeader=selly-user-request, selly-user-request-header 2
-        #            - AddResponseHeader=selly-user-response, selly-user-response-header 2
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/login
+#            - Method=POST
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/users
+#            - Method=POST
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/users/{userId}
+#            - Method=PUT
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/users/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/follow
+#            - Method=POST
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/users/{profileId}/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/follower/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/following/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/follow
+#            - Method=DELETE
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#            - CustomAuthorizationHeaderFilter
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/ownership/{userId}
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/ownership/{userId}
+#            - Method=POST
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
+#        - id: selly-user-service
+#          uri: lb://SELLY-USER-SERVICE
+#          predicates:
+#            - Path=/selly-user-service/ownership/{userId}
+#            - Method=PUT
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
         - id: selly-article-service
           uri: lb://SELLY-ARTICLE-SERVICE
           predicates:
@@ -61,9 +146,42 @@ spring:
                 baseMessage: Hi, Logging filter
                 preLogger: true
                 postLogger: true
+        - id: selly-trade-service
+          uri: lb://SELLY-TRADE-SERVICE
+          predicates:
+            - Path=/selly-trade-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, Logging filter
+                preLogger: true
+                postLogger: true
+        - id: selly-search-service
+          uri: lb://SELLY-SEARCH-SERVICE
+          predicates:
+            - Path=/selly-search-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, Logging filter
+                preLogger: true
+                postLogger: true
+        - id : selly-contract-service
+          uri: lb://SELLY-CONTRACT-SERVICE
+          predicates:
+            - Path=/selly-contract-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/selly-contract-service/(?<segment>.*), /$\{segment}
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
+token:
+  secret: '01234567890123456789012345678901234567890123456789'
+

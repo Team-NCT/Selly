@@ -10,19 +10,20 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "users")
-@EntityListeners(value= AuditingEntityListener.class)
-public class UserEntity {
+@Table(name = "users")@EntityListeners(value= AuditingEntityListener.class)
+public
+ class UserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long userId;
 
   @Column(nullable = false, length = 150, unique = true)
   private String wallet;
-
-  @Column(nullable = false, length = 200)
+  @Column(nullable = false, unique = true)
+  private String encryptedPwd;
+  @Column(length = 200)
   private String image;
-  @Column(nullable = false, length = 200)
+  @Column(length = 200)
   private String banner;
   @Column(length = 200)
   private String introduction;
@@ -33,5 +34,5 @@ public class UserEntity {
   private LocalDateTime createRegist;
   @LastModifiedDate
   private LocalDateTime updateRegist;
-
+  private boolean certification;
 }
