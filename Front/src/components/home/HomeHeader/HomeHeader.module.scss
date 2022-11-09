@@ -1,6 +1,4 @@
 .header {
-  margin-top: 64px;
-  margin-bottom: 64px;
   width: 100%;
   height: 270px;
   @include flex(row, space-between, flex-start);
