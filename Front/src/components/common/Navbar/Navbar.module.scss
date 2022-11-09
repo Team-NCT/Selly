@@ -60,6 +60,7 @@ nav {
   right: 0;
   z-index: -10;
   height: calc(100vh - 64px);
+  top: 64px;
   padding-left: 30px;
   padding-bottom: 30px;
   @include laptop {
@@ -120,10 +121,12 @@ nav {
   }
 
   li {
-    @include font($h5, bold);
     margin-bottom: 40px;
     @include laptop {
       margin-bottom: 0;
+    }
+    a {
+      @include font($h5, bold, $main-font);
     }
   }
 }
