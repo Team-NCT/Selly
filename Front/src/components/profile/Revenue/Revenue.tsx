@@ -13,12 +13,12 @@ const Revenue = () => {
     <section className={style.section}>
       <div className={style.column}>
         <div>
-          <div className={style.tile}>총자산</div>
-          <div className={style.content}>{initialData.totalAssets}ETH</div>
+          <div className={style.tile}>총 자산</div>
+          <div className={style.content}>{initialData.totalAssets} ETH</div>
         </div>
         <div>
           <div className={style.tile}>투자 원금</div>
-          <div className={style.content}> {initialData.principal}ETH</div>
+          <div className={style.content}> {initialData.principal} ETH</div>
         </div>
         <div>
           <div className={style.tile}>총 손익</div>

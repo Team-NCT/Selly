@@ -21,4 +21,9 @@ export interface SelectBoxProps {
    * onChange = (e) => {setState(e.target.value)}
    */
   onChange?: React.FormEventHandler;
+
+  /**
+   * 처음 선택될 옵션
+   */
+  defualtValue?: string;
 }
