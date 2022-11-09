@@ -28,7 +28,7 @@ public class  Article {
 
   private String articleImgUrl;
 
-  @Column(nullable = false, length = 200, unique = true)
+  @Column(nullable = false, length = 200)
   private String metaDataUrl;
 
   @CreatedDate
