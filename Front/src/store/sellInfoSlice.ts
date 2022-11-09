@@ -35,6 +35,12 @@ const slice = createSlice({
       state.num = action.payload.num;
       state.price = action.payload.price;
     },
+    resetSellInfo: (state) => {
+      state.category = "Digital";
+      state.code = "";
+      state.num = "";
+      state.price = "";
+    },
   },
 });
 
@@ -49,5 +55,5 @@ export const selectSellInfo = createSelector(
 );
 
 // * 생성한 액션 객체를 export 한다.
-export const { setSellInfo } = slice.actions;
+export const { setSellInfo, resetSellInfo } = slice.actions;
 export default slice.reducer;
