@@ -1,5 +1,6 @@
-import { Modal, Button } from "@/components/common";
+import style from "./confirmModal.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { Modal, Button } from "@/components/common";
 import { resetNFTValue } from "@/store/selectNFTSlice";
 import { resetSellInfo } from "@/store/sellInfoSlice";
 import { selectModal, closeConfirm } from "@/store/modalSlice";
@@ -32,11 +33,15 @@ const ConfirmModal = ({ confirmNavigation, cancelNavigation, changeStep }: Dialo
 
   return (
     <Modal close={cancelHandler}>
-      <div>
-        <p>나가시겠습니까?</p>
-        <Button onClick={confirmHandler}>확인</Button>
-        <Button onClick={cancelHandler}>취소</Button>
-      </div>
+      <section className={style.confirm_modal}>
+        <h1>정말 나가시겠습니까?</h1>
+        <div className={style.button_section}>
+          <Button onClick={confirmHandler}>확인</Button>
+          <Button bg="blackberry" color="outline" onClick={cancelHandler}>
+            취소
+          </Button>
+        </div>
+      </section>
     </Modal>
   );
 };

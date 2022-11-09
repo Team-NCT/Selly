@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import type { History, Blocker, Transition } from "history";
+import type { Transition } from "history";
 import { useBlocker } from ".";
 
 export default function useCallbackPrompt(when: boolean): [boolean, () => void, () => void] {
