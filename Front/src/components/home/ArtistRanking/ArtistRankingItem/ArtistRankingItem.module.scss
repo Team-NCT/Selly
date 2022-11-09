@@ -51,6 +51,7 @@
   }
   @include laptop {
     @include font($body1, $semibold);
+    max-width: none;
   }
 }
 
