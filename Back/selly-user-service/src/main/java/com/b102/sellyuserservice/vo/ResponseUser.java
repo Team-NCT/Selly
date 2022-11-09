@@ -15,5 +15,6 @@ public class ResponseUser {
   private Long followerCnt;
   private Long followingCnt;
   private boolean myFollowing;
+  private boolean certification;
 }
 
