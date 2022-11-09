@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { Neon, TextInput, ProfileImage } from "@/components/common";
+import { Neon, ProfileImage } from "@/components/common";
 import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
-import { useInputState } from "@/hooks";
 
 const Navbar = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [value, handleInputChange] = useInputState();
   const [menuToggle, setMenuToggle] = useState(false);
 
   //* 아래로 스크롤 시 navbar 사라짐
