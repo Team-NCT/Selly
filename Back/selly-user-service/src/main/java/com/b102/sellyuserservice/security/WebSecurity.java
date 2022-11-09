@@ -19,6 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.reactive.CorsUtils;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Filter;
 
 @Configuration
