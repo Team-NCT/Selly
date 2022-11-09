@@ -75,7 +75,7 @@ const Navbar = () => {
               }}
               onClick={() => setMenuToggle(false)}
               aria-hidden="true">
-              <NavLink to="/test">
+              <NavLink to="/explore">
                 <Neon
                   color="ocean"
                   positionH="top"
@@ -85,17 +85,17 @@ const Navbar = () => {
                 </Neon>
               </NavLink>
               <div className={styles.dropdown_content}>
-                <NavLink to="/test" className={styles.dropdown_item}>
+                <NavLink to="/explore/all" className={styles.dropdown_item}>
                   ALL NFTS
                 </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
-                  Art
+                <NavLink to="/explore/digital" className={styles.dropdown_item}>
+                  Digital
                 </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
+                <NavLink to="/explore/analog" className={styles.dropdown_item}>
+                  Analog
+                </NavLink>
+                <NavLink to="/explore/photography" className={styles.dropdown_item}>
                   Photography
-                </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
-                  Sports
                 </NavLink>
               </div>
             </li>
