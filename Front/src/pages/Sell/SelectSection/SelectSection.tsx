@@ -10,10 +10,10 @@ const FETCH_SIZE = 3;
 function SelectSection({ datas }: any) {
   const NFTValue = useAppSelector(selectNFTValue);
   const [items, setItems] = useState<Array<any>>([]);
-  const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreListItems);
+  const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
   const [page, setPage] = useState(1);
 
-  function fetchMoreListItems() {
+  function fetchMoreItems() {
     if (!datas) {
       setIsFetching(false);
       return;
