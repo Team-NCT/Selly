@@ -29,8 +29,9 @@ public class TradeController {
     return tradeService.findAll();
   }
 
+  // 판매 중, 판매 끝난 리스트
   @GetMapping("/filter")
-  public List<TradeResponse> getTradeBySellStatus(@PathVariable("sell") String sell) {
+  public List<TradeResponse> getTradeBySellStatus(@RequestParam("sell") String sell) {
     return tradeService.findBySell(sell);
   }
 
@@ -41,13 +42,14 @@ public class TradeController {
 //            .body(response);
 //  }
 
+  // 작품 조회
   @GetMapping("/{articleId}")
   public Object articleResponse(@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
     ArticleResponseDto articleResponseDto = tradeService.findById(articleId, userId);
     if (articleResponseDto.getOwner() != null) {
       return articleResponseDto;
     }
-    return "존재하지 않는 값입니다.";
+    return null;
   }
 
   // 유저간 거래 등록
@@ -73,6 +75,7 @@ public class TradeController {
             .body(response);
   }
 
+  // 거래 기록 등록
   @PostMapping("/trade-log")
   public ResponseEntity<String> tradeLog (@RequestParam("trade")Long trade, @RequestBody TradeRequest tradeRequest) {
     String response = tradeService.postTradeLog(trade, tradeRequest);
@@ -80,11 +83,14 @@ public class TradeController {
     return ResponseEntity.ok()
             .body(response);
   }
+
+  // 거래 기록 조회
   @GetMapping("/trade-log")
   public List<TradeRegistResponse> tradeRegistResponseList() {
     return tradeService.getTradeRegistList();
   }
 
+  // 유저 거래 기록 조회
   @GetMapping("/trade-log/{userId}")
   public List<TradeRegistResponse> userTradeRegistResponseList(@PathVariable("userId") Long userId) {
     return tradeService.getUserTradeRegistList(userId);

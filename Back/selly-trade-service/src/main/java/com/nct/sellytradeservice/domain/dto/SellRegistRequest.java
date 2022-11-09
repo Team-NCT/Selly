@@ -20,17 +20,18 @@ public class SellRegistRequest {
   private Integer pieceCnt;
 //  private LocalDateTime tradeRegistTime;
   private String contractAddress;
-
+  private String tokenId;
   private boolean status;
   private boolean articleOwner;
   private String saleContractAddress;
 
   @Builder
-  public SellRegistRequest(Long seller, Long articleId, double tradePrice, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status, boolean articleOwner, String saleContractAddress) {
+  public SellRegistRequest(Long seller, Long articleId, double tradePrice, String tokenId, Integer pieceCnt, LocalDateTime tradeRegistTime, String contractAddress, boolean status, boolean articleOwner, String saleContractAddress) {
     this.seller = seller;
     this.articleId = articleId;
     this.tradePrice = tradePrice;
     this.pieceCnt = pieceCnt;
+    this.tokenId = tokenId;
 //    this.tradeRegistTime = LocalDateTime.now();
     this.contractAddress = contractAddress;
     this.status = status;

@@ -12,12 +12,4 @@ public class RequestFollow {
 
   @NotNull(message = "following can't be null")
   private Long followingId;
-
-  @Getter
-  public static class TradeRequest {
-    private Long articleId;
-    private Long buyer;
-    private Integer pieceCnt;
-    private String contractAddress;
-  }
 }

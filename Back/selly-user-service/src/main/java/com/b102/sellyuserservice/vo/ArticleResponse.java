@@ -1,7 +1,6 @@
-package com.nct.sellyarticleservice.domain.dto;
+package com.b102.sellyuserservice.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.nct.sellyarticleservice.domain.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ArticleResponseDto {
+public class ArticleResponse {
   private Long articleId;
   private String category;
   private String articleName;

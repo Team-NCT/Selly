@@ -24,11 +24,9 @@ public class TradeRegist {
   private Integer pieceCnt;
   @CreatedDate
   private LocalDateTime tradeRegistTime;
-
   @LastModifiedDate
   private LocalDateTime tradeUpdateTime;
   private String contractAddress;
-
   private boolean status;
   private String saleContractAddress;
 

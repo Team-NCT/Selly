@@ -8,6 +8,7 @@ import com.b102.sellyuserservice.vo.NftPieceRequest;
 import com.b102.sellyuserservice.vo.NftPieceResponseDto;
 import com.b102.sellyuserservice.vo.TradeRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-@Service
+@Slf4j
 @RequiredArgsConstructor
+@Service
 public class NftPieceServiceImpl implements NftPieceService{
 
   private final UserRepository userRepository;
@@ -27,15 +28,14 @@ public class NftPieceServiceImpl implements NftPieceService{
 
   @Override
   public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, Long articleId) throws IllegalArgumentException {
-    System.out.println("소유권 찾기 시작");
-    System.out.println(userId);
-    System.out.println(articleId);
-    NftPiece nftPiece = null;
+    log.debug("소유권 찾기");
+    log.debug(String.valueOf(userId));
+    log.debug(String.valueOf(articleId));
     Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleId);
     if (optionalNftPiece.isPresent()){
-      nftPiece = optionalNftPiece.get();
-    }
-    return new NftPieceResponseDto(nftPiece);
+      NftPiece nftPiece = optionalNftPiece.get();
+      return new NftPieceResponseDto(nftPiece);
+    } return null;
 //    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleId)
 //            .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
 //    return new NftPieceResponseDto(nftPiece);
