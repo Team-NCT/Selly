@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService {
     ModelMapper mapper = new ModelMapper();
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     UserEntity userEntity = mapper.map(userDto, UserEntity.class); // UserDto Type을 UserEntity Type으로 변경
+    userEntity.setNickname("Selly_"+userDto.getWallet().substring(0, 10));
     Base64.Encoder encoder = Base64.getEncoder();
-
     if (userEntity.getBanner() != null){
       String encodeBanner = null;
       byte[] bannerEncode =  encoder.encode(userDto.getBanner().getBytes());
