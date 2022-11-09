@@ -1,6 +1,6 @@
 import { CardList } from "@/components/common";
 
-//* created API와 연결 예정
+//TODO ForSale API와 연결 예정
 const CreatedData = [
   {
     id: "0",
