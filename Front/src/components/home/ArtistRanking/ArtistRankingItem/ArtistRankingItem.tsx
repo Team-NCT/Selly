@@ -6,7 +6,7 @@ import { EthereumIcon } from "@/components/icon";
 
 const ArtistRankingItem = (props: ArtistRankingProps) => {
   return (
-    <Link to="/profile" className={style.item_container}>
+    <Link to={`/profile/${props.userId}`} className={style.item_container}>
       <div className={style.item_artist_section}>
         <div className={style.item_rank}>{props.rank}</div>
         <div className={style.item_artist}>
