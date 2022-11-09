@@ -23,9 +23,13 @@ const ProfileTab = () => {
   });
 
   const windowResize = useCallback(() => {
-    setTimeout(() => {
+    const setViewport = setTimeout(() => {
       setWindowWidth(getViewportSize().width);
     }, 200);
+
+    return () => {
+      clearTimeout(setViewport);
+    };
   }, [setWindowWidth]);
 
   return (
