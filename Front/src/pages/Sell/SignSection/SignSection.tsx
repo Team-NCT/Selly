@@ -19,10 +19,7 @@ function SignSection() {
   }, []);
 
   useEffect(() => {
-    console.log("sss??");
-    return () => {
-      console.log("ffffffff");
-    };
+    return () => {};
   }, []);
 
   return (
