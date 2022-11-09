@@ -19,7 +19,9 @@ function App() {
   const accountData = useCheckLogined();
 
   useEffect(() => {
-    dispatch(setAccount({ address: accountData.address, nickname: accountData.nickname }));
+    dispatch(
+      setAccount({ address: accountData.address, nickname: accountData.nickname, userId: 1 })
+    );
   }, [accountData, dispatch]);
 
   return (

@@ -55,7 +55,6 @@ const useCheckLogined = () => {
         console.log("아이디 바뀜");
         checkLogined();
       });
-      checkLogined();
     }
   });
 

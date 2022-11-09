@@ -1,7 +1,9 @@
 import { Header, Revenue, Banner, ProfileTab } from "@/components/profile";
 import { useAppDispatch } from "@/hooks/useStore";
 import { useEffect } from "react";
+import { useLoginMutation } from "@/api/server/loginAPI";
 import { setProfileData } from "@/store/profileDataSlice";
+import { Button } from "@/components/common";
 
 const initialState = {
   nickname: "띠용",
@@ -14,6 +16,16 @@ const initialState = {
 };
 
 function Profile() {
+  const [login, { data: loginData, isSuccess, isError, error }] = useLoginMutation();
+  const testData = {
+    wallet: "0xf7A70bF5441A6b523d35F0002f3bd037BcbC2f6211",
+    pwd: "0xf7A70bF5441A6b523d35F0002f3bd037BcbC2f6211",
+  };
+
+  const onSubmit = async () => {
+    await login(testData);
+  };
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
@@ -33,6 +45,7 @@ function Profile() {
         <Header />
         <Revenue />
         <ProfileTab />
+        <Button onClick={onSubmit}>로그인</Button>
       </main>
     </>
   );
