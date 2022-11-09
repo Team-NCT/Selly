@@ -31,13 +31,23 @@
   min-width: 140px;
 }
 
+.item_artist_line {
+  @include flex(row, flex-start);
+}
+
 .item_artist_nickname {
   @include font($body2, $semibold);
+  max-width: 125px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   @media (min-width: 520px) {
     @include font($body1, $semibold);
+    max-width: none;
   }
   @media (min-width: 800px) {
     @include font($body2, $semibold);
+    max-width: 125px;
   }
   @include laptop {
     @include font($body1, $semibold);

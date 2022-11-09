@@ -1,10 +1,8 @@
 .title_container {
   @include flex(row, space-between);
-  @include font($body2, $medium);
+  @include font($body2, $bold);
   width: 100%;
-  @include tablet {
-    gap: 32px;
-  }
+  gap: 32px;
   @media (min-width: 890) {
     gap: 16px;
   }
@@ -17,7 +15,7 @@
 }
 
 .title_section {
-  @include flex(row, flex-start);
+  @include flex(row, space-between);
   width: 100%;
 }
 
@@ -28,12 +26,34 @@
   }
 }
 
-.title_rank {
-  width: 36px;
+.title_artist {
+  margin-left: 36px;
   @media (min-width: 470px) {
-    width: 64px;
+    margin-left: 64px;
   }
   @include tablet {
-    width: 34px;
+    margin-left: 34px;
   }
+}
+
+.title_cnt {
+  @include flex(row);
+  gap: 0;
+  @media (min-width: 470px) {
+    gap: 32px;
+  }
+  @media (min-width: 800px) {
+    gap: 0;
+  }
+  @media (min-width: 890px) {
+    gap: 10px;
+  }
+  @include laptop {
+    gap: 32px;
+  }
+}
+
+.title_cnt_item {
+  min-width: 50px;
+  text-align: center;
 }
