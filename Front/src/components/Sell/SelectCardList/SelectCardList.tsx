@@ -9,7 +9,6 @@ const SelectCardList = ({ data, defaultSelectedIdx = -1 }: SelectCardListProps) 
   const [selectedNum, setSelectedNum] = useState(defaultSelectedIdx);
   const dispatch = useAppDispatch();
 
-  //TODO_YK: NFT정보 가져와서 CA 같은 다른 정보들도 rest로 넣어주기
   const setValue = (idx: number) => {
     setSelectedNum(idx);
     if (idx < 0) {
