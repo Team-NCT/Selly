@@ -56,6 +56,10 @@
 
 .item_artist_wallet {
   @include font($body2, $regular, $black100);
+  @include flex(row, flex-start);
+}
+
+.item_artist_wallet_address {
   width: 106px;
   overflow: hidden;
   text-overflow: ellipsis;
