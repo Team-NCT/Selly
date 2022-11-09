@@ -1,0 +1,49 @@
+@mixin profileTab_Font {
+  font-size: 24px;
+  font-weight: 600;
+
+  @media (max-width: 710px) {
+    @include font($h5, $semibold);
+  }
+}
+
+.section {
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+  gap: 40px;
+}
+
+.profileTab {
+  margin-top: 64px;
+  @include flex(row, flex-start);
+  width: 100%;
+  gap: 32px;
+  font-size: 24px;
+  font-weight: 600;
+  transition: 0.5s;
+
+  @media (max-width: 710px) {
+    @include font($h5, $semibold);
+    margin-top: 40px;
+    gap: 20px;
+  }
+}
+
+.defualt {
+  color: $black;
+  @include profileTab_Font;
+}
+
+.selected {
+  @include profileTab_Font;
+}
+
+.mobileTab {
+  width: 100%;
+  @include flex(row, space-between);
+  margin-top: -20px;
+}
+
+.selectBox {
+  width: 200px;
+}

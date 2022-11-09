@@ -2,6 +2,7 @@ import { ArtistRankingProps } from "./AritstRankingItem.type";
 import style from "./ArtistRankingItem.module.scss";
 import { ProfileImage } from "@/components/common";
 import { Link } from "react-router-dom";
+import { EthereumIcon } from "@/components/icon";
 
 const ArtistRankingItem = (props: ArtistRankingProps) => {
   return (
@@ -11,9 +12,14 @@ const ArtistRankingItem = (props: ArtistRankingProps) => {
         <div className={style.item_artist}>
           <ProfileImage size="xs" profileStyle="square" url={props.image} />
           <div className={style.item_artist_info}>
-            <span className={style.item_artist_nickname}>{props.nickname}</span>
-            {props.isAuth && <span>✓</span>}
-            <div className={style.item_artist_wallet}>{props.wallet}</div>
+            <div className={style.item_artist_line}>
+              <div className={style.item_artist_nickname}>{props.nickname}</div>
+              {props.isAuth && <span>✓</span>}
+            </div>
+            <div className={style.item_artist_wallet}>
+              <EthereumIcon />
+              <div className={style.item_artist_wallet_address}>{props.wallet}</div>
+            </div>
           </div>
         </div>
       </div>
