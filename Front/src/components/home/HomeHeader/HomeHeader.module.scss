@@ -1,0 +1,88 @@
+.header {
+  margin-top: 64px;
+  margin-bottom: 64px;
+  width: 100%;
+  height: 270px;
+  @include flex(row, space-between, flex-start);
+}
+
+.leftSection {
+  width: 50%;
+  @include flex(column, center, flex-start);
+  gap: 32px;
+}
+
+.title {
+  @include font($h1, $bold);
+  line-height: 64px;
+}
+
+.introduction {
+  @include font($h4, $medium);
+  @include flex(column, flex-start, flex-start);
+  line-height: 40px;
+}
+
+.buttonSection {
+  @include flex(row, flex-start);
+  width: 100%;
+  gap: 24px;
+}
+
+.wallet {
+  background: $navy350;
+  @include flex(row, flex-start, center);
+  @include font($h5, $bold, $white);
+  padding: 8px 40px 8px 40px;
+  border-radius: 24px;
+  gap: 12px;
+}
+
+.walletIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.expore {
+  background: $muscat;
+  @include font($h5, $bold, $black350);
+  padding: 8px 40px 8px 40px;
+  border-radius: 12px;
+}
+
+.rightSection {
+  width: 36%;
+  padding-top: 26%;
+  position: relative;
+}
+
+.smilingFaceHeart_eyes {
+  position: absolute;
+  top: 53%;
+  width: 20%;
+  object-fit: contain;
+}
+
+.smilingFaceHearts {
+  position: absolute;
+  top: 0%;
+  left: 78%;
+  width: 20%;
+  object-fit: cover;
+}
+
+.sparklingHeart {
+  position: absolute;
+  top: 68%;
+  left: 53%;
+  width: 20%;
+  object-fit: cover;
+}
+
+.palette {
+  position: absolute;
+  top: 3%;
+  left: 27%;
+  width: 40%;
+  object-fit: contain;
+}
