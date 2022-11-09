@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./Sell.module.scss";
 import { Neon } from "@/components/common";
 import { SelectedCard, SellInfoForm, SellInfoCard } from "@/components/Sell";
