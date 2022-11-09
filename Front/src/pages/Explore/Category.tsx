@@ -1,3 +1,4 @@
+import { ExploreCardList } from "@/components/explore";
 import CategoryHeader from "@/components/explore/CategoryHeader/CategoryHeader";
 import { useParams } from "react-router-dom";
 
@@ -6,6 +7,7 @@ const Category = () => {
   return (
     <main>
       <CategoryHeader category={category as string} />
+      <ExploreCardList category={category as string} />
     </main>
   );
 };
