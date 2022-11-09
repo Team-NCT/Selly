@@ -119,8 +119,8 @@ nav {
     margin-top: 0;
   }
 
-  li {
-    @include font($h5, bold);
+  a {
+    @include font($h5, bold, $main-font);
     margin-bottom: 40px;
     @include laptop {
       margin-bottom: 0;
