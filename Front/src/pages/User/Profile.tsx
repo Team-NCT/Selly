@@ -1,4 +1,4 @@
-import { Header, Revenue, Banner } from "@/components/profile";
+import { Header, Revenue, Banner, ProfileTab } from "@/components/profile";
 import { useAppDispatch } from "@/hooks/useStore";
 import { useEffect } from "react";
 import { setProfileData } from "@/store/profileDataSlice";
@@ -25,12 +25,14 @@ function Profile() {
       })
     );
   }, []);
+
   return (
     <>
       <Banner />
       <main>
         <Header />
         <Revenue />
+        <ProfileTab />
       </main>
     </>
   );

@@ -1,0 +1,59 @@
+.title_container {
+  @include flex(row, space-between);
+  @include font($body2, $bold);
+  width: 100%;
+  gap: 32px;
+  @media (min-width: 890) {
+    gap: 16px;
+  }
+  @include laptop {
+    gap: 32px;
+  }
+  @include desktop {
+    gap: 100px;
+  }
+}
+
+.title_section {
+  @include flex(row, space-between);
+  width: 100%;
+}
+
+.section_display {
+  display: none;
+  @media (min-width: 800px) {
+    display: flex;
+  }
+}
+
+.title_artist {
+  margin-left: 36px;
+  @media (min-width: 470px) {
+    margin-left: 64px;
+  }
+  @include tablet {
+    margin-left: 34px;
+  }
+}
+
+.title_cnt {
+  @include flex(row);
+  gap: 0;
+  @media (min-width: 470px) {
+    gap: 32px;
+  }
+  @media (min-width: 800px) {
+    gap: 0;
+  }
+  @media (min-width: 890px) {
+    gap: 10px;
+  }
+  @include laptop {
+    gap: 32px;
+  }
+}
+
+.title_cnt_item {
+  min-width: 50px;
+  text-align: center;
+}

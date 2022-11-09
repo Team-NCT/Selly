@@ -4,6 +4,12 @@ $bg-palette: (
   danger: $sherbet150,
 );
 
+.selectBox {
+  width: 100%;
+  position: relative;
+  z-index: 80;
+}
+
 .value {
   padding: 8px;
   border-radius: 4px;
