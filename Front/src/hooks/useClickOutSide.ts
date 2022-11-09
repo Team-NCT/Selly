@@ -1,27 +1,32 @@
-import { RefObject, useCallback } from "react";
+import { RefObject, useCallback, useEffect } from "react";
 
 /**
  *
- * @description 특정 태그의 외부를 클릭 시, 태그를 화면에서 안보이게 하는 함수
- * @param: ref: 특정 태그의 ref 값, closeFunc: 태그를 화면에서 안보이게 하는 함수
- * ex) const { disappearTag } = useClickOutSide(formRef, () => setResultStatus(false));
- *
+ * @description 특정 태그의 외부를 클릭 시, 콜백함수를 실행하는 함수
+ * @param: ref: 특정 태그의 ref 값, callback: 외부를 클릭하면 실행할 콜백함수
+ * 예시) useClickOutSide(formRef, () => setResultStatus(false));
  */
-const useClickOutside = (ref: RefObject<any>, closeFunc: () => void) => {
-  const disappearTag = useCallback(
+const useClickOutside = (ref: RefObject<any>, callback: () => void) => {
+  const runCallback = useCallback(
     ({ target }: MouseEvent | TouchEvent) => {
       if (target === null) {
         return;
       }
 
       if (ref.current && !ref.current.contains(target as HTMLDivElement)) {
-        closeFunc();
+        callback();
       }
     },
-    [ref, closeFunc]
+    [ref, callback]
   );
 
-  return { disappearTag };
+  useEffect(() => {
+    document.addEventListener("click", runCallback);
+
+    return () => {
+      document.removeEventListener("click", runCallback);
+    };
+  }, [runCallback]);
 };
 
 export default useClickOutside;

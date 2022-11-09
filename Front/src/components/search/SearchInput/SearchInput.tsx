@@ -17,7 +17,6 @@ const SearchInput = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [fetchSearchResult] = useLazyFetchSearchResultQuery();
-  const { disappearTag } = useClickOutSide(formRef, () => setResultStatus(false));
 
   //@ description:검색 결과를 반환하는 함수
   const requestSearchKeyword = useCallback(
@@ -33,6 +32,9 @@ const SearchInput = () => {
     [fetchSearchResult]
   );
 
+  //* 외부 클릭시, 검색 자동완성 다이얼로그가 사라진다.
+  useClickOutSide(formRef, () => setResultStatus(false));
+
   //* 검색 결과 창으로 이동한다.
   const submitSearchForm = (event: FormEvent) => {
     event.preventDefault();
@@ -40,15 +42,6 @@ const SearchInput = () => {
     const submitValue = (target[0] as HTMLInputElement).value;
     navigate(`/search?keyword=${submitValue}`);
   };
-
-  //* 외부 클릭시, 검색 자동완성 다이얼로그가 사라진다.
-  useEffect(() => {
-    document.addEventListener("click", disappearTag);
-
-    return () => {
-      document.removeEventListener("click", disappearTag);
-    };
-  }, [disappearTag]);
 
   //* 페이지 이동 시, 검색 자동완성 다이얼로그가 사라진다.
   useEffect(() => {
