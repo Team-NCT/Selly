@@ -1,6 +1,6 @@
 import { SignBoxListProps } from "./SignBoxList.types";
 import style from "./SignBoxList.module.scss";
-import { SignBox } from "@/components/Sell";
+import { SignBox } from "@/components/Sellss";
 import { useState } from "react";
 
 const SelectCardList = ({ data }: SignBoxListProps) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "@/components/common";
-import { SignBoxList } from "@/components/Sell";
+import { SignBoxList } from "@/components/Sellss";
 import style from "./SignSection.module.scss";
 import { SIGN_DATAS } from "./SignDatas";
 import { useNavigate } from "react-router-dom";
