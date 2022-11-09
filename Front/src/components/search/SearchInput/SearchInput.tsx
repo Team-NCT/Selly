@@ -1,97 +1,80 @@
 import { FormEvent, useState, useCallback, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import style from "./SearchInput.module.scss";
 import { SearchIcon } from "@/components/icon";
 import { SearchResult } from "@/components/search";
-import { SearchResultType } from "@/types/search.type";
-import { useInputState } from "@/hooks";
+import { useInputState, useClickOutSide } from "@/hooks";
 import { getViewportSize } from "@/helpers/utils/getViewportSize";
+import { useLazyFetchSearchResultQuery } from "@/api/server/searchAPI";
+import { SearchResultType } from "@/types/search.type";
 import { LAPTOP } from "@/constants/size";
 
-const result: SearchResultType = {
-  user: [
-    { userId: 1, nickname: "김김작가작가작가작가작가", img: "", certification: true },
-    { userId: 2, nickname: "김김작가작가작가작가작가", img: "", certification: true },
-    { userId: 3, nickname: "김김작가작가작가작가작가", img: "", certification: true },
-    { userId: 4, nickname: "김김작가작가작가작가작가", img: "", certification: true },
-  ],
-  article: [
-    {
-      articleId: 1,
-      articleName: "좀비와 함께 춤을",
-      articleImgUrl:
-        "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-      recentMarketPrice: 0.0025,
-    },
-
-    {
-      articleId: 2,
-      articleName:
-        "좀비와 함께 춤을좀비와 함께 춤을좀비와 함께 춤을좀비와 함께 춤을좀비와 함께 춤을좀비와 함께 춤을",
-      articleImgUrl:
-        "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-      recentMarketPrice: 0.0025,
-    },
-    {
-      articleId: 3,
-      articleName: "좀비와 함께 춤을",
-      articleImgUrl:
-        "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-      recentMarketPrice: 0.0025,
-    },
-    {
-      articleId: 4,
-      articleName: "좀비와 함께 춤을",
-      articleImgUrl:
-        "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-      recentMarketPrice: 0.0025,
-    },
-  ],
-};
 const SearchInput = () => {
   const [resultStatus, setResultStatus] = useState<boolean>(false);
+  const [searchResult, setSearchResult] = useState<SearchResultType>({ user: [], article: [] });
   const formRef = useRef<HTMLFormElement>(null);
+  const { disappearTag } = useClickOutSide(formRef, () => setResultStatus(false));
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [value, handleValueChange, setValue] = useInputState("");
+  const [fetchSearchResult] = useLazyFetchSearchResultQuery();
 
-  //* 키워드 검색
+  //@ description:검색 결과를 반환하는 함수
   const requestSearchKeyword = useCallback(
-    (value: string) => {
-      //* tablet 사이즈 부터 사이즈를 줄인다
-      if (getViewportSize().width < LAPTOP) {
-        return value;
+    async (keyword: string) => {
+      try {
+        const { data } = await fetchSearchResult(keyword);
+        if (!data) return;
+        setSearchResult(data);
+      } catch (err) {
+        console.error(err);
       }
-      setResultStatus(true);
-      return value;
     },
-    [setResultStatus]
+    [fetchSearchResult]
   );
-  const [value, handleValueChange] = useInputState("", requestSearchKeyword);
 
-  //* 검색 제출
+  //* 검색 결과 창으로 이동한다.
   const submitSearchForm = (event: FormEvent) => {
     event.preventDefault();
-    console.dir(event);
-    alert("검색");
+    const target = event.target as HTMLFormElement;
+    const submitValue = (target[0] as HTMLInputElement).value;
+    navigate(`/search?keyword=${submitValue}`);
   };
 
-  const clickOutside = useCallback(
-    ({ target }: MouseEvent | TouchEvent) => {
-      if (target === null) {
-        return;
-      }
-
-      if (formRef.current && !formRef.current.contains(target as HTMLDivElement)) {
-        setResultStatus(false);
-      }
-    },
-    [setResultStatus]
-  );
-
+  //* 외부 클릭시, 검색 자동완성 다이얼로그가 사라진다.
   useEffect(() => {
-    document.addEventListener("click", clickOutside);
+    document.addEventListener("click", disappearTag);
 
     return () => {
-      document.removeEventListener("click", clickOutside);
+      document.removeEventListener("click", disappearTag);
     };
-  });
+  }, [disappearTag]);
+
+  //* 페이지 이동 시, 검색 자동완성 다이얼로그가 사라진다.
+  useEffect(() => {
+    console.log(location);
+    setResultStatus(false);
+    setValue("");
+  }, [location, setValue]);
+
+  //* 자동완성 기능
+  useEffect(() => {
+    if (!value) {
+      setResultStatus(false);
+      return;
+    }
+    if (getViewportSize().width < LAPTOP) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      requestSearchKeyword(value);
+      setResultStatus(true);
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [value, requestSearchKeyword]);
 
   return (
     <form className={style.search_form} onSubmit={submitSearchForm} ref={formRef}>
@@ -103,7 +86,7 @@ const SearchInput = () => {
         maxLength={20}
       />
       <SearchIcon />
-      <SearchResult status={resultStatus} result={result} />
+      <SearchResult status={resultStatus} result={searchResult} />
     </form>
   );
 };
