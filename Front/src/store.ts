@@ -15,7 +15,7 @@ import {
 } from "@/store/index";
 
 //* API
-import { NFTDetailAPI } from "@/api/server";
+import { NFTDetailAPI, searchAPI } from "@/api/server";
 
 const reducers = combineReducers({
   alert,
@@ -27,11 +27,13 @@ const reducers = combineReducers({
   NFTValue,
   sellInfo,
   [NFTDetailAPI.reducerPath]: NFTDetailAPI.reducer,
+  [searchAPI.reducerPath]: searchAPI.reducer,
 });
 
 const store = configureStore({
   reducer: reducers,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(NFTDetailAPI.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(NFTDetailAPI.middleware, searchAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
