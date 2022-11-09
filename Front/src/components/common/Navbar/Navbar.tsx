@@ -5,8 +5,13 @@ import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
 import { useInputState } from "@/hooks";
+import { useAppSelector } from "@/hooks/useStore";
+import { selectAccount } from "@/store/loginSlice";
 
 const Navbar = () => {
+  //* account 정보
+  const { account } = useAppSelector(selectAccount);
+
   const [isLogin, setIsLogin] = useState(true);
   const [value, handleInputChange] = useInputState();
   const [menuToggle, setMenuToggle] = useState(false);
@@ -156,7 +161,7 @@ const Navbar = () => {
               <h5 className={styles.nav_username}>김김작가작가작가</h5>
               <div className={styles.dropdown_content_user}>
                 <h5>Balance</h5>
-                <NavLink to="/profile" className={styles.dropdown_item}>
+                <NavLink to={`/profile/${account.userId}`} className={styles.dropdown_item}>
                   Profile
                 </NavLink>
                 <NavLink to="/settings" className={styles.dropdown_item}>

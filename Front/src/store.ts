@@ -1,5 +1,16 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  persistStore,
+} from "redux-persist";
+import storageSession from "redux-persist/lib/storage/session";
 
 //* Store
 
@@ -15,7 +26,7 @@ import {
 } from "@/store/index";
 
 //* API
-import { NFTDetailAPI, searchAPI } from "@/api/server";
+import { NFTDetailAPI, searchAPI, loginAPI } from "@/api/server";
 
 const reducers = combineReducers({
   alert,
@@ -28,15 +39,30 @@ const reducers = combineReducers({
   sellInfo,
   [NFTDetailAPI.reducerPath]: NFTDetailAPI.reducer,
   [searchAPI.reducerPath]: searchAPI.reducer,
+  [loginAPI.reducerPath]: loginAPI.reducer,
 });
 
+// * session storage
+const persistConfig = {
+  key: "root",
+  storage: storageSession,
+  whitelist: ["account"],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
 const store = configureStore({
-  reducer: reducers,
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(NFTDetailAPI.middleware, searchAPI.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(NFTDetailAPI.middleware, searchAPI.middleware, loginAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export const persistor = persistStore(store);
 
 export default store;
