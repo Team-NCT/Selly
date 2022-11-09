@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 
 @Configuration
 public class PreFlightCorsConfiguration {
-  private static final String ALLOWED_HEADERS = "token, userId";
+  private static final String ALLOWED_HEADERS = "*";
   private static final String ALLOWED_METHODS = "GET, PUT, POST, DELETE, OPTIONS";
   private static final String ALLOWED_ORIGIN = "*";
   private static final String ALLOWED_CREDENTIALS = "true";

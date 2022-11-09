@@ -46,7 +46,7 @@ public class WebSecurity {
   public CorsConfigurationSource corsConfigurationSource(){
     CorsConfiguration corsConfiguration = new CorsConfiguration();
     corsConfiguration.addAllowedOrigin("http://localhost:3000");
-    corsConfiguration.setAllowedHeaders(List.of("*"));
+    corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
     corsConfiguration.setAllowCredentials(true);
     corsConfiguration.setMaxAge(3600L);
