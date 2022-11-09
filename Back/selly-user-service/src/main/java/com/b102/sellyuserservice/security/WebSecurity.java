@@ -19,6 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.reactive.CorsUtils;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Filter;
 
 @Configuration
@@ -45,7 +46,7 @@ public class WebSecurity {
   public CorsConfigurationSource corsConfigurationSource(){
     CorsConfiguration corsConfiguration = new CorsConfiguration();
     corsConfiguration.addAllowedOrigin("http://localhost:3000");
-    corsConfiguration.addAllowedHeader("*");
+    corsConfiguration.setAllowedHeaders(List.of("*"));
     corsConfiguration.addAllowedMethod("*");
     corsConfiguration.setAllowCredentials(true);
     corsConfiguration.setMaxAge(3600L);
