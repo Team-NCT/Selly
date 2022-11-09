@@ -2,11 +2,16 @@ import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
 interface AccountState {
-  account: { nickname: string | null; address: string | null; userId: number | null };
+  account: {
+    nickname: string | null;
+    address: string | null;
+    userId: number | null;
+    token: string | null;
+  };
 }
 
 const initialState: AccountState = {
-  account: { nickname: null, address: null, userId: null },
+  account: { nickname: null, address: null, userId: null, token: null },
 };
 
 const slice = createSlice({
@@ -26,6 +31,9 @@ const slice = createSlice({
       state.account.nickname = action.payload.nickname;
       state.account.userId = action.payload.userId;
     },
+    setToken: (state, action: PayloadAction<{ token: string | null }>) => {
+      state.account.token = action.payload.token;
+    },
   },
 });
 
@@ -37,5 +45,5 @@ export const selectAccount = createSelector(
   (account) => account
 );
 
-export const { setAccount } = slice.actions;
+export const { setAccount, setToken } = slice.actions;
 export default slice.reducer;

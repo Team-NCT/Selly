@@ -24,10 +24,6 @@ function Profile() {
 
   const onSubmit = async () => {
     await login(testData);
-    console.log(loginData);
-    console.log(isSuccess);
-    console.log(isError);
-    console.log(error);
   };
 
   const dispatch = useAppDispatch();
