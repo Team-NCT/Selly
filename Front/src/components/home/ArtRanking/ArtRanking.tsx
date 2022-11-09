@@ -1,70 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import style from "./ArtRanking.module.scss";
 import { CardListItem } from "@/components/common";
 import { LeftArrowIcon, RightArrowIcon } from "@/components/icon";
-
-const dummyData = [
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "1",
-    supply: 10000,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "2",
-    supply: 0,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "3",
-    supply: 10000,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "4",
-    supply: 10000,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "5",
-    supply: 10,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "6",
-    supply: 0,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "7",
-    supply: 10000,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "8",
-    supply: 10000,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "9",
-    supply: 10000,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    title: "좀비와 함께 춤을",
-    id: "10",
-    supply: 77,
-  },
-];
+import { dummyData } from "./dummy";
 
 const CAROUSEL_WIDTH = 3152;
 
@@ -72,14 +10,25 @@ const ArtRanking = () => {
   const [step, setStep] = useState<number>(0);
   const [moveWidth, setMoveWidth] = useState<number>(0);
   const ulRef = useRef<HTMLUListElement>(null);
+  let timer: ReturnType<typeof setTimeout>;
 
-  const calcUlWdith = () => {
-    let ulWidth: number;
-    if (ulRef.current) {
-      ulWidth = ulRef.current.getBoundingClientRect().width;
-      setMoveWidth((CAROUSEL_WIDTH - ulWidth) / 4);
+  //@ description: 너비를 계산 하는 함수
+  const calcUlWdith = useCallback(() => {
+    if (timer) {
+      clearTimeout(timer);
     }
-  };
+
+    /* eslint-disable */
+    timer = setTimeout(() => {
+      let ulWidth: number;
+      if (ulRef.current) {
+        ulWidth = ulRef.current.getBoundingClientRect().width;
+        const calcWidth = (CAROUSEL_WIDTH - ulWidth) / 5;
+        setMoveWidth(Math.round(calcWidth));
+        setStep(0);
+      }
+    }, 200);
+  }, [ulRef]);
 
   const handleButtonClick = (direction: "left" | "right") => {
     if (direction === "left") {
@@ -87,13 +36,22 @@ const ArtRanking = () => {
       setStep((prev) => prev - 1);
       return;
     }
-    if (step === 4) return;
+    if (step === 5) return;
     setStep((prev) => prev + 1);
   };
 
   useEffect(() => {
     calcUlWdith();
-  }, [ulRef]);
+  }, [calcUlWdith]);
+
+  //* 리사이즈 이벤트 발생시, 너비 다시 계산
+  useEffect(() => {
+    window.addEventListener("resize", calcUlWdith);
+
+    return () => {
+      window.removeEventListener("resize", calcUlWdith);
+    };
+  });
 
   return (
     <section className={style.home_art}>
