@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseArticle {
+
   private Long articleId;
   private String category;
   private String articleName;
@@ -30,4 +31,5 @@ public class ResponseArticle {
   private String ownerNickname;
   private boolean certification;
   private boolean bookMark;
+  private boolean availability;
 }

@@ -33,13 +33,11 @@ public class ArticleServiceImpl implements ArticleService{
   @Transactional
   @Override
   public ResponseArticle createArticle(RequestArticleCreate requestArticleCreate) {
-    System.out.println("일단 여기까지 들어옴");
     requestArticleCreate.setMetaDataUrl("https://skywalker.infura-ipfs.io/ipfs/"+requestArticleCreate.getMetaDataUrl());
     requestArticleCreate.setArticleImgUrl("https://skywalker.infura-ipfs.io/ipfs/" + requestArticleCreate.getArticleImgUrl());
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     Article article = mapper.map(requestArticleCreate, Article.class);
     ResponseListen responseListen = sellyContractServiceClient.getListen(requestArticleCreate.getWallet());
-    System.out.println(responseListen);
     article.setContractAddress(responseListen.getContractAddress());
     article.setTokenId(responseListen.getToken());
     articleRepository.save(article);

@@ -14,6 +14,7 @@ public interface ArticleService {
 
    // ArticleResponseDto findById(Long articleId, Long userId);
    ResponseArticle findById(Long articleId);
+//  ArticleResponse findById(Long articleId);
 
    Long numberOfArticle();
 

@@ -25,10 +25,14 @@ public class ArticleController {
   private final ArticleServiceImpl articleService;
 
   private final ArticleRepository articleRepository;
-  @GetMapping("/{articleId}")
-  public ArticleResponseDto findById (@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
-    return articleService.findById(articleId, userId);
-  }
+//  @GetMapping("/{articleId}")
+//  public ArticleResponse findById (@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
+//    return articleService.findById(articleId, userId);
+//  }
+@GetMapping("/{articleId}")
+public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
+  return articleService.findById(articleId);
+}
 
   @PostMapping("/create")
   public ResponseArticle createArticle(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException{
