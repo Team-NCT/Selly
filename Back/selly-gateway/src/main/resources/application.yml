@@ -20,11 +20,11 @@ spring:
               - POST
               - DELETE
               - OPTIONS
-        - name: GlobalFilter
-          args:
-            baseMessage: Spring Cloud Gateway GlobalFilter
-            preLogger: true
-            postLogger: true
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring Cloud Gateway GlobalFilter
+#            preLogger: true
+#            postLogger: true
       routes:
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
