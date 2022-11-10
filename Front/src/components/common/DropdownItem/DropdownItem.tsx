@@ -1,9 +1,9 @@
 import { DropdownItemProps } from "./DropdownItem.types";
 import style from "./DropdownItem.module.scss";
 
-const DropdownItem = ({ value, category, bg = "primary", defualtValue }: DropdownItemProps) => {
+const DropdownItem = ({ value, category, bg = "primary", defaultValue }: DropdownItemProps) => {
   const dropdownBG = style[["bg-", bg].join("")];
-  const isSelect = defualtValue === value ? true : false;
+  const isSelect = defaultValue === value ? true : false;
 
   return (
     <label className={style.opt}>
@@ -13,7 +13,7 @@ const DropdownItem = ({ value, category, bg = "primary", defualtValue }: Dropdow
           name={category}
           type="radio"
           value={value}
-          checked={isSelect}></input>
+          defaultChecked={isSelect}></input>
         <span>{value}</span>
       </div>
     </label>

@@ -43,7 +43,7 @@ const ProfileTab = () => {
                 list={tabItems}
                 category="profileTab"
                 onChange={onChangeTab}
-                defualtValue={selectedTab}
+                defaultValue={selectedTab}
               />
             </div>
           </div>
@@ -54,7 +54,7 @@ const ProfileTab = () => {
               onClick={() => {
                 setSelectedTab(item);
               }}
-              className={selectedTab === item ? style.selected : style.defualt}>
+              className={selectedTab === item ? style.selected : style.default}>
               <Neon
                 color="muscat"
                 positionH="bottom"

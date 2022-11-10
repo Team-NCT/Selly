@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { Neon, TextInput, ProfileImage } from "@/components/common";
+import { Neon, ProfileImage } from "@/components/common";
 import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
-import { useInputState } from "@/hooks";
 
 const Navbar = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [value, handleInputChange] = useInputState();
   const [menuToggle, setMenuToggle] = useState(false);
 
   //* 아래로 스크롤 시 navbar 사라짐
@@ -75,7 +73,7 @@ const Navbar = () => {
               }}
               onClick={() => setMenuToggle(false)}
               aria-hidden="true">
-              <NavLink to="/test">
+              <NavLink to="/explore">
                 <Neon
                   color="ocean"
                   positionH="top"
@@ -85,17 +83,17 @@ const Navbar = () => {
                 </Neon>
               </NavLink>
               <div className={styles.dropdown_content}>
-                <NavLink to="/test" className={styles.dropdown_item}>
+                <NavLink to="/explore/all" className={styles.dropdown_item}>
                   ALL NFTS
                 </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
-                  Art
+                <NavLink to="/explore/digital" className={styles.dropdown_item}>
+                  Digital
                 </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
+                <NavLink to="/explore/analog" className={styles.dropdown_item}>
+                  Analog
+                </NavLink>
+                <NavLink to="/explore/photography" className={styles.dropdown_item}>
                   Photography
-                </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
-                  Sports
                 </NavLink>
               </div>
             </li>
