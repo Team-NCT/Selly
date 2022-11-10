@@ -14,14 +14,20 @@ const FractionPrice = ({ value, changeHandler, setIsPriceTrue }: FractionPricePr
       setIsPriceTrue(false);
       return;
     }
-    if (!isNumber(value) || !numberinRange(9999999, -1, value) || !fPointCheck(value, 4)) {
-      setErrorMessage("소수점은 4자리까지 입력하실 수 있습니다.");
+    if (!isNumber(value) || !numberinRange(Number.MAX_SAFE_INTEGER, -1, value)) {
+      setErrorMessage("0보다 큰 값을 입력해주세요");
       setStatus(false);
       setIsPriceTrue(false);
-    } else {
-      setStatus(true);
-      setIsPriceTrue(true);
+      return;
     }
+    if (!fPointCheck(value, 4)) {
+      setErrorMessage("소수점은 4자리까지 입력 할 수 있습니다");
+      setStatus(false);
+      setIsPriceTrue(false);
+      return;
+    }
+    setStatus(true);
+    setIsPriceTrue(true);
   }, [value]);
 
   return (

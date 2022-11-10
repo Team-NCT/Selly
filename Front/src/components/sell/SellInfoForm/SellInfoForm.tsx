@@ -21,8 +21,6 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
   const [values, setValues] = useState<SellInfoState>(sellInfo);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  // TODO_YK: 각 인풋폼의 유효성 검사 정확히 만들기
-
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
@@ -36,7 +34,6 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
     changeStep("SIGN");
   };
 
-  //TODO_YK 유효성 검사 제대로 만들기
   //* 3가지 유효성 검사를 모두 통과 + 카드가 선택되면 Continue 활성화
   useEffect(() => {
     if (isCodeTrue && isNumTrue && isPriceTrue && NFTValue.CA) {
@@ -46,10 +43,10 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
     }
   }, [isCodeTrue, isNumTrue, isPriceTrue, NFTValue]);
 
-  // TODO_YK: 총 가격 연산 식 제대로 만들기
+  //* 총 가격 연산 식
   useEffect(() => {
     if (isNumber(values.num) && isNumber(values.price)) {
-      setTotalPrice(Number(values.num) * Number(values.price));
+      setTotalPrice(+(Number(values.num) * Number(values.price)).toFixed(4));
       return;
     }
     setTotalPrice(0);
@@ -75,7 +72,6 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
         />
         <div className={style.total_price}>
           <p>총 가격</p>
-          <p>{values.num * values.price} ETH</p>
           <p>{totalPrice} ETH</p>
         </div>
         <Button size="fillContainer" disabled={!submittable}>

@@ -14,14 +14,20 @@ const FractionNum = ({ value, changeHandler, setIsNumTrue }: FractionNumProps) =
       setIsNumTrue(false);
       return;
     }
-    if (!isNumber(value) || !numberinRange(10001, 1, value) || !fPointCheck(value, 0)) {
-      setErrorMessage("조각 개수는 자연수 2 ~ 10000개까지 가능합니다.");
+    if (!isNumber(value) || !numberinRange(10001, 1, value)) {
+      setErrorMessage("2와 10000 사이의 값을 입력해주세요");
       setStatus(false);
       setIsNumTrue(false);
-    } else {
-      setStatus(true);
-      setIsNumTrue(true);
+      return;
     }
+    if (!fPointCheck(value, 0)) {
+      setErrorMessage("소수점은 입력할 수 없습니다");
+      setStatus(false);
+      setIsNumTrue(false);
+      return;
+    }
+    setStatus(true);
+    setIsNumTrue(true);
   }, [value]);
 
   return (
