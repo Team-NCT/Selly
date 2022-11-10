@@ -25,7 +25,7 @@ import {
 } from "@/store/index";
 
 //* API
-import { NFTDetailAPI, searchAPI, loginAPI } from "@/api/server";
+import { NFTDetailAPI, searchAPI, loginAPI, createNFTAPI } from "@/api/server";
 
 const reducers = combineReducers({
   alert,
@@ -39,6 +39,7 @@ const reducers = combineReducers({
   [NFTDetailAPI.reducerPath]: NFTDetailAPI.reducer,
   [searchAPI.reducerPath]: searchAPI.reducer,
   [loginAPI.reducerPath]: loginAPI.reducer,
+  [createNFTAPI.reducerPath]: createNFTAPI.reducer,
 });
 
 // * session storage
@@ -57,7 +58,12 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(NFTDetailAPI.middleware, searchAPI.middleware, loginAPI.middleware),
+    }).concat(
+      NFTDetailAPI.middleware,
+      searchAPI.middleware,
+      loginAPI.middleware,
+      createNFTAPI.middleware
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
