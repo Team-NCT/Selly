@@ -2,6 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { CONTRACT_SERVICE_API } from "@/constants/server";
 import { DataType } from "./createNFTAPI.types";
 
+import Web3 from "web3";
+const web3 = new Web3(window.ethereum);
+
 export const createNFTAPI = createApi({
   reducerPath: "createNFTAPI",
   baseQuery: fetchBaseQuery({ baseUrl: CONTRACT_SERVICE_API }),
@@ -17,16 +20,25 @@ export const createNFTAPI = createApi({
           "Content-type": "application/json; charset=UTF-8",
         },
       }),
-      transformResponse: (response: { data: any }) => {
-        console.log(response.data);
-        return response.data;
+      transformResponse: (response: DataType) => {
+        console.log(response);
+        return response;
       },
       invalidatesTags: ["create"],
 
       async onQueryStarted(args, { queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
+          const newData = {
+            nonce: data.nonce,
+            to: data.to,
+            from: data.from,
+            data: data.data,
+          };
+          console.log(newData);
+          web3.eth.sendTransaction(newData).catch((err) => {
+            console.log(err);
+          });
         } catch (error) {
           console.log(error);
         }

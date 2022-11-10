@@ -10,8 +10,6 @@ import { useAppSelector } from "@/hooks";
 const Form = () => {
   const [create] = useCreateMutation();
   const { account } = useAppSelector(selectAccount);
-  const Web3 = require("web3");
-  const web3 = new Web3(window.ethereum);
 
   //* 제출한 form
   const submitHandler = (event: React.FormEvent) => {
@@ -23,11 +21,12 @@ const Form = () => {
       const metadataUrl = data?.metadataUrl;
       const imageUrl = data?.imageUrl;
       const title = data?.title;
+      //@ TodoJY: authAPI 변경되면 owner받아와서 넣도록 수정
       const body = JSON.stringify({
         wallet: account.address,
         metaDataUrl: metadataUrl,
         articleImgUrl: imageUrl,
-        owner: 1,
+        owner: 46,
         articleName: title,
       });
       create(body);
