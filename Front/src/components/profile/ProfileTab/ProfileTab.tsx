@@ -1,7 +1,7 @@
 import { Neon, SelectBox } from "@/components/common";
 import { getViewportSize } from "@/helpers/utils/getViewportSize";
 import { useState, useCallback, useEffect } from "react";
-import { Created, ForSale } from "@/components/profile";
+import { Created, ForSale, Collected } from "@/components/profile";
 import style from "./ProfileTab.module.scss";
 
 const ProfileTab = () => {
@@ -43,7 +43,7 @@ const ProfileTab = () => {
                 list={tabItems}
                 category="profileTab"
                 onChange={onChangeTab}
-                defualtValue={selectedTab}
+                defaultValue={selectedTab}
               />
             </div>
           </div>
@@ -54,7 +54,7 @@ const ProfileTab = () => {
               onClick={() => {
                 setSelectedTab(item);
               }}
-              className={selectedTab === item ? style.selected : style.defualt}>
+              className={selectedTab === item ? style.selected : style.default}>
               <Neon
                 color="muscat"
                 positionH="bottom"
@@ -68,6 +68,7 @@ const ProfileTab = () => {
       </div>
       {selectedTab === "Created" && <Created />}
       {selectedTab === "ForSale" && <ForSale />}
+      {selectedTab === "Collected" && <Collected />}
     </section>
   );
 };

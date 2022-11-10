@@ -16,18 +16,16 @@
   @include flex(row, center);
   @include font($body1, $bold);
   width: 100%;
-}
-
-.property_modal_title {
-  flex-grow: 1;
+  padding-left: 32px;
+  gap: 16px;
 }
 
 .property_modal_title_type {
-  flex-grow: 4;
+  width: 100%;
 }
 
 .property_modal_title_name {
-  flex-grow: 4;
+  width: 100%;
 }
 
 .property_modal_content {
@@ -48,6 +46,7 @@
 
 .property_modal_delete {
   @include font($h5, $bold);
+  width: 16px;
 }
 
 .proerty_button {

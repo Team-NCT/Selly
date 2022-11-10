@@ -32,6 +32,7 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
 
   //* input 삭제
   const deleteHandler = (event: React.MouseEvent, index: number) => {
+    console.log(index);
     event.preventDefault();
     const changeProperties = [...modalProperties];
     changeProperties.splice(index, 1);
@@ -71,7 +72,6 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
           <h1 className={style.property_modal_label}>Properties</h1>
         </Label>
         <header className={style.property_modal_header}>
-          <div className={style.property_modal_title}></div>
           <div className={style.property_modal_title_type}>Type</div>
           <div className={style.property_modal_title_name}>Name</div>
         </header>
@@ -79,11 +79,18 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
           <div>
             {modalProperties.map((modalProperty, idx) => (
               <div key={idx} className={style.property_modal_input}>
-                <button
-                  className={style.property_modal_delete}
-                  onClick={(e) => deleteHandler(e, idx)}>
-                  X
-                </button>
+                <div>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                  />
+                  <button
+                    className={style.property_modal_delete}
+                    onClick={(e) => deleteHandler(e, idx)}>
+                    X
+                  </button>
+                </div>
                 <TextInput
                   value={modalProperty.type}
                   id={idx.toString()}

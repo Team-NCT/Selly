@@ -51,6 +51,7 @@ export const loginSelly = async (fc: any) => {
     }
 
     const account = await getWallet();
+    console.log(account);
 
     await fc({
       wallet: account,

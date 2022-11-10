@@ -7,7 +7,7 @@ const Dropdown = ({
   category,
   bg = "primary",
   onChange,
-  defualtValue,
+  defaultValue,
 }: DropdownListProps) => {
   return (
     <ul className={style.dropdown} onChange={onChange}>
@@ -17,7 +17,7 @@ const Dropdown = ({
           value={item}
           category={category}
           bg={bg}
-          defualtValue={defualtValue}
+          defaultValue={defaultValue}
         />
       ))}
     </ul>

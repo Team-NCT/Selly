@@ -20,5 +20,5 @@ export interface DropdownItemProps {
   /**
    * 처음 선택될 옵션
    */
-  defualtValue?: string;
+  defaultValue?: string;
 }

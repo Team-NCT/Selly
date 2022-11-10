@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components/common";
-import { Home, Create, NFTDetail, Sell, Settings, Profile } from "@/pages";
+import { Home, Create, NFTDetail, Sell, Settings, Profile, Explore, Category } from "@/pages";
 import { useCheckLogined } from "@/hooks";
 import { setAccount } from "@/store/loginSlice";
 import { useEffect } from "react";
@@ -40,6 +40,11 @@ function App() {
           <Route path="/profile/:id" element={<Profile />} />
           {/* sell 페이지 */}
           <Route path="/Sell" element={<Sell />} />
+          {/* Explore 페이지 */}
+          <Route path="/explore" element={<Explore />} />
+          {/* 카테고리 별 Explore 페이지 */}
+          {/* all, analog, digital, photography */}
+          <Route path="/explore/:category" element={<Category />} />
         </Route>
       </Routes>
 

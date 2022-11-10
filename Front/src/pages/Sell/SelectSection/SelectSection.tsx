@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SelectCardList } from "@/components/Sell";
+import { SelectCardList } from "@/components/sell";
 import style from "./SelectSection.module.scss";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { useAppSelector, useInfiniteScroll } from "@/hooks";

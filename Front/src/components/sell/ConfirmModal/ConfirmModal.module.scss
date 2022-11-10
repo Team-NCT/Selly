@@ -1,0 +1,25 @@
+.confirm_modal {
+  @include flex(column, space-between, center);
+  @include shadow-modal;
+  border-radius: $radius-card;
+  gap: 80px;
+  padding: 80px;
+
+  // @include tablet {
+  //   padding: 40px;
+  // }
+
+  // @include laptop {
+  //   max-width: 640px;
+  //   padding: 60px;
+  // }
+
+  h1 {
+    @include font($h5);
+  }
+
+  .button_section {
+    @include flex(row, center, center);
+    gap:40px;
+  }
+}
