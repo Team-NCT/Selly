@@ -16,6 +16,6 @@ WORKDIR /app
 
 RUN mkdir ./build
 
-COPY --from=build /jenkins_home/workspace/Nct_Selly/Front/build ./build
+COPY . ./build
 
 EXPOSE 3000
