@@ -1,0 +1,10 @@
+.search_result_list_null {
+  @include font($body1, $medium, $black150);
+  width: 100%;
+  margin-top: 160px;
+  text-align: center;
+
+  @include laptop {
+    @include font($h5, $medium, $black150);
+  }
+}
