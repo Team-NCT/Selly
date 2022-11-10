@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { SearchResultProps } from "./SearchResultList.types";
 import style from "./SearchResultList.module.scss";
 import { DescCardList } from "@/components/common";
