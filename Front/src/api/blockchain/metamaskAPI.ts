@@ -1,5 +1,3 @@
-import { GOERLI_ID, METAMASK_DOWNLOAD_LINK } from "@/constants/metamask";
-
 interface SystemError {
   code: string | number;
   message: string;
@@ -36,28 +34,5 @@ export const changeNetwork = async (chainId: string) => {
     } else {
       console.error("Failed to switch this network");
     }
-  }
-};
-
-export const loginSelly = async (fc: any) => {
-  //* metamask 설치 여부 확인 로직
-
-  if (window.ethereum) {
-    const chainId = await getChainId();
-
-    //* 네트워크 변경 로직
-    if (GOERLI_ID !== chainId) {
-      changeNetwork(GOERLI_ID);
-    }
-
-    const account = await getWallet();
-    console.log(account);
-
-    await fc({
-      wallet: account,
-      pwd: account,
-    });
-  } else {
-    window.open(METAMASK_DOWNLOAD_LINK, "_blank");
   }
 };

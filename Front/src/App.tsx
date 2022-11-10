@@ -1,7 +1,7 @@
 import "@/styles/base/_base.scss";
 import { Route, Routes } from "react-router-dom";
 import { createPortal } from "react-dom";
-import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
+import { useAppSelector } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components/common";
 import { Home, Create, NFTDetail, Sell, Settings, Profile, Explore, Category } from "@/pages";
