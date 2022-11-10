@@ -151,12 +151,13 @@ nav {
   @include shadow-drop5;
   display: none;
   position: absolute;
-  top: 0;
-  right: 70px;
+  top: -5px;
+  right: 73px;
   background-color: $white;
-  min-width: 117px;
+  min-width: 120px;
   z-index: 1;
   border-radius: $radius-modal;
+  padding: 5px 0;
   @include laptop {
     top: 25px;
     left: 0;
@@ -194,6 +195,7 @@ nav {
   min-width: 117px;
   z-index: 1;
   border-radius: $radius-modal;
+  padding: 5px 0;
   @include laptop {
     top: 50px;
     left: -40px;

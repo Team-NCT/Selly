@@ -8,6 +8,7 @@ interface ModalState {
   buy: boolean;
   sell: boolean;
   sellStatus: boolean;
+  confirm: boolean;
 }
 
 const initialState: ModalState = {
@@ -16,6 +17,7 @@ const initialState: ModalState = {
   buy: false,
   sell: false,
   sellStatus: false,
+  confirm: false,
 };
 
 const slice = createSlice({
@@ -23,14 +25,6 @@ const slice = createSlice({
   initialState,
 
   reducers: {
-    closeTest: (state) => {
-      state.test = false;
-    },
-
-    openTest: (state) => {
-      state.test = true;
-    },
-
     closeProperty: (state) => {
       state.property = false;
     },
@@ -62,6 +56,14 @@ const slice = createSlice({
     openSellStatus: (state) => {
       state.sellStatus = true;
     },
+
+    openConfirm: (state) => {
+      state.confirm = true;
+    },
+
+    closeConfirm: (state) => {
+      state.confirm = false;
+    },
   },
 });
 
@@ -74,8 +76,6 @@ export const selectModal = createSelector(
 );
 
 export const {
-  closeTest,
-  openTest,
   closeProperty,
   openProperty,
   closeBuy,
@@ -84,6 +84,8 @@ export const {
   openSell,
   closeSellStatus,
   openSellStatus,
+  openConfirm,
+  closeConfirm,
 } = slice.actions;
 
 export default slice.reducer;

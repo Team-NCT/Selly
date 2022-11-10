@@ -3,9 +3,9 @@ import style from "./SelectBox.module.scss";
 import { DropdownList } from "@/components/common";
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const SelectBox = ({ list, category, bg = "primary", onChange, defualtValue }: SelectBoxProps) => {
+const SelectBox = ({ list, category, bg = "primary", onChange, defaultValue }: SelectBoxProps) => {
   const valueBorder = style[["bg-", bg].join("")];
-  const [selected, setSelected] = useState(defualtValue);
+  const [selected, setSelected] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
   const arrowStyle = isOpen ? style.arrowTop : style.arrowBottom;
   const selectRef = useRef<HTMLDivElement>(null);
@@ -65,7 +65,7 @@ const SelectBox = ({ list, category, bg = "primary", onChange, defualtValue }: S
             category={category}
             bg={bg}
             onChange={setData}
-            defualtValue={defualtValue}
+            defaultValue={defaultValue}
           />
         </div>
       )}

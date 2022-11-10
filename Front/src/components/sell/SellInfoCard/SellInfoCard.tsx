@@ -1,14 +1,15 @@
-import { SellInfoCardProps } from "./SellInfoCard.types";
 import style from "./SellInfoCard.module.scss";
 import { Button, Neon } from "@/components/common";
 import { selectSellInfo } from "@/store/sellInfoSlice";
-import { useAppSelector } from "@/hooks";
+import { useAppSelector, useAppDispatch } from "@/hooks";
+import { openConfirm } from "@/store/modalSlice";
 
-const SellInfoCard = ({ changeStep }: SellInfoCardProps) => {
+const SellInfoCard = () => {
+  const dispatch = useAppDispatch();
   const sellInfo = useAppSelector(selectSellInfo);
 
   const editHandler = () => {
-    changeStep("SELECT");
+    dispatch(openConfirm());
   };
 
   return (

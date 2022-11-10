@@ -1,0 +1,47 @@
+.home_art_carousel {
+  position: relative;
+
+  .home_art_carousel_window {
+    @include flex(row, flex-start, center);
+    width: 100%;
+    gap: 48px;
+    overflow: hidden;
+
+    > li {
+      flex: none;
+      transition: 1s;
+    }
+  }
+
+  .home_art_carousel_button_left {
+    @include shadow-drop1;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    background-color: $white;
+    border-radius: 50%;
+  }
+
+  .home_art_carousel_button_right {
+    @include shadow-drop1;
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    background-color: $white;
+    border-radius: 50%;
+  }
+}
+
+@for $i from 0 to -3152 {
+  .step_#{$i} {
+    li {
+      transform: translateX(#{$i} + "px");
+    }
+  }
+}

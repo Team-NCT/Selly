@@ -1,0 +1,23 @@
+.header {
+  @include flex(row, flex-start, flex-end);
+  margin-top: 48px;
+  margin-bottom: 50px;
+}
+
+.header_title {
+  @include font($h2, $bold);
+  display: inline;
+}
+
+.header_span {
+  margin-left: 15px;
+}
+
+.header_caption {
+  @include font($body1, $regular);
+  margin-left: 18px;
+}
+
+.caption_danger {
+  color: $sherbet150;
+}
