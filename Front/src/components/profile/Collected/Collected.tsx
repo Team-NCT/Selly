@@ -20,6 +20,7 @@ const Collected = () => {
     getOwnERC721NFTs();
   }, []);
 
+  // TODO_YK: 10개 받고, 데이터 없어도 밑에 공간 살려주기 / 로딩 스피너
   return <>{NFTdatas ? <CollectedCardList data={NFTdatas} /> : <></>}</>;
 };
 

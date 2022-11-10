@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { tapType } from "./NFTDetailTransaction.types";
+import { TabType } from "./NFTDetailTransaction.types";
 import style from "./NFTDetailTransaction.module.scss";
 import { NFTDetailTransactionProps } from "./NFTDetailTransaction.types";
 import { TransactionFractions, TransactionAuction } from "@/components/NFTDetail/Transaction";
 
 const NFTDetailTransaction = ({ auction }: NFTDetailTransactionProps) => {
   //* Tab 상태
-  const [tab, setTab] = useState<tapType>("FRACTION");
+  const [tab, setTab] = useState<TabType>("FRACTION");
 
   //* Tab 이동 버튼
-  const handlerButtonClick = (tab: tapType) => {
+  const handlerButtonClick = (tab: TabType) => {
     setTab(tab);
   };
 

@@ -1,7 +1,9 @@
-import { Header, Revenue, Banner, ProfileTab } from "@/components/profile";
-import { useAppDispatch } from "@/hooks/useStore";
+import { createPortal } from "react-dom";
+import { Header, Revenue, Banner, ProfileTab, FollowModal } from "@/components/profile";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { useEffect } from "react";
 import { setProfileData } from "@/store/profileDataSlice";
+import { selectModal } from "@/store/modalSlice";
 
 const initialState = {
   nickname: "띠용",
@@ -15,6 +17,10 @@ const initialState = {
 
 function Profile() {
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const el = document.getElementById("modal-root")!;
+  const { follower, following } = useAppSelector(selectModal);
+
   useEffect(() => {
     dispatch(
       setProfileData({
@@ -34,6 +40,8 @@ function Profile() {
         <Revenue />
         <ProfileTab />
       </main>
+      {follower && createPortal(<FollowModal type="FOLLOWER" />, el)}
+      {following && createPortal(<FollowModal type="FOLLOWING" />, el)}
     </>
   );
 }
