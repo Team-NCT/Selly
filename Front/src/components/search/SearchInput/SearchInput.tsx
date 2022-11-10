@@ -70,7 +70,7 @@ const SearchInput = () => {
   return (
     <form className={style.search_form} onSubmit={submitSearchForm} ref={formRef}>
       <input
-        type="search"
+        type="text"
         placeholder="작품, 작가명을 검색하세요"
         value={value}
         onChange={handleValueChange}
