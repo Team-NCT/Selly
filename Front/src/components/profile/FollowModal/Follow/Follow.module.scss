@@ -4,9 +4,11 @@
 
   .user_info {
     @include flex(row, flex-start);
-
+    gap: 6px;
+    
     .user_text_info {
       @include flex(column, center, flex-start);
+      gap: 6px;
     
       .nickname {
         @include font($body2, $semibold);
@@ -25,9 +27,12 @@
       }
     }
   }
-
   .button_section {
-    @include font($h1, $bold);
+    width: 120px;
+
+    Button {
+      @include font($body2, $bold);
+    }
   }
 }
 

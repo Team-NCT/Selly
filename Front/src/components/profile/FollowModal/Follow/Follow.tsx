@@ -25,16 +25,16 @@ const Follow = ({ data }: FollowProps) => {
       </Link>
       <div className={style.button_section}>
         {data.myFollowing ? (
-          <Button onClick={() => console.log("팔로")} size="fillContainer">
-            Follow
-          </Button>
-        ) : (
           <Button
             bg="blackberry"
             color="outline"
             onClick={() => console.log("언팔")}
             size="fillContainer">
             Following
+          </Button>
+        ) : (
+          <Button onClick={() => console.log("팔로")} size="fillContainer">
+            Follow
           </Button>
         )}
       </div>
