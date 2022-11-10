@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./Sell.module.scss";
 import { Neon } from "@/components/common";
-import { SelectedCard, SellInfoForm, SellInfoCard } from "@/components/Sell";
+import { SelectedCard, SellInfoForm, SellInfoCard } from "@/components/sell";
 import { SelectSection, SignSection } from ".";
 import { useAppSelector } from "@/hooks";
 import { selectNFTValue } from "@/store/selectNFTSlice";
@@ -44,13 +44,13 @@ function Sell() {
       <article className={style.content}>
         <section className={style.select_section}>
           {step === "SELECT" && <SelectSection datas={NFTdatas} />}
-          {step === "SIGN" && <SignSection />}
+          {step === "SIGN" && <SignSection changeStep={changeStep} />}
         </section>
         <section className={style.selected_NFT_section}>
           <h2>Selected NFT</h2>
           <SelectedCard url={NFTValue.articleUrl} title={NFTValue.articleName} />
           {step === "SELECT" && <SellInfoForm changeStep={changeStep} />}
-          {step === "SIGN" && <SellInfoCard changeStep={changeStep} />}
+          {step === "SIGN" && <SellInfoCard />}
         </section>
       </article>
     </main>
