@@ -81,7 +81,7 @@ app.get('/listen/:wallet', async (req, res) => {
         }
         console.log(req.params.wallet);
         console.log(value.from);
-        if (req.params.wallet == value.from){
+        if (req.params.wallet.toUpperCase() == value.from.toUpperCase()){
             console.log(list);
             subscription.unsubscribe(function(error, success){
             if(success)
