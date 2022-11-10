@@ -1,7 +1,7 @@
 import "@/styles/base/_base.scss";
 import { Route, Routes } from "react-router-dom";
 import { createPortal } from "react-dom";
-import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
+import { useAppSelector } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components/common";
 import {
@@ -16,7 +16,7 @@ import {
   SearchResult,
 } from "@/pages";
 import { useCheckLogined } from "@/hooks";
-import { setAccount } from "@/store/loginSlice";
+
 import { useEffect } from "react";
 
 function App() {
@@ -24,13 +24,20 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
 
-  const dispatch = useAppDispatch();
-
-  const accountData = useCheckLogined();
+  const [checkWallet] = useCheckLogined();
 
   useEffect(() => {
-    dispatch(setAccount({ address: accountData.address, nickname: accountData.nickname }));
-  }, [accountData, dispatch]);
+    if (window.ethereum) {
+      window.ethereum.on("chainChanged", () => {
+        console.log("체인 바뀜");
+        checkWallet();
+      });
+      window.ethereum.on("accountsChanged", () => {
+        console.log("아이디 바뀜");
+        checkWallet();
+      });
+    }
+  });
 
   return (
     <>

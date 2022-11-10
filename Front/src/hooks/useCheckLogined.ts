@@ -1,6 +1,8 @@
 import { GOERLI_ID } from "@/constants/metamask";
-import { getWallet, getChainId } from "@/helpers/service";
-import { useEffect, useCallback, useState } from "react";
+import { getWallet, getChainId } from "@/api/blockchain";
+import { useAppDispatch } from "@/hooks/useStore";
+import { setAddress, logout } from "@/store/loginSlice";
+import { useLoginMutation } from "@/api/server/loginAPI";
 
 /**
  * 사용법
@@ -10,56 +12,41 @@ import { useEffect, useCallback, useState } from "react";
  */
 
 const useCheckLogined = () => {
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
-  const [userNickname, setuserNickname] = useState<string | null>("김작가작가작가김작가작가");
+  const dispatch = useAppDispatch();
+  const [login] = useLoginMutation();
 
-  const accountData = {
-    address: walletAddress,
-    nickname: userNickname,
-  };
-
-  //* 로그인 체크
-  const checkLogined = useCallback(async () => {
+  //* 지갑 체크
+  const checkWallet = async () => {
     try {
       //* 메타마스크 설치 여부 체크
       if (!window.ethereum) {
+        dispatch(logout());
         return;
       }
 
-      const account = await getWallet();
+      const address = await getWallet();
       const chainId = await getChainId();
 
       //* 네트워크 일치 여부 && 아이디 존재여부 확인
-      if (chainId === GOERLI_ID && account) {
-        setWalletAddress(account);
-      } else {
-        console.log(walletAddress);
+      if (chainId !== GOERLI_ID && address) {
+        dispatch(logout());
+        return;
       }
-
-      //! API연결되면 아이디 존재 여부랑 로그인확인하는 로직 추가
-
-      return accountData;
+      await login({
+        wallet: address,
+        pwd: address,
+      });
+      dispatch(
+        setAddress({
+          address: address,
+        })
+      );
     } catch {
-      setWalletAddress(null);
+      dispatch(logout());
     }
-  }, [walletAddress, accountData]);
+  };
 
-  //* 로그인 확인 이벤트 등록
-  useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.on("chainChanged", () => {
-        console.log("체인 바뀜");
-        checkLogined();
-      });
-      window.ethereum.on("accountsChanged", () => {
-        console.log("아이디 바뀜");
-        checkLogined();
-      });
-      checkLogined();
-    }
-  });
-
-  return accountData;
+  return [checkWallet];
 };
 
 export default useCheckLogined;
