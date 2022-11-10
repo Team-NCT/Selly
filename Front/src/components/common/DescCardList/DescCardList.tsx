@@ -7,12 +7,12 @@ const DescCardList = ({ data }: DescCardListProps) => {
     <ul className={style.card_list}>
       {data.map((item) => (
         <DescCardListItem
-          key={item.id}
-          id={item.id}
-          url={item.url}
-          title={item.title}
-          price={item.price}
-          profit={item.profit}
+          key={item.articleId}
+          articleId={item.articleId}
+          articleImgUrl={item.articleImgUrl}
+          articleName={item.articleName}
+          recentMarketPrice={item.recentMarketPrice}
+          rateChange={item.rateChange}
         />
       ))}
     </ul>
