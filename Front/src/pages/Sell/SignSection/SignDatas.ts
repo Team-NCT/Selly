@@ -1,7 +1,7 @@
 import { testSign } from "@/api/blockchain";
 
 //TODO_YK: 실제 컨트랙트로 바꾸기
-//TODO_YK: 마지막 함수에서는 서버API 불러오고 redux에 selectedNFT 정보 reset
+//TODO_YK: 마지막 함수에서는 서버API 불러오고(서버에서 트랜잭션 만들어줘야함) redux에 selectedNFT 정보 reset
 export const SIGN_DATAS = [
   {
     title: "금고 생성하기",
