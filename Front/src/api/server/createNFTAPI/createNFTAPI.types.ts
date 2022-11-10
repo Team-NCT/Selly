@@ -1,5 +1,5 @@
 export interface CreateType {
-  wallet: string;
+  wallet: string | null;
   metaDataUrl: string;
   articleImgUrl: string;
   owner: number;

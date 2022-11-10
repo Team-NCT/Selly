@@ -18,17 +18,15 @@ const Form = () => {
     const promise = createNFT(event);
     //* 업로드 후 metadataURl, ImageURL, title을 반환한다.
     promise.then((data) => {
-      const metadataUrl = data?.metadataUrl;
-      const imageUrl = data?.imageUrl;
-      const title = data?.title;
       //@ TodoJY: authAPI 변경되면 owner받아와서 넣도록 수정
-      const body = JSON.stringify({
+      if (!data) return;
+      const body = {
         wallet: account.address,
-        metaDataUrl: metadataUrl,
-        articleImgUrl: imageUrl,
+        metaDataUrl: data.metadataUrl,
+        articleImgUrl: data.imageUrl,
         owner: 46,
-        articleName: title,
-      });
+        articleName: data.title,
+      };
       create(body);
     });
   };

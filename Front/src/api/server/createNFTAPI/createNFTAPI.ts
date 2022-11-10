@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { CONTRACT_SERVICE_API } from "@/constants/server";
-import { DataType } from "./createNFTAPI.types";
+import { CreateType, DataType } from "./createNFTAPI.types";
 
 import Web3 from "web3";
 const web3 = new Web3(window.ethereum);
@@ -11,7 +11,7 @@ export const createNFTAPI = createApi({
   tagTypes: ["create"],
   endpoints: (build) => ({
     //@ description: server에 Create NFT 정보를 보내는 API
-    create: build.mutation<DataType, string>({
+    create: build.mutation<DataType, CreateType>({
       query: (data) => ({
         url: "minting",
         method: "POST",
@@ -20,10 +20,6 @@ export const createNFTAPI = createApi({
           "Content-type": "application/json; charset=UTF-8",
         },
       }),
-      transformResponse: (response: DataType) => {
-        console.log(response);
-        return response;
-      },
       invalidatesTags: ["create"],
 
       async onQueryStarted(args, { queryFulfilled }) {
@@ -39,8 +35,8 @@ export const createNFTAPI = createApi({
           web3.eth.sendTransaction(newData).catch((err) => {
             console.log(err);
           });
-        } catch (error) {
-          console.log(error);
+        } catch (err) {
+          console.log(err);
         }
       },
     }),
