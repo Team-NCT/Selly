@@ -4,7 +4,7 @@ import { numberAddComma } from "@/helpers/utils/numberConversion";
 
 const Card = ({ url, title, supply }: CardProps) => {
   let supplyCount;
-  if (supply) {
+  if (typeof supply == "number") {
     supplyCount = numberAddComma(supply);
   }
   return (
@@ -14,7 +14,9 @@ const Card = ({ url, title, supply }: CardProps) => {
       </figure>
       <div>
         <p className={style.card_title}>{title}</p>
-        {supply && <p className={style.card_supply}>남은 조각: {supplyCount} 개</p>}
+        {typeof supply == "number" && (
+          <p className={style.card_supply}>남은 조각: {supplyCount} 개</p>
+        )}
       </div>
     </div>
   );
