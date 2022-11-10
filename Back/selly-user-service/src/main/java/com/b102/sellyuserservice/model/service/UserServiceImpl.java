@@ -141,4 +141,13 @@ public class UserServiceImpl implements UserService {
     return null;
   }
 
+  @Override
+  public String findByNickname(String nickname) {
+    UserEntity check = userRepository.findByNickname(nickname);
+    if (check != null) {
+      return "중복된 닉네임입니다.";
+    }
+    else
+      return "사용할 수 있는 닉네임입니다.";
+  }
 }
