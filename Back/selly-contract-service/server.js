@@ -41,10 +41,11 @@ app.post('/minting', async (req, res) => {
         headers: {'Content-Type': 'application/json'},
         url: "http://localhost:8000/selly-article-service/create",
             body: JSON.stringify({
-            metadataUrl : req.body.metadataUrl,
+            metaDataUrl : req.body.metaDataUrl,
             articleName : req.body.articleName,
             articleImgUrl : req.body.articleImgUrl,
-            owner: req.body.owner
+            owner: req.body.owner,
+            wallet: req.body.wallet
         })
     };
     request.post(OPTIONS);
@@ -54,6 +55,7 @@ app.post('/minting', async (req, res) => {
 
 
 app.get('/listen/:wallet', async (req, res) => {
+    console.log("리슨");
     const networkId = await web3.eth.net.getId();
     const CA = CounterContract.networks[networkId].address;
     let subscription = web3.eth.subscribe('logs', { address : CA},(err,event) => {
@@ -77,6 +79,8 @@ app.get('/listen/:wallet', async (req, res) => {
             contractAddress : CA,
             token : value.token
         }
+        console.log(req.params.wallet);
+        console.log(value.from);
         if (req.params.wallet == value.from){
             console.log(list);
             subscription.unsubscribe(function(error, success){
