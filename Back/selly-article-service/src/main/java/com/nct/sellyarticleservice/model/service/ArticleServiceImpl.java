@@ -12,6 +12,7 @@ import com.nct.sellyarticleservice.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -138,9 +139,52 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public List<Article> articleCategoryFilter(String category, boolean availability) {
+  public List<ArticleResponse> articleCategoryFilter(String category, boolean availability, String sort, String order) {
+//    List<Article> articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "createRegist"));
+//    ListarticleList(Sort.by(Sort.Direction.ASC, "createRegist"))
+//    return articleRepository.findAllByCategoryAndAvailability(category, availability);
+//    return articleList;
+    List<Article> articleList = new ArrayList<>();
+    List<ArticleResponse> articleResponseList = new ArrayList<>();
+    if (Objects.equals(sort, "asc")) {
+      switch (order) {
+        case "sellRegist":
+          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "createRegist"));
+          break;
+        case "trade":
+          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC));
+          break;
+        case "price":
+          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "price"));
+          break;
+        default:
+          articleList = articleRepository.findAllByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
 
-    return articleRepository.findAllByCategoryAndAvailability(category, availability);
+      }
+    } else {
+      switch (order) {
+        case "sellRegist":
+          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "createRegist"));
+          break;
+        case "trade":
+          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC));
+          break;
+        case "price":
+          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "price"));
+          break;
+      }
+      articleList.forEach(v-> {
+//        articleResponseList.add(mapper.map(v, ArticleResponse.class));
+        ArticleResponse articleResponse = ArticleResponse.builder()
+                .articleId(v.getArticleId())
+                .articleName(v.getArticleName())
+                .articleImgUrl(v.getArticleImgUrl())
+                .recentMarketPrice(v.getRecentMarketPrice())
+                .build();
+        articleResponseList.add(articleResponse);
+      });
+    }
+    return articleResponseList;
   }
 
   @Override

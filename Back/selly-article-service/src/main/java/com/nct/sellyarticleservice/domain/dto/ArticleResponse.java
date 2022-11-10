@@ -25,8 +25,6 @@ public class ArticleResponse {
 
   private String articleImgUrl;
 
-  private String articleIntroduction;
-
   private String connectionLink;
 
   private String attribute;
@@ -52,4 +50,30 @@ public class ArticleResponse {
   private Long owner;
 
   private double recentMarketPrice;
+
+  @Builder
+  public ArticleResponse(Long articleId, boolean availability, String category, String articleName,
+                         String articleImgUrl, String connectionLink, String attribute, String metaDataUrl,
+                         LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist,
+                         Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner,
+                         double recentMarketPrice) {
+    this.articleId = articleId;
+    this.availability = availability;
+    this.category = category;
+    this.articleName = articleName;
+    this.articleImgUrl = articleImgUrl;
+    this.connectionLink = connectionLink;
+    this.attribute = attribute;
+    this.metaDataUrl = metaDataUrl;
+    this.registTime = registTime;
+    this.createRegist = createRegist;
+    this.updateRegist = updateRegist;
+    this.originalAuthor = originalAuthor;
+    this.primaryCnt = primaryCnt;
+    this.currentCnt = currentCnt;
+    this.price = price;
+    this.owner = owner;
+    this.recentMarketPrice = recentMarketPrice;
+  }
+
 }
