@@ -6,29 +6,57 @@ import style from "./Form.module.scss";
 import { useCreateMutation } from "@/api/server/createNFTAPI";
 import { selectAccount } from "@/store/loginSlice";
 import { useAppSelector } from "@/hooks";
+import { useNavigate } from "react-router-dom";
+import { changeNetwork, getChainId } from "@/helpers/service";
+import { GOERLI_ID } from "@/constants/metamask";
+import Web3 from "web3";
 
 const Form = () => {
+  const navigate = useNavigate();
   const [create] = useCreateMutation();
   const { account } = useAppSelector(selectAccount);
+  const web3 = new Web3(window.ethereum);
+
+  //* 네트워크가 goeril이 아니면 goeril로 변경하는 함수
+  const checkNetwork = async () => {
+    if (window.ethereum) {
+      const chainId = await getChainId();
+
+      //* 네트워크 변경 로직
+      if (GOERLI_ID !== chainId) {
+        changeNetwork(GOERLI_ID);
+      }
+      return;
+    }
+  };
 
   //* 제출한 form
-  const submitHandler = (event: React.FormEvent) => {
+  const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
+    checkNetwork();
     //* IPFS에 업로드하는 함수
-    const promise = createNFT(event);
-    //* 업로드 후 metadataURl, ImageURL, title을 반환한다.
-    promise.then((data) => {
-      //@ TodoJY: authAPI 변경되면 owner받아와서 넣도록 수정
-      if (!data) return;
+    try {
+      const createData = await createNFT(event);
+      if (!createData) return;
       const body = {
         wallet: account.address,
-        metaDataUrl: data.metadataUrl,
-        articleImgUrl: data.imageUrl,
+        metaDataUrl: createData.metadataUrl,
+        articleImgUrl: createData.imageUrl,
         owner: 46,
-        articleName: data.title,
+        articleName: createData.title,
       };
-      create(body);
-    });
+      const response = await create(body).unwrap();
+      const payload = {
+        nonce: response.nonce,
+        to: response.to,
+        from: response.from,
+        data: response.data,
+      };
+      await web3.eth.sendTransaction(payload);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //* 유효성 검사를 모두 통과하면 Create 버튼이 활성화된다.
