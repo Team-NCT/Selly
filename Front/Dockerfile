@@ -20,4 +20,4 @@ COPY . ./build
 
 EXPOSE 3000
 
-RUN ["npm", "start"]
+RUN npm start
