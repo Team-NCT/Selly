@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { USER_SERVICE_API } from "@/constants/server";
-import { setToken } from "@/store/loginSlice";
+import { setAccount, logout } from "@/store/loginSlice";
 
 const loginAPI = createApi({
   reducerPath: "loginAPI",
@@ -22,9 +22,11 @@ const loginAPI = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { meta } = await queryFulfilled;
-          dispatch(setToken({ token: meta?.response?.headers.get("token") }));
+          const header = meta?.response?.headers;
+          dispatch(setAccount({ token: header?.get("token"), userId: header?.get("userId") }));
         } catch (error) {
-          console.log("에러: ", error);
+          console.log("로그인 API");
+          dispatch(logout());
         }
       },
     }),

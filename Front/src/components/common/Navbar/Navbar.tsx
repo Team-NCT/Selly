@@ -4,20 +4,16 @@ import { Neon, ProfileImage } from "@/components/common";
 import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
-import { useAppSelector } from "@/hooks/useStore";
-import { selectAccount } from "@/store/loginSlice";
-import { useLoginMutation } from "@/api/server/loginAPI";
-import { loginSelly } from "@/api/blockchain";
+import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
+import { logout, selectAccount } from "@/store/loginSlice";
+import { useLogin } from "@/hooks";
 
 const Navbar = () => {
   //* account 정보
   const { account } = useAppSelector(selectAccount);
-  //* 로그인 API
-  const [login] = useLoginMutation();
-
-  const loginHandler = () => {
-    loginSelly(login);
-  };
+  const dispatch = useAppDispatch();
+  //* 로그인 훅
+  const [login] = useLogin();
 
   const [menuToggle, setMenuToggle] = useState(false);
 
@@ -160,7 +156,7 @@ const Navbar = () => {
               </NavLink>
             </li>
           </ul>
-          {account.address ? (
+          {account.userId ? (
             <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
               <ProfileImage size="xxs" profileStyle="round" />
               <h5 className={styles.nav_username}>김김작가작가작가</h5>
@@ -172,7 +168,7 @@ const Navbar = () => {
                 <NavLink to="/settings" className={styles.dropdown_item}>
                   Settings
                 </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
+                <NavLink to="/" className={styles.dropdown_item} onClick={() => dispatch(logout())}>
                   Logout
                 </NavLink>
               </div>
@@ -191,7 +187,7 @@ const Navbar = () => {
               onBlur={() => {
                 setWallet(50);
               }}>
-              <button onClick={loginHandler}>
+              <button onClick={login}>
                 <Neon color="lilac" positionH="top" positionW="right" width={wallet}>
                   <span className={`material-icons-outlined ${styles.wallet}`}>
                     account_balance_wallet

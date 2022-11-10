@@ -6,7 +6,7 @@ import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components/common";
 import { Home, Create, NFTDetail, Sell, Settings, Profile, Explore, Category } from "@/pages";
 import { useCheckLogined } from "@/hooks";
-import { setAccount } from "@/store/loginSlice";
+
 import { useEffect } from "react";
 
 function App() {
@@ -14,15 +14,20 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
 
-  const dispatch = useAppDispatch();
-
-  const accountData = useCheckLogined();
+  const [checkWallet] = useCheckLogined();
 
   useEffect(() => {
-    dispatch(
-      setAccount({ address: accountData.address, nickname: accountData.nickname, userId: 1 })
-    );
-  }, [accountData, dispatch]);
+    if (window.ethereum) {
+      window.ethereum.on("chainChanged", () => {
+        console.log("체인 바뀜");
+        checkWallet();
+      });
+      window.ethereum.on("accountsChanged", () => {
+        console.log("아이디 바뀜");
+        checkWallet();
+      });
+    }
+  });
 
   return (
     <>

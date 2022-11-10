@@ -3,15 +3,14 @@ import { RootState } from "@/store";
 
 interface AccountState {
   account: {
-    nickname: string | null;
     address: string | null;
-    userId: number | null;
+    userId: string | null | undefined;
     token: string | null | undefined;
   };
 }
 
 const initialState: AccountState = {
-  account: { nickname: null, address: null, userId: null, token: null },
+  account: { address: null, userId: null, token: null },
 };
 
 const slice = createSlice({
@@ -22,17 +21,20 @@ const slice = createSlice({
     setAccount: (
       state,
       action: PayloadAction<{
-        nickname: string | null;
-        address: string | null;
-        userId: number | null;
+        token: string | null | undefined;
+        userId: string | null | undefined;
       }>
     ) => {
-      state.account.address = action.payload.address;
-      state.account.nickname = action.payload.nickname;
       state.account.userId = action.payload.userId;
-    },
-    setToken: (state, action: PayloadAction<{ token: string | null | undefined }>) => {
       state.account.token = action.payload.token;
+    },
+    setAddress: (state, action: PayloadAction<{ address: string | null }>) => {
+      state.account.address = action.payload.address;
+    },
+    logout: (state) => {
+      state.account.userId = null;
+      state.account.token = null;
+      state.account.address = null;
     },
   },
 });
@@ -45,5 +47,5 @@ export const selectAccount = createSelector(
   (account) => account
 );
 
-export const { setAccount, setToken } = slice.actions;
+export const { setAccount, setAddress, logout } = slice.actions;
 export default slice.reducer;
