@@ -1,4 +1,4 @@
-import style from "./confirmModal.module.scss";
+import style from "./ConfirmModal.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Modal, Button } from "@/components/common";
 import { resetNFTValue } from "@/store/selectNFTSlice";
