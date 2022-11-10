@@ -1,23 +1,17 @@
 package com.b102.sellyuserservice.model.service;
 
-import com.b102.sellyuserservice.domain.dto.FollowDto;
-import com.b102.sellyuserservice.domain.dto.NftPieceDto;
+import com.b102.sellyuserservice.controller.UserController;
 import com.b102.sellyuserservice.domain.dto.UserDto;
-import com.b102.sellyuserservice.domain.entity.FollowEntity;
-import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
-import com.b102.sellyuserservice.model.repository.FollowRepository;
 import com.b102.sellyuserservice.model.repository.NftPieceRepository;
 import com.b102.sellyuserservice.model.repository.UserRepository;
 
 import com.b102.sellyuserservice.vo.*;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,7 +22,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,11 +31,22 @@ public class UserServiceImpl implements UserService {
   private final BCryptPasswordEncoder passwordEncoder;
   private final ModelMapper mapper;
 
+  private UserController userController;
   @Override
   public UserDetails loadUserByUsername(String wallet) throws UsernameNotFoundException {
     UserEntity userEntity = userRepository.findByWallet(wallet);
     if(userEntity == null){
-      throw new UsernameNotFoundException(wallet);
+      UserDto userDto = new UserDto();
+      userDto.setWallet(wallet);
+      userDto.setPwd(wallet);
+      try {
+        UserDto returnValue = createUser(userDto);
+        userEntity = mapper.map(returnValue, UserEntity.class);
+      } catch (UnsupportedEncodingException e) {
+        throw new RuntimeException(e);
+      }
+
+//      throw new UsernameNotFoundException(wallet);
     }
     return new User(userEntity.getWallet(), userEntity.getEncryptedPwd(), true, true, true, true, new ArrayList<>());
   }
