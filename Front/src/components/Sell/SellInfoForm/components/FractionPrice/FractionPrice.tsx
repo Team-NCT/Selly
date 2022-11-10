@@ -9,8 +9,12 @@ const FractionPrice = ({ value, changeHandler, setIsPriceTrue }: FractionPricePr
   const [status, setStatus] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!value) return;
-    if (!isNumber(value) || !numberinRange(99999, 0, value) || !fPointCheck(value, 4)) {
+    if (!value) {
+      setStatus(true);
+      setIsPriceTrue(false);
+      return;
+    }
+    if (!isNumber(value) || !numberinRange(9999999, -1, value) || !fPointCheck(value, 4)) {
       setErrorMessage("소수점은 4자리까지 입력하실 수 있습니다.");
       setStatus(false);
       setIsPriceTrue(false);
@@ -35,6 +39,7 @@ const FractionPrice = ({ value, changeHandler, setIsPriceTrue }: FractionPricePr
         status={status}
         errorMessage={errorMessage}
         step={1}
+        min={0}
         placeHolder="0.0"
       />
     </div>

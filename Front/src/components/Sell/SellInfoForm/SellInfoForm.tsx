@@ -6,6 +6,7 @@ import { FractionCode, FractionNum, FractionPrice, Category } from "./components
 import { setSellInfo, SellInfoState, selectSellInfo } from "@/store/sellInfoSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { selectNFTValue } from "@/store/selectNFTSlice";
+import { isNumber } from "@/helpers/utils/numberValidation";
 
 const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
   const dispatch = useAppDispatch();
@@ -18,9 +19,9 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
   const [isPriceTrue, setIsPriceTrue] = useState<boolean>(false);
   const [submittable, setSubmittable] = useState(false);
   const [values, setValues] = useState<SellInfoState>(sellInfo);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   // TODO_YK: 각 인풋폼의 유효성 검사 정확히 만들기
-  // TODO_YK: 카드 선택 + 유효성 검사 만족시 버튼 disabled false로 만드는 로직 추가하기
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
@@ -38,9 +39,7 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
   //TODO_YK 유효성 검사 제대로 만들기
   //* 3가지 유효성 검사를 모두 통과 + 카드가 선택되면 Continue 활성화
   useEffect(() => {
-    console.log("bb");
     if (isCodeTrue && isNumTrue && isPriceTrue && NFTValue.CA) {
-      console.log("aa");
       setSubmittable(true);
     } else {
       setSubmittable(false);
@@ -48,6 +47,14 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
   }, [isCodeTrue, isNumTrue, isPriceTrue, NFTValue]);
 
   // TODO_YK: 총 가격 연산 식 제대로 만들기
+  useEffect(() => {
+    if (isNumber(values.num) && isNumber(values.price)) {
+      setTotalPrice(Number(values.num) * Number(values.price));
+      return;
+    }
+    setTotalPrice(0);
+  }, [values.num, values.price]);
+
   return (
     <article>
       <form
@@ -69,6 +76,7 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
         <div className={style.total_price}>
           <p>총 가격</p>
           <p>{values.num * values.price} ETH</p>
+          <p>{totalPrice} ETH</p>
         </div>
         <Button size="fillContainer" disabled={!submittable}>
           Continue

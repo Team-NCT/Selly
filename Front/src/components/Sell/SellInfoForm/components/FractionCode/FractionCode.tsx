@@ -9,9 +9,13 @@ const FractionCode = ({ value, changeHandler, setIsCodeTrue }: FractionCodeProps
   const [status, setStatus] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!value) return;
+    if (!value) {
+      setStatus(true);
+      setIsCodeTrue(false);
+      return;
+    }
     if (!checkEnglish.test(value)) {
-      setErrorMessage("영어의 조합만 가능합니다.");
+      setErrorMessage("알파벳만 가능합니다.");
       setStatus(false);
       setIsCodeTrue(false);
     } else {
