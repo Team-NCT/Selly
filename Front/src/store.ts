@@ -25,7 +25,7 @@ import {
 } from "@/store/index";
 
 //* API
-import { NFTDetailAPI, searchAPI, loginAPI, createNFTAPI } from "@/api/server";
+import { NFTDetailAPI, searchAPI, loginAPI, createNFTAPI, userAPI } from "@/api/server";
 
 const reducers = combineReducers({
   alert,
@@ -40,6 +40,7 @@ const reducers = combineReducers({
   [searchAPI.reducerPath]: searchAPI.reducer,
   [loginAPI.reducerPath]: loginAPI.reducer,
   [createNFTAPI.reducerPath]: createNFTAPI.reducer,
+  [userAPI.reducerPath]: userAPI.reducer,
 });
 
 // * session storage

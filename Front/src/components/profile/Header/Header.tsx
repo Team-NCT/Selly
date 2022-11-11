@@ -7,9 +7,17 @@ import { CopyIcon } from "@/components/icon";
 import { copyAlertData } from "@/helpers/utils/copyFuction";
 import { useAlert, useAppDispatch } from "@/hooks";
 import { openFollower, openFollowing } from "@/store/modalSlice";
+import {
+  useFetchUserProfileQuery,
+  useFollowMutation,
+  useUnFollowMutation,
+} from "@/api/server/userAPI";
 
 const Header = () => {
   const { openAlertModal } = useAlert();
+  const { data, isError, isLoading } = useFetchUserProfileQuery({ profileId: 4, userId: 0 });
+  const [follow] = useFollowMutation();
+  const [unFollow] = useUnFollowMutation();
 
   const { account } = useAppSelector(selectAccount);
   const { profileData } = useAppSelector(selectProfileData);
@@ -19,6 +27,23 @@ const Header = () => {
     const alertData = copyAlertData(profileData.wallet || "");
     openAlertModal(alertData);
   };
+
+  const followOnclickHandler = async () => {
+    const res = await follow({ followerId: 4, followingId: 1 }).unwrap();
+    console.log(res);
+  };
+
+  const unFollowOnClickHandler = async () => {
+    const res = await unFollow({ followerId: 4, followingId: 1 }).unwrap();
+    console.log(res);
+  };
+
+  const testFetchUser = () => {
+    console.log("데이터", data);
+    console.log("에러", isError);
+    console.log("로딩", isLoading);
+  };
+
   return (
     <header className={style.header}>
       <div className={style.profilImage}>
@@ -45,8 +70,14 @@ const Header = () => {
               <div className={style.followNumber}>{profileData.followingCnt}</div>
             </button>
           </div>
-          <Button size="fillContainer" type="button">
+          <Button size="fillContainer" type="button" onClick={testFetchUser}>
+            테스트 페치
+          </Button>
+          <Button size="fillContainer" type="button" onClick={followOnclickHandler}>
             Follow
+          </Button>
+          <Button size="fillContainer" type="button" onClick={unFollowOnClickHandler}>
+            UnFollow
           </Button>
         </div>
       </section>
