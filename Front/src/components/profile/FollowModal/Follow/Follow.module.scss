@@ -1,0 +1,39 @@
+.follow_article {
+  @include flex(row, space-between, center);
+  width: 100%;
+  gap: 28px;
+
+  .user_info {
+    @include flex(row, flex-start);
+    gap: 6px;
+    
+    .user_text_info {
+      @include flex(column, center, flex-start);
+      gap: 6px;
+    
+      .nickname {
+        @include font($body1, $semibold);
+      }
+      
+      .wallet {
+        @include flex(row, flex-start);
+      
+        .wallet_address {
+          @include font($body2, $regular, $black100);
+          width: 106px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+  .button_section {
+    width: 120px;
+
+    Button {
+      @include font($body2, $bold);
+    }
+  }
+}
+
+
