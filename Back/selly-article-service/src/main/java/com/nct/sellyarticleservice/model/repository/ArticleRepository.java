@@ -9,7 +9,7 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
   Long countBy();
 
-  List<Article> findAllByCategoryAndAvailability(String category, boolean availability);
+  List<Article> findAllByCategoryAndAvailability(String category, boolean availability, Sort sort);
 
   List<Article> findAllByAvailability(boolean availability, Sort sort);
 

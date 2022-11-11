@@ -51,10 +51,10 @@ public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
   }
 
   // 카테고리 정렬
-  @GetMapping("/category-filter/{category}")
-  public List<Article> articleCategoryFilter(@PathVariable("category") String category) {
+  @GetMapping("/category-filter/{category}/{sort}/{order}")
+  public List<ArticleResponse> articleCategoryFilter(@PathVariable("category") String category, @PathVariable("sort")String sort, @PathVariable("order") String  order) {
     boolean availability = true;
-    return articleService.articleCategoryFilter(category, availability);
+    return articleService.articleCategoryFilter(category, availability, sort, order);
   }
 
   // 정렬 필터

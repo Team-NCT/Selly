@@ -18,7 +18,7 @@ public interface ArticleService {
 
    Long numberOfArticle();
 
-   List<Article> articleCategoryFilter(String category, boolean avaiability);
+   List<ArticleResponse> articleCategoryFilter(String category, boolean avaiability, String sort, String order);
 
   ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id);
 
