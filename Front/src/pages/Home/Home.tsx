@@ -4,6 +4,7 @@ import { ArtistRanking, ArtRanking, HomeHeader, Category, SocialProof } from "@/
 function Home() {
   return (
     <div className={style.home}>
+      <div className={style.background}></div>
       <main>
         <HomeHeader />
         <ArtRanking />

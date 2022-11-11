@@ -1,0 +1,183 @@
+.cardSection {
+  @include grid(21%);
+  margin-top: 64px;
+  margin-bottom: 40px;
+  width: 100%;
+
+  gap: 32px;
+  @media (max-width: 800px) {
+    @include grid(40%);
+    gap: 10%;
+  }
+}
+
+.card {
+  @include shadow-drop3;
+  width: 100%;
+  padding-top: min(100%, 224px);
+  max-width: 224px;
+  color: $black350;
+  border-radius: 8px;
+}
+
+.card_bottom {
+  @include flex(row, center, center);
+
+  position: absolute;
+  height: 21.4%;
+  bottom: 0px;
+  width: 100%;
+  border-radius: 0 0 8px 8px;
+  background: $white;
+}
+
+.card_bottom_text {
+  font-size: 32px;
+
+  font-weight: $semibold;
+  text-align: center;
+
+  @media (max-width: 1375px) {
+    font-size: 24px;
+  }
+  @media (max-width: 950px) {
+    font-size: 20px;
+  }
+  @media (max-width: 800px) {
+    font-size: 4.5vw;
+  }
+}
+
+@mixin emoji {
+  position: absolute;
+  width: 29%;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.all {
+  transform: matrix(0.99, -0.14, 0.14, 0.99, 0, 0);
+  background: $muscat150;
+  position: relative;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+}
+
+.huggingFace {
+  @include emoji;
+  left: 34%;
+  top: 5%;
+}
+
+.heartRibbon {
+  @include emoji;
+  left: 13%;
+  top: 40%;
+}
+
+.kissingCat {
+  @include emoji;
+  left: 58%;
+  top: 35.7%;
+}
+
+.digital {
+  transform: matrix(0.99, 0.14, -0.14, 0.99, 0, 0);
+  background: $lilac;
+
+  transition: all 0.3s;
+
+  &:hover {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+}
+
+.smilingFaceHearts {
+  @include emoji;
+
+  left: 13.4%;
+  top: 17.9%;
+}
+
+.phone {
+  @include emoji;
+
+  left: 40.2%;
+  top: 44.6%;
+}
+
+.lightBulb {
+  @include emoji;
+
+  left: 62.5%;
+  top: 9%;
+}
+
+.analog {
+  transform: matrix(0.99, -0.14, 0.14, 0.99, 0, 0);
+  background: $marmalade;
+
+  transition: all 0.3s;
+
+  &:hover {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+}
+
+.palette {
+  @include emoji;
+
+  left: 10.7%;
+  top: 10.7%;
+}
+
+.ribbon {
+  @include emoji;
+
+  left: 26.8%;
+  top: 44.6%;
+}
+
+.paintbrush {
+  @include emoji;
+
+  left: 58%;
+  top: 20.1%;
+}
+
+.photography {
+  transform: matrix(0.99, 0.14, -0.14, 0.99, 0, 0);
+  background: $ocean150;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+}
+
+.sailboat {
+  @include emoji;
+
+  left: 9%;
+  top: 26.8%;
+}
+
+.camera {
+  @include emoji;
+
+  left: 37.5%;
+  top: 4.5%;
+}
+
+.camping {
+  @include emoji;
+
+  left: 53.6%;
+  top: 44.6%;
+}
