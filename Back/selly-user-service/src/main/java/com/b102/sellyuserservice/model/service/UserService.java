@@ -33,4 +33,7 @@ public interface UserService extends UserDetailsService {
   List<SearchUserResponse> findByKeyword(String keyword);
 
   String trade(Long userId, TradeRequest tradeRequest);
+
+  // 중복 닉네임 검색
+  String findByNickname(String nickname);
 }

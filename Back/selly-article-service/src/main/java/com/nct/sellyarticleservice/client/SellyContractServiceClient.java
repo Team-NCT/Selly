@@ -15,11 +15,12 @@ import java.util.List;
 @FeignClient(name="selly-contract-service")
 public interface SellyContractServiceClient {
 
-//  @PostMapping("/minting")
   @GetMapping("/minting")
-//  ResponseMinting getMinting(@RequestBody RequestMinting requestMinting);
   ResponseMinting getMinting();
+//  @GetMapping("/listen")
+//  ResponseListen getListen();
   @GetMapping("/listen/{wallet}")
   ResponseListen getListen(@PathVariable("wallet") String wallet);
+
 
 }

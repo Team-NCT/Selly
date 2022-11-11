@@ -173,4 +173,10 @@ public class UserController {
   public List<SearchUserResponse> userSearch(@PathVariable("keyword") String keyword) {
     return userService.findByKeyword(keyword);
   }
+
+  @GetMapping("/nicknameCheck/{nickname}")
+  public String nicknameCheck(@PathVariable("nickname") String nickname){
+    return userService.findByNickname(nickname);
+  }
+
 }
