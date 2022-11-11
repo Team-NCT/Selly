@@ -1,5 +1,5 @@
 import style from "./Home.module.scss";
-import { ArtistRanking, ArtRanking, HomeHeader } from "@/components/home";
+import { ArtistRanking, ArtRanking, HomeHeader, Category } from "@/components/home";
 
 function Home() {
   return (
@@ -8,6 +8,7 @@ function Home() {
         <HomeHeader />
         <ArtRanking />
         <ArtistRanking />
+        <Category />
       </main>
     </div>
   );

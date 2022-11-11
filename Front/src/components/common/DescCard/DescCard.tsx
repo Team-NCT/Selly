@@ -1,18 +1,22 @@
 import style from "./DescCard.module.scss";
 import { DescCardProps } from "./DescCard.types";
 
-const DescCard = ({ url, title, price, profit }: DescCardProps) => {
+const DescCard = ({ articleImgUrl, articleName, recentMarketPrice, rateChange }: DescCardProps) => {
   return (
     <div className={style.card}>
       <figure>
-        <img src={url} alt={title}></img>
+        <img src={articleImgUrl} alt={articleName}></img>
       </figure>
       <div className={style.card_content}>
-        <p className={style.card_content_title}>{title}</p>
+        <p className={style.card_content_title}>{articleName}</p>
         <div className={style.card_content_desc}>
-          <p>{price} ETH</p>
-          {profit > 0 && <p className={style.red}> +{+profit.toFixed(2)}%</p>}
-          {profit <= 0 && <p className={style.blue}> -{-profit.toFixed(2)}%</p>}
+          <p>{recentMarketPrice ? recentMarketPrice + "ETH" : "-"}</p>
+          {rateChange && rateChange >= 0 && (
+            <p className={style.red}> +{+rateChange.toFixed(2)}%</p>
+          )}
+          {rateChange && rateChange < 0 && (
+            <p className={style.blue}> -{-rateChange.toFixed(2)}%</p>
+          )}
         </div>
       </div>
     </div>
