@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./FollowModal.module.scss";
 import { Modal, Button } from "@/components/common";
+import { LeftArrowIcon } from "@/components/icon";
 import { TabType, FollowModalProps } from "./FollowModal.types";
 import { useAppDispatch } from "@/hooks";
 import { closeFollow } from "@/store/modalSlice";
@@ -184,14 +185,16 @@ const FollowModal = ({ type }: FollowModalProps) => {
     <Modal close={() => dispatch(closeFollow())}>
       <section className={style.follow_modal}>
         <h1 className={style.header}>
-          <button onClick={() => dispatch(closeFollow())}>뒤로가기</button>
+          <button onClick={() => dispatch(closeFollow())}>
+            <LeftArrowIcon />
+          </button>
           <p>김김작가작가작가작가작가</p>
         </h1>
         <section className={`${style.follow_tab} ${style[`follow_tab_${tab}`]}`}>
           <button className={style.followers_tab} onClick={() => tabClickHandler("FOLLOWER")}>
             Followers
           </button>
-          <button className={style.followings_tab} onClick={() => tabClickHandler("FOLLOWING")}>
+          <button className={style.following_tab} onClick={() => tabClickHandler("FOLLOWING")}>
             Following
           </button>
         </section>

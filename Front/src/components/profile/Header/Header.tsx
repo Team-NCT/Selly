@@ -16,7 +16,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
 
   const copyHandler = () => {
-    const alertData = copyAlertData(account.address || "");
+    const alertData = copyAlertData(profileData.wallet || "");
     openAlertModal(alertData);
   };
   return (
@@ -27,9 +27,9 @@ const Header = () => {
 
       <section className={style.section}>
         <div className={style.leftSection}>
-          <div className={style.nickname}>{account.nickname}</div>
+          <div className={style.nickname}>{profileData.nickname}</div>
           <div className={style.addressSection} onClick={copyHandler} aria-hidden="true">
-            <div className={style.address}>{account.address}</div>
+            <div className={style.address}>{profileData.wallet}</div>
             <CopyIcon disabled />
           </div>
           <div className={style.bio}>{profileData.introduction}</div>
@@ -38,11 +38,11 @@ const Header = () => {
           <div className={style.followSection}>
             <button onClick={() => dispatch(openFollower())}>
               <div className={style.followTitle}>Followers</div>
-              <div className={style.followNumber}>658</div>
+              <div className={style.followNumber}>{profileData.followerCnt}</div>
             </button>
             <button onClick={() => dispatch(openFollowing())}>
               <div className={style.followTitle}>Following</div>
-              <div className={style.followNumber}>213</div>
+              <div className={style.followNumber}>{profileData.followingCnt}</div>
             </button>
           </div>
           <Button size="fillContainer" type="button">

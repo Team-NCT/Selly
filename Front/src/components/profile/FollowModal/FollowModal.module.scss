@@ -1,10 +1,25 @@
 .follow_modal {
   @include flex(column, center, center);
-  width: 500px;
-  height: 500px;
+  @include shadow-modal;
+  width: calc(100vw - 32px);
+  max-width: 624px;
+  padding: 32px 32px 60px 32px;
+  gap: 32px;
+  border-radius: $radius-modal;
+
+  @include mobile {
+    padding: 24px 24px 52px 24px;
+  }
   
   .header {
-    @include flex(row, flex-start, center)
+    @include flex(row, flex-start, center);
+    @include font($h4, $semibold);
+    width: 100%;
+    gap: 32px;
+
+    button {
+      transform: translateY(8%);
+    }
   }
 
   .follow_tab {
@@ -19,19 +34,19 @@
       color: $black;
       border-bottom: 2px solid $black;
     }
+  }
 
-    .follow_tab_FOLLOWER {
-      .followers_tab {
-        color: $black350;
-        border-bottom: 2px solid $black350;
-      }
+  .follow_tab_FOLLOWER {
+    .followers_tab {
+      color: $black350;
+      border-bottom: 2px solid $black350;
     }
-  
-    .followe_tab_FOLLOWING {
-      .followers_tab {
-        color: $black350;
-        border-bottom: 2px solid $black350;
-      }
+  }
+
+  .follow_tab_FOLLOWING {
+    .following_tab {
+      color: $black350;
+      border-bottom: 2px solid $black350;
     }
   }
 
@@ -39,9 +54,9 @@
     @include flex(column, flex-start, center);
     @include hide-scroll;
     width: 100%;
-    height:300px;
+    height:480px;
     gap: 40px;
-    padding: 32px;
+    padding: 0 32px;
     overflow-y: scroll;
   }
 

@@ -15,7 +15,7 @@ const Follow = ({ data }: FollowProps) => {
         <div className={style.user_info}>
           <ProfileImage size="xxs" profileStyle="square" url={data.image} />
           <div className={style.user_text_info}>
-            <p className={style.nickname}>{data.nickname}</p>
+            <div className={style.nickname}>{data.nickname}</div>
             <div className={style.wallet}>
               <EthereumIcon />
               <p className={style.wallet_address}>{data.wallet}</p>
