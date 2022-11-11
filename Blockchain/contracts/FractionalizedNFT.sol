@@ -39,9 +39,29 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
   bool public ended = false;
 
   // 이벤트
-  event HighestBidIncreased(address preBidder, uint256 preAmount, address bidder, uint256 amount);
-  event Burn(address user, uint256 amount);
-  event Check(uint256 amount, address[] users, uint256 index);
+  event CreateSale (
+    address indexed F_CA,
+    address F_SaleCA,
+    address indexed seller,
+    uint256 amount,
+    uint256 price
+  );
+  event StartAuc (
+    address indexed F_CA,
+    uint256 minimumPrice,
+    bool auctionStatus
+  );
+  event CancelAuc (address indexed F_CA, bool auctionStatus);
+  event HighestBidIncreased (
+    address indexed F_CA, 
+    address preBidder, 
+    uint256 preAmount, 
+    address bidder, 
+    uint256 amount
+  );
+  event EndAuc (address indexed F_CA, bool ended);
+  event Burn (address user, uint256 amount);
+  event Check (uint256 amount, address[] users, uint256 index);
   
   constructor(
     address _NFTCA, 
@@ -84,6 +104,9 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     transfer(F_NFTSaleCA, _amount);
 
     sellerAddress[F_NFTSaleCA] = msg.sender;
+
+    emit CreateSale(address(this), F_NFTSaleCA, msg.sender, _amount, _price);
+
     return F_NFTSaleCA;
   }
 
@@ -107,6 +130,8 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
 
     auctionStatus = true;
     minimumPrice = _startPrice;
+
+    emit StartAuc(address(this), _startPrice, auctionStatus);
   }
 
   function cancelAuction() external {
@@ -116,6 +141,8 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     require(auctionStatus, "Not to auction");
 
     auctionStatus = false;
+
+    emit CancelAuc(address(this), auctionStatus);
   }
 
   function bid () external payable {
@@ -135,7 +162,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
       auctionEndTime = block.timestamp + threeday;
     }
 
-    emit HighestBidIncreased(highestBidder, highestBid, msg.sender, msg.value);
+    emit HighestBidIncreased(address(this), highestBidder, highestBid, msg.sender, msg.value);
 
     highestBidder = msg.sender;
     highestBid = msg.value;
@@ -143,7 +170,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
 
   function auctionEnd() public {
     require(!ended, "Already called");
-    // require(block.timestamp >= auctionEndTime, "To auction");
+    require(block.timestamp >= auctionEndTime, "To auction");
     require(highestBid != 0, "Nobody makes a bid");
 
     ended = true;
@@ -162,7 +189,7 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
       possessions = balanceOf(partyAddresses[0]);
       user = partyAddresses[0];
       
-      emit Check( possessions, partyAddresses, partyAddresses.length);
+      // emit Check( possessions, partyAddresses, partyAddresses.length);
       _burn(user, possessions);
 
       toRedeem = possessions * totalEther / totalFractions;
@@ -174,7 +201,9 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
       }
       payable(user).transfer(toRedeem);
     }
-    // selfdestruct(payable(creater)); // Todo: 테스트 끝나면 활성화시키기
+
+    emit EndAuc(address(this), ended);
+    selfdestruct(payable(creater));
   }
 
   function _afterTokenTransfer(

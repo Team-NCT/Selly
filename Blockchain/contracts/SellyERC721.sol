@@ -8,9 +8,9 @@ contract SellyERC721 is ERC721Enumerable {
     mapping(uint256 => string) tokenURIs;
 
     event mintNFT(
-        uint256 indexed _tokenId,
-        address indexed _owner,
-        string _tokenURI
+        uint256 indexed tokenId,
+        address indexed owner,
+        string tokenURI
     );
 
     constructor() ERC721("Selly", "B102") {}
@@ -36,7 +36,7 @@ contract SellyERC721 is ERC721Enumerable {
         tokenURIs[tokenId] = _tokenURI;
         _tokenIds = tokenId;
         _mint(to, tokenId);
-        // emit mintNFT(tokenId, to, _tokenURI);
+        emit mintNFT(tokenId, to, _tokenURI);
         return tokenId;
     }
 
@@ -49,7 +49,7 @@ contract SellyERC721 is ERC721Enumerable {
         tokenURIs[tokenId] = _tokenURI;
         _tokenIds = tokenId;
         _mint(me, tokenId);
-        // emit mintNFT(tokenId, me, _tokenURI);
+        emit mintNFT(tokenId, me, _tokenURI);
         return tokenId;
     }
 
