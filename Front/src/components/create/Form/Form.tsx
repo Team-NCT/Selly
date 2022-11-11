@@ -69,8 +69,18 @@ const Form = () => {
         from: response.from,
         data: response.data,
       };
-      await web3.eth.sendTransaction(payload);
-      navigate("/");
+      await web3.eth
+        .sendTransaction(payload)
+        .then(() => {
+          const data: OpenAlertArg = {
+            content: "민팅이 완료되었습니다",
+            style: "success",
+            icon: true,
+          };
+          openAlertModal(data);
+          navigate("/");
+        })
+        .catch((error) => errorHandler(error.message));
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
