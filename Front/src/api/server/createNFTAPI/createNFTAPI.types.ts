@@ -2,7 +2,7 @@ export interface CreateType {
   wallet: string | null;
   metaDataUrl: string;
   articleImgUrl: string;
-  owner: number;
+  owner: string | null | undefined;
   articleName: string;
 }
 

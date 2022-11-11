@@ -5,35 +5,52 @@ import { createNFT } from "@/api/IPFS";
 import style from "./Form.module.scss";
 import { useCreateMutation } from "@/api/server/createNFTAPI";
 import { selectAccount } from "@/store/loginSlice";
-import { useAppSelector } from "@/hooks";
+import { OpenAlertArg, useAlert, useAppSelector, useLogin } from "@/hooks";
 import { useNavigate } from "react-router-dom";
-import { changeNetwork, getChainId } from "@/helpers/service";
-import { GOERLI_ID } from "@/constants/metamask";
 import Web3 from "web3";
 
 const Form = () => {
   const navigate = useNavigate();
   const [create] = useCreateMutation();
+  const [loginHandler] = useLogin();
   const { account } = useAppSelector(selectAccount);
   const web3 = new Web3(window.ethereum);
+  const { openAlertModal } = useAlert();
 
-  //* 네트워크가 goeril이 아니면 goeril로 변경하는 함수
-  const checkNetwork = async () => {
-    if (window.ethereum) {
-      const chainId = await getChainId();
+  //* store에 userId가 있으면 넘어가고, 없으면 로그인 함수 실행하는 함수
+  const checkLogin = () => {
+    if (account.userId) return;
+    const data: OpenAlertArg = {
+      content: "민팅을 위해 자동로그인되었습니다.",
+      style: "info",
+      icon: true,
+    };
+    openAlertModal(data);
+    loginHandler();
+  };
 
-      //* 네트워크 변경 로직
-      if (GOERLI_ID !== chainId) {
-        changeNetwork(GOERLI_ID);
-      }
-      return;
+  const errorHandler = (message: string) => {
+    let data: OpenAlertArg = {
+      content: "에러가 발생했습니다. 다시 시도해주세요.",
+      style: "error",
+      icon: true,
+    };
+    if (message === "MetaMask Tx Signature: User denied transaction signature.") {
+      data = {
+        content: "서명이 거부되었습니다.",
+        style: "error",
+        icon: true,
+      };
     }
+    openAlertModal(data);
+    return;
   };
 
   //* 제출한 form
   const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
-    checkNetwork();
+    checkLogin();
+
     //* IPFS에 업로드하는 함수
     try {
       const createData = await createNFT(event);
@@ -42,7 +59,7 @@ const Form = () => {
         wallet: account.address,
         metaDataUrl: createData.metadataUrl,
         articleImgUrl: createData.imageUrl,
-        owner: 46,
+        owner: account.userId,
         articleName: createData.title,
       };
       const response = await create(body).unwrap();
@@ -55,7 +72,10 @@ const Form = () => {
       await web3.eth.sendTransaction(payload);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      errorHandler(message);
     }
   };
 

@@ -78,8 +78,6 @@ const Image = ({ setIsImageTrue }: ImageProps) => {
           limit={10}
           handleInputChange={handleInputChange}
           imageUrl={imageUrl}
-          status={isTrue}
-          errorMessage="이미지는 필수 항목입니다."
         />
       </article>
     </div>

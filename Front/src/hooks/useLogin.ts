@@ -4,13 +4,6 @@ import { setAddress } from "@/store/loginSlice";
 import { useAppDispatch } from "@/hooks/useStore";
 import { useLoginMutation } from "@/api/server/loginAPI";
 
-/**
- * 사용법
- * const walletAccount = useCheckLogined();
- * 로그인 안됬을 경우 "notLogined" 반환
- * 로그인 됬을 경우 chainID 반환
- */
-
 const useLogin = () => {
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
