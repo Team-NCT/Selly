@@ -22,7 +22,7 @@ COPY . ./build
 FROM nginx:stable-alpine
 RUN rm -rf /etc/nginx/conf.d/defalut.conf
 
-COPY --from=build-stage ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 3000
 
