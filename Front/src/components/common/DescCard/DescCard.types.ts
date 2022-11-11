@@ -2,20 +2,20 @@ export interface DescCardProps {
   /**
    * NFT 이미지 url
    */
-  url: string;
+  articleImgUrl: string;
 
   /**
    * NFT 제목
    */
-  title: string;
+  articleName: string;
 
   /**
-   * NFT 최종 거래 가격
+   * NFT 최근 거래 가격
    */
-  price: number;
+  recentMarketPrice: number | null;
 
   /**
-   * NFT 수익율
+   * NFT 증감율
    */
-  profit: number;
+  rateChange?: number | null;
 }

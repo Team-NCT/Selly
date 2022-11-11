@@ -2,22 +2,26 @@ import style from "./FractionCode.module.scss";
 import { Label, TextInput } from "@/components/common";
 import { FractionCodeProps } from "./FractionCode.types";
 import { useState, useEffect } from "react";
-import { checkEnglish } from "@/helpers/utils/checkLanguage";
+import { checkNumEng } from "@/helpers/utils/checkLanguage";
 
 const FractionCode = ({ value, changeHandler, setIsCodeTrue }: FractionCodeProps) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [status, setStatus] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!value) return;
-    if (!checkEnglish.test(value)) {
-      setErrorMessage("영어의 조합만 가능합니다.");
+    if (!value) {
+      setStatus(true);
+      setIsCodeTrue(false);
+      return;
+    }
+    if (!checkNumEng(value)) {
+      setErrorMessage("영문자와 숫자만 입력해주세요");
       setStatus(false);
       setIsCodeTrue(false);
-    } else {
-      setStatus(true);
-      setIsCodeTrue(true);
+      return;
     }
+    setStatus(true);
+    setIsCodeTrue(true);
   }, [value]);
 
   return (
