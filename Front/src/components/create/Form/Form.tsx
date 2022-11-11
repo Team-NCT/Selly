@@ -3,10 +3,14 @@ import { Button } from "@/components/common";
 import { Description, Image, Title, Link, Property } from "./components";
 import { createNFT } from "@/api/IPFS";
 import style from "./Form.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useCreateMutation } from "@/api/server/createNFTAPI";
+import { selectAccount } from "@/store/loginSlice";
+import { useAppSelector } from "@/hooks";
 
 const Form = () => {
-  const navigate = useNavigate();
+  const [create] = useCreateMutation();
+  const { account } = useAppSelector(selectAccount);
+
   //* 제출한 form
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
@@ -14,15 +18,17 @@ const Form = () => {
     const promise = createNFT(event);
     //* 업로드 후 metadataURl, ImageURL, title을 반환한다.
     promise.then((data) => {
-      const metadataUrl = data?.metadataUrl;
-      const imageUrl = data?.imageUrl;
-      const title = data?.title;
-      console.log("metadata", metadataUrl);
-      console.log("image", imageUrl);
-      console.log("title", title);
+      //@ TodoJY: authAPI 변경되면 owner받아와서 넣도록 수정
+      if (!data) return;
+      const body = {
+        wallet: account.address,
+        metaDataUrl: data.metadataUrl,
+        articleImgUrl: data.imageUrl,
+        owner: 46,
+        articleName: data.title,
+      };
+      create(body);
     });
-    //@ TodoJY: 서버에 요청 보내기
-    navigate("/");
   };
 
   //* 유효성 검사를 모두 통과하면 Create 버튼이 활성화된다.
