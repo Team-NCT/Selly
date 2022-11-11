@@ -1,0 +1,27 @@
+.search_result_header {
+  @include flex(row, flex-start, baseline);
+  gap: 20px;
+
+  h1 {
+    @include font($h3, $bold);
+
+    @include laptop {
+      @include font($h2, $bold);
+    }
+  }
+
+  h2 {
+    @include font($body1, $medium, $white400);
+
+    @include mobile {
+      max-width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    @include laptop {
+      @include font($h5, $medium, $white400);
+    }
+  }
+}

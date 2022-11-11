@@ -4,9 +4,17 @@ import { Neon, ProfileImage } from "@/components/common";
 import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
 import logoImage from "@/assets/images/logo.png";
+import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
+import { logout, selectAccount } from "@/store/loginSlice";
+import { useLogin } from "@/hooks";
 
 const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  //* account 정보
+  const { account } = useAppSelector(selectAccount);
+  const dispatch = useAppDispatch();
+  //* 로그인 훅
+  const [login] = useLogin();
+
   const [menuToggle, setMenuToggle] = useState(false);
 
   //* 아래로 스크롤 시 navbar 사라짐
@@ -148,19 +156,19 @@ const Navbar = () => {
               </NavLink>
             </li>
           </ul>
-          {isLogin ? (
+          {account.userId ? (
             <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
               <ProfileImage size="xxs" profileStyle="round" />
               <h5 className={styles.nav_username}>김김작가작가작가</h5>
               <div className={styles.dropdown_content_user}>
                 <h5>Balance</h5>
-                <NavLink to="/profile" className={styles.dropdown_item}>
+                <NavLink to={`/profile/${account.userId}`} className={styles.dropdown_item}>
                   Profile
                 </NavLink>
                 <NavLink to="/settings" className={styles.dropdown_item}>
                   Settings
                 </NavLink>
-                <NavLink to="/test" className={styles.dropdown_item}>
+                <NavLink to="/" className={styles.dropdown_item} onClick={() => dispatch(logout())}>
                   Logout
                 </NavLink>
               </div>
@@ -179,11 +187,13 @@ const Navbar = () => {
               onBlur={() => {
                 setWallet(50);
               }}>
-              <Neon color="lilac" positionH="top" positionW="right" width={wallet}>
-                <span className={`material-icons-outlined ${styles.wallet}`}>
-                  account_balance_wallet
-                </span>
-              </Neon>
+              <button onClick={login}>
+                <Neon color="lilac" positionH="top" positionW="right" width={wallet}>
+                  <span className={`material-icons-outlined ${styles.wallet}`}>
+                    account_balance_wallet
+                  </span>
+                </Neon>
+              </button>
             </li>
           )}
         </div>

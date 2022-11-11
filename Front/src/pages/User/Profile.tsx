@@ -15,6 +15,7 @@ const initialState = {
 
 function Profile() {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(
       setProfileData({
