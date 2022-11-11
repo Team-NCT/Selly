@@ -10,6 +10,10 @@ COPY . .
 
 RUN ["npm", "run", "build"]
 
+FROM nginx:stable-alpine
+
+RUN rm -rf /etc/nginx/conf.d/defalut.conf
+
 RUN mkdir /app
 
 WORKDIR /app
@@ -17,10 +21,6 @@ WORKDIR /app
 RUN mkdir ./build
 
 COPY . ./build
-
-
-FROM nginx:stable-alpine
-RUN rm -rf /etc/nginx/conf.d/defalut.conf
 
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
