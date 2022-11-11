@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/common";
+import { Button, LoadingModal } from "@/components/common";
 import { Description, Image, Title, Link, Property } from "./components";
 import { createNFT } from "@/api/IPFS";
 import style from "./Form.module.scss";
@@ -100,6 +100,7 @@ const Form = () => {
 
   return (
     <form id="create-form" onSubmit={(e) => submitHandler(e)}>
+      <LoadingModal />
       <section className={style.form_container}>
         <div className={style.image_title_description}>
           <div className={style.image}>
