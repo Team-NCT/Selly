@@ -5,30 +5,88 @@ import { createNFT } from "@/api/IPFS";
 import style from "./Form.module.scss";
 import { useCreateMutation } from "@/api/server/createNFTAPI";
 import { selectAccount } from "@/store/loginSlice";
-import { useAppSelector } from "@/hooks";
+import { OpenAlertArg, useAlert, useAppSelector, useLogin } from "@/hooks";
+import { useNavigate } from "react-router-dom";
+import Web3 from "web3";
 
 const Form = () => {
+  const navigate = useNavigate();
   const [create] = useCreateMutation();
+  const [loginHandler] = useLogin();
   const { account } = useAppSelector(selectAccount);
+  const web3 = new Web3(window.ethereum);
+  const { openAlertModal } = useAlert();
+
+  //* store에 userId가 있으면 넘어가고, 없으면 로그인 함수 실행하는 함수
+  const checkLogin = () => {
+    if (account.userId) return;
+    const data: OpenAlertArg = {
+      content: "민팅을 위해 자동로그인되었습니다.",
+      style: "info",
+      icon: true,
+    };
+    openAlertModal(data);
+    loginHandler();
+  };
+
+  const errorHandler = (message: string) => {
+    let data: OpenAlertArg = {
+      content: "에러가 발생했습니다. 다시 시도해주세요.",
+      style: "error",
+      icon: true,
+    };
+    if (message === "MetaMask Tx Signature: User denied transaction signature.") {
+      data = {
+        content: "서명이 거부되었습니다.",
+        style: "error",
+        icon: true,
+      };
+    }
+    openAlertModal(data);
+    return;
+  };
 
   //* 제출한 form
-  const submitHandler = (event: React.FormEvent) => {
+  const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
+    checkLogin();
+
     //* IPFS에 업로드하는 함수
-    const promise = createNFT(event);
-    //* 업로드 후 metadataURl, ImageURL, title을 반환한다.
-    promise.then((data) => {
-      //@ TodoJY: authAPI 변경되면 owner받아와서 넣도록 수정
-      if (!data) return;
+    try {
+      const createData = await createNFT(event);
+      if (!createData) return;
       const body = {
         wallet: account.address,
-        metaDataUrl: data.metadataUrl,
-        articleImgUrl: data.imageUrl,
-        owner: 46,
-        articleName: data.title,
+        metaDataUrl: createData.metadataUrl,
+        articleImgUrl: createData.imageUrl,
+        owner: account.userId,
+        articleName: createData.title,
       };
-      create(body);
-    });
+      const response = await create(body).unwrap();
+      const payload = {
+        nonce: response.nonce,
+        to: response.to,
+        from: response.from,
+        data: response.data,
+      };
+      await web3.eth
+        .sendTransaction(payload)
+        .then(() => {
+          const data: OpenAlertArg = {
+            content: "민팅이 완료되었습니다",
+            style: "success",
+            icon: true,
+          };
+          openAlertModal(data);
+          navigate("/");
+        })
+        .catch((error) => errorHandler(error.message));
+    } catch (error) {
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      errorHandler(message);
+    }
   };
 
   //* 유효성 검사를 모두 통과하면 Create 버튼이 활성화된다.
