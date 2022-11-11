@@ -1,71 +1,106 @@
 .header {
-  width: 100%;
-  height: 270px;
   @include flex(row, space-between, flex-start);
+  width: 100%;
+  position: relative;
 }
 
 .leftSection {
-  width: 50%;
   @include flex(column, center, flex-start);
+  width: 100%;
   gap: 32px;
+
+  @media (max-width: 550px) {
+    gap: 5vw;
+  }
 }
 
 .title {
   @include font($h1, $bold);
   line-height: 64px;
+
+  @media (max-width: 550px) {
+    font-size: 8.5vw;
+    line-height: 10vw;
+  }
 }
 
 .introduction {
   @include font($h4, $medium);
   @include flex(column, flex-start, flex-start);
   line-height: 40px;
+
+  @media (max-width: 550px) {
+    font-size: 5vw;
+    line-height: 6vw;
+  }
 }
 
 .buttonSection {
   @include flex(row, flex-start);
   width: 100%;
   gap: 24px;
+
+  @media (max-width: 550px) {
+    gap: 5%;
+  }
 }
 
 .wallet {
-  background: $navy350;
   @include flex(row, flex-start, center);
   @include font($h5, $bold, $white);
+  background: $navy350;
   padding: 8px 40px 8px 40px;
   border-radius: 24px;
   gap: 12px;
+
+  @media (max-width: 550px) {
+    font-size: 3.2vw;
+    gap: 1vw;
+  }
 }
 
-.walletIcon {
-  width: 20px;
-  height: 20px;
+.wallet_icon {
+  @include flex(row, flex-start, center);
+
+  @media (max-width: 550px) {
+    display: none;
+  }
 }
 
 .expore {
-  background: $muscat;
   @include font($h5, $bold, $black350);
+  background: $muscat;
   padding: 8px 40px 8px 40px;
   border-radius: 12px;
+
+  @media (max-width: 550px) {
+    font-size: 3.5vw;
+  }
 }
 
 .rightSection {
-  width: 36%;
-  padding-top: 26%;
-  position: relative;
+  width: 377px;
+  height: 272px;
+  right: 0px;
+  position: absolute;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 }
 
 .smilingFaceHeart_eyes {
   position: absolute;
-  top: 53%;
-  width: 20%;
+  top: 200px;
+  width: 80px;
   object-fit: contain;
 }
 
 .smilingFaceHearts {
   position: absolute;
-  top: 0%;
+  top: 0px;
   left: 78%;
-  width: 20%;
+  width: 80px;
   object-fit: cover;
 }
 
@@ -73,7 +108,7 @@
   position: absolute;
   top: 68%;
   left: 53%;
-  width: 20%;
+  width: 80px;
   object-fit: cover;
 }
 
@@ -81,6 +116,6 @@
   position: absolute;
   top: 3%;
   left: 27%;
-  width: 40%;
+  width: 160px;
   object-fit: contain;
 }
