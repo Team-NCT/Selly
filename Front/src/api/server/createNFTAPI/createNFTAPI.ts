@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { CONTRACT_SERVICE_API } from "@/constants/server";
-import { CreateType, DataType } from "./createNFTAPI.types";
+import { SignedTransactionType } from "@/types/transaction.types";
+import { CreateType } from "./createNFTAPI.types";
 
 export const createNFTAPI = createApi({
   reducerPath: "createNFTAPI",
@@ -8,14 +9,11 @@ export const createNFTAPI = createApi({
   tagTypes: ["create"],
   endpoints: (build) => ({
     //@ description: server에 Create NFT 정보를 보내는 API
-    create: build.mutation<DataType, CreateType>({
+    create: build.mutation<SignedTransactionType, CreateType>({
       query: (data) => ({
         url: "minting",
         method: "POST",
         body: data,
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
       }),
       invalidatesTags: ["create"],
     }),

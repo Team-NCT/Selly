@@ -36,6 +36,7 @@ export { default as DropdownList } from "./DropdownList/DropdownList";
 //* Alert & Modal
 export { default as Alert } from "./Alert/Alert";
 export { default as Modal } from "./Modal/Modal";
+export { default as LoadingModal } from "./LoadingModal/LoadingModal";
 
 //* Navbar
 export { default as Navbar } from "./Navbar/Navbar";
