@@ -6,6 +6,20 @@ $loader-dot-size: 20px;
   width: 100vw;
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  z-index: 1000;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+
+.content {
+  @include flex(column, space-evenly, center);
+  @include shadow-modal;
+  background-color: $white;
+  height: 40vh;
+  width: 50vw;
+  border-radius: $radius-modal;
 }
 
 .loader {
@@ -71,4 +85,13 @@ $loader-dot-size: 20px;
     background-color: $muscat;
     animation-delay: 0s;
   }
+}
+
+.desc1 {
+  @include font($h5, $semibold);
+  line-height: 26.4px;
+}
+
+.desc2 {
+  @include font($body1, $semibold, $danger-color);
 }

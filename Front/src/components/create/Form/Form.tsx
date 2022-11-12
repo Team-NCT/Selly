@@ -10,12 +10,13 @@ import { useNavigate } from "react-router-dom";
 import Web3 from "web3";
 
 const Form = () => {
-  const navigate = useNavigate();
-  const [create] = useCreateMutation();
-  const [loginHandler] = useLogin();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { account } = useAppSelector(selectAccount);
   const web3 = new Web3(window.ethereum);
   const { openAlertModal } = useAlert();
+  const [create] = useCreateMutation();
+  const [loginHandler] = useLogin();
+  const navigate = useNavigate();
 
   //* store에 userId가 있으면 넘어가고, 없으면 로그인 함수 실행하는 함수
   const checkLogin = () => {
@@ -30,6 +31,7 @@ const Form = () => {
   };
 
   const errorHandler = (message: string) => {
+    setIsModalOpen(false);
     let data: OpenAlertArg = {
       content: "에러가 발생했습니다. 다시 시도해주세요.",
       style: "error",
@@ -49,6 +51,7 @@ const Form = () => {
   //* 제출한 form
   const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
+    setIsModalOpen(true);
     checkLogin();
 
     //* IPFS에 업로드하는 함수
@@ -72,6 +75,7 @@ const Form = () => {
       await web3.eth
         .sendTransaction(payload)
         .then(() => {
+          setIsModalOpen(false);
           const data: OpenAlertArg = {
             content: "민팅이 완료되었습니다",
             style: "success",
@@ -100,7 +104,7 @@ const Form = () => {
 
   return (
     <form id="create-form" onSubmit={(e) => submitHandler(e)}>
-      <LoadingModal />
+      {isModalOpen && <LoadingModal />}
       <section className={style.form_container}>
         <div className={style.image_title_description}>
           <div className={style.image}>
