@@ -9,7 +9,7 @@ const NFTTransactionAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: TRADE_SERVICE_API,
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).account.account.token;
+      const token = (getState() as RootState).account.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
