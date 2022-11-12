@@ -14,16 +14,18 @@ $loader-dot-size: 20px;
 }
 
 .content {
-  @include flex(column, space-evenly, center);
+  @include flex(column, center, center);
   @include shadow-modal;
   background-color: $white;
-  height: 40vh;
-  width: 50vw;
+  height: 260px;
+  width: 80vw;
+  max-width: 600px;
+  padding: 16px;
   border-radius: $radius-modal;
 }
 
 .loader {
-  height: $loader-dot-size;
+  height: 45px;
   width: $loader-width;
 }
 
@@ -88,10 +90,19 @@ $loader-dot-size: 20px;
 }
 
 .desc1 {
-  @include font($h5, $semibold);
+  @include font($body2, $semibold);
   line-height: 26.4px;
+  text-align: center;
+  @include tablet {
+    @include font($h5, $semibold);
+  }
 }
 
 .desc2 {
-  @include font($body1, $semibold, $danger-color);
+  @include font($caption, $semibold, $danger-color);
+  height: 30px;
+  text-align: center;
+  @include tablet {
+    @include font($body1, $semibold, $danger-color);
+  }
 }

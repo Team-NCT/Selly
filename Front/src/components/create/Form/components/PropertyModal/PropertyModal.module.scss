@@ -1,5 +1,5 @@
 .property_modal_container {
-  @include flex(column, flex-start, flex-start);
+  @include flex(column, flex-start, center);
   margin: 24px;
   width: 80vw;
   max-width: 552px;
@@ -8,15 +8,21 @@
   gap: 20px;
 }
 
+.property_modal_header {
+  width: 100%;
+  text-align: left;
+}
+
 .property_modal_label {
   @include font($h5, $medium);
 }
 
-.property_modal_header {
-  @include flex(row, center);
+.property_modal_title {
+  @include flex(row, center, center);
   @include font($body1, $bold);
-  width: 100%;
   padding-left: 32px;
+  width: 100%;
+  max-width: 500px;
   gap: 16px;
 }
 

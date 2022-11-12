@@ -5,7 +5,7 @@ export default {
   title: "Common/LoadingModal",
   component: LoadingModal,
   parameters: {
-    componentSubtitle: "로딩 모딜 컴포넌트",
+    componentSubtitle: "로딩 모달 컴포넌트",
   },
   argTypes: {},
 } as Meta;

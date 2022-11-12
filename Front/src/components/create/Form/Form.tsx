@@ -5,18 +5,21 @@ import { createNFT } from "@/api/IPFS";
 import style from "./Form.module.scss";
 import { useCreateMutation } from "@/api/server/createNFTAPI";
 import { selectAccount } from "@/store/loginSlice";
-import { OpenAlertArg, useAlert, useAppSelector, useLogin } from "@/hooks";
+import { OpenAlertArg, useAlert, useAppDispatch, useAppSelector, useLogin } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 import Web3 from "web3";
+import { closeLoading, openLoading, selectModal } from "@/store/modalSlice";
+import { createPortal } from "react-dom";
 
 const Form = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { account } = useAppSelector(selectAccount);
   const web3 = new Web3(window.ethereum);
   const { openAlertModal } = useAlert();
   const [create] = useCreateMutation();
   const [loginHandler] = useLogin();
   const navigate = useNavigate();
+  const { loading } = useAppSelector(selectModal);
+  const dispatch = useAppDispatch();
 
   //* store에 userId가 있으면 넘어가고, 없으면 로그인 함수 실행하는 함수
   const checkLogin = () => {
@@ -31,7 +34,7 @@ const Form = () => {
   };
 
   const errorHandler = (message: string) => {
-    setIsModalOpen(false);
+    dispatch(closeLoading());
     let data: OpenAlertArg = {
       content: "에러가 발생했습니다. 다시 시도해주세요.",
       style: "error",
@@ -51,7 +54,7 @@ const Form = () => {
   //* 제출한 form
   const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
-    setIsModalOpen(true);
+    dispatch(openLoading());
     checkLogin();
 
     //* IPFS에 업로드하는 함수
@@ -75,7 +78,7 @@ const Form = () => {
       await web3.eth
         .sendTransaction(payload)
         .then(() => {
-          setIsModalOpen(false);
+          dispatch(closeLoading());
           const data: OpenAlertArg = {
             content: "민팅이 완료되었습니다",
             style: "success",
@@ -102,9 +105,11 @@ const Form = () => {
     setIsFormTrue(isImageTrue && isTitleTrue && isLinkTrue);
   }, [isImageTrue, isTitleTrue, isLinkTrue]);
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const el = document.getElementById("modal-root")!;
+
   return (
     <form id="create-form" onSubmit={(e) => submitHandler(e)}>
-      {isModalOpen && <LoadingModal />}
       <section className={style.form_container}>
         <div className={style.image_title_description}>
           <div className={style.image}>
@@ -126,6 +131,7 @@ const Form = () => {
           </Button>
         </div>
       </section>
+      {loading && createPortal(<LoadingModal />, el)}
     </form>
   );
 };

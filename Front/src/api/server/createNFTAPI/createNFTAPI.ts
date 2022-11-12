@@ -13,9 +13,6 @@ export const createNFTAPI = createApi({
         url: "minting",
         method: "POST",
         body: data,
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
       }),
       invalidatesTags: ["create"],
     }),

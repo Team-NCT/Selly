@@ -17,7 +17,7 @@ const LoadingModal = () => {
     "잠시만 기다리시면 서명이 완료됩니다.",
   ];
 
-  const desc2 = "❝ 서명이 끝날 때까지 사이트를 종료하지 말고 기다려주세요! ❞";
+  const desc2 = "서명이 끝날 때까지 사이트를 종료하지 말고 기다려주세요!";
 
   useInterval(() => {
     setIndex((prev) => {
@@ -54,8 +54,8 @@ const LoadingModal = () => {
           <div className={style.loader_dot} />
           <div className={style.loader_dot} />
         </div>
-        <div className={style.desc1}>{desc1[index]}</div>
         <div className={style.desc2}>{desc2}</div>
+        <div className={style.desc1}>{desc1[index]}</div>
       </div>
     </div>
   );
