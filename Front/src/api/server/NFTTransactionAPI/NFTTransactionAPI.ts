@@ -34,7 +34,7 @@ const NFTTransactionAPI = createApi({
     //@ description: 특정 조각을 구매하는 API
     //TODO_JK: API 나오면 수정
     sellNFTFraction: build.mutation<SignedTransactionType>({
-      query: (data) => ({ url: "trade", method: "POST", body: data }),
+      query: (body) => ({ url: "trade", method: "POST", body }),
       invalidatesTags: ["fraction"],
     }),
   }),
