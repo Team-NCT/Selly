@@ -40,7 +40,8 @@ const Property = () => {
           positionW="left"
           id="create-property"
           height={65}
-          vertical={5}>
+          vertical={5}
+          horizontal={1}>
           <h2 className={style.form_title_label}>Properties</h2>
         </Label>
         <div className={style.form_title_desc}>
