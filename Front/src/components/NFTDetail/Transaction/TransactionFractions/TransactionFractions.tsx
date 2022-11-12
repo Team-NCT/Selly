@@ -4,8 +4,9 @@ import { useAppDispatch } from "@/hooks";
 import { openBuy, openSell, openSellStatus } from "@/store/modalSlice";
 import { setFractionSaleData } from "@/store/fractionSlice";
 import { numberAddComma } from "@/helpers/utils/numberConversion";
+import { NFTDetailTransactionProps } from "../";
 
-const TransactionFractions = () => {
+const TransactionFractions = ({ articleId, userId }: NFTDetailTransactionProps) => {
   const dispatch = useAppDispatch();
 
   //TODO_JK API 연결
@@ -19,10 +20,10 @@ const TransactionFractions = () => {
     { count: 1, price: 0.0025, saleContract: "1234523423" },
   ];
 
+  //* 조각 구매 모달에 조각 정보를 전달하기 위해 store에 관련 데이터를 저장한다.
   const openBuyModal = (item: { count: number; price: number; saleContract: string }) => {
     dispatch(setFractionSaleData(item));
     dispatch(openBuy());
-    console.log(item);
   };
 
   return (

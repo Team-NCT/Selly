@@ -48,7 +48,7 @@ function App() {
           {/* Create 페이지 */}
           <Route path="/create" element={<Create />} />
           {/* NFT 상세 페이지 */}
-          <Route path="/detail/:id" element={<NFTDetail />} />
+          <Route path="/detail/:articleId" element={<NFTDetail />} />
           {/* setting 페이지 */}
           <Route path="/settings" element={<Settings />} />
           {/* profile 페이지 */}

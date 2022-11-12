@@ -1,13 +1,14 @@
 import style from "./TransactionAuction.module.scss";
-import { TransactionAuctionProps } from "./TransactionAuction.types";
+import { NFTDetailTransactionProps } from "../";
 import { AuctionBidForm, AuctionRegisterForm, AuctionBidFormNotStart } from "./component";
 
-const TransactionAuction = ({
-  lowPrice,
-  bidPrice,
-  auctionStatus,
-  auctionEndTime,
-}: TransactionAuctionProps) => {
+//TODO_JK API 연결
+let auctionEndTime: "";
+let auctionStatus: true;
+let bidPrice: 3.2323;
+let lowPrice: 2.1212;
+
+const TransactionAuction = ({ articleId, userId }: NFTDetailTransactionProps) => {
   let status: "NOT_REGISTER" | "NOT_START" | "PROGRESS";
 
   //* 경매 등록이 되지 않은 상태
