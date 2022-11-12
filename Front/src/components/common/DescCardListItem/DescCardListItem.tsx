@@ -1,5 +1,5 @@
 import style from "./DescCardListItem.module.scss";
-import { DescCardListItemProps } from "./DescCardListItem.types";
+import { NFTDescCardDataType } from "@/types/NFTData.types";
 import { DescCard } from "@/components/common";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const DescCardListItem = ({
   recentMarketPrice,
   rateChange,
   articleId,
-}: DescCardListItemProps) => {
+}: NFTDescCardDataType) => {
   const href = `/detail/${articleId}`;
   return (
     <li className={style.card_list_item}>

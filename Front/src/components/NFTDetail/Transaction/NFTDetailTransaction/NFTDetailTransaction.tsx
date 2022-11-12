@@ -4,7 +4,7 @@ import style from "./NFTDetailTransaction.module.scss";
 import { NFTDetailTransactionProps } from "./NFTDetailTransaction.types";
 import { TransactionFractions, TransactionAuction } from "@/components/NFTDetail/Transaction";
 
-const NFTDetailTransaction = ({ auction }: NFTDetailTransactionProps) => {
+const NFTDetailTransaction = ({ articleId }: NFTDetailTransactionProps) => {
   //* Tab 상태
   const [tab, setTab] = useState<TabType>("FRACTION");
 
