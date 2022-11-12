@@ -2,7 +2,7 @@ interface SignBoxItemProps {
   title: string;
   desc: string;
   // TODO_YK: 각 서명 박스에 해당하는 컨트랙트 함수의 타입으로 바꿀 것
-  signFunction: () => Promise<boolean>; // 각 서명 박스에 들어갈 함수
+  signFunction: ({}: any) => Promise<boolean>; // 각 서명 박스에 들어갈 함수
 }
 
 export interface SignBoxListProps {

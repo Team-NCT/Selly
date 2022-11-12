@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { CollectedCardList } from "./CollectedCardList";
 import { getNFTsForOwnerAPI } from "@/api/blockchain";
+import { selectAccount } from "@/store/loginSlice";
+import { useAppSelector } from "@/hooks/useStore";
 
 const Collected = () => {
   const [NFTdatas, setNFTdatas] = useState<any>("");
+  const { account } = useAppSelector(selectAccount);
 
-  // TODO_YK: 프로필 유저 아이디로 인자 넣어주기
+  // TODO_YK: 내 계정 말고 프로필 유저 아이디로 인자 넣어주기
   const getOwnERC721NFTs = async () => {
-    const { ownedNfts } = await getNFTsForOwnerAPI("sss");
+    if (!account.address) return;
+    const { ownedNfts } = await getNFTsForOwnerAPI(account.address);
     let datas = [];
     datas = ownedNfts.filter((nft) => {
       return nft.tokenType === "ERC721";

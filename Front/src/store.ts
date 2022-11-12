@@ -22,6 +22,7 @@ import {
   profileData,
   NFTValue,
   sellInfo,
+  signData,
 } from "@/store/index";
 
 //* API
@@ -36,6 +37,7 @@ const reducers = combineReducers({
   profileData,
   NFTValue,
   sellInfo,
+  signData,
   [NFTDetailAPI.reducerPath]: NFTDetailAPI.reducer,
   [searchAPI.reducerPath]: searchAPI.reducer,
   [loginAPI.reducerPath]: loginAPI.reducer,
