@@ -13,9 +13,12 @@ import {
   useUnFollowMutation,
 } from "@/api/server/userAPI";
 
-const Header = () => {
+const Header = ({ profileId }: { profileId: number }) => {
   const { openAlertModal } = useAlert();
-  const { data, isError, isLoading } = useFetchUserProfileQuery({ profileId: 4, userId: 0 });
+  const { data, isError, isLoading } = useFetchUserProfileQuery({
+    profileId: 48,
+    userId: 0,
+  });
   const [follow] = useFollowMutation();
   const [unFollow] = useUnFollowMutation();
 
@@ -29,16 +32,18 @@ const Header = () => {
   };
 
   const followOnclickHandler = async () => {
-    const res = await follow({ followerId: 4, followingId: 1 }).unwrap();
+    console.log(profileId);
+    const res = await follow({ followerId: 4, followingId: profileId }).unwrap();
     console.log(res);
   };
 
   const unFollowOnClickHandler = async () => {
-    const res = await unFollow({ followerId: 4, followingId: 1 }).unwrap();
+    const res = await unFollow({ followerId: 4, followingId: profileId }).unwrap();
     console.log(res);
   };
 
   const testFetchUser = () => {
+    console.log(profileId);
     console.log("데이터", data);
     console.log("에러", isError);
     console.log("로딩", isLoading);
