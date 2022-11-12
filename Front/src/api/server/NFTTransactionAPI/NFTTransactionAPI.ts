@@ -35,7 +35,7 @@ const NFTTransactionAPI = createApi({
     //TODO_JK: API 나오면 수정
     sellNFTFraction: build.mutation<SignedTransactionType>({
       query: (data) => ({ url: "trade", method: "POST", body: data }),
-      providesTags: ["fraction"],
+      invalidatesTags: ["fraction"],
     }),
   }),
 });
