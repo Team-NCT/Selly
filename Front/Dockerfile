@@ -18,11 +18,11 @@ RUN mkdir /app
 
 WORKDIR /app
 
-RUN mkdir ./build
+RUN mkdir ./dist
 
-COPY --from=build /jenkins_home/workspace/Nct_Selly/Front/build ./build
+COPY --from=build /jenkins_home/workspace/Nct_Selly/Front/dist ./dist
 
-COPY . ./build
+COPY . ./dist
 
 COPY ./nginx/nginx.conf /etc/nginx/conf.d
 
