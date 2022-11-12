@@ -14,7 +14,7 @@ const SelectCardList = ({ data }: SignBoxListProps) => {
     // TODO_YK: 모든 서명이 끝났을 때, 작품 판매 등록 API 실행 로직 추가
   };
 
-  const setF_NFT = (value: any) => {
+  const setF_NFT = (value: string) => {
     dispatch(setF_NFTCA(value));
   };
 

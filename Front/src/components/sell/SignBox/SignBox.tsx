@@ -14,11 +14,14 @@ import {
   F_NFTContract,
   F_NFT_SaleContract,
 } from "@/api/blockchain/web3Config";
+import { selectAccount } from "@/store/loginSlice";
 
 const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }: SignBoxProps) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [signable, setSignable] = useState(true);
   const [buttonText, setButtonText] = useState("서명하기");
+
+  const { account } = useAppSelector(selectAccount);
 
   const { F_NFTCA, F_NFTSaleCA } = useAppSelector(selectSignData);
   const { CA, tokenId, metaDataUrl, articleName, articleUrl } = useAppSelector(selectNFTValue);
@@ -40,7 +43,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
     if (idx === 4) {
       console.log("백엔드 통신");
     } else {
-      signFunction({ CA, tokenId, num, articleName, code, F_NFTCA, setValue }).then((res) => {
+      signFunction({ CA, tokenId, num, articleName, code, F_NFTCA, setValue, account.address }).then((res) => {
         if (res) {
           setIsCompleted(true);
           goNext(idx);

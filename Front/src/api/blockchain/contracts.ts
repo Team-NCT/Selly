@@ -1,3 +1,4 @@
+import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
 import {
   testEventContract,
   sellyERC721Contract,
@@ -22,12 +23,20 @@ export const testSign = async () => {
   }
 };
 
-export const makeVault = async ({ CA, tokenId, num, articleName, code, setValue }: any) => {
+export const makeVault = async ({
+  CA,
+  tokenId,
+  num,
+  articleName,
+  code,
+  setValue,
+  userWallet,
+}: functionProps) => {
   let response;
   try {
     response = await F_NFTFactoryContract.methods
       .Fractionalize(CA, parseInt(tokenId), parseInt(num), articleName, code)
-      .send({ from: window.ethereum.selectedAddress });
+      .send({ from: userWallet });
     console.log(response);
     setValue(response.events.FractionalizeNFT.returnValues.F_CA);
     return response.status;
@@ -37,13 +46,13 @@ export const makeVault = async ({ CA, tokenId, num, articleName, code, setValue 
   }
 };
 
-export const approveVault = async ({ CA, F_NFTCA }: any) => {
+export const approveVault = async ({ CA, F_NFTCA, userWallet }: functionProps) => {
   let response;
   console.log("ddd", CA);
   try {
     response = await sellyERC721Contract(CA)
       .methods.setApprovalForAll(F_NFTCA, true)
-      .send({ from: window.ethereum.selectedAddress });
+      .send({ from: userWallet });
     console.log(response);
     return response.status;
   } catch (e) {
@@ -52,12 +61,10 @@ export const approveVault = async ({ CA, F_NFTCA }: any) => {
   }
 };
 
-export const makeFraction = async ({ F_NFTCA }: any) => {
+export const makeFraction = async ({ F_NFTCA, userWallet }: functionProps) => {
   let response;
   try {
-    response = await F_NFTContract(F_NFTCA)
-      .methods.initialize()
-      .send({ from: window.ethereum.selectedAddress });
+    response = await F_NFTContract(F_NFTCA).methods.initialize().send({ from: userWallet });
     console.log(response);
     return response.status;
   } catch (e) {
