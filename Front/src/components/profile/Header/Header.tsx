@@ -16,7 +16,7 @@ import {
 const Header = ({ profileId }: { profileId: number }) => {
   const { openAlertModal } = useAlert();
   const { data, isError, isLoading } = useFetchUserProfileQuery({
-    profileId: 48,
+    profileId: profileId,
     userId: 0,
   });
   const [follow] = useFollowMutation();
@@ -33,12 +33,16 @@ const Header = ({ profileId }: { profileId: number }) => {
 
   const followOnclickHandler = async () => {
     console.log(profileId);
-    const res = await follow({ followerId: 4, followingId: profileId }).unwrap();
+    if (!account.userId) {
+      return;
+    }
+    const res = await follow({ followerId: account.userId, followingId: profileId }).unwrap();
     console.log(res);
   };
 
   const unFollowOnClickHandler = async () => {
-    const res = await unFollow({ followerId: 4, followingId: profileId }).unwrap();
+    if (!account.userId) return;
+    const res = await unFollow({ followerId: account.userId, followingId: profileId }).unwrap();
     console.log(res);
   };
 
@@ -52,30 +56,30 @@ const Header = ({ profileId }: { profileId: number }) => {
   return (
     <header className={style.header}>
       <div className={style.profilImage}>
-        <ProfileImage url={profileData.image} size="xxxl" profileStyle="round" />
+        <ProfileImage url={data?.image} size="xxxl" profileStyle="round" />
       </div>
 
       <section className={style.section}>
         <div className={style.leftSection}>
-          <div className={style.nickname}>{profileData.nickname}</div>
+          <div className={style.nickname}>{data?.nickname}</div>
           <div className={style.addressSection} onClick={copyHandler} aria-hidden="true">
-            <div className={style.address}>{profileData.wallet}</div>
+            <div className={style.address}>{data?.wallet}</div>
             <CopyIcon disabled />
           </div>
-          <div className={style.bio}>{profileData.introduction}</div>
+          <div className={style.bio}>{data?.introduction}</div>
         </div>
         <div className={style.rightSection}>
           <div className={style.followSection}>
             <button onClick={() => dispatch(openFollower())}>
               <div className={style.followTitle}>Followers</div>
-              <div className={style.followNumber}>{profileData.followerCnt}</div>
+              <div className={style.followNumber}>{data?.followerCnt}</div>
             </button>
             <button onClick={() => dispatch(openFollowing())}>
               <div className={style.followTitle}>Following</div>
-              <div className={style.followNumber}>{profileData.followingCnt}</div>
+              <div className={style.followNumber}>{data?.followingCnt}</div>
             </button>
           </div>
-          <Button size="fillContainer" type="button" onClick={testFetchUser}>
+          {/* <Button size="fillContainer" type="button" onClick={testFetchUser}>
             테스트 페치
           </Button>
           <Button size="fillContainer" type="button" onClick={followOnclickHandler}>
@@ -83,7 +87,22 @@ const Header = ({ profileId }: { profileId: number }) => {
           </Button>
           <Button size="fillContainer" type="button" onClick={unFollowOnClickHandler}>
             UnFollow
-          </Button>
+          </Button> */}
+
+          {data?.myFollowing ? (
+            <Button size="fillContainer" type="button" onClick={followOnclickHandler}>
+              Follow
+            </Button>
+          ) : (
+            <Button
+              size="fillContainer"
+              type="button"
+              bg="blackberry"
+              color="outline"
+              onClick={unFollowOnClickHandler}>
+              UnFollow
+            </Button>
+          )}
         </div>
       </section>
     </header>

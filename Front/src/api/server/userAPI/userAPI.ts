@@ -23,7 +23,6 @@ const userAPI = createApi({
       invalidatesTags: ["user"],
     }),
     //@ description: 유저를 언팔로우하는 API
-    // TODO_YK : 성공 실패는 어떻게 타입으로 오는지 확인하기
     unFollow: build.mutation<followDataType, followDataType>({
       query: (data) => ({
         url: `/follow`,
