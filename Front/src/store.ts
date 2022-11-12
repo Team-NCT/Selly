@@ -72,6 +72,7 @@ const store = configureStore({
       searchAPI.middleware,
       loginAPI.middleware,
       createNFTAPI.middleware,
+      userAPI.middleware,
       NFTTransactionAPI.middleware
     ),
 });
