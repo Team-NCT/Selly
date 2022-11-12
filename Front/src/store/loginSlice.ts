@@ -4,7 +4,7 @@ import { RootState } from "@/store";
 interface AccountState {
   account: {
     address: string | null;
-    userId: string | null | undefined;
+    userId: number | null | undefined;
     token: string | null | undefined;
   };
 }
@@ -22,7 +22,7 @@ const slice = createSlice({
       state,
       action: PayloadAction<{
         token: string | null | undefined;
-        userId: string | null | undefined;
+        userId: number | null | undefined;
       }>
     ) => {
       state.account.userId = action.payload.userId;
