@@ -12,7 +12,7 @@ RUN ["npm", "run", "build"]
 
 FROM nginx:stable-alpine
 
-RUN rm -rf /etc/nginx/conf.d/defalut.conf
+RUN rm /etc/nginx/conf.d/defalut.conf
 
 RUN mkdir /app
 
@@ -20,9 +20,11 @@ WORKDIR /app
 
 RUN mkdir ./build
 
+COPY --from=build /jenkins_home/workspace/Nct_Selly/Front/build ./build
+
 COPY . ./build
 
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/nginx.conf /etc/nginx/conf.d
 
 EXPOSE 80
 
