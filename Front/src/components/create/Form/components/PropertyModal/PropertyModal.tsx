@@ -1,4 +1,5 @@
 import { Modal, Label, Button, TextInput } from "@/components/common";
+import { XIcon } from "@/components/icon";
 import { PropertyModalProps } from "./PropertyModal.types";
 import style from "./PropertyModal.module.scss";
 import React, { useEffect, useState } from "react";
@@ -90,7 +91,7 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
                   <button
                     className={style.property_modal_delete}
                     onClick={(e) => deleteHandler(e, idx)}>
-                    X
+                    <XIcon />
                   </button>
                 </div>
                 <TextInput

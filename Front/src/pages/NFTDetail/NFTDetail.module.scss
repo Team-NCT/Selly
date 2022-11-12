@@ -1,7 +1,7 @@
 .NFT_detail {
   @include flex(column, flex-start, center);
   gap: 64px;
-  padding: 40px 0px;
+  padding-top: 40px;
 
   @include laptop {
     @include flex(row, space-between, flex-start);
