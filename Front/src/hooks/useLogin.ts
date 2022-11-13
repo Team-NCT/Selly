@@ -4,6 +4,7 @@ import { setAddress } from "@/store/loginSlice";
 import { useAppDispatch } from "@/hooks/useStore";
 import { useLoginMutation } from "@/api/server/loginAPI";
 import { useAlert } from "@/hooks";
+import { isMobileWeb } from "@/helpers/utils/checkDevice";
 
 const useLogin = () => {
   const [login] = useLoginMutation();
@@ -11,6 +12,16 @@ const useLogin = () => {
   const { openAlertModal } = useAlert();
 
   const loginHandler = async () => {
+    //* 모바일 환경 체크
+    if (isMobileWeb()) {
+      openAlertModal({
+        content: "모바일에서는 로그인하실 수 없습니다.",
+        style: "info",
+        icon: true,
+      });
+      return;
+    }
+
     //* metamask 설치 여부 확인 로직
     if (window.ethereum) {
       const chainId = await getChainId();

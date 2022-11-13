@@ -16,8 +16,13 @@ const useCheckLogined = () => {
 
   //* 지갑 체크
   const checkWallet = async () => {
-    console.log(isMobileWeb());
     try {
+      //* 모바일 환경 체크
+      if (isMobileWeb()) {
+        dispatch(logout());
+        return;
+      }
+
       //* 메타마스크 설치 여부 체크
       if (!window.ethereum) {
         dispatch(logout());
