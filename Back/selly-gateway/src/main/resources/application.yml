@@ -11,7 +11,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: 'http://localhost:3000'
+            allowedOrigins: 'http://nftselly.com:3000'
             allow-credentials: true
             allowedHeaders: '*'
             allowedMethods:
