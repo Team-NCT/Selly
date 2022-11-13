@@ -27,8 +27,8 @@ const useCheckLogined = () => {
       const address = await getWallet();
       const chainId = await getChainId();
 
-      //* 네트워크 일치 여부 && 아이디 존재여부 확인
-      if (chainId !== GOERLI_ID && address) {
+      //* 네트워크 일치 여부 && 메타마스크 잠금 여부 확인
+      if (chainId !== GOERLI_ID && address !== -32002) {
         dispatch(logout());
         goPage("/");
         openAlertModal({
@@ -60,13 +60,22 @@ const useCheckLogined = () => {
     }
   };
 
-  const checkWalletAccount = () => {
+  const checkWalletAccount = async () => {
     checkWallet();
-    // openAlertModal({
-    //   content: "계정이 변경 되었습니다.",
-    //   style: "info",
-    //   icon: true,
-    // });
+    const address = await getWallet();
+    if (address === -32002) {
+      openAlertModal({
+        content: "지갑이 잠금되었습니다.",
+        style: "error",
+        icon: false,
+      });
+    } else {
+      openAlertModal({
+        content: "계정이 변경 되었습니다.",
+        style: "info",
+        icon: true,
+      });
+    }
   };
 
   return [checkWallet, checkWalletAccount];
