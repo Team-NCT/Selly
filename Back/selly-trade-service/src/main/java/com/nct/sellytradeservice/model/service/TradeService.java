@@ -20,7 +20,7 @@ public interface TradeService {
 
   Object trade(Long sellerId, Long buyerId, TradeRequest tradeRequest);
 
-  List<TradeRegistResponse> getTradeRegistList();
+  List<TradeRegistResponse> getTradeRegistList(Long articleId);
 
-  List<TradeRegistResponse> getUserTradeRegistList(Long userId);
+  List<TradeRegistResponse> getUserTradeRegistList(Long userId, Long articleId);
 }

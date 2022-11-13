@@ -84,16 +84,16 @@ public class TradeController {
             .body(response);
   }
 
-  // 거래 기록 조회
-  @GetMapping("/trade-log")
-  public List<TradeRegistResponse> tradeRegistResponseList() {
-    return tradeService.getTradeRegistList();
+  // 특정 작품 거래 등록 조회
+  @GetMapping("/trade-regist/{articleId}")
+  public List<TradeRegistResponse> tradeRegistResponseList(@PathVariable("articleId") Long articleId) {
+    return tradeService.getTradeRegistList(articleId);
   }
 
-  // 유저 거래 기록 조회
-  @GetMapping("/trade-log/{userId}")
-  public List<TradeRegistResponse> userTradeRegistResponseList(@PathVariable("userId") Long userId) {
-    return tradeService.getUserTradeRegistList(userId);
+  // 특정 유저, 특정 작품 거래 등록 조회
+  @GetMapping("/trade-regist/{userId}/{articleId}")
+  public List<TradeRegistResponse> userTradeRegistResponseList(@PathVariable("userId") Long userId, @PathVariable("articleId") Long articleId) {
+    return tradeService.getUserTradeRegistList(userId, articleId);
   }
 
 

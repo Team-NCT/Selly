@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface TradeRegistRepository extends JpaRepository<TradeRegist, Long> {
   Optional<TradeRegist> findByArticleId(Long ArticleId);
-  List<TradeRegist> findAll(Sort sort);
+  List<TradeRegist> findByArticleId(Long articleId, Sort sort);
 
-  List<TradeRegist> findBySeller(Long userId, Sort sort);
+  List<TradeRegist> findBySellerAndArticleId(Long userId, Long articleId,Sort sort);
 }

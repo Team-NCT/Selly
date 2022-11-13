@@ -373,12 +373,12 @@ public class TradeServiceImpl implements TradeService {
 
   // NFT 조각 판매 리스트 요청
   @Override
-  public List<TradeRegistResponse> getTradeRegistList() {
+  public List<TradeRegistResponse> getTradeRegistList(Long articleId) {
     Sort sort = Sort.by(
             Sort.Order.asc("tradePrice"),
             Sort.Order.desc("tradeRegistTime")
     );
-    List<TradeRegist> tradeRegistList = tradeRegistRepository.findAll(sort);
+    List<TradeRegist> tradeRegistList = tradeRegistRepository.findByArticleId(articleId, sort);
     List<TradeRegistResponse> tradeRegistResponseList = new ArrayList<>();
     tradeRegistList.forEach( v -> {
               TradeRegistResponse tradeRegistResponse = TradeRegistResponse.builder()
@@ -396,12 +396,12 @@ public class TradeServiceImpl implements TradeService {
 
   // 특정 유저 NFT 조각 판매 리스트 요청
   @Override
-  public List<TradeRegistResponse> getUserTradeRegistList(Long userId) {
+  public List<TradeRegistResponse> getUserTradeRegistList(Long userId, Long articleId) {
     Sort sort = Sort.by(
             Sort.Order.desc("tradePrice"),
             Sort.Order.asc("tradeRegistTime")
     );
-    List<TradeRegist> tradeRegistList = tradeRegistRepository.findBySeller(userId, sort);
+    List<TradeRegist> tradeRegistList = tradeRegistRepository.findBySellerAndArticleId(userId, articleId, sort);
     List<TradeRegistResponse> tradeRegistResponseList = new ArrayList<>();
     tradeRegistList.forEach( v -> {
       TradeRegistResponse tradeRegistResponse = TradeRegistResponse.builder()

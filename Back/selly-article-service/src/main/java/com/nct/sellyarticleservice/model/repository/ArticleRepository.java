@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
   Long countBy();
+
   Article findByContractAddressAndTokenId(String contractAddress, String tokenId);
   List<Article> findAllByCategoryAndAvailability(String category, boolean availability);
 
