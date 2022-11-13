@@ -51,6 +51,10 @@ public class NftPieceController {
     System.out.println(userId);
     NftPieceResponseDto response = nftPieceService.getOwnershipByUserIdAndArticleId(userId, articleId);
 //    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
+    System.out.println(ResponseEntity.status(HttpStatus.OK).body(response));
+    if(ResponseEntity.status(HttpStatus.OK).body(response).getBody() == null){
+      System.out.println("true");
+    }
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
   @PostMapping("/create-or-edit-ownership/{userId}")
