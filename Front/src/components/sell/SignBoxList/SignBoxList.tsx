@@ -3,15 +3,25 @@ import style from "./SignBoxList.module.scss";
 import { SignBox } from "@/components/sell";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { setF_NFTCA, setF_NFTSaleCA } from "@/store/signDataSlice";
+import { resetSignData, setF_NFTCA, setF_NFTSaleCA } from "@/store/signDataSlice";
+import { resetSellInfo } from "@/store/sellInfoSlice";
+import { resetNFTValue } from "@/store/selectNFTSlice";
+import { useNavigate } from "react-router-dom";
 
 const SelectCardList = ({ data }: SignBoxListProps) => {
   const [activeBoxIdx, setActiveBoxIdx] = useState(0);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const goNext = (idx: number) => {
     setActiveBoxIdx(idx);
-    // TODO_YK: 모든 서명이 끝났을 때, 작품 판매 등록 API 실행 로직 추가
+    // 모든 서명이 끝났을 때, 판매 정보 reset
+    if (idx === 4) {
+      dispatch(resetSignData());
+      dispatch(resetSellInfo());
+      dispatch(resetNFTValue());
+      navigate("/");
+    }
   };
 
   const setF_NFT = (value: string) => {

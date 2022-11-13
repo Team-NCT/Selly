@@ -4,15 +4,17 @@ import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
 interface FractionState {
-  saleContract: string;
-  count: number;
-  price: number;
+  sellerId: number;
+  saleContractAddress: string;
+  pieceCnt: number;
+  tradePrice: number;
 }
 
 const initialState: FractionState = {
-  saleContract: "",
-  count: 0,
-  price: 0,
+  sellerId: 0,
+  saleContractAddress: "",
+  pieceCnt: 0,
+  tradePrice: 0,
 };
 
 const slice = createSlice({
@@ -21,14 +23,16 @@ const slice = createSlice({
 
   reducers: {
     setFractionSaleData: (state, action: PayloadAction<FractionState>) => {
-      state.saleContract = action.payload.saleContract;
-      state.count = action.payload.count;
-      state.price = action.payload.price;
+      state.sellerId = action.payload.sellerId;
+      state.saleContractAddress = action.payload.saleContractAddress;
+      state.pieceCnt = action.payload.pieceCnt;
+      state.tradePrice = action.payload.tradePrice;
     },
     resetFractionSaleData: (state) => {
-      state.saleContract = "";
-      state.count = 0;
-      state.price = 0;
+      state.sellerId = 0;
+      state.saleContractAddress = "";
+      state.pieceCnt = 0;
+      state.tradePrice = 0;
     },
   },
 });

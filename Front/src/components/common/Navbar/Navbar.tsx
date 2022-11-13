@@ -11,7 +11,7 @@ import { WalletIcon } from "@/components/icon";
 
 const Navbar = () => {
   //* account 정보
-  const { userId } = useAppSelector(selectAccount);
+  const { userId, goerliToken } = useAppSelector(selectAccount);
   const dispatch = useAppDispatch();
   //* 로그인 훅
   const [login] = useLogin();
@@ -162,7 +162,10 @@ const Navbar = () => {
               <ProfileImage size="xxs" profileStyle="round" />
               <h5 className={styles.nav_username}>김김작가작가작가</h5>
               <div className={styles.dropdown_content_user}>
-                <h5>Balance</h5>
+                <h5 className={styles.wallet_token}>
+                  <span>{goerliToken}</span>
+                  <span>eth</span>
+                </h5>
                 <NavLink to={`/profile/${userId}`} className={styles.dropdown_item}>
                   Profile
                 </NavLink>

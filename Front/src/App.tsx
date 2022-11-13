@@ -15,7 +15,7 @@ import {
   Category,
   SearchResult,
 } from "@/pages";
-import { useCheckLogined } from "@/hooks";
+import { useCheckLogined, useSetGoerli } from "@/hooks";
 
 import { useEffect } from "react";
 
@@ -25,10 +25,14 @@ function App() {
   const el = document.getElementById("modal-root")!;
 
   const [checkWallet, checkWalletAccount] = useCheckLogined();
+  const [setGoerliToken] = useSetGoerli();
 
   useEffect(() => {
     window.ethereum?.on("chainChanged", checkWallet);
     window.ethereum?.on("accountsChanged", checkWalletAccount);
+    if (window.ethereum) {
+      setGoerliToken();
+    }
 
     return () => {
       window.ethereum?.removeListener("chainChanged", checkWallet);

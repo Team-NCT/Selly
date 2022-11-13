@@ -9,9 +9,9 @@ export const SaleNFTAPI = createApi({
   tagTypes: ["F_NFTSale"],
   endpoints: (build) => ({
     //@ description: server에 NFT를 분할해서 판매하는 NFT의 정보를 보내는 API
-    create: build.mutation<SignedTransactionType, F_NFTSaleType>({
+    saleNFT: build.mutation<SignedTransactionType, F_NFTSaleType>({
       query: (data) => ({
-        url: "/ddd",
+        url: "sellregist",
         method: "POST",
         body: data,
       }),
@@ -20,5 +20,5 @@ export const SaleNFTAPI = createApi({
   }),
 });
 
-export const { useCreateMutation } = SaleNFTAPI;
+export const { useSaleNFTMutation } = SaleNFTAPI;
 export default SaleNFTAPI;

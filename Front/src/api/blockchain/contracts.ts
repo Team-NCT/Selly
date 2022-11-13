@@ -1,27 +1,10 @@
 import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
 import {
-  testEventContract,
   sellyERC721Contract,
   F_NFTFactoryContract,
   F_NFTContract,
   F_NFT_SaleContract,
 } from "./web3Config";
-/**
- * 서명 박스에서 사용할 테스트 컨트랙트 함수
- */
-export const testSign = async () => {
-  let response;
-  try {
-    response = await testEventContract.methods
-      .addTokenId()
-      .send({ from: window.ethereum.selectedAddress });
-    console.log(response);
-    return response.status;
-  } catch (e) {
-    console.error(e);
-    return false;
-  }
-};
 
 export const makeVault = async ({
   CA,
@@ -38,7 +21,9 @@ export const makeVault = async ({
       .Fractionalize(CA, parseInt(tokenId), parseInt(num), articleName, code)
       .send({ from: userWallet });
     console.log(response);
-    setValue(response.events.FractionalizeNFT.returnValues.F_CA);
+
+    setValue ? setValue(response.events.FractionalizeNFT.returnValues.F_CA) : null;
+
     return response.status;
   } catch (e) {
     console.error(e);
