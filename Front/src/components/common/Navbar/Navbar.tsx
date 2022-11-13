@@ -10,7 +10,7 @@ import { useLogin } from "@/hooks";
 
 const Navbar = () => {
   //* account 정보
-  const { account } = useAppSelector(selectAccount);
+  const { userId } = useAppSelector(selectAccount);
   const dispatch = useAppDispatch();
   //* 로그인 훅
   const [login] = useLogin();
@@ -156,13 +156,13 @@ const Navbar = () => {
               </NavLink>
             </li>
           </ul>
-          {account.userId ? (
+          {userId ? (
             <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
               <ProfileImage size="xxs" profileStyle="round" />
               <h5 className={styles.nav_username}>김김작가작가작가</h5>
               <div className={styles.dropdown_content_user}>
                 <h5>Balance</h5>
-                <NavLink to={`/profile/${account.userId}`} className={styles.dropdown_item}>
+                <NavLink to={`/profile/${userId}`} className={styles.dropdown_item}>
                   Profile
                 </NavLink>
                 <NavLink to="/settings" className={styles.dropdown_item}>

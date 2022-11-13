@@ -1,5 +1,5 @@
 .search_result {
   @include flex(column, center, flex-start);
   gap: 48px;
-  padding: 48px 0px;
+  padding-top: 48px;
 }

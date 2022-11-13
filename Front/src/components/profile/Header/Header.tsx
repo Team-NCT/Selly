@@ -11,7 +11,7 @@ import { openFollower, openFollowing } from "@/store/modalSlice";
 const Header = () => {
   const { openAlertModal } = useAlert();
 
-  const { account } = useAppSelector(selectAccount);
+  const { userId } = useAppSelector(selectAccount);
   const { profileData } = useAppSelector(selectProfileData);
   const dispatch = useAppDispatch();
 

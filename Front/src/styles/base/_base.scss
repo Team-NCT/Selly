@@ -49,6 +49,7 @@ a {
 
 main {
   margin: auto 16px;
+  padding-bottom: 32px;
 
   @media (min-width: 600px) {
     margin: auto 32px;
@@ -63,6 +64,7 @@ main {
   @media (min-width: 1240px) {
     margin: auto 160px;
     max-width: 1040px;
+    padding-bottom: 64px;
   }
 
   @media (min-width: 1440px) {

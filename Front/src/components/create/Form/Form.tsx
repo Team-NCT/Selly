@@ -12,7 +12,7 @@ import { closeLoading, openLoading, selectModal } from "@/store/modalSlice";
 import { createPortal } from "react-dom";
 
 const Form = () => {
-  const { account } = useAppSelector(selectAccount);
+  const { userId, address } = useAppSelector(selectAccount);
   const web3 = new Web3(window.ethereum);
   const { openAlertModal } = useAlert();
   const [create] = useCreateMutation();
@@ -23,7 +23,7 @@ const Form = () => {
 
   //* store에 userId가 있으면 넘어가고, 없으면 로그인 함수 실행하는 함수
   const checkLogin = () => {
-    if (account.userId) return;
+    if (userId) return;
     const data: OpenAlertArg = {
       content: "민팅을 위해 자동로그인되었습니다.",
       style: "info",
@@ -62,10 +62,10 @@ const Form = () => {
       const createData = await createNFT(event);
       if (!createData) return;
       const body = {
-        wallet: account.address,
+        wallet: address,
         metaDataUrl: createData.metadataUrl,
         articleImgUrl: createData.imageUrl,
-        owner: account.userId,
+        owner: userId,
         articleName: createData.title,
       };
       const response = await create(body).unwrap();
