@@ -10,3 +10,4 @@ export { default as useBlocker } from "./useBlocker";
 export { default as useCallbackPrompt } from "./useCallbackPrompt";
 export { default as useLogin } from "./useLogin";
 export { default as useCountNum } from "./useCountNum";
+export { default as useSetGoerli } from "./useSetGoerli";

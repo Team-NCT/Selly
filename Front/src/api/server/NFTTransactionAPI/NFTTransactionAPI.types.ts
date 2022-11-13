@@ -11,6 +11,11 @@ export interface RequestDataType {
 }
 
 export interface SellNFTFractionType {
-  sellerId: number;
+  articleId: number;
   buyerId: number;
+  wallet: string;
+  sellerId: number;
+  pieceCnt: number;
+  tradePrice: number;
+  saleContractAddress: string;
 }

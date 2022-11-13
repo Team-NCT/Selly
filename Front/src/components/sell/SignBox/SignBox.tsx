@@ -2,55 +2,137 @@ import { useState } from "react";
 import style from "./SignBox.module.scss";
 import { SignBoxProps } from "./SignBox.types";
 import { Neon, Button } from "@/components/common";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { selectSignData, setF_NFTCA, setF_NFTSaleCA } from "@/store/signDataSlice";
+import { useAppSelector } from "@/hooks";
+import { selectSignData } from "@/store/signDataSlice";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { selectSellInfo } from "@/store/sellInfoSlice";
-
-import {
-  testEventContract,
-  sellyERC721Contract,
-  F_NFTFactoryContract,
-  F_NFTContract,
-  F_NFT_SaleContract,
-} from "@/api/blockchain/web3Config";
 import { selectAccount } from "@/store/loginSlice";
+import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
+import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
+
+import Web3 from "web3";
+
+const web3 = new Web3(window.ethereum);
 
 const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }: SignBoxProps) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [signable, setSignable] = useState(true);
   const [buttonText, setButtonText] = useState("서명하기");
 
-  const { address } = useAppSelector(selectAccount);
+  const { address, userId } = useAppSelector(selectAccount);
 
-  const { F_NFTCA, F_NFTSaleCA } = useAppSelector(selectSignData);
+  const { F_NFTCA } = useAppSelector(selectSignData);
   const { CA, tokenId, metaDataUrl, articleName, articleUrl } = useAppSelector(selectNFTValue);
   const { category, code, num, price } = useAppSelector(selectSellInfo);
 
-  // TODO_YK: 마지막은 백엔드랑 통신
+  const [createSale] = useSaleNFTMutation();
+
+  //* 서버 API 불러오는 마지막 함수
+  const Onsale = async ({
+    CA,
+    tokenId,
+    num,
+    articleName,
+    F_NFTCA,
+    userWallet,
+    userId,
+    metaDataUrl,
+    articleUrl,
+    category,
+    price,
+  }: functionProps) => {
+    const body = {
+      contractAddress: CA,
+      ownershipContractAddress: F_NFTCA,
+      tokenId: tokenId,
+      seller: userId,
+      pieceCnt: num,
+      tradePrice: Number(price),
+      category: category,
+      wallet: userWallet,
+      articleUrl,
+      articleName,
+      metaDataUrl,
+    };
+    console.log(body);
+    const response = await createSale(body).unwrap();
+    const payload = {
+      nonce: response.nonce,
+      to: response.to,
+      from: response.from,
+      data: response.data,
+    };
+    try {
+      const sendRes = await web3.eth.sendTransaction(payload);
+      console.log(sendRes);
+      return sendRes.status;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
   const onClickHandler = () => {
-    if (!address) return;
+    if (!address || !userId) return;
     const userWallet = address;
-    console.log(signFunction);
+
     setSignable(false);
     setButtonText("서명 중");
-    if (idx === 4) {
-      console.log("백엔드 통신");
-    } else {
-      signFunction({ CA, tokenId, num, articleName, code, F_NFTCA, setValue, userWallet }).then(
-        (res) => {
-          if (res) {
-            setIsCompleted(true);
-            goNext(idx);
-          } else {
-            setButtonText("서명하기");
-            setSignable(true);
-            alert("블록체인 통신 상태 ERROR");
-            console.error("블록체인 통신 상태 ERROR");
-          }
+
+    if (!signFunction) {
+      Onsale({
+        CA,
+        tokenId,
+        num,
+        articleName,
+        code,
+        F_NFTCA,
+        setValue,
+        userWallet,
+        userId,
+        metaDataUrl,
+        articleUrl,
+        category,
+        price,
+      }).then((res) => {
+        if (res) {
+          setIsCompleted(true);
+          goNext(idx);
+        } else {
+          setButtonText("서명하기");
+          setSignable(true);
+          alert("블록체인 통신 상태 ERROR");
+          console.error("블록체인 통신 상태 ERROR");
         }
-      );
+      });
+      return;
     }
+
+    signFunction({
+      CA,
+      tokenId,
+      num,
+      articleName,
+      code,
+      F_NFTCA,
+      setValue,
+      userWallet,
+      userId,
+      metaDataUrl,
+      articleUrl,
+      category,
+      price,
+    }).then((res) => {
+      if (res) {
+        setIsCompleted(true);
+        goNext(idx);
+      } else {
+        setButtonText("서명하기");
+        setSignable(true);
+        alert("블록체인 통신 상태 ERROR");
+        console.error("블록체인 통신 상태 ERROR");
+      }
+    });
   };
 
   return (

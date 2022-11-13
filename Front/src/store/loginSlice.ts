@@ -5,12 +5,14 @@ interface AccountState {
   address: string | null;
   userId: number | null | undefined;
   token: string | null | undefined;
+  goerliToken: number | null;
 }
 
 const initialState: AccountState = {
   address: null,
   userId: null,
   token: null,
+  goerliToken: null,
 };
 
 const slice = createSlice({
@@ -31,10 +33,14 @@ const slice = createSlice({
     setAddress: (state, action: PayloadAction<{ address: string | null }>) => {
       state.address = action.payload.address;
     },
+    setGoerliToken: (state, action: PayloadAction<{ goerliToken: number | null }>) => {
+      state.goerliToken = action.payload.goerliToken;
+    },
     logout: (state) => {
       state.userId = null;
       state.token = null;
       state.address = null;
+      state.goerliToken = null;
     },
   },
 });
@@ -47,5 +53,5 @@ export const selectAccount = createSelector(
   (account) => account
 );
 
-export const { setAccount, setAddress, logout } = slice.actions;
+export const { setAccount, setAddress, setGoerliToken, logout } = slice.actions;
 export default slice.reducer;

@@ -42,7 +42,7 @@ const SellInfoCard = () => {
         <Neon color="lilac" positionH="bottom" positionW="right">
           총 가격
         </Neon>
-        <span>{Number(sellInfo.num) * Number(sellInfo.price)} ETH</span>
+        <span>{+(Number(sellInfo.num) * Number(sellInfo.price)).toFixed(4)} ETH</span>
       </h2>
       <Button size="fillContainer" onClick={editHandler}>
         EDIT

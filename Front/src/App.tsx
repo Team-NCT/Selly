@@ -15,7 +15,7 @@ import {
   Category,
   SearchResult,
 } from "@/pages";
-import { useCheckLogined } from "@/hooks";
+import { useCheckLogined, useSetGoerli } from "@/hooks";
 
 import { useEffect } from "react";
 
@@ -24,19 +24,20 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
 
-  const [checkWallet] = useCheckLogined();
+  const [checkWallet, checkWalletAccount] = useCheckLogined();
+  const [setGoerliToken] = useSetGoerli();
 
   useEffect(() => {
+    window.ethereum?.on("chainChanged", checkWallet);
+    window.ethereum?.on("accountsChanged", checkWalletAccount);
     if (window.ethereum) {
-      window.ethereum.on("chainChanged", () => {
-        console.log("체인 바뀜");
-        checkWallet();
-      });
-      window.ethereum.on("accountsChanged", () => {
-        console.log("아이디 바뀜");
-        checkWallet();
-      });
+      setGoerliToken();
     }
+
+    return () => {
+      window.ethereum?.removeListener("chainChanged", checkWallet);
+      window.ethereum?.removeListener("accountsChanged", checkWalletAccount);
+    };
   });
 
   return (

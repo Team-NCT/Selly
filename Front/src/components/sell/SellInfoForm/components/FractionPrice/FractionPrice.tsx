@@ -44,8 +44,6 @@ const FractionPrice = ({ value, changeHandler, setIsPriceTrue }: FractionPricePr
         name="price"
         status={status}
         errorMessage={errorMessage}
-        step={1}
-        min={0}
         placeHolder="0.0"
       />
     </div>
