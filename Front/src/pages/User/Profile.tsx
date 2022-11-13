@@ -29,27 +29,28 @@ function Profile() {
   const { follower, following } = useAppSelector(selectModal);
 
   // TODO_SY : params id로 유저 조회  API 연결
-  useEffect(() => {
-    dispatch(
-      setProfileData({
-        userId: DUMMY_PROFILEDATA.userId,
-        wallet: DUMMY_PROFILEDATA.wallet,
-        nickname: DUMMY_PROFILEDATA.nickname,
-        introduction: DUMMY_PROFILEDATA.introduction,
-        image: DUMMY_PROFILEDATA.image,
-        banner: DUMMY_PROFILEDATA.banner,
-        followerCnt: DUMMY_PROFILEDATA.followerCnt,
-        followingCnt: DUMMY_PROFILEDATA.followingCnt,
-        myFollowing: DUMMY_PROFILEDATA.myFollowing,
-      })
-    );
-  }, []);
+  // 프로필에 profileData리덕스 쓰지말고 id를 넘겨줄 것, 얘는 위에 네브바용
+  // useEffect(() => {
+  //   dispatch(
+  //     setProfileData({
+  //       userId: DUMMY_PROFILEDATA.userId,
+  //       wallet: DUMMY_PROFILEDATA.wallet,
+  //       nickname: DUMMY_PROFILEDATA.nickname,
+  //       introduction: DUMMY_PROFILEDATA.introduction,
+  //       image: DUMMY_PROFILEDATA.image,
+  //       banner: DUMMY_PROFILEDATA.banner,
+  //       followerCnt: DUMMY_PROFILEDATA.followerCnt,
+  //       followingCnt: DUMMY_PROFILEDATA.followingCnt,
+  //       myFollowing: DUMMY_PROFILEDATA.myFollowing,
+  //     })
+  //   );
+  // }, []);
 
   return (
     <>
       <Banner />
       <main>
-        <Header />
+        <Header profileId={Number(id)} />
         <Revenue />
         <ProfileTab />
       </main>

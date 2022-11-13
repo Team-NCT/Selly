@@ -33,6 +33,7 @@ import {
   createNFTAPI,
   NFTTransactionAPI,
   saleNFTAPI,
+  userAPI,
 } from "@/api/server";
 
 const reducers = combineReducers({
@@ -49,6 +50,7 @@ const reducers = combineReducers({
   [searchAPI.reducerPath]: searchAPI.reducer,
   [loginAPI.reducerPath]: loginAPI.reducer,
   [createNFTAPI.reducerPath]: createNFTAPI.reducer,
+  [userAPI.reducerPath]: userAPI.reducer,
   [NFTTransactionAPI.reducerPath]: NFTTransactionAPI.reducer,
   [saleNFTAPI.reducerPath]: saleNFTAPI.reducer,
 });
@@ -75,7 +77,8 @@ const store = configureStore({
       loginAPI.middleware,
       createNFTAPI.middleware,
       NFTTransactionAPI.middleware,
-      saleNFTAPI.middleware
+      saleNFTAPI.middleware,
+      userAPI.middleware
     ),
 });
 
