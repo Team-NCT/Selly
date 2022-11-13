@@ -7,6 +7,7 @@ import logoImage from "@/assets/images/logo.png";
 import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { logout, selectAccount } from "@/store/loginSlice";
 import { useLogin } from "@/hooks";
+import { WalletIcon } from "@/components/icon";
 
 const Navbar = () => {
   //* account 정보
@@ -192,9 +193,7 @@ const Navbar = () => {
               }}>
               <button onClick={login}>
                 <Neon color="lilac" positionH="top" positionW="right" width={wallet}>
-                  <span className={`material-icons-outlined ${styles.wallet}`}>
-                    account_balance_wallet
-                  </span>
+                  <WalletIcon size={32} />
                 </Neon>
               </button>
             </li>
