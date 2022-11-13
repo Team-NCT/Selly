@@ -5,7 +5,8 @@ spring:
   application:
     name: selly-user-service
   datasource:
-    url: jdbc:mariadb://localhost:3306/selly
+#    url: jdbc:mariadb://localhost:3306/selly
+    url: jdbc:mariadb://nftselly.com:3306/selly?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     driver-class-name: org.mariadb.jdbc.Driver
     username: S07P31B102
     password: Bh1736c3o!
