@@ -25,10 +25,10 @@ const initialState = {
 };
 
 const Form = () => {
-  const { account } = useAppSelector(selectAccount);
+  const { address } = useAppSelector(selectAccount);
   const { profleStatus } = useAppSelector(selectProfleStatus);
   const { profileData } = useAppSelector(selectProfileData);
-  const address = account.address ? account.address : "";
+  const walletAddress = address ? address : "";
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
@@ -59,7 +59,7 @@ const Form = () => {
         <div className={style.leftSection}>
           <Username />
           <Bio />
-          <WalletAddress address={address} />
+          <WalletAddress address={walletAddress} />
         </div>
         <div className={style.rightSection}>
           <ProfileImg />

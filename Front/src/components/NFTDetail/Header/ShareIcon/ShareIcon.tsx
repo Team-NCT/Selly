@@ -2,6 +2,7 @@ import { useState } from "react";
 import style from "./ShareIcon.module.scss";
 import { ShareDropDown } from "@/components/NFTDetail/Header";
 import { ShareDropDownProps } from "../ShareDropDown/ShareDropDown.types";
+import { SharingIcon } from "@/components/icon";
 
 const ShareIcon = ({ title, id, imageUrl, url = "" }: ShareDropDownProps) => {
   const [dialogStatus, setDialogStatus] = useState(false);
@@ -11,7 +12,7 @@ const ShareIcon = ({ title, id, imageUrl, url = "" }: ShareDropDownProps) => {
   return (
     <div>
       <button className={style.button_icon_share} onClick={handleButtonClick}>
-        <span className="material-icons-outlined">share</span>
+        <SharingIcon />
       </button>
       <dialog open={dialogStatus}>
         <ShareDropDown id={id} title={title} imageUrl={imageUrl} url={url} />
