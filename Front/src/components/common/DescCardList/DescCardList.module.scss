@@ -1,29 +1,24 @@
 .card_list {
   width: 100%;
-  @include grid(15%);
-  column-gap: 40px;
-  row-gap: 80px;
+  @include grid(40%);
+  column-gap: 20px;
+  row-gap: 24px;
 
-  @media (max-width: 1440px) {
-    @include grid(20%);
-    column-gap: 20px;
-    row-gap: 40px;
-  }
-
-  @media (max-width: 800px) {
+  @include tablet {
     @include grid(30%);
     column-gap: 20px;
     row-gap: 40px;
   }
 
-  @media (max-width: 600px) {
-    @include grid(40%);
-    column-gap: 30px;
-    row-gap: 40px;
+  @include laptop {
+    @include grid(20%);
+    column-gap: 20px;
+    row-gap: 48px;
   }
 
-  @media (max-width: 400px) {
-    @include grid(100%);
-    row-gap: 40px;
+  @include desktop {
+    @include grid(15%);
+    column-gap: 32px;
+    row-gap: 60px;
   }
 }
