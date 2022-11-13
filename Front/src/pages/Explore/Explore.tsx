@@ -1,5 +1,4 @@
-import { ExploreCardList } from "@/components/explore";
-import ExploreSelectBox from "@/components/explore/ExploreSelectBox/ExploreSelectBox";
+import { ExploreCardList, ExploreSelectBox } from "@/components/explore";
 import { CategorySection } from "@/components/home/Category";
 import style from "./Explore.module.scss";
 

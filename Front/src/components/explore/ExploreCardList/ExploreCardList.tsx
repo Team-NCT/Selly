@@ -5,7 +5,7 @@ import { ExploreParamsType } from "./ExploreCardList.types";
 import style from "./ExploreCardList.module.scss";
 import { NFTDescCardDataType } from "@/types/NFTData.types";
 
-const ExploreCardList = ({ category, sort = "asc", order = "sell" }: ExploreParamsType) => {
+const ExploreCardList = ({ category, sort, order }: ExploreParamsType) => {
   const [fetchNFTList] = useLazyFetchNFTListQuery();
 
   //* fetch된 cardlist data를 저장하는 변수
