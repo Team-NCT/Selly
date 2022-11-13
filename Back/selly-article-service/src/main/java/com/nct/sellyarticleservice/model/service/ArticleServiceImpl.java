@@ -288,7 +288,11 @@ public class ArticleServiceImpl implements ArticleService{
   @Override
   public ResponseArticleId findByArticleId(String contractAddress, String tokenId) {
     Article responseArticleId = articleRepository.findByContractAddressAndTokenId(contractAddress, tokenId);
+    if (responseArticleId == null){
+      return null;
+    }
     ResponseArticleId articleId = new ResponseArticleId();
+
     articleId.setArticleId(responseArticleId.getArticleId());
     return articleId;
   }

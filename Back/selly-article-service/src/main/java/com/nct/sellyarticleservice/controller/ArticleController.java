@@ -157,6 +157,9 @@ public class ArticleController {
   }
   @GetMapping("/searchId/{contractAddress}/{tokenId}")
   public ResponseArticleId articleIdSearch(@PathVariable("contractAddress") String contractAddress, @PathVariable("tokenId") String tokenId){
+    System.out.println(articleService.findByArticleId(contractAddress, tokenId));
+    if (articleService.findByArticleId(contractAddress, tokenId) == null)
+      System.out.println(true);
     return articleService.findByArticleId(contractAddress, tokenId);
   }
 
