@@ -1,4 +1,4 @@
-import { FormEvent, useState, useReducer, ChangeEvent } from "react";
+import { FormEvent, useState, useReducer, ChangeEvent, useEffect } from "react";
 import { Modal, Label, NumberInput, Button } from "@/components/common";
 import { useAppDispatch } from "@/hooks";
 import { closeSell } from "@/store/modalSlice";
@@ -6,6 +6,11 @@ import style from "./TransactionFractionsSell.module.scss";
 import { fPointCheck } from "@/helpers/utils/numberValidation";
 import { numberAddComma } from "@/helpers/utils/numberConversion";
 import { inputAction, inputType } from "./TransactionFractionsSell.types";
+import {
+  useFetchOwnedNFTCountQuery,
+  useRegisterSellNFTFractionMutation,
+} from "@/api/server/NFTTransactionAPI";
+import { TransactionFractionsBuyProps } from "../";
 
 const sellReducer = (state: inputType, action: inputAction) => {
   switch (action.type) {
@@ -51,14 +56,22 @@ const initialState: inputType = {
   status: true,
 };
 
-const TransactionFractionsSell = () => {
+const TransactionFractionsSell = ({ address, articleId, userId }: TransactionFractionsBuyProps) => {
   const dispatch = useAppDispatch();
+  const [registerSellNFTFraction] = useRegisterSellNFTFractionMutation();
   const [totalPrice, setTotalPrice] = useState(0);
   const [countState, dispatchCount] = useReducer(sellReducer, initialState);
   const [priceState, dispatchPrice] = useReducer(sellReducer, initialState);
+  const [ownNFT, setOwnNFT] = useState(0);
+  const { data, isSuccess } = useFetchOwnedNFTCountQuery({
+    articleId,
+    userId: userId ? userId : NaN,
+  });
 
-  //TODO_JK: API 구현 후 연결 (현재 보유 수량)
-  const ownNFT = 1000;
+  useEffect(() => {
+    if (!isSuccess) return;
+    setOwnNFT(data);
+  }, [isSuccess, data]);
 
   //* 개수 인풋 유효성 검사
   const handleCountInputChange = (event: ChangeEvent) => {
@@ -101,10 +114,11 @@ const TransactionFractionsSell = () => {
     return dispatchPrice({ type: "NORMAL", payload: value });
   };
 
-  //TODO_JK: API 연결 후 로직 구현 (전송 로직)
-  const handlerFormSumbit = (event: FormEvent) => {
+  //TODO_JK: NFT Detail 데이터 fetch API 연결 후 로직 구현 (전송 로직)
+  const handlerFormSumbit = async (event: FormEvent) => {
     event.preventDefault();
-    alert("전송");
+    const payload = {};
+    // await registerSellNFTFraction(payload);
   };
 
   return (

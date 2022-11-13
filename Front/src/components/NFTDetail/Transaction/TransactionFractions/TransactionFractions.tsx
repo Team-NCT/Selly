@@ -1,5 +1,5 @@
 import style from "./TransactionFractions.module.scss";
-import { Button } from "@/components/common";
+import { Button, Spinner } from "@/components/common";
 import { useAppDispatch } from "@/hooks";
 import { openBuy, openSell, openSellStatus } from "@/store/modalSlice";
 import { setFractionSaleData } from "@/store/fractionSlice";
@@ -10,7 +10,7 @@ import { NFTFractionRecordType } from "@/api/server/NFTTransactionAPI";
 
 const TransactionFractions = ({ articleId, userId }: NFTDetailTransactionProps) => {
   const dispatch = useAppDispatch();
-  const { isSuccess, data } = useFetchNFTFractionRecordQuery(articleId);
+  const { isSuccess, data, isError } = useFetchNFTFractionRecordQuery(articleId);
 
   //* 조각 구매 모달에 조각 정보를 전달하기 위해 store에 관련 데이터를 저장한다.
   const openBuyModal = (item: NFTFractionRecordType) => {
@@ -27,7 +27,33 @@ const TransactionFractions = ({ articleId, userId }: NFTDetailTransactionProps) 
     dispatch(openBuy());
   };
 
-  if (isSuccess) {
+  //* 판매 모달
+  const openSellModal = () => {
+    if (!userId) {
+      return alert("로그인 하세요 ^^");
+    }
+    dispatch(openSell());
+  };
+
+  //* 판매 현황 모달
+  const openSellStatusModal = () => {
+    if (!userId) {
+      return alert("로그인 하세요 ^^");
+    }
+    dispatch(openSellStatus());
+  };
+
+  //* 에러
+  if (isError)
+    return (
+      <section className={style.NFT_detail_transction_fractions}>
+        <p className={style.NFT_detail_trasaction_fractions_error}>에러가 발생했습니다 </p>
+        <p className={style.NFT_detail_trasaction_fractions_error_2}> (っ °Д °;)っ </p>
+      </section>
+    );
+
+  //* 성공
+  if (isSuccess)
     return (
       <section className={style.NFT_detail_transction_fractions}>
         {data.length > 0 ? (
@@ -46,26 +72,21 @@ const TransactionFractions = ({ articleId, userId }: NFTDetailTransactionProps) 
             <p>(っ °Д °;)っ</p>
           </div>
         )}
-        <div>
-          <Button
-            bg="blackberry"
-            color="outline"
-            size="fillContainer"
-            onClick={() => dispatch(openSell())}>
+        <div className={style.NFT_detail_transactions_button}>
+          <Button bg="blackberry" color="outline" size="fillContainer" onClick={openSellModal}>
             조각 판매하기
           </Button>
-          <Button size="fillContainer" onClick={() => dispatch(openSellStatus())}>
+          <Button size="fillContainer" onClick={openSellStatusModal}>
             판매 현황
           </Button>
         </div>
       </section>
     );
-  }
 
+  // 로딩 중
   return (
     <section className={style.NFT_detail_transction_fractions}>
-      <p className={style.NFT_detail_trasaction_fractions_error}>에러가 발생했습니다 </p>
-      <p className={style.NFT_detail_trasaction_fractions_error_2}> (っ °Д °;)っ </p>
+      <Spinner />
     </section>
   );
 };

@@ -4,6 +4,7 @@ import {
   NFTFractionRecordType,
   RequestDataType,
   SellNFTFractionType,
+  RegisterSellNFTFractionType,
 } from "./NFTTransactionAPI.types";
 import { SignedTransactionType, PayableSignedTransactionType } from "@/types/transaction.types";
 import type { RootState } from "@/store";
@@ -21,7 +22,7 @@ const NFTTransactionAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ["fraction", "sell", "auction"],
+  tagTypes: ["fraction", "sell", "buy", "auction"],
   endpoints: (build) => ({
     //@ description: NFT 구매를 위해 조각 거래 정보를 Fetch하는 API
     fetchNFTFractionRecord: build.query<NFTFractionRecordType[], number>({
@@ -35,17 +36,33 @@ const NFTTransactionAPI = createApi({
       providesTags: ["fraction"],
     }),
 
+    //@ description: NFT 조각을 판매하기 위해 현재 보유 조각 개수를 Fetch하는 API
+    fetchOwnedNFTCount: build.query<number, RequestDataType>({
+      query: ({ articleId, userId }) =>
+        `selly-user-service/nftPiece/${userId}?articleId=${articleId}`,
+      providesTags: ["fraction"],
+    }),
+
     //@ description: 특정 조각을 구매하는 API
     sellNFTFraction: build.mutation<PayableSignedTransactionType, SellNFTFractionType>({
       query: (body) => ({ url: "selly-contract-service/buy", method: "POST", body }),
-      invalidatesTags: ["fraction"],
+      invalidatesTags: ["buy"],
+    }),
+
+    //@ description: 특정 조각을 판매등록하는 API
+    registerSellNFTFraction: build.mutation<SignedTransactionType, RegisterSellNFTFractionType>({
+      query: (body) => ({ url: "selly-contract-service/sellregist", method: "POST", body }),
+      invalidatesTags: ["sell"],
     }),
   }),
 });
 
 export const {
   useFetchNFTFractionRecordQuery,
+  useLazyFetchNFTFractionRecordQuery,
   useFetchUserNFTFractionQuery,
+  useFetchOwnedNFTCountQuery,
   useSellNFTFractionMutation,
+  useRegisterSellNFTFractionMutation,
 } = NFTTransactionAPI;
 export default NFTTransactionAPI;
