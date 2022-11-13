@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useParams, Params } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import style from "./NFTDetail.module.scss";
 import {
   NFTDetailHeader,
@@ -15,13 +16,12 @@ import { selectModal, closeBuy, closeSell, closeSellStatus } from "@/store/modal
 import { selectAccount } from "@/store/loginSlice";
 
 import { args1, args2, args4 } from "./dummy";
-import { useEffect } from "react";
 
 const NFTDetail = () => {
   const { articleId } = useParams();
   const dispatch = useAppDispatch();
   const { buy, sell, sellStatus } = useAppSelector(selectModal);
-  const { userId } = useAppSelector(selectAccount);
+  const { userId, address } = useAppSelector(selectAccount);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
@@ -37,25 +37,33 @@ const NFTDetail = () => {
 
   //TODO_JK: 404 페이지 구현 후 수정
   useEffect(() => {
-    if (isNaN(Number(articleId))) {
-      alert("404페이지로 이동");
-    }
+    if (!articleId) alert("404페이지로 이동");
   }, [articleId]);
 
   return (
-    <>
-      <NFTDetailHeader {...args1} />
-      <main className={style.NFT_detail}>
-        <NFTDetailDescription {...args2} />
-        <div>
-          <NFTDetailTransaction articleId={Number(articleId)} userId={userId} />
-          <NFTDetailHistory {...args4} />
-        </div>
-      </main>
-      {buy && createPortal(<TransactionFractionsBuy />, el)}
-      {sell && createPortal(<TransactionFractionsSell />, el)}
-      {sellStatus && createPortal(<TransactionSellStatus />, el)}
-    </>
+    articleId && (
+      <>
+        <NFTDetailHeader {...args1} />
+        <main className={style.NFT_detail}>
+          <NFTDetailDescription {...args2} />
+          <div>
+            <NFTDetailTransaction articleId={parseInt(articleId)} userId={userId} />
+            <NFTDetailHistory {...args4} />
+          </div>
+        </main>
+        {buy &&
+          createPortal(
+            <TransactionFractionsBuy
+              articleId={parseInt(articleId)}
+              address={address}
+              userId={userId}
+            />,
+            el
+          )}
+        {sell && createPortal(<TransactionFractionsSell />, el)}
+        {sellStatus && createPortal(<TransactionSellStatus />, el)}
+      </>
+    )
   );
 };
 

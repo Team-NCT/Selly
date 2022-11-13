@@ -4,7 +4,7 @@ import style from "./NFTDetailTransaction.module.scss";
 import { NFTDetailTransactionProps } from "./NFTDetailTransaction.types";
 import { TransactionFractions, TransactionAuction } from "@/components/NFTDetail/Transaction";
 
-const NFTDetailTransaction = ({ articleId }: NFTDetailTransactionProps) => {
+const NFTDetailTransaction = ({ articleId, userId }: NFTDetailTransactionProps) => {
   //* Tab 상태
   const [tab, setTab] = useState<TabType>("FRACTION");
 
@@ -23,8 +23,8 @@ const NFTDetailTransaction = ({ articleId }: NFTDetailTransactionProps) => {
           경매 / 경매 등록
         </button>
       </section>
-      {tab === "FRACTION" && <TransactionFractions />}
-      {tab === "AUCTION" && <TransactionAuction {...auction} />}
+      {tab === "FRACTION" && <TransactionFractions articleId={articleId} userId={userId} />}
+      {tab === "AUCTION" && <TransactionAuction articleId={articleId} userId={userId} />}
     </section>
   );
 };
