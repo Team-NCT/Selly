@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @CrossOrigin("*")
 @RequiredArgsConstructor
@@ -32,6 +30,12 @@ public class ArticleController {
   @GetMapping("/{articleId}")
   public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
     return articleService.findById(articleId);
+  }
+
+  @GetMapping("/nft/{articleId}")
+  public HashMap<String, Object> nftSearch (@PathVariable("articleId") Long articleId){
+    HashMap<String, Object> result = articleService.findByArticleAndUser(articleId);
+    return result;
   }
 
   @PostMapping("/create")

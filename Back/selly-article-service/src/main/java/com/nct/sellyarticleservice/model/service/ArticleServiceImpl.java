@@ -1,6 +1,5 @@
 package com.nct.sellyarticleservice.model.service;
 import com.nct.sellyarticleservice.client.UserServiceClient;
-import com.nct.sellyarticleservice.domain.dto.ArticleRequest;
 import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
 //import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
 import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
@@ -17,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -296,5 +292,20 @@ public class ArticleServiceImpl implements ArticleService{
 
     articleId.setArticleId(responseArticleId.getArticleId());
     return articleId;
+  }
+
+  @Override
+  public HashMap<String, Object> findByArticleAndUser(Long articleId) {
+    Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
+    Long owner = article.getOwner();
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    ResponseInfoArticle responseInfoArticle = mapper.map(article, ResponseInfoArticle.class);
+    ResponseUser responseUser = userServiceClient.getUser(owner);
+    ResponseInfoUser responseInfoUser = mapper.map(responseUser, ResponseInfoUser.class);
+    HashMap<String, Object> result = new HashMap<>();
+    result.put("user",responseInfoUser);
+    result.put("article", responseInfoArticle);
+    return result;
   }
 }

@@ -3,6 +3,7 @@ package com.nct.sellyarticleservice.model.service;
 import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ArticleService {
@@ -28,5 +29,6 @@ public interface ArticleService {
 
   List<ArticleResponse> findByKeyword(String keyword);
 
+  HashMap<String, Object> findByArticleAndUser(Long articleId);
   ResponseArticle createArticleNoMinting(RequestArticleCreate requestArticleCreate);
 }
