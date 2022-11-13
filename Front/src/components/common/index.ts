@@ -49,3 +49,6 @@ export { default as SelectBox } from "./SelectBox/SelectBox";
 
 //* PropertyCard
 export { default as PropertyCard } from "./PropertyCard/PropertyCard";
+
+//* Spinner
+export { default as Spinner } from "./Spinner/Spinner";

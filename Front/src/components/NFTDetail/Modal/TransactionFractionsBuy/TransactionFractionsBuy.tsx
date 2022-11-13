@@ -5,7 +5,10 @@ import { selectFraction } from "@/store/fractionSlice";
 import { closeBuy } from "@/store/modalSlice";
 import style from "./TransactionFractionsBuy.module.scss";
 import { fPointCheck } from "@/helpers/utils/numberValidation";
-import { useSellNFTFractionMutation } from "@/api/server/NFTTransactionAPI";
+import {
+  useSellNFTFractionMutation,
+  useLazyFetchNFTFractionRecordQuery,
+} from "@/api/server/NFTTransactionAPI";
 import { TransactionFractionsBuyProps } from "./TransactionFractionsBuy.types";
 import { sendPayableTransaction } from "@/api/blockchain/sendTransaction";
 
@@ -13,6 +16,7 @@ const TransactionFractionsBuy = ({ articleId, userId, address }: TransactionFrac
   const dispatch = useAppDispatch();
   const { pieceCnt, tradePrice, saleContractAddress, sellerId } = useAppSelector(selectFraction);
   const [sellNFTFraction] = useSellNFTFractionMutation();
+  const [fetchNFTFractionData] = useLazyFetchNFTFractionRecordQuery();
 
   //* 유효성 검사
   const checkInputValidation = useCallback(
@@ -63,13 +67,13 @@ const TransactionFractionsBuy = ({ articleId, userId, address }: TransactionFrac
       tradePrice,
       saleContractAddress,
     };
-
     try {
       const response = await sellNFTFraction(payload).unwrap();
       const data = await sendPayableTransaction(response);
+      await fetchNFTFractionData(articleId);
       console.log(data);
     } catch (error) {
-      console.error(error);
+      console.error("에러", error);
     }
   };
 
@@ -99,9 +103,7 @@ const TransactionFractionsBuy = ({ articleId, userId, address }: TransactionFrac
         </section>
         <div className={style.NFT_detail_buy_price}>
           <p>지불 금액(가스비 제외): </p>
-          <p>
-            약 {fPointCheck(totalPrice.toString(), 4) ? totalPrice : totalPrice.toFixed(4)} ETH{" "}
-          </p>
+          <p>약 {fPointCheck(totalPrice.toString(), 4) ? totalPrice : totalPrice.toFixed(4)} ETH</p>
         </div>
         <Button size="fillContainer" disabled={buttonStatus}>
           조각 구매하기
