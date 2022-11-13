@@ -1,13 +1,35 @@
 import style from "./Follow.module.scss";
 import { Link } from "react-router-dom";
 import { FollowProps } from "./Follow.types";
+import { selectAccount } from "@/store/loginSlice";
 import { ProfileImage, Button } from "@/components/common";
 import { closeFollow } from "@/store/modalSlice";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { EthereumIcon } from "@/components/icon";
+import { useFollowMutation, useUnFollowMutation } from "@/api/server/userAPI";
 
 const Follow = ({ data }: FollowProps) => {
   const dispatch = useAppDispatch();
+  const { account } = useAppSelector(selectAccount);
+
+  const [follow] = useFollowMutation();
+  const [unFollow] = useUnFollowMutation();
+
+  const followOnclickHandler = async () => {
+    console.log("팔로우", data.userId);
+    if (!account.userId) {
+      return;
+    }
+    const res = await follow({ followerId: account.userId, followingId: data.userId }).unwrap();
+    console.log(res);
+  };
+
+  const unFollowOnClickHandler = async () => {
+    console.log("언팔로우", data.userId);
+    if (!account.userId) return;
+    const res = await unFollow({ followerId: account.userId, followingId: data.userId }).unwrap();
+    console.log(res);
+  };
 
   return (
     <li className={style.follow_article}>
@@ -28,12 +50,12 @@ const Follow = ({ data }: FollowProps) => {
           <Button
             bg="blackberry"
             color="outline"
-            onClick={() => console.log("언팔")}
+            onClick={unFollowOnClickHandler}
             size="fillContainer">
             Following
           </Button>
         ) : (
-          <Button onClick={() => console.log("팔로")} size="fillContainer">
+          <Button onClick={followOnclickHandler} size="fillContainer">
             Follow
           </Button>
         )}
