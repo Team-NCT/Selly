@@ -1,5 +1,6 @@
 package com.nct.sellytradeservice.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.nct.sellytradeservice.domain.entity.TradeLog;
 import com.nct.sellytradeservice.domain.entity.TradeRegist;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SellRegistRequest {
   private Long seller;
 
