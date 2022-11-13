@@ -1,8 +1,10 @@
-import { testSign, makeVault, makeFraction, approveVault } from "@/api/blockchain";
-import {} from "@/api/server";
+import { makeVault, makeFraction, approveVault } from "@/api/blockchain";
+import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
+import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
+import Web3 from "web3";
 
-//TODO_YK: 실제 컨트랙트로 바꾸기
-//TODO_YK: 마지막 함수에서는 서버API 불러오고(서버에서 트랜잭션 만들어줘야함) redux에 selectedNFT 정보 reset
+const web3 = new Web3(window.ethereum);
+
 export const SIGN_DATAS = [
   {
     title: "금고 생성하기",
@@ -22,6 +24,48 @@ export const SIGN_DATAS = [
   {
     title: "판매 등록하기",
     desc: "생성된 조각을 셀리에 판매 등록합니다.",
-    signFunction: testSign,
+    signFunction: async ({
+      CA,
+      tokenId,
+      num,
+      articleName,
+      F_NFTCA,
+      userWallet,
+      userId,
+      metaDataUrl,
+      articleUrl,
+      category,
+      price,
+    }: functionProps) => {
+      const [createSale] = useSaleNFTMutation();
+      const body = {
+        contractAccress: CA,
+        ownershipContractAddress: F_NFTCA,
+        tokenId: tokenId,
+        seller: userId,
+        pieceCnt: num,
+        tradePrice: Number(price),
+        category: category,
+        wallet: userWallet,
+        articleUrl,
+        articleName,
+        metaDataUrl,
+      };
+      const response = await createSale(body).unwrap();
+      const payload = {
+        nonce: response.nonce,
+        to: response.to,
+        from: response.from,
+        data: response.data,
+      };
+      try {
+        const sendRes = await web3.eth.sendTransaction(payload);
+        console.log(sendRes);
+        return sendRes.status;
+      } catch (e) {
+        console.error(e);
+        return false;
+      }
+    },
   },
 ];

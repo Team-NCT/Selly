@@ -7,6 +7,11 @@ export interface functionProps {
   F_NFTCA: string;
   setValue: ((value: string) => void) | undefined;
   userWallet: string;
+  userId: number;
+  metaDataUrl: string;
+  articleUrl: string;
+  category: string;
+  price: string;
 }
 
 export interface SignBoxProps {
