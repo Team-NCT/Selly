@@ -287,6 +287,7 @@ public class TradeServiceImpl implements TradeService {
 //    return "존재하지 않는 거래입니다.";
 //  }
 
+  // 거래 API
   @Transactional
   @Override
   public Object trade(Long sellerId, Long buyerId, TradeRequest tradeRequest) throws NullPointerException {
@@ -431,7 +432,7 @@ public class TradeServiceImpl implements TradeService {
                 .articleId(trade)
                 .tradePrice(tradeRegist.getTradePrice())
                 .pieceCnt(tradeRequest.getPieceCnt())
-                .contractAddress(tradeRequest.getContractAddress())
+                .contractAddress(tradeRequest.getSaleContractAddress())
                 .build();
         tradeLogRepository.save(tradeLogRequest.toEntity());
         return "거래 로그 등록 완료";
