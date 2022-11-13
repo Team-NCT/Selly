@@ -27,14 +27,6 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
   const { CA, tokenId, metaDataUrl, articleName, articleUrl } = useAppSelector(selectNFTValue);
   const { category, code, num, price } = useAppSelector(selectSellInfo);
 
-  const testHandler = async () => {
-    const response = await sellyERC721Contract("0xe6842912f4Da47484D695D4c97a939777738F67E")
-      .methods.createMine("SSSSS")
-      .send({ from: window.ethereum.selectedAddress });
-
-    console.log(response);
-  };
-
   // TODO_YK: 마지막은 백엔드랑 통신
   const onClickHandler = () => {
     if (!address) return;
@@ -85,7 +77,6 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
           </Button>
         )}
       </div>
-      <Button onClick={testHandler}>경매</Button>
     </div>
   );
 };

@@ -6,12 +6,12 @@ import { useAppSelector } from "@/hooks/useStore";
 
 const Collected = () => {
   const [NFTdatas, setNFTdatas] = useState<any>("");
-  const { account } = useAppSelector(selectAccount);
+  const { address } = useAppSelector(selectAccount);
 
   // TODO_YK: 내 계정 말고 프로필 유저 아이디로 인자 넣어주기
   const getOwnERC721NFTs = async () => {
-    if (!account.address) return;
-    const { ownedNfts } = await getNFTsForOwnerAPI(account.address);
+    if (!address) return;
+    const { ownedNfts } = await getNFTsForOwnerAPI(address);
     let datas = [];
     datas = ownedNfts.filter((nft) => {
       return nft.tokenType === "ERC721";

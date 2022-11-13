@@ -14,7 +14,7 @@ function Sell() {
   const [step, setStep] = useState<stepType>("SELECT");
   const [NFTdatas, setNFTdatas] = useState<any>("");
   const NFTValue = useAppSelector(selectNFTValue);
-  const { account } = useAppSelector(selectAccount);
+  const { address } = useAppSelector(selectAccount);
 
   const changeStep = (step: stepType) => {
     setStep(step);
@@ -23,8 +23,8 @@ function Sell() {
   };
 
   const getOwnERC721NFTs = async () => {
-    if (!account.address) return;
-    const { ownedNfts } = await getNFTsForOwnerAPI(account.address);
+    if (!address) return;
+    const { ownedNfts } = await getNFTsForOwnerAPI(address);
     let datas = [];
     datas = ownedNfts.filter((nft) => {
       return nft.tokenType === "ERC721";
