@@ -12,7 +12,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
   Long countBy();
 
   Article findByContractAddressAndTokenId(String contractAddress, String tokenId);
-  List<Article> findAllByCategoryAndAvailability(String category, boolean availability);
+  List<Article> findAllByCategoryAndAvailability(String category, boolean availability, Sort sort);
 
   List<Article> findAllByAvailability(boolean availability, Sort sort);
 
