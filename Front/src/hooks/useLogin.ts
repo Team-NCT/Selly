@@ -3,13 +3,14 @@ import { GOERLI_ID, METAMASK_DOWNLOAD_LINK } from "@/constants/metamask";
 import { setAddress } from "@/store/loginSlice";
 import { useAppDispatch } from "@/hooks/useStore";
 import { useLoginMutation } from "@/api/server/loginAPI";
-import { useAlert } from "@/hooks";
+import { useAlert, useSetGoerli } from "@/hooks";
 import { isMobileWeb } from "@/helpers/utils/checkDevice";
 
 const useLogin = () => {
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
   const { openAlertModal } = useAlert();
+  const [setGoerliToken] = useSetGoerli();
 
   const loginHandler = async () => {
     //* 모바일 환경 체크
@@ -52,6 +53,8 @@ const useLogin = () => {
           address: address,
         })
       );
+
+      setGoerliToken();
     } else {
       window.open(METAMASK_DOWNLOAD_LINK, "_blank");
     }

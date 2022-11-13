@@ -227,3 +227,13 @@ nav {
     display: none;
   }
 }
+
+.wallet_token {
+  @include flex(row, space-around);
+  height: 100%;
+  width: 100%;
+  padding: 8px 13px;
+  margin-bottom: 4px;
+  background: $muscat;
+  border-radius: $radius-modal;
+}
