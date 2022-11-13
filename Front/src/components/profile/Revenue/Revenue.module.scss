@@ -8,6 +8,10 @@
   @media (max-width: 900px) {
     padding: 32px;
   }
+
+  @media (max-width: 500px) {
+    padding: 24px;
+  }
 }
 
 .column {
@@ -29,7 +33,7 @@
   @include font($h5, $regular);
   margin-bottom: 8px;
 
-  @include mobile {
+  @media (max-width: 500px) {
     @include font($body1, $regular);
   }
 }
@@ -37,7 +41,7 @@
 .content {
   @include font($h4, $semibold);
 
-  @media (max-width: 474px) {
+  @media (max-width: 500px) {
     @include font($h5, $regular);
   }
 }
