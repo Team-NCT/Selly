@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useParams } from "react-router-dom";
 import style from "./NFTDetail.module.scss";
+import { useAppSelector, useAppDispatch } from "@/hooks";
+import { selectModal, closeBuy, closeSell, closeSellStatus } from "@/store/modalSlice";
+import { selectAccount } from "@/store/loginSlice";
+import { useFetchNFTDataQuery } from "@/api/server/NFTDetailAPI";
 import {
   NFTDetailHeader,
   NFTDetailDescription,
@@ -11,17 +15,14 @@ import {
   TransactionFractionsSell,
   TransactionSellStatus,
 } from "@/components/NFTDetail";
-import { useAppSelector, useAppDispatch } from "@/hooks";
-import { selectModal, closeBuy, closeSell, closeSellStatus } from "@/store/modalSlice";
-import { selectAccount } from "@/store/loginSlice";
-
-import { args1, args2, args4 } from "./dummy";
 
 const NFTDetail = () => {
   const { articleId } = useParams();
+  const numberArticleId = articleId ? parseInt(articleId) : NaN;
   const dispatch = useAppDispatch();
   const { buy, sell, sellStatus } = useAppSelector(selectModal);
   const { userId, address } = useAppSelector(selectAccount);
+  const { data, isError } = useFetchNFTDataQuery(numberArticleId);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
@@ -47,7 +48,7 @@ const NFTDetail = () => {
         <main className={style.NFT_detail}>
           <NFTDetailDescription {...args2} />
           <div>
-            <NFTDetailTransaction articleId={parseInt(articleId)} userId={userId} />
+            <NFTDetailTransaction articleId={numberArticleId} userId={userId} />
             <NFTDetailHistory {...args4} />
           </div>
         </main>

@@ -9,3 +9,10 @@ export interface UserProfileType {
   followingCnt: number;
   myFollowing?: boolean;
 }
+
+export interface UserType {
+  userId: number;
+  nickname: string;
+  image: string;
+  certification: boolean;
+}
