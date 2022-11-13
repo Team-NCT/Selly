@@ -55,7 +55,7 @@ function SignSection({ changeStep }: SignSectionProps) {
           <strong>진행한 단계를 돌이킬 수 없습니다.</strong>
         </h3>
       </header>
-      <SignBoxList data={SIGN_DATAS} />
+      <SignBoxList data={SIGN_DATAS} setShowDialog={setShowDialog} />
     </>
   );
 }

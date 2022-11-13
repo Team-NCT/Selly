@@ -8,7 +8,7 @@ import { resetSellInfo } from "@/store/sellInfoSlice";
 import { resetNFTValue } from "@/store/selectNFTSlice";
 import { useNavigate } from "react-router-dom";
 
-const SelectCardList = ({ data }: SignBoxListProps) => {
+const SelectCardList = ({ data, setShowDialog }: SignBoxListProps) => {
   const [activeBoxIdx, setActiveBoxIdx] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ const SelectCardList = ({ data }: SignBoxListProps) => {
     setActiveBoxIdx(idx);
     // 모든 서명이 끝났을 때, 판매 정보 reset
     if (idx === 4) {
+      setShowDialog(false);
       dispatch(resetSignData());
       dispatch(resetSellInfo());
       dispatch(resetNFTValue());

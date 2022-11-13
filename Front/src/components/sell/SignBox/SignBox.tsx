@@ -72,6 +72,37 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
     }
   };
 
+  const testHandler = () => {
+    if (!address || !userId) return;
+    const userWallet = address;
+
+    Onsale({
+      CA,
+      tokenId,
+      num,
+      articleName,
+      code,
+      F_NFTCA,
+      setValue,
+      userWallet,
+      userId,
+      metaDataUrl,
+      articleUrl,
+      category,
+      price,
+    }).then((res) => {
+      if (res) {
+        setIsCompleted(true);
+        goNext(idx);
+      } else {
+        setButtonText("서명하기");
+        setSignable(true);
+        alert("블록체인 통신 상태 ERROR");
+        console.error("블록체인 통신 상태 ERROR");
+      }
+    });
+  };
+
   const onClickHandler = () => {
     if (!address || !userId) return;
     const userWallet = address;
@@ -159,6 +190,9 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
           </Button>
         )}
       </div>
+      <Button size="fillContainer" onClick={testHandler}>
+        서명
+      </Button>
     </div>
   );
 };
