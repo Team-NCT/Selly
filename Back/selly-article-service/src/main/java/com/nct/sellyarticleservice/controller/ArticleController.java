@@ -29,14 +29,19 @@ public class ArticleController {
 //  public ArticleResponse findById (@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
 //    return articleService.findById(articleId, userId);
 //  }
-@GetMapping("/{articleId}")
-public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
-  return articleService.findById(articleId);
-}
+  @GetMapping("/{articleId}")
+  public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
+    return articleService.findById(articleId);
+  }
 
   @PostMapping("/create")
   public ResponseArticle createArticle(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException{
     return articleService.createArticle(requestArticleCreate);
+  }
+
+  @PostMapping("/create/nominting")
+  public ResponseArticle createArticleNoMinting(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException{
+    return articleService.createArticleNoMinting(requestArticleCreate);
   }
 
   @GetMapping("")
@@ -123,9 +128,9 @@ public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
 //  }
 
   // 판매 등록 call
-  @PostMapping("/{id}")
-  public ResponseEntity<String> response(@RequestBody ArticleUpdateRequest articleUpdateRequest, @PathVariable("id") Long id) {
-    ArticleResponse articleResponse = articleService.updateArticle(articleUpdateRequest, id);
+  @PostMapping("/{articleId}")
+  public ResponseEntity<String> response(@RequestBody ArticleUpdateRequest articleUpdateRequest, @PathVariable("articleId") Long articleId) {
+    ArticleResponse articleResponse = articleService.updateArticle(articleUpdateRequest, articleId);
     String response = "success";
     return ResponseEntity.ok()
             .body(response);
@@ -150,5 +155,10 @@ public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
   public List<ArticleResponse> articleSearch(@PathVariable("keyword") String keyword) {
     return articleService.findByKeyword(keyword);
   }
+  @GetMapping("/searchId/{contractAddress}/{tokenId}")
+  public ResponseArticleId articleIdSearch(@PathVariable("contractAddress") String contractAddress, @PathVariable("tokenId") String tokenId){
+    return articleService.findByArticleId(contractAddress, tokenId);
+  }
+
 
 }

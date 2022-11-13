@@ -49,9 +49,24 @@ public class ArticleServiceImpl implements ArticleService{
     System.out.println(responseListen);
     System.out.println("리슨 완료 !");
     article.setContractAddress(responseListen.getContractAddress());
-    article.setTokenId(responseListen.getToken());
+    article.setTokenId(responseListen.getTokenId());
     articleRepository.save(article);
     return mapper.map(article, ResponseArticle.class);
+  }
+
+  @Override
+  public ResponseArticle createArticleNoMinting(RequestArticleCreate requestArticleCreate) {
+    System.out.println("민팅 X 들어옴");
+    System.out.println(requestArticleCreate);
+    System.out.println(requestArticleCreate.getWallet());
+    requestArticleCreate.setMetaDataUrl("https://skywalker.infura-ipfs.io/ipfs/"+requestArticleCreate.getMetaDataUrl());
+    requestArticleCreate.setArticleImgUrl("https://skywalker.infura-ipfs.io/ipfs/" + requestArticleCreate.getArticleImgUrl());
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    Article article = mapper.map(requestArticleCreate, Article.class);
+    System.out.println(requestArticleCreate.getMetaDataUrl());
+    System.out.println(requestArticleCreate.getArticleImgUrl());
+    System.out.println(requestArticleCreate.getWallet());
+    return null;
   }
 
   @Override
@@ -197,12 +212,16 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id) {
-    Article article = articleRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + id));
+  public ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long articleId) {
+    Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
     article.updateArticle(
             articleUpdateRequest.isAvailability(),
-            LocalDateTime.now()
+            LocalDateTime.now(),
+            articleUpdateRequest.getPrice(),
+            articleUpdateRequest.getOwnerContractAddress(),
+            articleUpdateRequest.getPrimaryCnt(),
+            articleUpdateRequest.getCategory()
     );
     articleRepository.save(article);
 
@@ -264,5 +283,13 @@ public class ArticleServiceImpl implements ArticleService{
       articleResponseList.add(new ModelMapper().map(v, ArticleResponse.class));
     });
     return articleResponseList;
+  }
+
+  @Override
+  public ResponseArticleId findByArticleId(String contractAddress, String tokenId) {
+    Article responseArticleId = articleRepository.findByContractAddressAndTokenId(contractAddress, tokenId);
+    ResponseArticleId articleId = new ResponseArticleId();
+    articleId.setArticleId(responseArticleId.getArticleId());
+    return articleId;
   }
 }

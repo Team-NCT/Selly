@@ -139,8 +139,8 @@ public class UserController {
     } else if (returnValue.getBanner() == null){
       returnValue.setBanner("default");
     }
-    Long myFollowerCnt = followService.followerCount(userId);
-    Long myFollowingCnt = followService.followingCount(userId);
+    Long myFollowerCnt = followService.followerCount(profileId);
+    Long myFollowingCnt = followService.followingCount(profileId);
     returnValue.setFollowerCnt(myFollowerCnt);
     returnValue.setFollowingCnt(myFollowingCnt);
     Boolean myFollowing =  followService.myFollowingCheck(profileId, userId);

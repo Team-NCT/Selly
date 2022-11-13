@@ -11,7 +11,7 @@ public class TradeLogRequest {
   private Long seller;
   private Long buyer;
   private Long articleId;
-  private Double tradePrice;
+  private double tradePrice;
   private Integer pieceCnt;
   private LocalDateTime tradeTime;
   private LocalDateTime tradeRegistTime;
@@ -21,7 +21,7 @@ public class TradeLogRequest {
   private String contractAddress;
 
   @Builder
-  public TradeLogRequest (Long seller, Long buyer, Long articleId, Double tradePrice, Integer pieceCnt, String contractAddress) {
+  public TradeLogRequest (Long seller, Long buyer, Long articleId, double tradePrice, Integer pieceCnt, String contractAddress) {
     this.seller = seller;
     this.buyer = buyer;
     this.articleId = articleId;

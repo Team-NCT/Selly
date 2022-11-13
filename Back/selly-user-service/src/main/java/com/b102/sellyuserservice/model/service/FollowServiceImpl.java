@@ -23,9 +23,13 @@ public class FollowServiceImpl implements FollowService{
   public FollowDto followLike(FollowDto followDto) {
     ModelMapper mapper = new ModelMapper();
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-    FollowEntity followEntity = mapper.map(followDto, FollowEntity.class);
-    followRepository.save(followEntity);
-    return mapper.map(followEntity, FollowDto.class);
+    FollowEntity followEntity = followRepository.findByFollowerIdAndFollowingId(followDto.getFollowerId(), followDto.getFollowingId());
+    if (followEntity != null){
+      return null;
+    }
+    FollowEntity saveData = mapper.map(followDto, FollowEntity.class);
+    followRepository.save(saveData);
+    return mapper.map(saveData, FollowDto.class);
   }
 
   @Override

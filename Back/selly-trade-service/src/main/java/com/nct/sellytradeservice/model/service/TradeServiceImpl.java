@@ -1,6 +1,7 @@
 package com.nct.sellytradeservice.model.service;
 
 import com.nct.sellytradeservice.client.ArticleServiceClient;
+import com.nct.sellytradeservice.client.SellyContractServiceClient;
 import com.nct.sellytradeservice.client.UserServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.domain.entity.TradeLog;
@@ -28,6 +29,7 @@ public class TradeServiceImpl implements TradeService {
   private final TradeLogRepository tradeLogRepository;
   private final TradeRegistRepository tradeRegistRepository;
 
+  private final SellyContractServiceClient sellyContractServiceClient;
   private ModelMapper mapper= new ModelMapper();
 
 //  @Override
@@ -86,32 +88,90 @@ public class TradeServiceImpl implements TradeService {
   @Transactional
   @Override
   public String registP2pSell(SellRegistRequest sellRegistRequest) {
-    Object articleResponseDto = articleServiceClient.articleResponse(sellRegistRequest.getArticleId(), sellRegistRequest.getSeller());
-    String setSaleContractAddress = "setSaleContractAddress";
+//    Object articleResponseDto = articleServiceClient.articleResponse(sellRegistRequest.getArticleId(), sellRegistRequest.getSeller());
+    System.out.println("뜰어옴");
     sellRegistRequest.setStatus(true);
-    sellRegistRequest.setSaleContractAddress(setSaleContractAddress);
-    if (sellRegistRequest.isArticleOwner()) {
-      NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
-              .userId(sellRegistRequest.getSeller())
-              .articleId(sellRegistRequest.getArticleId())
-              .nftPieceCnt(sellRegistRequest.getPieceCnt())
-              .avgPrice(sellRegistRequest.getTradePrice())
-              .trade(true)
-              .build();
-      userServiceClient.createOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
-      System.out.println(sellRegistRequest.getPieceCnt());
-      System.out.println(sellRegistRequest.getTradePrice());
-      log.debug("판매자 소유권 등록 완료");
+    ResponseArticleId responseArticleId = articleServiceClient.responseArticleId(sellRegistRequest.getContractAddress(), sellRegistRequest.getTokenId());
+    if (responseArticleId != null) {
+      System.out.println("등록 된 작품");
+
+      if (userServiceClient.getOwnership(sellRegistRequest.getSeller(), responseArticleId.getArticleId()).getBody() == null) {
+        System.out.println("소유권 없음");
+        NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
+                .userId(sellRegistRequest.getSeller())
+                .articleId(responseArticleId.getArticleId())
+                .nftPieceCnt(sellRegistRequest.getPieceCnt())
+                .avgPrice(sellRegistRequest.getTradePrice())
+                .trade(true) // true면 거래 할 수 있음
+                .build();
+        userServiceClient.createOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
+        System.out.println(sellRegistRequest.getPieceCnt());
+        System.out.println(sellRegistRequest.getTradePrice());
+        log.debug("판매자 소유권 등록 완료");
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        TradeRegist tradeRegist = mapper.map(sellRegistRequest, TradeRegist.class);
+        tradeRegist.setArticleId(responseArticleId.getArticleId());
+        ResponseSaleCA responseSaleCA = sellyContractServiceClient.responseSaleCa(sellRegistRequest.getWallet(), sellRegistRequest.getOwnershipContractAddress());
+        tradeRegist.setSaleContractAddress(responseSaleCA.getSaleContractAddress());
+        tradeRegistRepository.save(tradeRegist);
+        ArticleUpdateRequest articleUpdateRequest = new ArticleUpdateRequest();
+        articleUpdateRequest.setAvailability(sellRegistRequest.isStatus());
+        articleUpdateRequest.setPrice(sellRegistRequest.getTradePrice());
+        articleUpdateRequest.setOwnerContractAddress(sellRegistRequest.getOwnershipContractAddress());
+        articleUpdateRequest.setPrimaryCnt(sellRegistRequest.getPieceCnt());
+        articleServiceClient.response(articleUpdateRequest, responseArticleId.getArticleId());
+        return "등록 성공";
+      } else {
+        System.out.println("소유권있음");
+        NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
+                .userId(sellRegistRequest.getSeller())
+                .articleId(responseArticleId.getArticleId())
+                .trade(true)
+                .build();
+        userServiceClient.updateOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        TradeRegist tradeRegist = mapper.map(sellRegistRequest, TradeRegist.class);
+        tradeRegist.setArticleId(responseArticleId.getArticleId());
+        ResponseSaleCA responseSaleCA = sellyContractServiceClient.responseSaleCa(sellRegistRequest.getWallet(), sellRegistRequest.getOwnershipContractAddress());
+        tradeRegist.setSaleContractAddress(responseSaleCA.getSaleContractAddress());
+        tradeRegistRepository.save(tradeRegist);
+        return "등록 성공";
+      }
+    } else {
+      System.out.println("작품 없음");
+      RequestArticleNoMinting requestArticleNoMinting = mapper.map(sellRegistRequest, RequestArticleNoMinting.class);
+      requestArticleNoMinting.setOwner(sellRegistRequest.getSeller());
+      articleServiceClient.aricleCreateNoMinting(requestArticleNoMinting);
+      ResponseArticleId getArticleId = articleServiceClient.responseArticleId(sellRegistRequest.getContractAddress(), sellRegistRequest.getTokenId());
+      mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+      TradeRegist tradeRegist = mapper.map(sellRegistRequest, TradeRegist.class);
+      tradeRegist.setArticleId(getArticleId.getArticleId());
+      ResponseSaleCA responseSaleCA = sellyContractServiceClient.responseSaleCa(sellRegistRequest.getWallet(), sellRegistRequest.getContractAddress());
+      tradeRegist.setSaleContractAddress(responseSaleCA.getSaleContractAddress());
+      tradeRegistRepository.save(tradeRegist);
+      return "등록 성공";
     }
-    NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
-            .userId(sellRegistRequest.getSeller())
-            .articleId(sellRegistRequest.getArticleId())
-            .trade(true)
-            .build();
-    userServiceClient.updateOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
-    tradeRegistRepository.save(sellRegistRequest.toEntity());
-    return "등록 성공";
   }
+//        if (sellRegistRequest.isArticleOwner()) {
+//      NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
+//              .userId(sellRegistRequest.getSeller())
+//              .articleId(sellRegistRequest.getArticleId())
+//              .nftPieceCnt(sellRegistRequest.getPieceCnt())
+//              .avgPrice(sellRegistRequest.getTradePrice())
+//              .trade(true)
+//              .build();
+//      userServiceClient.createOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
+//      System.out.println(sellRegistRequest.getPieceCnt());
+//      System.out.println(sellRegistRequest.getTradePrice());
+//      log.debug("판매자 소유권 등록 완료");
+//    }
+//    NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
+//            .userId(sellRegistRequest.getSeller())
+//            .articleId(sellRegistRequest.getArticleId())
+//            .trade(true)
+//            .build();
+//    userServiceClient.updateOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
+//  }
   // 거래 API
 //  @Transactional
 //  @Override

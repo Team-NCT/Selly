@@ -41,8 +41,6 @@ public class ArticleUpdateRequest {
 
   private LocalDateTime updateRegist;
 
-  private Long originalAuthor;
-
   private Integer primaryCnt;
 
   private Integer currentCnt;
@@ -50,4 +48,6 @@ public class ArticleUpdateRequest {
   private Double price;
 
   private Long owner;
+
+  private String ownerContractAddress;
 }

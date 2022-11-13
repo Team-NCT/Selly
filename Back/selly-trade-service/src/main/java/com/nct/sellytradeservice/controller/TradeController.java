@@ -52,7 +52,7 @@ public class TradeController {
     return null;
   }
 
-  // 유저간 거래 등록
+  // 판매 등록
   @PostMapping("/p2p-sell-regist")
   public ResponseEntity<Object> response(@RequestBody SellRegistRequest sellRegistRequest) {
     String response = tradeService.registP2pSell(sellRegistRequest);
@@ -60,7 +60,7 @@ public class TradeController {
             .body(response);
   }
 
-  // 거래 API
+  // 유저간 거래 API
   @PostMapping("/trade")
   public ResponseEntity<Object> trade (@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
     Object response = null;
