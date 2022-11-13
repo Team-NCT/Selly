@@ -59,9 +59,11 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
   //* 저장
   const saveHandler = (event: React.MouseEvent) => {
     event.preventDefault();
+    console.log(modalProperties);
     const saveProperties = modalProperties.filter(
       (property) => property.type.trim() && property.name.trim()
     );
+    console.log(saveProperties);
     setProperties(saveProperties);
     close();
   };

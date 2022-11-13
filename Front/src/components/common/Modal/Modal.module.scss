@@ -5,6 +5,7 @@
   bottom: 0;
   right: 0;
   background: $modal-bg;
+  z-index: 30;
 }
 
 .dialog_modal {
@@ -15,4 +16,5 @@
   transform: translate(-50%, -50%);
   background-color: $white;
   border-radius: $radius-modal;
+  z-index: 31;
 }
