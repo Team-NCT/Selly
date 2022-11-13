@@ -21,7 +21,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
   const [signable, setSignable] = useState(true);
   const [buttonText, setButtonText] = useState("서명하기");
 
-  const { account } = useAppSelector(selectAccount);
+  const { address } = useAppSelector(selectAccount);
 
   const { F_NFTCA, F_NFTSaleCA } = useAppSelector(selectSignData);
   const { CA, tokenId, metaDataUrl, articleName, articleUrl } = useAppSelector(selectNFTValue);
@@ -37,23 +37,27 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
 
   // TODO_YK: 마지막은 백엔드랑 통신
   const onClickHandler = () => {
+    if (!address) return;
+    const userWallet = address;
     console.log(signFunction);
     setSignable(false);
     setButtonText("서명 중");
     if (idx === 4) {
       console.log("백엔드 통신");
     } else {
-      signFunction({ CA, tokenId, num, articleName, code, F_NFTCA, setValue, account.address }).then((res) => {
-        if (res) {
-          setIsCompleted(true);
-          goNext(idx);
-        } else {
-          setButtonText("서명하기");
-          setSignable(true);
-          alert("블록체인 통신 상태 ERROR");
-          console.error("블록체인 통신 상태 ERROR");
+      signFunction({ CA, tokenId, num, articleName, code, F_NFTCA, setValue, userWallet }).then(
+        (res) => {
+          if (res) {
+            setIsCompleted(true);
+            goNext(idx);
+          } else {
+            setButtonText("서명하기");
+            setSignable(true);
+            alert("블록체인 통신 상태 ERROR");
+            console.error("블록체인 통신 상태 ERROR");
+          }
         }
-      });
+      );
     }
   };
 

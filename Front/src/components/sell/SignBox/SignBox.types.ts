@@ -5,7 +5,7 @@ export interface functionProps {
   articleName: string;
   code: string;
   F_NFTCA: string;
-  setValue: (value: string) => void | undefined;
+  setValue: ((value: string) => void) | undefined;
   userWallet: string;
 }
 
