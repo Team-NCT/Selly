@@ -31,7 +31,7 @@ const FractionNum = ({ value, changeHandler, setIsNumTrue }: FractionNumProps) =
   }, [value]);
 
   return (
-    <div>
+    <div className={style.fraction_num}>
       <h2 className={style.fraction_num_label}>
         <Label color="lilac150" positionH="bottom" positionW="right" id="fraction-num">
           조각 개수

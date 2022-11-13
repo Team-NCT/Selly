@@ -33,7 +33,7 @@
       white-space: nowrap;
       max-width: 80%;
       margin-bottom: 16px;
-
+      min-height: 19.09px;
       @include tablet {
         @include font($body2, $semibold, $main-font);
       }
