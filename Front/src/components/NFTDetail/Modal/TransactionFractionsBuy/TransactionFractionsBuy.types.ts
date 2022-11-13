@@ -1,5 +1,4 @@
-export type TabType = "AUCTION" | "FRACTION";
-export interface NFTDetailTransactionProps {
+export interface TransactionFractionsBuyProps {
   /**
    * 작품 Id
    */
@@ -9,4 +8,9 @@ export interface NFTDetailTransactionProps {
    * 유저 Id
    */
   userId: number | undefined | null;
+
+  /**
+   * wallet
+   */
+  address: string | null;
 }

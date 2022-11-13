@@ -77,14 +77,14 @@ const useCheckLogined = () => {
         style: "error",
         icon: false,
       });
+      // } else {
+      //   openAlertModal({
+      //     content: "계정이 변경 되었습니다.",
+      //     style: "info",
+      //     icon: true,
+      //   });
+      // }
     }
-    // else {
-    //   openAlertModal({
-    //     content: "계정이 변경 되었습니다.",
-    //     style: "info",
-    //     icon: true,
-    //   });
-    // }
   };
 
   return [checkWallet, checkWalletAccount];
