@@ -6,10 +6,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { resetSignData, setF_NFTCA, setF_NFTSaleCA } from "@/store/signDataSlice";
 import { resetSellInfo } from "@/store/sellInfoSlice";
 import { resetNFTValue } from "@/store/selectNFTSlice";
+import { useNavigate } from "react-router-dom";
 
 const SelectCardList = ({ data }: SignBoxListProps) => {
   const [activeBoxIdx, setActiveBoxIdx] = useState(0);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const goNext = (idx: number) => {
     setActiveBoxIdx(idx);
@@ -18,6 +20,7 @@ const SelectCardList = ({ data }: SignBoxListProps) => {
       dispatch(resetSignData());
       dispatch(resetSellInfo());
       dispatch(resetNFTValue());
+      navigate("/");
     }
   };
 

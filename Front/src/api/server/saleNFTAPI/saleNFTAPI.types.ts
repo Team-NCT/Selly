@@ -1,5 +1,5 @@
 export interface F_NFTSaleType {
-  contractAccress: string;
+  contractAddress: string;
   ownershipContractAddress: string;
   tokenId: string;
   seller: number;

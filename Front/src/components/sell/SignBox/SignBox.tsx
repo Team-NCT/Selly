@@ -7,6 +7,12 @@ import { selectSignData } from "@/store/signDataSlice";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { selectSellInfo } from "@/store/sellInfoSlice";
 import { selectAccount } from "@/store/loginSlice";
+import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
+import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
+
+import Web3 from "web3";
+
+const web3 = new Web3(window.ethereum);
 
 const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }: SignBoxProps) => {
   const [isCompleted, setIsCompleted] = useState(false);
@@ -19,13 +25,88 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
   const { CA, tokenId, metaDataUrl, articleName, articleUrl } = useAppSelector(selectNFTValue);
   const { category, code, num, price } = useAppSelector(selectSellInfo);
 
-  //TODO_YK: 마지막 함수에서는 서버API 불러오고(서버에서 트랜잭션 만들어줘야함) redux에 selectedNFT 정보 reset
+  const [createSale] = useSaleNFTMutation();
+
+  //* 서버 API 불러오는 마지막 함수
+  const Onsale = async ({
+    CA,
+    tokenId,
+    num,
+    articleName,
+    F_NFTCA,
+    userWallet,
+    userId,
+    metaDataUrl,
+    articleUrl,
+    category,
+    price,
+  }: functionProps) => {
+    const body = {
+      contractAddress: CA,
+      ownershipContractAddress: F_NFTCA,
+      tokenId: tokenId,
+      seller: userId,
+      pieceCnt: num,
+      tradePrice: Number(price),
+      category: category,
+      wallet: userWallet,
+      articleUrl,
+      articleName,
+      metaDataUrl,
+    };
+    console.log(body);
+    const response = await createSale(body).unwrap();
+    const payload = {
+      nonce: response.nonce,
+      to: response.to,
+      from: response.from,
+      data: response.data,
+    };
+    try {
+      const sendRes = await web3.eth.sendTransaction(payload);
+      console.log(sendRes);
+      return sendRes.status;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
   const onClickHandler = () => {
     if (!address || !userId) return;
     const userWallet = address;
 
     setSignable(false);
     setButtonText("서명 중");
+
+    if (!signFunction) {
+      Onsale({
+        CA,
+        tokenId,
+        num,
+        articleName,
+        code,
+        F_NFTCA,
+        setValue,
+        userWallet,
+        userId,
+        metaDataUrl,
+        articleUrl,
+        category,
+        price,
+      }).then((res) => {
+        if (res) {
+          setIsCompleted(true);
+          goNext(idx);
+        } else {
+          setButtonText("서명하기");
+          setSignable(true);
+          alert("블록체인 통신 상태 ERROR");
+          console.error("블록체인 통신 상태 ERROR");
+        }
+      });
+      return;
+    }
 
     signFunction({
       CA,
