@@ -3,6 +3,7 @@ import { Modal } from "@/components/common";
 import { useAppDispatch } from "@/hooks";
 import { closeSellStatus } from "@/store/modalSlice";
 import { numberAddComma } from "@/helpers/utils/numberConversion";
+import { useFetchUserNFTFractionQuery } from "@/api/server/NFTTransactionAPI/NFTTransactionAPI";
 
 const TransactionSellStatus = () => {
   const dispatch = useAppDispatch();
