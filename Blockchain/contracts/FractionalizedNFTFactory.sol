@@ -12,8 +12,8 @@ contract FractionalizedNFTFactory {
   // 이벤트
   event FractionalizeNFT(
     address F_CA,
-    address indexed NFTCA,
-    uint256 indexed tokenId,
+    address NFTCA,
+    uint256 tokenId,
     address owner,
     uint256 amount
   );

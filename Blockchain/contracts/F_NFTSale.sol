@@ -14,17 +14,17 @@ contract F_NFTSale{
 
   // 이벤트
   event Purchase (
-    address indexed F_CA,
-    address indexed SaleCA,
-    address indexed seller,
+    address F_CA,
+    address SaleCA,
+    address seller,
     address buyer,
     uint256 buyAmount,
     uint256 payValue
   );
   event CancelSale (
-    address indexed F_CA,
-    address indexed SaleCA,
-    address indexed seller
+    address F_CA,
+    address SaleCA,
+    address seller
   );
   // event Check (
   //   uint256 price

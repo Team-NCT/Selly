@@ -40,26 +40,26 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
 
   // 이벤트
   event CreateSale (
-    address indexed F_CA,
+    address F_CA,
     address F_SaleCA,
-    address indexed seller,
+    address seller,
     uint256 amount,
     uint256 price
   );
   event StartAuc (
-    address indexed F_CA,
+    address F_CA,
     uint256 minimumPrice,
     bool auctionStatus
   );
-  event CancelAuc (address indexed F_CA, bool auctionStatus);
+  event CancelAuc (address F_CA, bool auctionStatus);
   event HighestBidIncreased (
-    address indexed F_CA, 
+    address F_CA, 
     address preBidder, 
     uint256 preAmount, 
     address bidder, 
     uint256 amount
   );
-  event EndAuc (address indexed F_CA, bool ended);
+  event EndAuc (address F_CA, bool ended);
   event Burn (address user, uint256 amount);
   event Check (uint256 amount, address[] users, uint256 index);
   
