@@ -1,12 +1,4 @@
 .container {
   @include flex(column);
-}
-
-.select_container {
-  @include flex(row, flex-end, center);
   width: 100%;
-}
-
-.select_box {
-  width: 200px;
 }
