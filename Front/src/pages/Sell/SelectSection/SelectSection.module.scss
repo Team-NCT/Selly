@@ -1,11 +1,18 @@
 .header {
   @include flex(column, flex-start, flex-start);
   gap: 8px;
+  margin-bottom: 24px;
 
   .step_title {
     @include flex(row, flex-start, center);
-    @include font($h5, $bold);
-    gap: 16px;
+
+    @include font($body1, $semibold);
+    gap: 12px;
+
+    @include laptop {
+      @include font($h5, $bold);
+      gap: 16px;
+    }
 
     .step_arrow {
       width: 14px;
@@ -23,5 +30,20 @@
 
   .desc {
     @include font($body2, $regular);
+  }
+}
+
+.content {
+  @include flex(column-reverse, center, stretch);
+  gap: 24px;
+
+  @media (min-width: #{905px}) {
+    @include flex(row, space-between, flex-start);
+    gap: 32px;
+
+    .sell_info {
+      position: sticky;
+      top: 128px;
+    }
   }
 }

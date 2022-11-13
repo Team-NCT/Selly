@@ -4,16 +4,42 @@
   column-gap: 24px;
   row-gap: 24px;
 
+  // @media (max-width: #{905px}) {
+  //   @include tablet {
+  //     @include grid(40%);
+  //     column-gap: 40px;
+  //     row-gap: 60px;
+  //   }
+
+  //   @include laptop {
+  //     @include grid(30%);
+  //     column-gap: 20px;
+  //     row-gap: 60px;
+  //   }
+  // }
+
   @include tablet {
     @include grid(40%);
     column-gap: 40px;
     row-gap: 60px;
+    border: 1px solid red;
+  }
+
+  @media (max-width: #{600px}) {
+    @include grid(40%);
+    border: 1px solid green;
+  }
+
+  @media (max-width: #{905px}) {
+    @include grid(30%);
+    border: 1px solid blue;
   }
 
   @include laptop {
-    @include grid(30%);
+    @include grid(25%);
     column-gap: 20px;
     row-gap: 60px;
+    border: 1px solid yellow;
   }
 
   @include desktop {

@@ -3,15 +3,18 @@ import { createPortal } from "react-dom";
 import style from "./SignSection.module.scss";
 import { useAppSelector, useCallbackPrompt } from "@/hooks";
 import { selectModal } from "@/store/modalSlice";
-import { SignBoxList, ConfirmModal } from "@/components/sell";
+import { SignBoxList, ConfirmModal, SellInfoCard, SelectedCard } from "@/components/sell";
 import { SIGN_DATAS } from "./SignDatas";
 import { stepType } from "@/pages/Sell/Sell";
+import { selectNFTValue } from "@/store/selectNFTSlice";
 
 export interface SignSectionProps {
   changeStep: (step: stepType) => void;
 }
 
 function SignSection({ changeStep }: SignSectionProps) {
+  const NFTValue = useAppSelector(selectNFTValue);
+
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [showPrompt, confirmNavigation, cancelNavigation] = useCallbackPrompt(showDialog);
 
@@ -55,7 +58,16 @@ function SignSection({ changeStep }: SignSectionProps) {
           <strong>진행한 단계를 돌이킬 수 없습니다.</strong>
         </h3>
       </header>
-      <SignBoxList data={SIGN_DATAS} />
+      <section className={style.content}>
+        <div className={style.sign_box_list}>
+          <SignBoxList data={SIGN_DATAS} />
+        </div>
+        <div className={style.sell_info}>
+          <h2>Selected NFT</h2>
+          <SelectedCard url={NFTValue.articleUrl} title={NFTValue.articleName} />
+          <SellInfoCard />
+        </div>
+      </section>
     </>
   );
 }
