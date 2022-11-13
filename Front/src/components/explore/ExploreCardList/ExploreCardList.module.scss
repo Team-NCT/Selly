@@ -2,3 +2,7 @@
   @include flex(column);
   width: 100%;
 }
+
+.no_data {
+  @include font($h5, $semibold);
+}

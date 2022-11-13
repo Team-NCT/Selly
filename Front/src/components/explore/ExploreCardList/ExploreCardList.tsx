@@ -1,6 +1,6 @@
 import { useLazyFetchNFTListQuery } from "@/api/server/exploreAPI/exploreAPI";
 import { DescCardList } from "@/components/common";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ExploreParamsType } from "./ExploreCardList.types";
 import style from "./ExploreCardList.module.scss";
 import { NFTDescCardDataType } from "@/types/NFTData.types";
@@ -9,6 +9,7 @@ const ExploreCardList = ({ category, sort = "asc", order = "sell" }: ExplorePara
   const [fetchNFTList] = useLazyFetchNFTListQuery();
 
   //* fetch된 cardlist data를 저장하는 변수
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<NFTDescCardDataType[]>([]);
 
   //@ description: cardList를 반환하는 함수
@@ -18,6 +19,7 @@ const ExploreCardList = ({ category, sort = "asc", order = "sell" }: ExplorePara
         const { data } = await fetchNFTList(params);
         if (!data) return;
         setData(data);
+        setIsLoading(false);
         console.log(data);
       } catch (err) {
         console.error(err);
@@ -34,7 +36,13 @@ const ExploreCardList = ({ category, sort = "asc", order = "sell" }: ExplorePara
 
   return (
     <section className={style.container}>
-      <DescCardList data={data} />
+      {isLoading ? (
+        "loading"
+      ) : data.length === 0 ? (
+        <div className={style.no_data}>현재 조건에 맞는 판매 등록된 NFT가 없어요!</div>
+      ) : (
+        <DescCardList data={data} />
+      )}
     </section>
   );
 };
