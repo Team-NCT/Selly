@@ -205,23 +205,26 @@ app.post('/buy', async (req, res) => {
         value : Web3.utils.toWei(String(va), 'ether')
     };
     console.log(data);
-    // var OPTIONS = {
-    //     headers: {'Content-Type': 'application/json'},
-    //     url: "http://localhost:8000/selly-article-service/create",
-    //         body: JSON.stringify({
-    //         metaDataUrl : req.body.metaDataUrl,
-    //         articleName : req.body.articleName,
-    //         articleImgUrl : req.body.articleImgUrl,
-    //         owner: req.body.owner,
-    //         wallet: req.body.wallet
-    //     })
-    // };
-    // request.post(OPTIONS);
+    var OPTIONS = {
+        headers: {'Content-Type': 'application/json'},
+        url: "http://localhost:8000/selly-trade-service/trade",
+            body: JSON.stringify({
+            saleContractAddress : req.body.saleContractAddress,
+            pieceCnt : req.body.pieceCnt,
+            tradePrice : req.body.tradePrice,
+            wallet : req.body.wallet,
+            sellerId : req.body.sellerId,
+            buyerId : req.body.buyerId,
+            articleId: req.body.articleId
+        })
+    };
+    request.post(OPTIONS);
 
     return res.json(txObject);
 });
 
-app.get("/listen/:wallet/:sa", async(req, res) =>{
+app.get("/listensa/:wallet/:sa", async(req, res) =>{
+    console.log("구매 들어옴!");
     const CA = req.params.sa;
     let subscription = web3.eth.subscribe('logs', { address : CA, topics:[
         "0xdccb5bce6e0213237e0f6a2b3fac1111566917989d8d207b69e82385a13a9759"
@@ -241,21 +244,31 @@ app.get("/listen/:wallet/:sa", async(req, res) =>{
      });
     subscription.on('data', (event) => {  
         console.log(event);                                      
-        const params = [{type : 'address', name: 'F_CA'},{type : 'address', name: 'saleCA'},{type : 'address', name: 'seller'}, { type: 'address', name: 'buyer' }, { type: 'address', name: 'buyAmount' }, { type: 'address', name: 'payValue' }];
+        const params = [{type : 'address', name: 'F_CA'},{type : 'address', name: 'saleCA'},{type : 'address', name: 'seller'}, { type: 'address', name: 'buyer' }, { type: 'uint256', name: 'buyAmount' }, { type: 'uint256', name: 'payValue' }];
         const value = web3.eth.abi.decodeLog(params, event.data);
-        const list = {
-            saleContractAddress : value.saleCA,
-        }
+        // const list = {
+        //     saleContractAddress : value.saleCA,
+        // }
         console.log(req.params.wallet);
         console.log(value);
-        if (req.params.wallet.toUpperCase() == value.wallet.toUpperCase()){
-            console.log(list);
-            subscription.unsubscribe(function(error, success){
-            if(success)
-                console.log('Successfully unsubscribed!');
-        });
-        return res.json(list);
+        var price = parseFloat(Web3.utils.fromWei(value.payValue, 'ether'));
+        console.log(price);
+        const list = {
+            saleContractAddress: value.saleCA,
+            sellerId : value.seller,
+            buyerId : value.buyer,
+            pieceCnt : value.buyAmount,
+            tradePrice : price,
         }
+        return res.json(list);
+        // if (req.params.wallet.toUpperCase() == value.wallet.toUpperCase()){
+        //     console.log(list);
+        //     subscription.unsubscribe(function(error, success){
+        //     if(success)
+        //         console.log('Successfully unsubscribed!');
+        // });
+        // return res.json(list);
+        // }
     });
 })
 

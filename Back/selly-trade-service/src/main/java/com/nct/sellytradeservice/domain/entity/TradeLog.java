@@ -39,7 +39,7 @@ public class TradeLog {
   private String contractAddress;
 
   @Builder
-  public TradeLog(Long seller, Long buyer, Long articleId, Double tradePrice, Integer pieceCnt, String contractAddress) {
+  public TradeLog(Long seller, Long buyer, Long articleId, Double tradePrice, Integer pieceCnt, String contractAddress, boolean status) {
     this.seller = seller;
     this.buyer = buyer;
     this.articleId = articleId;
@@ -47,5 +47,6 @@ public class TradeLog {
     this.pieceCnt = pieceCnt;
     this.tradeTime = LocalDateTime.now();
     this.contractAddress = contractAddress;
+    this.status = status;
   }
 }
