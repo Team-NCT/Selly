@@ -195,9 +195,9 @@ nav {
   min-width: 117px;
   z-index: 1;
   border-radius: $radius-modal;
-  padding: 5px 0;
+  padding: 0 0 5px 0;
   @include laptop {
-    top: 50px;
+    top: 48px;
     left: -40px;
   }
   .dropdown_item {
@@ -234,6 +234,6 @@ nav {
   width: 100%;
   padding: 8px 13px;
   margin-bottom: 4px;
-  background: $muscat;
-  border-radius: $radius-modal;
+  background: $marmalade;
+  border-radius: 4px 4px 0 0;
 }
