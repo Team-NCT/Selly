@@ -2,6 +2,6 @@ export interface CreateType {
   wallet: string | null;
   metaDataUrl: string;
   articleImgUrl: string;
-  owner: string | null | undefined;
+  owner: number | null | undefined;
   articleName: string;
 }

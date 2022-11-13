@@ -9,10 +9,10 @@ const settings = {
 const alchemy = new Alchemy(settings);
 
 const getNFTsForOwnerAPI = async (owner: string) => {
-  //TODO_YK: 인자를 유저 지갑주소로 인자 바꾸기
+  //TODO_YK: 계정 바뀔 때마다 다시
   //TODO_YK: api로 페이징 처리가 가능하나, ERC721로만 필터링 하는 로직 추가 필요...ㅠㅠ
   const nfts = await alchemy.nft.getNftsForOwner(
-    (owner = "0x4863d935Ce84bafFb20C6739Ee404f4406CF2831")
+    (owner = owner)
     // { pageSize: 3 }
   );
 

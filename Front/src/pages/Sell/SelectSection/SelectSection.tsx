@@ -18,15 +18,13 @@ function SelectSection({ datas }: any) {
       setIsFetching(false);
       return;
     }
-    setTimeout(() => {
-      const nextDatas = datas.slice((page - 1) * FETCH_SIZE, page * FETCH_SIZE);
-      if (page * FETCH_SIZE >= datas.length) {
-        setIsFinished(true);
-      }
-      setItems((pre) => [...pre, ...nextDatas]);
-      setPage((pre) => pre + 1);
-      setIsFetching(false);
-    }, 1000);
+    const nextDatas = datas.slice((page - 1) * FETCH_SIZE, page * FETCH_SIZE);
+    if (page * FETCH_SIZE >= datas.length) {
+      setIsFinished(true);
+    }
+    setItems((pre) => [...pre, ...nextDatas]);
+    setPage((pre) => pre + 1);
+    setIsFetching(false);
   }
 
   //* 처음 datas에서 초기값 받아오기

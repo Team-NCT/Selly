@@ -2,7 +2,10 @@
   @include flex(column, center, center);
   @include shadow-modal;
   width: calc(100vw - 32px);
+  height: calc(100vh - 100px);
   max-width: 624px;
+  max-height: 660px;
+  min-height: 300px;
   padding: 32px 32px 60px 32px;
   gap: 32px;
   border-radius: $radius-modal;
@@ -10,7 +13,7 @@
   @include mobile {
     padding: 24px 24px 52px 24px;
   }
-  
+
   .header {
     @include flex(row, flex-start, center);
     @include font($h4, $semibold);
@@ -54,10 +57,9 @@
     @include flex(column, flex-start, center);
     @include hide-scroll;
     width: 100%;
-    height:480px;
+    height: 480px;
     gap: 40px;
     padding: 0 32px;
     overflow-y: scroll;
   }
-
 }

@@ -22,10 +22,18 @@ import {
   profileData,
   NFTValue,
   sellInfo,
+  signData,
 } from "@/store/index";
 
 //* API
-import { NFTDetailAPI, searchAPI, loginAPI, createNFTAPI, NFTTransactionAPI } from "@/api/server";
+import {
+  NFTDetailAPI,
+  searchAPI,
+  loginAPI,
+  createNFTAPI,
+  userAPI,
+  NFTTransactionAPI,
+} from "@/api/server";
 
 const reducers = combineReducers({
   alert,
@@ -36,10 +44,12 @@ const reducers = combineReducers({
   profileData,
   NFTValue,
   sellInfo,
+  signData,
   [NFTDetailAPI.reducerPath]: NFTDetailAPI.reducer,
   [searchAPI.reducerPath]: searchAPI.reducer,
   [loginAPI.reducerPath]: loginAPI.reducer,
   [createNFTAPI.reducerPath]: createNFTAPI.reducer,
+  [userAPI.reducerPath]: userAPI.reducer,
   [NFTTransactionAPI.reducerPath]: NFTTransactionAPI.reducer,
 });
 
@@ -64,6 +74,7 @@ const store = configureStore({
       searchAPI.middleware,
       loginAPI.middleware,
       createNFTAPI.middleware,
+      userAPI.middleware,
       NFTTransactionAPI.middleware
     ),
 });

@@ -7,7 +7,6 @@
 .content {
   display: grid;
   grid-template-columns: 14fr 1fr minmax(212px, 4fr);
-  padding-bottom: 48px;
 
   .select_section {
     @include flex(column, flex-start, flex-start);
