@@ -26,14 +26,25 @@ const NFTDetail = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
 
+  const args = {
+    articleId: articleId ? parseInt(articleId) : NaN,
+    address: address,
+    userId: userId,
+  };
+
   useEffect(() => {
+    if (!userId) {
+      dispatch(closeBuy());
+      dispatch(closeSell());
+      dispatch(closeSellStatus());
+    }
     return () => {
       window.scrollTo(0, 0);
       dispatch(closeBuy());
       dispatch(closeSell());
       dispatch(closeSellStatus());
     };
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   //TODO_JK: 404 페이지 구현 후 수정
   useEffect(() => {
@@ -51,17 +62,9 @@ const NFTDetail = () => {
             <NFTDetailHistory {...args4} />
           </div>
         </main>
-        {buy &&
-          createPortal(
-            <TransactionFractionsBuy
-              articleId={parseInt(articleId)}
-              address={address}
-              userId={userId}
-            />,
-            el
-          )}
-        {sell && createPortal(<TransactionFractionsSell />, el)}
-        {sellStatus && createPortal(<TransactionSellStatus />, el)}
+        {buy && createPortal(<TransactionFractionsBuy {...args} />, el)}
+        {sell && createPortal(<TransactionFractionsSell {...args} />, el)}
+        {sellStatus && createPortal(<TransactionSellStatus {...args} />, el)}
       </>
     )
   );
