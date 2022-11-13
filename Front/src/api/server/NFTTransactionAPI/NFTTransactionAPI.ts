@@ -7,6 +7,7 @@ import {
   RegisterSellNFTFractionType,
 } from "./NFTTransactionAPI.types";
 import { SignedTransactionType, PayableSignedTransactionType } from "@/types/transaction.types";
+import { sendTransaction } from "@/api/blockchain";
 import type { RootState } from "@/store";
 
 const NFTTransactionAPI = createApi({
@@ -51,7 +52,24 @@ const NFTTransactionAPI = createApi({
 
     //@ description: 특정 조각을 판매등록하는 API
     registerSellNFTFraction: build.mutation<SignedTransactionType, RegisterSellNFTFractionType>({
-      query: (body) => ({ url: "selly-contract-service/sellregist", method: "POST", body }),
+      query: ({ articleId, ...body }) => ({
+        url: "selly-contract-service/sellregist",
+        method: "POST",
+        body,
+      }),
+      async onQueryStarted({ articleId, ...patch }, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          await sendTransaction(data);
+
+          //* 조각 거래 데이터 업데이트
+          NFTTransactionAPI.util.updateQueryData("fetchNFTFractionRecord", articleId, (draft) => {
+            Object.assign(draft, patch);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      },
       invalidatesTags: ["sell"],
     }),
   }),

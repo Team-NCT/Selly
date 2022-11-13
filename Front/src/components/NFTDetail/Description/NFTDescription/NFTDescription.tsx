@@ -14,9 +14,11 @@ const NFTDescription = ({ description }: NFTDescriptionProps) => {
         <h1>Description</h1>
       </Neon>
       <p className={className}>{description}</p>
-      <button onClick={handleButtonClick} hidden={!className}>
-        더보기
-      </button>
+      {description.length > 100 && (
+        <button onClick={handleButtonClick} hidden={!className}>
+          더보기
+        </button>
+      )}
     </div>
   );
 };

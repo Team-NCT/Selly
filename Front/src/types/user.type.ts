@@ -13,6 +13,6 @@ export interface UserProfileType {
 export interface UserType {
   userId: number;
   nickname: string;
-  image: string;
+  image?: string;
   certification: boolean;
 }

@@ -1,7 +1,4 @@
-interface NFTPropertiesType {
-  value: string;
-  trait_type: string;
-}
+import { NFTPropertiesType } from "@/types/metaData.types";
 
 export interface NFTPropertiesProps {
   properties: NFTPropertiesType[];

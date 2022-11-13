@@ -1,8 +1,9 @@
 import style from "./FavoriteIcon.module.scss";
 import { BookmarkAddIcon, BookmarkRemoveIcon } from "@/components/icon";
 import { FavoriteIconProps } from "./FavoriteIcon.types";
+const favoriteStatus = true;
 
-const FavoriteIcon = ({ favoriteStatus }: FavoriteIconProps) => {
+const FavoriteIcon = ({ articleId, userId }: FavoriteIconProps) => {
   const handleButtonClick = () => {
     //TODO_YK: 즐겨찾기 로직 추가
   };

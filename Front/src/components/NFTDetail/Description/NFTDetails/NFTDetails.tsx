@@ -23,7 +23,7 @@ const NFTDetail = ({ contractAddress, primaryCnt, tokenId }: NFTDetailsProps) =>
         </div>
         <div>
           <h2>TotalFractions</h2>
-          <p>{primaryCnt}</p>
+          <p>{primaryCnt ? primaryCnt : "-"}</p>
         </div>
         <div>
           <h2>TokenId</h2>
