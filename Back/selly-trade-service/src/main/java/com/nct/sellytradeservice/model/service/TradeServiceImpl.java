@@ -293,15 +293,24 @@ public class TradeServiceImpl implements TradeService {
   @Override
   public Object trade(Long sellerId, Long buyerId, TradeRequest tradeRequest) throws NullPointerException {
     Optional<TradeRegist> optionalTradeRegist = tradeRegistRepository.findByArticleId(tradeRequest.getArticleId());
+    System.out.println("여기 옴 ?");
+    System.out.println("===============");
+    System.out.println("리슨전");
+    ResponseBuy responseBuy = sellyContractServiceClient.responseP2pBuy(tradeRequest.getWallet(), tradeRequest.getSaleContractAddress());
+    System.out.println(responseBuy.getTradePrice());
+    System.out.println(responseBuy);
     if (optionalTradeRegist.isPresent()) {
       TradeRegist tradeRegist = optionalTradeRegist.get();
       if (!tradeRegist.isStatus()) {
+        System.out.println("종료");
         return "종료된 거래입니다.";
       }
       if (tradeRegist.getPieceCnt() < tradeRequest.getPieceCnt()) {
+        System.out.println("재료 부족");
         return "조각 재고가 부족합니다.";
       }
-      Long buyer = tradeRequest.getBuyer();
+
+      Long buyer = tradeRequest.getBuyerId();
       Long seller = tradeRegist.getSeller();
       // TradeRegist 수정
       // status가 false(0)면 품절, 품절이면 status = false
@@ -429,11 +438,12 @@ public class TradeServiceImpl implements TradeService {
         // 거래 로그 등록
         TradeLogRequest tradeLogRequest = TradeLogRequest.builder()
                 .seller(tradeRegist.getSeller())
-                .buyer(tradeRequest.getBuyer())
-                .articleId(trade)
+                .buyer(tradeRequest.getBuyerId())
+                .articleId(tradeRegist.getArticleId())
                 .tradePrice(tradeRegist.getTradePrice())
                 .pieceCnt(tradeRequest.getPieceCnt())
                 .contractAddress(tradeRequest.getSaleContractAddress())
+                .status(true)
                 .build();
         tradeLogRepository.save(tradeLogRequest.toEntity());
         return "거래 로그 등록 완료";

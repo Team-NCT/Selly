@@ -62,10 +62,11 @@ public class TradeController {
 
   // 유저간 거래 API
   @PostMapping("/trade")
-  public ResponseEntity<Object> trade (@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
+//  public ResponseEntity<Object> trade (@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
+  public ResponseEntity<Object> trade (@RequestBody TradeRequest tradeRequest) {
     Object response = null;
     try {
-      response = tradeService.trade(sellerId, buyerId, tradeRequest);
+      response = tradeService.trade(tradeRequest.getSellerId(), tradeRequest.getBuyerId(), tradeRequest);
     } catch (FeignClientException e) {
       if (!Integer.valueOf(HttpStatus.NOT_FOUND.value()).equals(e.getStatus())) {
         throw e;
