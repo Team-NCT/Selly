@@ -119,6 +119,7 @@ public class TradeServiceImpl implements TradeService {
         articleUpdateRequest.setPrice(sellRegistRequest.getTradePrice());
         articleUpdateRequest.setOwnerContractAddress(sellRegistRequest.getOwnershipContractAddress());
         articleUpdateRequest.setPrimaryCnt(sellRegistRequest.getPieceCnt());
+        articleUpdateRequest.setCategory(sellRegistRequest.getCategory());
         articleServiceClient.response(articleUpdateRequest, responseArticleId.getArticleId());
         return "등록 성공";
       } else {
