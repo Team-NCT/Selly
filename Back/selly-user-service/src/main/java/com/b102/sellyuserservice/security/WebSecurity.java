@@ -62,7 +62,7 @@ public class WebSecurity {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://nftselly.com"));
+    configuration.setAllowedOrigins(Arrays.asList("https://nftselly.com/"));
     configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(Arrays.asList("*"));
     configuration.setExposedHeaders(Arrays.asList("token", "userId"));
