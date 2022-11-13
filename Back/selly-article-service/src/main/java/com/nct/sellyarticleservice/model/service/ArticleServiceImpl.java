@@ -50,6 +50,7 @@ public class ArticleServiceImpl implements ArticleService{
     System.out.println("리슨 완료 !");
     article.setContractAddress(responseListen.getContractAddress());
     article.setTokenId(responseListen.getToken());
+    article.setOriginalAuthor(requestArticleCreate.getOwner());
     articleRepository.save(article);
     return mapper.map(article, ResponseArticle.class);
   }
@@ -262,6 +263,20 @@ public class ArticleServiceImpl implements ArticleService{
     List<Article> articleList = articleRepository.findAllByArticleNameContaining(keyword);
     articleList.forEach( v -> {
       articleResponseList.add(new ModelMapper().map(v, ArticleResponse.class));
+    });
+    return articleResponseList;
+  }
+
+  @Override
+  public List<ArticleResponse> findByOriginalAuthor(Long userId) {
+    List<Article> articleList = articleRepository.findByOriginalAuthor(userId);
+    List<ArticleResponse> articleResponseList = new ArrayList<>();
+    articleList.forEach( v -> {
+      articleResponseList.add(ArticleResponse.builder()
+              .articleId(v.getArticleId())
+              .articleName(v.getArticleName())
+              .articleImgUrl(v.getArticleImgUrl())
+              .build());
     });
     return articleResponseList;
   }

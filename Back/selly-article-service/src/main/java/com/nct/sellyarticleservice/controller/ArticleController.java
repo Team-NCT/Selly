@@ -25,17 +25,18 @@ public class ArticleController {
   private final ArticleServiceImpl articleService;
 
   private final ArticleRepository articleRepository;
-//  @GetMapping("/{articleId}")
+
+  //  @GetMapping("/{articleId}")
 //  public ArticleResponse findById (@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
 //    return articleService.findById(articleId, userId);
 //  }
-@GetMapping("/{articleId}")
-public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
-  return articleService.findById(articleId);
-}
+  @GetMapping("/{articleId}")
+  public ResponseArticle findById(@PathVariable("articleId") Long articleId) {
+    return articleService.findById(articleId);
+  }
 
   @PostMapping("/create")
-  public ResponseArticle createArticle(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException{
+  public ResponseArticle createArticle(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException {
     return articleService.createArticle(requestArticleCreate);
   }
 
@@ -52,7 +53,7 @@ public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
 
   // 카테고리 정렬
   @GetMapping("/category-filter/{category}/{sort}/{order}")
-  public List<ArticleResponse> articleCategoryFilter(@PathVariable("category") String category, @PathVariable("sort")String sort, @PathVariable("order") String  order) {
+  public List<ArticleResponse> articleCategoryFilter(@PathVariable("category") String category, @PathVariable("sort") String sort, @PathVariable("order") String order) {
     boolean availability = true;
     return articleService.articleCategoryFilter(category, availability, sort, order);
   }
@@ -135,6 +136,7 @@ public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
   public List<ResponseArticle> getArticleBySellStatus(@PathVariable("sell") String sell) {
     return articleService.findBySell(sell);
   }
+
   @GetMapping("/auction-filter")
   public List<ResponseArticle> getArticleByAuctionStatus(@PathVariable("auction") String auction) {
     return articleService.findByAuction(auction);
@@ -151,4 +153,10 @@ public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
     return articleService.findByKeyword(keyword);
   }
 
+  // 작가 검색
+  @GetMapping("/AuthorSearch/{userId}")
+  public List<ArticleResponse> findByOriginalAuthor(@PathVariable("userId") Long userId) {
+    return articleService.findByOriginalAuthor(userId);
+  }
 }
+

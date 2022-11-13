@@ -27,4 +27,6 @@ public interface ArticleService {
   List<ResponseArticle> findByAuction(String auction);
 
   List<ArticleResponse> findByKeyword(String keyword);
+
+  List<ArticleResponse> findByOriginalAuthor(Long userId);
 }

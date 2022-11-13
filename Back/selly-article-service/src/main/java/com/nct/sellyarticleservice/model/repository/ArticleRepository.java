@@ -19,5 +19,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
   List<Article> findAllByArticleNameContaining(String articleName);
 
+  List<Article> findByOriginalAuthor(Long userId);
+
 //  List<Article> findAllByCreateRegistDesc();
 }
