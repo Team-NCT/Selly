@@ -6,6 +6,7 @@ import { SelectSection, SignSection } from ".";
 import { useAppSelector } from "@/hooks";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { getNFTsForOwnerAPI } from "@/api/blockchain";
+import { selectAccount } from "@/store/loginSlice";
 
 export type stepType = "SELECT" | "SIGN";
 
@@ -13,6 +14,7 @@ function Sell() {
   const [step, setStep] = useState<stepType>("SELECT");
   const [NFTdatas, setNFTdatas] = useState<any>("");
   const NFTValue = useAppSelector(selectNFTValue);
+  const { address } = useAppSelector(selectAccount);
 
   const changeStep = (step: stepType) => {
     setStep(step);
@@ -21,7 +23,8 @@ function Sell() {
   };
 
   const getOwnERC721NFTs = async () => {
-    const { ownedNfts } = await getNFTsForOwnerAPI("sss");
+    if (!address) return;
+    const { ownedNfts } = await getNFTsForOwnerAPI(address);
     let datas = [];
     datas = ownedNfts.filter((nft) => {
       return nft.tokenType === "ERC721";
