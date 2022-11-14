@@ -19,13 +19,7 @@
   scrollbar-width: thin;
 
   @include tablet {
-    height: 200px;
-  }
-  @include laptop {
-    height: 240px;
-  }
-  @include desktop {
-    height: 240px;
+    height: 258px;
   }
 }
 

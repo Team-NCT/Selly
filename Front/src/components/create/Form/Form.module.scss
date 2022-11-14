@@ -14,28 +14,19 @@
 }
 
 .image {
-  width: 100%;
-  min-width: 300px;
-  flex: 1;
-  @include laptop {
-    flex: 1;
-  }
-  @include desktop {
-    flex: 1.4;
+  aspect-ratio: 1/1;
+  @include tablet {
+    width: 400px;
   }
 }
 
 .title_description {
   @include flex(column, flex-start, flex-start);
   width: 100%;
-  min-width: 300px;
   gap: 40px;
   flex: 1;
-  @include laptop {
-    flex: 1.5;
-  }
-  @include desktop {
-    flex: 3;
+  @include tablet {
+    min-width: 400px;
   }
 }
 
