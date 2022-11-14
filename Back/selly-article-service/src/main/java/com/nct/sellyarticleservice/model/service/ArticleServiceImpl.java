@@ -45,7 +45,12 @@ public class ArticleServiceImpl implements ArticleService{
     System.out.println(responseListen);
     System.out.println("리슨 완료 !");
     article.setContractAddress(responseListen.getContractAddress());
+<<<<<<< Back/selly-article-service/src/main/java/com/nct/sellyarticleservice/model/service/ArticleServiceImpl.java
+    article.setTokenId(responseListen.getToken());
+    article.setOriginalAuthor(requestArticleCreate.getOwner());
+=======
     article.setTokenId(responseListen.getTokenId());
+>>>>>>> Back/selly-article-service/src/main/java/com/nct/sellyarticleservice/model/service/ArticleServiceImpl.java
     articleRepository.save(article);
     return mapper.map(article, ResponseArticle.class);
   }
@@ -283,6 +288,18 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
+  public List<ArticleResponse> findByOriginalAuthor(Long userId) {
+    List<Article> articleList = articleRepository.findByOriginalAuthor(userId);
+    List<ArticleResponse> articleResponseList = new ArrayList<>();
+    articleList.forEach( v -> {
+      articleResponseList.add(ArticleResponse.builder()
+              .articleId(v.getArticleId())
+              .articleName(v.getArticleName())
+              .articleImgUrl(v.getArticleImgUrl())
+              .build());
+    });
+    return articleResponseList;
+
   public ResponseArticleId findByArticleId(String contractAddress, String tokenId) {
     Article responseArticleId = articleRepository.findByContractAddressAndTokenId(contractAddress, tokenId);
     if (responseArticleId == null){

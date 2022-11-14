@@ -29,6 +29,9 @@ public interface ArticleService {
 
   List<ArticleResponse> findByKeyword(String keyword);
 
+  List<ArticleResponse> findByOriginalAuthor(Long userId);
+
   HashMap<String, Object> findByArticleAndUser(Long articleId);
+  
   ResponseArticle createArticleNoMinting(RequestArticleCreate requestArticleCreate);
 }
