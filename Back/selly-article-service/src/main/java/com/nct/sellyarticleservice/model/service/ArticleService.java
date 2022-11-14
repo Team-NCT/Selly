@@ -2,6 +2,7 @@ package com.nct.sellyarticleservice.model.service;
 
 import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
+import com.nct.sellyarticleservice.vo.CategoryResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface ArticleService {
 
    Long numberOfArticle();
 
-   List<ArticleResponse> articleCategoryFilter(String category, boolean avaiability, String sort, String order);
+   List<CategoryResponse> articleCategoryFilter(String category, boolean avaiability, String sort, String order);
 
   ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id);
 
