@@ -5,11 +5,10 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseInfoArticle {
-  private String tokenId;
-  private String ownershipContractAddress;
-  private String metaDataUrl;
-  private String articleImgUrl;
+public class NftPieceResponseDto {
+  private Long articleId;
+  private Long userId;
+  private Integer nftPieceCnt;
+  private double avgPrice;
   private String contractAddress;
-  private Integer primaryCnt;
 }
