@@ -42,19 +42,20 @@ const Follow = ({ data, type }: FollowProps) => {
         </div>
       </Link>
       <div className={style.button_section}>
-        {type === "FOLLOWER" && data.myFollowing ? (
-          <Button
-            bg="blackberry"
-            color="outline"
-            onClick={unFollowOnClickHandler}
-            size="fillContainer">
-            Following
-          </Button>
-        ) : (
-          <Button onClick={followOnclickHandler} size="fillContainer">
-            Follow
-          </Button>
-        )}
+        {data.userId === Number(userId) ||
+          (type === "FOLLOWER" && data.myFollowing ? (
+            <Button
+              bg="blackberry"
+              color="outline"
+              onClick={unFollowOnClickHandler}
+              size="fillContainer">
+              Following
+            </Button>
+          ) : (
+            <Button onClick={followOnclickHandler} size="fillContainer">
+              Follow
+            </Button>
+          ))}
       </div>
     </li>
   );
