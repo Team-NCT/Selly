@@ -22,7 +22,7 @@ function Profile() {
       <Banner bannerUrl={data?.banner} />
       <main>
         <Header profilePageId={Number(id)} userId={Number(userId)} data={data} />
-        <Revenue />
+        {id === userId && <Revenue />}
         <ProfileTab />
       </main>
       {follower &&
