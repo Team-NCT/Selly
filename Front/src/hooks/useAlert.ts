@@ -36,5 +36,12 @@ export const useAlert = () => {
     dispatch(resetIconStyles());
   };
 
-  return { openAlertModal, closeAlertModal };
+  const openLoginAlert = () => {
+    dispatch(openAlert());
+    dispatch(setAlertContent("로그인 시, 이용할 수 있습니다."));
+    dispatch(setAlertStyles("error"));
+    dispatch(setIconStyles(true));
+  };
+
+  return { openAlertModal, closeAlertModal, openLoginAlert };
 };

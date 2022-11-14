@@ -1,10 +1,12 @@
 import { FormEvent, useState, useReducer, ChangeEvent, useEffect } from "react";
 import { Modal, Label, NumberInput, Button } from "@/components/common";
 import { useAppDispatch } from "@/hooks";
-import { closeSell } from "@/store/modalSlice";
+import { openLoading, closeLoading, closeSell } from "@/store/modalSlice";
 import style from "./TransactionFractionsSell.module.scss";
 import { fPointCheck } from "@/helpers/utils/numberValidation";
 import { numberAddComma } from "@/helpers/utils/numberConversion";
+import { sendTransaction } from "@/api/blockchain";
+import { useRefetchTransactionData } from "@/hooks";
 import {
   inputAction,
   inputType,
@@ -69,6 +71,7 @@ const TransactionFractionsSell = ({
 }: TransactionFractionsSellProps) => {
   const dispatch = useAppDispatch();
   const [registerSellNFTFraction] = useRegisterSellNFTFractionMutation();
+  const { refetchNFTFractionData } = useRefetchTransactionData(articleId, userId as number);
   const [totalPrice, setTotalPrice] = useState(0);
   const [countState, dispatchCount] = useReducer(sellReducer, initialState);
   const [priceState, dispatchPrice] = useReducer(sellReducer, initialState);
@@ -124,6 +127,7 @@ const TransactionFractionsSell = ({
     return dispatchPrice({ type: "NORMAL", payload: value });
   };
 
+  //* 판매 등록
   const handlerFormSumbit = async (event: FormEvent) => {
     event.preventDefault();
     if (!userId || !address || !ownershipContractAddress) return;
@@ -132,16 +136,22 @@ const TransactionFractionsSell = ({
       wallet: address,
       pieceCnt: Number(countState.value),
       tradePrice: Number(priceState.value),
-      articleId,
       tokenId,
       contractAddress,
       ownershipContractAddress,
     };
-    console.log(payload);
 
     try {
-      await registerSellNFTFraction(payload);
+      const response = await registerSellNFTFraction(payload).unwrap();
+      dispatch(openLoading());
+      await sendTransaction(response);
+      dispatch(closeLoading());
+      dispatch(closeSell());
+      setTimeout(() => {
+        refetchNFTFractionData();
+      }, 2000);
     } catch (error) {
+      dispatch(closeSell());
       console.error(error);
     }
   };

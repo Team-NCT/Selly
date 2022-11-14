@@ -7,9 +7,6 @@ import {
   NFTProperties,
 } from "@/components/NFTDetail/Description";
 
-//TODO_JK : API 수정되면 교체
-const primaryCnt = 100;
-
 const NFTDetailDescription = ({
   contractAddress,
   tokenId,
