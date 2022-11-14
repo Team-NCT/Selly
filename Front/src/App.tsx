@@ -18,6 +18,7 @@ import {
 import { useCheckLogined, useSetGoerli } from "@/hooks";
 
 import { useEffect } from "react";
+import NotFound from "./pages/404NotFound/notFound";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
@@ -62,6 +63,7 @@ function App() {
           {/* all, analog, digital, photography */}
           <Route path="/explore/:category" element={<Category />} />
           <Route path="/search" element={<SearchResult />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
 
