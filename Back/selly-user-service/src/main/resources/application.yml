@@ -29,7 +29,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://discoveryservice:8761/eureka
+      defaultZone: http:///nftselly.com:8761/eureka
 #      defaultZone: http://127.0.0.1:8761/eureka
 
 
