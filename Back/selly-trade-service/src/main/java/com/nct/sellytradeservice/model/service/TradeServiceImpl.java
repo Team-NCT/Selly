@@ -95,7 +95,8 @@ public class TradeServiceImpl implements TradeService {
     if (responseArticleId != null) {
       System.out.println("등록 된 작품");
 
-      if (userServiceClient.getOwnership(sellRegistRequest.getSeller(), responseArticleId.getArticleId()).getBody() == null) {
+      NftPieceResponseDto nftPieceResponseDto = userServiceClient.getOwnership(sellRegistRequest.getSeller(), responseArticleId.getArticleId()).getBody();
+      if (nftPieceResponseDto == null) {
         System.out.println("소유권 없음");
         NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
                 .userId(sellRegistRequest.getSeller())
@@ -128,6 +129,10 @@ public class TradeServiceImpl implements TradeService {
                 .userId(sellRegistRequest.getSeller())
                 .articleId(responseArticleId.getArticleId())
                 .trade(true)
+                .nftPieceCnt(nftPieceResponseDto.getNftPieceCnt() - sellRegistRequest.getPieceCnt())
+                .avgPrice((nftPieceResponseDto.getAvgPrice() * nftPieceResponseDto.getNftPieceCnt()
+                        - sellRegistRequest.getTradePrice() * sellRegistRequest.getPieceCnt())
+                        / (nftPieceResponseDto.getNftPieceCnt() - sellRegistRequest.getPieceCnt()))
                 .build();
         userServiceClient.updateOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -372,7 +377,6 @@ public class TradeServiceImpl implements TradeService {
                 .avgPrice((sellerOwnership.getAvgPrice() * sellerOwnership.getNftPieceCnt()
                         - tradeRequest.getTradePrice() * tradeRequest.getPieceCnt())
                         / (sellerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt()))
-                .role("seller")
                 .build();
         userServiceClient.updateOwnership(seller, nftPieceRequest);
       }
