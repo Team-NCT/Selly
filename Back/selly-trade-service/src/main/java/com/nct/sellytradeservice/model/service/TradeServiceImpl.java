@@ -292,7 +292,7 @@ public class TradeServiceImpl implements TradeService {
   @Transactional
   @Override
   public Object trade(Long sellerId, Long buyerId, TradeRequest tradeRequest) throws NullPointerException {
-    Optional<TradeRegist> optionalTradeRegist = tradeRegistRepository.findByArticleId(tradeRequest.getArticleId());
+    Optional<TradeRegist> optionalTradeRegist = tradeRegistRepository.findByArticleIdAndSaleContractAddress(tradeRequest.getArticleId(), tradeRequest.getSaleContractAddress());
     System.out.println("여기 옴 ?");
     System.out.println("===============");
     System.out.println("리슨전");
