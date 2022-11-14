@@ -84,9 +84,13 @@ public class  Article {
 //    this.status = status;
 //  }
 //
-  public void updateArticle(boolean availability, LocalDateTime createRegist) {
+  public void updateArticle(boolean availability, LocalDateTime createRegist, double price, String ownershipContractAddress, Integer primaryCnt, String category) {
 
     this.availability = availability;
     this.createRegist = createRegist;
+    this.price = price;
+    this.ownershipContractAddress = ownershipContractAddress;
+    this.primaryCnt = primaryCnt;
+    this.category = category;
   }
 }

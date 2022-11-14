@@ -52,7 +52,7 @@ public class TradeController {
     return null;
   }
 
-  // 유저간 거래 등록
+  // 판매 등록
   @PostMapping("/p2p-sell-regist")
   public ResponseEntity<Object> response(@RequestBody SellRegistRequest sellRegistRequest) {
     String response = tradeService.registP2pSell(sellRegistRequest);
@@ -60,12 +60,13 @@ public class TradeController {
             .body(response);
   }
 
-  // 거래 API
+  // 유저간 거래 API
   @PostMapping("/trade")
-  public ResponseEntity<Object> trade (@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
+//  public ResponseEntity<Object> trade (@RequestParam("sellerId") Long sellerId, @RequestParam("buyerId") Long buyerId, @RequestBody TradeRequest tradeRequest) {
+  public ResponseEntity<Object> trade (@RequestBody TradeRequest tradeRequest) {
     Object response = null;
     try {
-      response = tradeService.trade(sellerId, buyerId, tradeRequest);
+      response = tradeService.trade(tradeRequest.getSellerId(), tradeRequest.getBuyerId(), tradeRequest);
     } catch (FeignClientException e) {
       if (!Integer.valueOf(HttpStatus.NOT_FOUND.value()).equals(e.getStatus())) {
         throw e;
@@ -84,16 +85,16 @@ public class TradeController {
             .body(response);
   }
 
-  // 거래 기록 조회
-  @GetMapping("/trade-log")
-  public List<TradeRegistResponse> tradeRegistResponseList() {
-    return tradeService.getTradeRegistList();
+  // 특정 작품 거래 등록 조회
+  @GetMapping("/trade-regist/{articleId}")
+  public List<TradeRegistResponse> tradeRegistResponseList(@PathVariable("articleId") Long articleId) {
+    return tradeService.getTradeRegistList(articleId);
   }
 
-  // 유저 거래 기록 조회
-  @GetMapping("/trade-log/{userId}")
-  public List<TradeRegistResponse> userTradeRegistResponseList(@PathVariable("userId") Long userId) {
-    return tradeService.getUserTradeRegistList(userId);
+  // 특정 유저, 특정 작품 거래 등록 조회
+  @GetMapping("/trade-regist/{userId}/{articleId}")
+  public List<TradeRegistResponse> userTradeRegistResponseList(@PathVariable("userId") Long userId, @PathVariable("articleId") Long articleId) {
+    return tradeService.getUserTradeRegistList(userId, articleId);
   }
 
 

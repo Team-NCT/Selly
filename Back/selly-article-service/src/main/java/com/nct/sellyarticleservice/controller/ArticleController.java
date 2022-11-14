@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @CrossOrigin("*")
 @RequiredArgsConstructor
@@ -31,13 +29,24 @@ public class ArticleController {
 //    return articleService.findById(articleId, userId);
 //  }
   @GetMapping("/{articleId}")
-  public ResponseArticle findById(@PathVariable("articleId") Long articleId) {
+  public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
     return articleService.findById(articleId);
+  }
+
+  @GetMapping("/nft/{articleId}")
+  public HashMap<String, Object> nftSearch (@PathVariable("articleId") Long articleId){
+    HashMap<String, Object> result = articleService.findByArticleAndUser(articleId);
+    return result;
   }
 
   @PostMapping("/create")
   public ResponseArticle createArticle(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException {
     return articleService.createArticle(requestArticleCreate);
+  }
+
+  @PostMapping("/create/nominting")
+  public ResponseArticle createArticleNoMinting(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException{
+    return articleService.createArticleNoMinting(requestArticleCreate);
   }
 
   @GetMapping("")
@@ -124,9 +133,9 @@ public class ArticleController {
 //  }
 
   // 판매 등록 call
-  @PostMapping("/{id}")
-  public ResponseEntity<String> response(@RequestBody ArticleUpdateRequest articleUpdateRequest, @PathVariable("id") Long id) {
-    ArticleResponse articleResponse = articleService.updateArticle(articleUpdateRequest, id);
+  @PostMapping("/{articleId}")
+  public ResponseEntity<String> response(@RequestBody ArticleUpdateRequest articleUpdateRequest, @PathVariable("articleId") Long articleId) {
+    ArticleResponse articleResponse = articleService.updateArticle(articleUpdateRequest, articleId);
     String response = "success";
     return ResponseEntity.ok()
             .body(response);
@@ -152,6 +161,14 @@ public class ArticleController {
   public List<ArticleResponse> articleSearch(@PathVariable("keyword") String keyword) {
     return articleService.findByKeyword(keyword);
   }
+  @GetMapping("/searchId/{contractAddress}/{tokenId}")
+  public ResponseArticleId articleIdSearch(@PathVariable("contractAddress") String contractAddress, @PathVariable("tokenId") String tokenId){
+    System.out.println(articleService.findByArticleId(contractAddress, tokenId));
+    if (articleService.findByArticleId(contractAddress, tokenId) == null)
+      System.out.println(true);
+    return articleService.findByArticleId(contractAddress, tokenId);
+  }
+
 
   // 작가 검색
   @GetMapping("/AuthorSearch/{userId}")

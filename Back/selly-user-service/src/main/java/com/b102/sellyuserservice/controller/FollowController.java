@@ -41,9 +41,16 @@ public class FollowController {
     }
     FollowDto followDto = mapper.map(requestFollow, FollowDto.class);
     FollowDto returnValue = followService.followLike(followDto);
+    if (returnValue == null){
+      ResponseFollow responseFollow = new ResponseFollow();
+      responseFollow.setCode("400 Bad Request");
+      responseFollow.setMessage("이미 팔로워하고있습니다..");
+      return ResponseEntity.status(HttpStatus.CREATED).body(responseFollow);
+    }
     ResponseFollow responseFollow = mapper.map(returnValue, ResponseFollow.class);
-
     return ResponseEntity.status(HttpStatus.CREATED).body(responseFollow);
+
+
   }
 
   @DeleteMapping("follow")

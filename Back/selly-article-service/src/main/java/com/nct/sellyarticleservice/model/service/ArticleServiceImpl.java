@@ -1,6 +1,5 @@
 package com.nct.sellyarticleservice.model.service;
 import com.nct.sellyarticleservice.client.UserServiceClient;
-import com.nct.sellyarticleservice.domain.dto.ArticleRequest;
 import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
 //import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
 import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
@@ -17,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -49,9 +45,29 @@ public class ArticleServiceImpl implements ArticleService{
     System.out.println(responseListen);
     System.out.println("리슨 완료 !");
     article.setContractAddress(responseListen.getContractAddress());
+<<<<<<< Back/selly-article-service/src/main/java/com/nct/sellyarticleservice/model/service/ArticleServiceImpl.java
     article.setTokenId(responseListen.getToken());
     article.setOriginalAuthor(requestArticleCreate.getOwner());
+=======
+    article.setTokenId(responseListen.getTokenId());
+>>>>>>> Back/selly-article-service/src/main/java/com/nct/sellyarticleservice/model/service/ArticleServiceImpl.java
     articleRepository.save(article);
+    return mapper.map(article, ResponseArticle.class);
+  }
+
+  @Override
+  public ResponseArticle createArticleNoMinting(RequestArticleCreate requestArticleCreate) {
+    System.out.println("민팅 X 들어옴");
+    System.out.println(requestArticleCreate);
+    System.out.println(requestArticleCreate.getWallet());
+    requestArticleCreate.setMetaDataUrl("https://skywalker.infura-ipfs.io/ipfs/"+requestArticleCreate.getMetaDataUrl());
+    requestArticleCreate.setArticleImgUrl("https://skywalker.infura-ipfs.io/ipfs/" + requestArticleCreate.getArticleImgUrl());
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    Article article = mapper.map(requestArticleCreate, Article.class);
+    articleRepository.save(article);
+    System.out.println(requestArticleCreate.getMetaDataUrl());
+    System.out.println(requestArticleCreate.getArticleImgUrl());
+    System.out.println(requestArticleCreate.getWallet());
     return mapper.map(article, ResponseArticle.class);
   }
 
@@ -198,12 +214,16 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id) {
-    Article article = articleRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + id));
+  public ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long articleId) {
+    Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
     article.updateArticle(
             articleUpdateRequest.isAvailability(),
-            LocalDateTime.now()
+            LocalDateTime.now(),
+            articleUpdateRequest.getPrice(),
+            articleUpdateRequest.getOwnerContractAddress(),
+            articleUpdateRequest.getPrimaryCnt(),
+            articleUpdateRequest.getCategory()
     );
     articleRepository.save(article);
 
@@ -279,5 +299,30 @@ public class ArticleServiceImpl implements ArticleService{
               .build());
     });
     return articleResponseList;
+
+  public ResponseArticleId findByArticleId(String contractAddress, String tokenId) {
+    Article responseArticleId = articleRepository.findByContractAddressAndTokenId(contractAddress, tokenId);
+    if (responseArticleId == null){
+      return null;
+    }
+    ResponseArticleId articleId = new ResponseArticleId();
+
+    articleId.setArticleId(responseArticleId.getArticleId());
+    return articleId;
+  }
+
+  @Override
+  public HashMap<String, Object> findByArticleAndUser(Long articleId) {
+    Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
+    Long owner = article.getOwner();
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    ResponseInfoArticle responseInfoArticle = mapper.map(article, ResponseInfoArticle.class);
+    ResponseUser responseUser = userServiceClient.getUser(owner);
+    ResponseInfoUser responseInfoUser = mapper.map(responseUser, ResponseInfoUser.class);
+    HashMap<String, Object> result = new HashMap<>();
+    result.put("user",responseInfoUser);
+    result.put("article", responseInfoArticle);
+    return result;
   }
 }

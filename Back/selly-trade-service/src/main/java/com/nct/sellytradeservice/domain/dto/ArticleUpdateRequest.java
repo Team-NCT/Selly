@@ -1,15 +1,12 @@
 package com.nct.sellytradeservice.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -50,4 +47,6 @@ public class ArticleUpdateRequest {
   private Double price;
 
   private Long owner;
+
+  private String ownerContractAddress;
 }
