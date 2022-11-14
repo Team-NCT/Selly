@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { USER_SERVICE_API } from "@/constants/server";
-import { UserProfileType } from "@/types/user.type";
+import { UserProfileType, UserFollowType } from "@/types/user.type";
 import {
   fetchUserProfileParamsData,
   followDataType,
   cardType,
   DescCardType,
+  RevenueType,
 } from "./userAPI.types";
 import type { RootState } from "@/store";
 
@@ -19,12 +20,13 @@ const userAPI = createApi({
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
         headers.set("userId", String(userId));
+        headers.set("Content-type", "application/json; charset=utf-8");
       }
 
       return headers;
     },
   }),
-  tagTypes: ["user"],
+  tagTypes: ["user", "profile"],
   endpoints: (build) => ({
     //@ description: 프로필에 들어갔을 때 유저의 정보를 fetch하는 API
     fetchUserProfile: build.query<UserProfileType, fetchUserProfileParamsData>({
@@ -49,20 +51,35 @@ const userAPI = createApi({
       }),
       invalidatesTags: ["user"],
     }),
+    //@ description: 유저를 팔로우 중인 사람을 가져오는 API
+    fetchUserFollower: build.query<UserFollowType[], number>({
+      query: (profilePageId) => `follower/${profilePageId}/?lastFollowingId=100000`,
+      providesTags: ["user"],
+    }),
+    //@ description: 유저가 팔로우 중인 사람을 가져오는 API
+    fetchUserFollowing: build.query<UserFollowType[], number>({
+      query: (profilePageId) => `following/${profilePageId}/?lastFollowerId=100000`,
+      providesTags: ["user"],
+    }),
     //@ description: Ceated 탭의 데이터를 가져오는 API
     fetchCreatedData: build.query<cardType[], number>({
       query: (userId) => `/profile/user-created/${userId}/`,
-      providesTags: ["user"],
+      providesTags: ["profile"],
     }),
     //@ description: ForSale 탭의 데이터를 가져오는 API
     fetchForSaleData: build.query<cardType[], number>({
       query: (userId) => `/profile/user-forSale/${userId}/`,
-      providesTags: ["user"],
+      providesTags: ["profile"],
     }),
     //@ description: Fractions 탭의 데이터를 가져오는 API
     fetchFractionsData: build.query<DescCardType[], number>({
       query: (userId) => `/profile/user-fractions/${userId}/`,
-      providesTags: ["user"],
+      providesTags: ["profile"],
+    }),
+    //@ description: 내수익 보기 데이터를 가져오는 API
+    fetchRevenueData: build.query<RevenueType, string>({
+      query: (value) => `profile/margin${value}`,
+      providesTags: ["profile"],
     }),
   }),
 });
@@ -74,5 +91,8 @@ export const {
   useFetchCreatedDataQuery,
   useFetchForSaleDataQuery,
   useFetchFractionsDataQuery,
+  useFetchUserFollowerQuery,
+  useFetchUserFollowingQuery,
+  useFetchRevenueDataQuery,
 } = userAPI;
 export default userAPI;

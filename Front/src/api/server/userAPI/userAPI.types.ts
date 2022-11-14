@@ -22,3 +22,10 @@ export interface DescCardType {
   articleMargin: number;
   pieceCnt: number;
 }
+
+export interface RevenueType {
+  marginRate: number;
+  totalAssetValue: number;
+  margin: number;
+  principal: number;
+}

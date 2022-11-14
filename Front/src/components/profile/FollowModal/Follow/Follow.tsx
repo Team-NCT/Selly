@@ -8,27 +8,23 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { EthereumIcon } from "@/components/icon";
 import { useFollowMutation, useUnFollowMutation } from "@/api/server/userAPI";
 
-const Follow = ({ data }: FollowProps) => {
+const Follow = ({ data, type }: FollowProps) => {
   const dispatch = useAppDispatch();
-  const { account } = useAppSelector(selectAccount);
+  const { userId } = useAppSelector(selectAccount);
 
   const [follow] = useFollowMutation();
   const [unFollow] = useUnFollowMutation();
 
   const followOnclickHandler = async () => {
-    console.log("팔로우", data.userId);
-    if (!account.userId) {
+    if (!userId) {
       return;
     }
-    const res = await follow({ followerId: account.userId, followingId: data.userId }).unwrap();
-    console.log(res);
+    await follow({ followerId: data.userId, followingId: userId });
   };
 
   const unFollowOnClickHandler = async () => {
-    console.log("언팔로우", data.userId);
-    if (!account.userId) return;
-    const res = await unFollow({ followerId: account.userId, followingId: data.userId }).unwrap();
-    console.log(res);
+    if (!userId) return;
+    await unFollow({ followerId: data.userId, followingId: userId });
   };
 
   return (
@@ -46,7 +42,7 @@ const Follow = ({ data }: FollowProps) => {
         </div>
       </Link>
       <div className={style.button_section}>
-        {data.myFollowing ? (
+        {type === "FOLLOWER" && data.myFollowing ? (
           <Button
             bg="blackberry"
             color="outline"
