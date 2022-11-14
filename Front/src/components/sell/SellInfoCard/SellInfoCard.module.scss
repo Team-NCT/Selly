@@ -1,0 +1,30 @@
+.sell_info_card {
+  @include flex(column, flex-start, stretch);
+  @include shadow-drop5;
+  width: 100%;
+  padding: 24px;
+  gap: 16px;
+  min-width: 252px;
+  border: 1px solid red;
+
+  img {
+    width: 100%;
+  }
+
+  h2 {
+    @include font($h5, $bold);
+    @include flex(row, space-between, center);
+
+    span {
+      @include font($body1, $regular);
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.total_price_title {
+  @include flex(row, center, center);
+}

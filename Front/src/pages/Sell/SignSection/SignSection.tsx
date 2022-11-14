@@ -63,8 +63,8 @@ function SignSection({ changeStep }: SignSectionProps) {
           <SignBoxList data={SIGN_DATAS} />
         </div>
         <div className={style.sell_info}>
-          <h2>Selected NFT</h2>
-          <SelectedCard url={NFTValue.articleUrl} title={NFTValue.articleName} />
+          {/* <h2>Selected NFT</h2>
+          <SelectedCard url={NFTValue.articleUrl} title={NFTValue.articleName} /> */}
           <SellInfoCard />
         </div>
       </section>

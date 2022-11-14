@@ -7,6 +7,7 @@ import { setSellInfo, SellInfoState, selectSellInfo } from "@/store/sellInfoSlic
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { isNumber } from "@/helpers/utils/numberValidation";
+import { EthereumIcon } from "@/components/icon";
 
 const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
   const dispatch = useAppDispatch();
@@ -71,7 +72,10 @@ const SellInfoForm = ({ changeStep }: SellInfoFormProps) => {
           setIsPriceTrue={setIsPriceTrue}
         />
         <div className={style.total_price}>
-          <p>총 가격</p>
+          <div className={style.total_price_title}>
+            <EthereumIcon />
+            <p>총 가격</p>
+          </div>
           <p>{totalPrice} ETH</p>
         </div>
         <Button size="fillContainer" disabled={!submittable}>

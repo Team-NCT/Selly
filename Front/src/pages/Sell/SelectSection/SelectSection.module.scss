@@ -5,7 +5,6 @@
 
   .step_title {
     @include flex(row, flex-start, center);
-
     @include font($body1, $semibold);
     gap: 12px;
 
@@ -37,7 +36,7 @@
   @include flex(column-reverse, center, stretch);
   gap: 24px;
 
-  @media (min-width: #{905px}) {
+  @media (min-width: #{800px}) {
     @include flex(row, space-between, flex-start);
     gap: 32px;
 
@@ -45,5 +44,23 @@
       position: sticky;
       top: 128px;
     }
+  }
+}
+
+.scroll_up_icon {
+  @include shadow-drop4;
+  display: block;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: $white;
+  opacity: 80%;
+
+
+  @media (min-width: #{800px}) {
+    display: none;
   }
 }

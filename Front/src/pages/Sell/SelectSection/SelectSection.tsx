@@ -3,6 +3,7 @@ import { SelectCardList, SellInfoForm, SelectedCard } from "@/components/sell";
 import style from "./SelectSection.module.scss";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { useAppSelector, useInfiniteScroll } from "@/hooks";
+import { UpArrowIcon } from "@/components/icon";
 
 const FETCH_SIZE = 3;
 
@@ -26,6 +27,10 @@ function SelectSection({ datas, changeStep }: any) {
     setPage((pre) => pre + 1);
     setIsFetching(false);
   }
+
+  const scrollUp = () => {
+    window.scrollTo(0, 0);
+  };
 
   //* 처음 datas에서 초기값 받아오기
   useEffect(() => {
@@ -64,6 +69,9 @@ function SelectSection({ datas, changeStep }: any) {
           <SellInfoForm changeStep={changeStep} />
         </div>
       </section>
+      <button className={style.scroll_up_icon} onClick={scrollUp}>
+        <UpArrowIcon />
+      </button>
     </>
   );
 }

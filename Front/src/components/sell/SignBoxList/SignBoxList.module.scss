@@ -1,0 +1,4 @@
+.box_list {
+  @include flex(column, center, center);
+  gap: 24px;
+}

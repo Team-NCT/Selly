@@ -1,50 +1,25 @@
 .card_list {
   width: 100%;
-  @include grid(100%);
-  column-gap: 24px;
-  row-gap: 24px;
 
-  // @media (max-width: #{905px}) {
-  //   @include tablet {
-  //     @include grid(40%);
-  //     column-gap: 40px;
-  //     row-gap: 60px;
-  //   }
-
-  //   @include laptop {
-  //     @include grid(30%);
-  //     column-gap: 20px;
-  //     row-gap: 60px;
-  //   }
-  // }
+  @include mobile {
+    @include grid(100%);
+    row-gap: 24px;
+  }
 
   @include tablet {
-    @include grid(40%);
+    @include grid(calc((100% - 40px) / 2));
     column-gap: 40px;
-    row-gap: 60px;
-    border: 1px solid red;
-  }
-
-  @media (max-width: #{600px}) {
-    @include grid(40%);
-    border: 1px solid green;
-  }
-
-  @media (max-width: #{905px}) {
-    @include grid(30%);
-    border: 1px solid blue;
+    row-gap: 40px;
   }
 
   @include laptop {
-    @include grid(25%);
+    @include grid(calc((100% - 60px) / 3));
     column-gap: 20px;
-    row-gap: 60px;
-    border: 1px solid yellow;
+    row-gap: 20px;
   }
-
   @include desktop {
-    @include grid(25%);
+    @include grid(calc((100% - 128px) / 3));
     column-gap: 40px;
-    row-gap: 80px;
+    row-gap: 40px;
   }
 }

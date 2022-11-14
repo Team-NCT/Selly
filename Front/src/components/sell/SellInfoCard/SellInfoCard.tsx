@@ -1,12 +1,15 @@
 import style from "./SellInfoCard.module.scss";
-import { Button, Neon } from "@/components/common";
+import { Button } from "@/components/common";
 import { selectSellInfo } from "@/store/sellInfoSlice";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import { openConfirm } from "@/store/modalSlice";
+import { EthereumIcon } from "@/components/icon";
+import { selectNFTValue } from "@/store/selectNFTSlice";
 
 const SellInfoCard = () => {
   const dispatch = useAppDispatch();
   const sellInfo = useAppSelector(selectSellInfo);
+  const NFTValue = useAppSelector(selectNFTValue);
 
   const editHandler = () => {
     dispatch(openConfirm());
@@ -14,37 +17,38 @@ const SellInfoCard = () => {
 
   return (
     <article className={style.sell_info_card}>
+      <h2>Selected NFT</h2>
+      <img src={NFTValue.articleUrl} alt={NFTValue.articleName} />
       <h2>
-        <Neon color="lilac" positionH="bottom" positionW="right">
-          카테고리
-        </Neon>
+        카테고리
         <span>{sellInfo.category}</span>
       </h2>
       <h2>
-        <Neon color="lilac" positionH="bottom" positionW="right">
-          조각 코드
-        </Neon>
+        조각 코드
         <span>{sellInfo.code}</span>
       </h2>
       <h2>
-        <Neon color="lilac" positionH="bottom" positionW="right">
-          조각 개수
-        </Neon>
-        <span>{sellInfo.num}</span>
+        조각 개수
+        <span>
+          {sellInfo.num} <strong>개</strong>
+        </span>
       </h2>
       <h2>
-        <Neon color="lilac" positionH="bottom" positionW="right">
-          조각 당 가격
-        </Neon>
-        <span>{sellInfo.price}</span>
+        조각 당 가격
+        <span>
+          {sellInfo.price} <strong>ETH</strong>
+        </span>
       </h2>
       <h2>
-        <Neon color="lilac" positionH="bottom" positionW="right">
-          총 가격
-        </Neon>
-        <span>{+(Number(sellInfo.num) * Number(sellInfo.price)).toFixed(4)} ETH</span>
+        <div className={style.total_price_title}>
+          <EthereumIcon />
+          <p>총 가격</p>
+        </div>
+        <span>
+          {+(Number(sellInfo.num) * Number(sellInfo.price)).toFixed(4)} <strong>ETH</strong>
+        </span>
       </h2>
-      <Button size="fillContainer" onClick={editHandler}>
+      <Button size="fillContainer" bg="blackberry" color="white" onClick={editHandler}>
         EDIT
       </Button>
     </article>

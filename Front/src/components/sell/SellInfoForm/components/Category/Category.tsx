@@ -8,7 +8,7 @@ const Category = ({ value, changeHandler }: CategoryProps) => {
   return (
     <div className={style.category}>
       <h2 className={style.category_label}>
-        <Label color="muscat100" positionH="bottom" positionW="right" id="fraction-price">
+        <Label color="muscat" positionH="bottom" positionW="right" id="fraction-price">
           카테고리
         </Label>
       </h2>

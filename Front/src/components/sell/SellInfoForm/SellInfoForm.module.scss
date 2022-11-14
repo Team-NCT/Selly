@@ -10,5 +10,9 @@
     @include font($body1, $semibold);
     @include flex(row, space-between, center);
     margin-bottom: 18px;
+
+    .total_price_title {
+      @include flex(row, center, center);
+    }
   }
 }
