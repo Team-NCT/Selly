@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
   List<Auction> findByArticleId(Long articleId);
-
+  Auction findByAuctionId(Long auctionId);
 }
