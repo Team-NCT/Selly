@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -97,11 +100,20 @@ public class TradeController {
     return tradeService.getUserTradeRegistList(userId, articleId);
   }
 
-
-//  @GetMapping("/ownership/{userId}")
-//  public ResponseEntity<Object> userOwnership (@PathVariable("userId") Long userId, @) {
-//    System.out.println(userId);
-//    NftPieceResponseDto nftPieceResponseDto = userServiceClient.getOwnership(userId, tradeRequest);
-//    return ResponseEntity.ok().body(nftPieceResponseDto);
-//  }
+  // 특정 작품 거래 히스토리 조회
+  @GetMapping("/nft-trade-history/{articleId}")
+  public HashMap<String, Object> nftTradeHistory(@PathVariable("articleId") Long articleId) {
+    HashMap<String , Object> hashMap = new HashMap<>();
+    List<HistoryResponse> historyResponseList = new ArrayList<>();
+    HistoryResponse historyResponse = HistoryResponse.builder()
+            .date(LocalDateTime.now())
+            .avgPrice(1.1)
+            .maxPrice(2.2)
+            .lowPrice(0.1)
+            .build();
+    historyResponseList.add(historyResponse);
+    hashMap.put("avgPrice", 110);
+    hashMap.put("historyList", historyResponseList);
+    return hashMap;
+  }
 }
