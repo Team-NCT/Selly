@@ -97,6 +97,10 @@ public class TradeController {
     return tradeService.getUserTradeRegistList(userId, articleId);
   }
 
+  @DeleteMapping("/trade-cancel")
+  public String deleteTradeRegist(@RequestBody RequestDeleteTradeRegist requestDeleteTradeRegist){
+    return tradeService.dropTradeRegist(requestDeleteTradeRegist);
+  }
 
 //  @GetMapping("/ownership/{userId}")
 //  public ResponseEntity<Object> userOwnership (@PathVariable("userId") Long userId, @) {
