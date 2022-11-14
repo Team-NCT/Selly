@@ -2,15 +2,16 @@ package com.nct.sellytradeservice.domain.entity;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 @Getter
 @Entity
+@EntityListeners(value= AuditingEntityListener.class)
+@NoArgsConstructor
 public class TradeLog {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

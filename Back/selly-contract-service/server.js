@@ -51,7 +51,7 @@ app.post('/minting', async (req, res) => {
             wallet: req.body.wallet
         })
     };
-    request.post(OPTIONS);
+    request.post(OPTIONS, (err, res, body) =>{ });
 
     return res.json(txObject);
 });
@@ -139,7 +139,7 @@ app.post("/sellregist", async(req, res) => {
             tokenId: req.body.tokenId
         })
     };
-    request.post(OPTIONS);
+    request.post(OPTIONS, (err, res, body) =>{ });
     return res.json(txObject);
 })
 
@@ -218,7 +218,7 @@ app.post('/buy', async (req, res) => {
             articleId: req.body.articleId
         })
     };
-    request.post(OPTIONS);
+    request.post(OPTIONS, (err, res, body) =>{ });
 
     return res.json(txObject);
 });
