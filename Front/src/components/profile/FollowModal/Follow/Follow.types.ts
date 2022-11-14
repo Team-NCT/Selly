@@ -8,4 +8,5 @@ interface FollowItem {
 
 export interface FollowProps {
   data: FollowItem;
+  type: "FOLLOWER" | "FOLLOWING";
 }
