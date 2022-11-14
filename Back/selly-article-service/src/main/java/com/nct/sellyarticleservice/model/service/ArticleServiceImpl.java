@@ -166,21 +166,13 @@ public class ArticleServiceImpl implements ArticleService{
 
   @Override
   public List<CategoryResponse> articleCategoryFilter(String category, boolean availability, String sort, String order) {
-//    List<Article> articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "createRegist"));
-//    ListarticleList(Sort.by(Sort.Direction.ASC, "createRegist"))
-//    return articleRepository.findAllByCategoryAndAvailability(category, availability);
-//    return articleList;
     List<Article> articleList = new ArrayList<>();
     List<CategoryResponse> articleResponseList = new ArrayList<>();
-    System.out.println(sort.equals("asc"));
     if (sort.equals("asc")) {
       if (category.equals("all")) {
         switch (order) {
           case "sellRegist":
             articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "createRegist"));
-            break;
-          case "trade":
-            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC));
             break;
           case "price":
             articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
@@ -201,14 +193,8 @@ public class ArticleServiceImpl implements ArticleService{
         case "sellRegist":
           articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "createRegist"));
           break;
-        case "trade":
-          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC));
-          break;
         case "price":
           articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "price"));
-          break;
-        case "all":
-          articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
           break;
       }
       articleList.forEach(v-> {
@@ -226,13 +212,10 @@ public class ArticleServiceImpl implements ArticleService{
       if (category.equals("all")) {
         switch (order) {
           case "sellRegist":
-            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "createRegist"));
-            break;
-          case "trade":
-            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC));
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.DESC, "createRegist"));
             break;
           case "price":
-            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.DESC, "price"));
             break;
         }      articleList.forEach(v-> {
           CategoryResponse articleResponse = CategoryResponse.builder()
@@ -250,14 +233,8 @@ public class ArticleServiceImpl implements ArticleService{
         case "sellRegist":
           articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "createRegist"));
           break;
-        case "trade":
-          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC));
-          break;
         case "price":
           articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "price"));
-          break;
-        case "all":
-          articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.DESC, "price"));
           break;
       }
       articleList.forEach(v-> {
