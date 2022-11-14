@@ -18,7 +18,7 @@ export interface DescCardType {
   articleId: number;
   articleName: string;
   articleImgUrl: string;
-  recentMarketPrice?: string;
-  articleMargin?: string;
-  pieceCnt?: number;
+  recentMarketPrice: number;
+  articleMargin: number;
+  pieceCnt: number;
 }

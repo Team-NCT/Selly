@@ -17,10 +17,15 @@ export interface NFTDescCardDataType {
   /**
    * NFT 최근 거래 가격
    */
-  recentMarketPrice: number | null;
+  recentMarketPrice: number;
 
   /**
    * NFT 증감율
    */
-  rateChange?: number | null;
+  rateChange?: number;
+
+  /**
+   * 조각 수
+   */
+  pieceCnt?: number;
 }

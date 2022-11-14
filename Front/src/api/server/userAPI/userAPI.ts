@@ -18,7 +18,7 @@ const userAPI = createApi({
       const userId = (getState() as RootState).account.userId;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
-        headers.set("userId", userId);
+        headers.set("userId", String(userId));
       }
 
       return headers;
@@ -55,12 +55,12 @@ const userAPI = createApi({
       providesTags: ["user"],
     }),
     //@ description: ForSale 탭의 데이터를 가져오는 API
-    fetchForSaleData: build.query<cardType, number>({
+    fetchForSaleData: build.query<cardType[], number>({
       query: (userId) => `/profile/user-forSale/${userId}/`,
       providesTags: ["user"],
     }),
     //@ description: Fractions 탭의 데이터를 가져오는 API
-    fetchFractionsData: build.query<DescCardType, number>({
+    fetchFractionsData: build.query<DescCardType[], number>({
       query: (userId) => `/profile/user-fractions/${userId}/`,
       providesTags: ["user"],
     }),
