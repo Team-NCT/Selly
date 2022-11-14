@@ -17,37 +17,41 @@ const SellInfoCard = () => {
 
   return (
     <article className={style.sell_info_card}>
-      <h2>Selected NFT</h2>
-      <img src={NFTValue.articleUrl} alt={NFTValue.articleName} />
-      <h2>
-        카테고리
-        <span>{sellInfo.category}</span>
-      </h2>
-      <h2>
-        조각 코드
-        <span>{sellInfo.code}</span>
-      </h2>
-      <h2>
-        조각 개수
-        <span>
-          {sellInfo.num} <strong>개</strong>
-        </span>
-      </h2>
-      <h2>
-        조각 당 가격
-        <span>
-          {sellInfo.price} <strong>ETH</strong>
-        </span>
-      </h2>
-      <h2>
-        <div className={style.total_price_title}>
-          <EthereumIcon />
-          <p>총 가격</p>
+      <h1>Selected NFT</h1>
+      <div className={style.content}>
+        <img src={NFTValue.articleUrl} alt={NFTValue.articleName} />
+        <div className={style.sell_info}>
+          <h2>
+            카테고리
+            <span>{sellInfo.category}</span>
+          </h2>
+          <h2>
+            조각 코드
+            <span>{sellInfo.code}</span>
+          </h2>
+          <h2>
+            조각 개수
+            <span>
+              {sellInfo.num} <strong>개</strong>
+            </span>
+          </h2>
+          <h2>
+            조각 당 가격
+            <span>
+              {sellInfo.price} <strong>ETH</strong>
+            </span>
+          </h2>
+          <h2>
+            <div className={style.total_price_title}>
+              <EthereumIcon />
+              <p>총 가격</p>
+            </div>
+            <span>
+              {+(Number(sellInfo.num) * Number(sellInfo.price)).toFixed(4)} <strong>ETH</strong>
+            </span>
+          </h2>
         </div>
-        <span>
-          {+(Number(sellInfo.num) * Number(sellInfo.price)).toFixed(4)} <strong>ETH</strong>
-        </span>
-      </h2>
+      </div>
       <Button size="fillContainer" bg="blackberry" color="white" onClick={editHandler}>
         EDIT
       </Button>

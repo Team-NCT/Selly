@@ -38,7 +38,7 @@
 
   @media (min-width: #{800px}) {
     @include flex(row, space-between, flex-start);
-    gap: 32px;
+    gap: 48px;
 
     .sell_info {
       position: sticky;

@@ -33,21 +33,21 @@
 }
 
 .content {
-  border: 1px solid yellow;
   @include flex(column-reverse, center, stretch);
-  gap: 24px;
+  gap: 32px;
 
   @media (min-width: #{800px}) {
     @include flex(row, space-between, center);
   }
 
   @include laptop {
-    @include flex(row, center, center);
-    gap: 136px;
+    @include flex(row, space-around, center);
   }
 }
 
 .sell_info {
-  width: 100%;
-  border: 1px solid green;
+  @media (min-width: #{800px}) {
+    top: calc(100vh / 2);
+    width: 252px;
+  }
 }

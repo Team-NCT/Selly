@@ -142,7 +142,9 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
         {idx}
       </div>
       <div className={style.sign_box_section}>
-        <PencilIcon />
+        <div className={style.pencil_icon}>
+          <PencilIcon />
+        </div>
         <div className={style.content_section}>
           <h1 className={style.sign_box_title}>
             <Neon

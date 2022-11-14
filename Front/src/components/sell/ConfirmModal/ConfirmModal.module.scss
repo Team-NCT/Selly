@@ -2,15 +2,51 @@
   @include flex(column, space-between, center);
   @include shadow-modal;
   border-radius: $radius-card;
-  gap: 80px;
-  padding: 80px;
+  gap: 30px;
+  padding: 68px;
 
-  h1 {
-    @include font($h5);
+  .text_section {
+    @include flex(column, center, center);
+    min-width: 287px;
+    line-height: 200%;
+
+    h1 {
+      @include font($h5, $semibold);
+      @include mobile {
+        @include font($body1, $semibold);
+      }
+    }
+
+    .alert_text {
+      @include font($body2, $semibold);
+      color: $sherbet150;
+
+      @include mobile {
+        @include font($body2, $semibold);
+        color: $sherbet150;
+      }
+    }
   }
 
   .button_section {
     @include flex(row, center, center);
-    gap:40px;
+    gap: 40px;
+
+    Button {
+      flex-shrink: 0;
+
+      @include mobile {
+        @include font($body1, $bold);
+      }
+    }
+
+    @include mobile {
+      gap: 28px;
+    }
+  }
+
+  @include mobile {
+    gap: 24px;
+    padding: 56px;
   }
 }
