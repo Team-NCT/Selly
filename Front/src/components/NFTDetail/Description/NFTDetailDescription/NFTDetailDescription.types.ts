@@ -1,9 +1,10 @@
-import { NFTOwnerProps } from "../NFTOwner/NFTOwner.types";
-import { NFTDetailsProps } from "../NFTDetails/NFTDetails.types";
-import { NFTPropertiesProps } from "../NFTProperties/NFTProperties.types";
-import { NFTDescriptionProps } from "../NFTDescription/NFTDescription.types";
+import { UserType } from "@/types/user.type";
+import { MetaDataType } from "@/types/metaData.types";
 
-export type NFTDetailDescriptionProps = NFTOwnerProps &
-  NFTDetailsProps &
-  NFTPropertiesProps &
-  NFTDescriptionProps;
+export interface NFTDetailDescriptionProps {
+  user: UserType;
+  tokenId: string;
+  contractAddress: string;
+  metaData: MetaDataType;
+  primaryCnt?: number;
+}

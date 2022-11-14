@@ -5,12 +5,15 @@ import { closeSell } from "@/store/modalSlice";
 import style from "./TransactionFractionsSell.module.scss";
 import { fPointCheck } from "@/helpers/utils/numberValidation";
 import { numberAddComma } from "@/helpers/utils/numberConversion";
-import { inputAction, inputType } from "./TransactionFractionsSell.types";
+import {
+  inputAction,
+  inputType,
+  TransactionFractionsSellProps,
+} from "./TransactionFractionsSell.types";
 import {
   useFetchOwnedNFTCountQuery,
   useRegisterSellNFTFractionMutation,
 } from "@/api/server/NFTTransactionAPI";
-import { TransactionFractionsBuyProps } from "../";
 
 const sellReducer = (state: inputType, action: inputAction) => {
   switch (action.type) {
@@ -56,7 +59,14 @@ const initialState: inputType = {
   status: true,
 };
 
-const TransactionFractionsSell = ({ address, articleId, userId }: TransactionFractionsBuyProps) => {
+const TransactionFractionsSell = ({
+  address,
+  articleId,
+  userId,
+  contractAddress,
+  ownershipContractAddress,
+  tokenId,
+}: TransactionFractionsSellProps) => {
   const dispatch = useAppDispatch();
   const [registerSellNFTFraction] = useRegisterSellNFTFractionMutation();
   const [totalPrice, setTotalPrice] = useState(0);
@@ -114,11 +124,26 @@ const TransactionFractionsSell = ({ address, articleId, userId }: TransactionFra
     return dispatchPrice({ type: "NORMAL", payload: value });
   };
 
-  //TODO_JK: NFT Detail 데이터 fetch API 연결 후 로직 구현 (전송 로직)
   const handlerFormSumbit = async (event: FormEvent) => {
     event.preventDefault();
-    const payload = {};
-    // await registerSellNFTFraction(payload);
+    if (!userId || !address || !ownershipContractAddress) return;
+    const payload = {
+      seller: userId,
+      wallet: address,
+      pieceCnt: Number(countState.value),
+      tradePrice: Number(priceState.value),
+      articleId,
+      tokenId,
+      contractAddress,
+      ownershipContractAddress,
+    };
+    console.log(payload);
+
+    try {
+      await registerSellNFTFraction(payload);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

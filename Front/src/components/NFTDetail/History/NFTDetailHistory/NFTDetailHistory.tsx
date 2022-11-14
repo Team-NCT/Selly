@@ -1,10 +1,18 @@
 import style from "./NFTDetailHistory.module.scss";
-import { NFTDetailHistoryProps } from "./NFTDetailHistory.types";
 import { NFTHistoryGraphBar } from "@/components/NFTDetail/History";
 import { Neon } from "@/components/common";
 import { calcNFTTransactionHistoryGraph } from "@/helpers/service/calcGraph";
 
-const NFTDetailHistory = ({ transactionHistory, totalAverage }: NFTDetailHistoryProps) => {
+const transactionHistory = [
+  { date: "2022-10-31 14:51:24.585196", average: 0.0025, lowest: 0.0025, highest: 0.0025 },
+  { date: "2022-10-30 14:51:24.585196", average: 0.001, lowest: 0.0025, highest: 0.0025 },
+  { date: "2022-10-29 14:51:24.585196", average: 0.003, lowest: 0.0025, highest: 0.0025 },
+  { date: "2022-10-28 14:51:24.585196", average: 0.0005, lowest: 0.0025, highest: 0.0025 },
+  { date: "2022-10-27 14:51:24.585196", average: 0.005, lowest: 0.0025, highest: 0.0025 },
+];
+const totalAverage = 0.0025;
+
+const NFTDetailHistory = () => {
   const calcTransactionHistory = calcNFTTransactionHistoryGraph(transactionHistory);
 
   return (

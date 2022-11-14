@@ -20,49 +20,51 @@ export const Default: Story<NFTDetailDescriptionProps> = (args) => (
 );
 
 Default.args = {
-  nickname: "김김작가작가작가작가작가",
-  originalAuthor: 1,
+  user: { nickname: "김김작가작가작가작가작가", userId: 1, certification: false },
   contractAddress: "0xc23cC06e0FCF0382cCc7fe399a08E045de6925dF",
-  primaryCnt: 1,
   tokenId: "9860",
-  description:
-    "좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.",
-  properties: [
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-    {
-      value: "대머리",
-      trait_type: "head",
-    },
-  ],
+  metaData: {
+    name: "좀비와 함꼐 춤을",
+    external_url: "www.naver.com",
+    description:
+      "좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.좀비와 함께 춤을 추면서, 취업을 기원하는 작품입니다.",
+    attributes: [
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+      {
+        value: "대머리",
+        trait_type: "head",
+      },
+    ],
+  },
 };
