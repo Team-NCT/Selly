@@ -16,11 +16,11 @@ public class FractionResponse {
   @Nullable
   private String recentMarketPrice;
   @Nullable
-  private double articleMargin;
+  private String articleMargin;
   private Integer pieceCnt;
 
   @Builder
-  public FractionResponse(Long articleId, String articleName, String articleImgUrl, String recentMarketPrice, double articleMargin, Integer pieceCnt) {
+  public FractionResponse(Long articleId, String articleName, String articleImgUrl, String recentMarketPrice, String articleMargin, Integer pieceCnt) {
     this.articleId = articleId;
     this.articleName = articleName;
     this.articleImgUrl = articleImgUrl;
@@ -33,5 +33,6 @@ public class FractionResponse {
     this.articleName = articleName;
     this.articleImgUrl = articleImgUrl;
     this.recentMarketPrice = null;
+    this.articleMargin = null;
   }
 }

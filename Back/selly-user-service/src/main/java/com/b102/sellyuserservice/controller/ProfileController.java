@@ -52,7 +52,7 @@ public class ProfileController {
               .articleImgUrl("articleImgUrl")
               .articleName("articleName")
               .recentMarketPrice(String.valueOf(1.1))
-              .articleMargin(1.5)
+              .articleMargin(String.valueOf(1.5))
               .pieceCnt(1)
               .build();
       responses.add(fractionResponse);
@@ -63,6 +63,7 @@ public class ProfileController {
             .articleImgUrl("articleImgUrl")
             .articleName("articleName")
             .recentMarketPrice(null)
+            .articleMargin(null)
             .build();
 //    FractionResponse fractionResponse = new FractionResponse(1L, "articleName", "articleUrl");
     responses.add(fractionResponse);
