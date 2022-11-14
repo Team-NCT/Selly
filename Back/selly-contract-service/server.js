@@ -61,7 +61,7 @@ app.get('/listen/:wallet', async (req, res) => {
     console.log("리슨");
     const networkId = await web3.eth.net.getId();
     const CA = mintingContract.networks[networkId].address;
-    let subscription = web3.eth.subscribe('logs', { address : CA, 
+    let subscription = await web3.eth.subscribe('logs', { address : CA, 
         topics: [
         "0x8f839153139787443f022f61f0970bdd4fe0e1d1422ab05e0ec211288fd6b540"
     ]},(err,event) => {
@@ -176,7 +176,7 @@ app.get('/listen/:wallet/:ca', async (req, res) => {
     console.log("CA리슨");
     const CA = req.params.ca;
     console.log(CA);
-    let subscription = web3.eth.subscribe('logs', { address : CA, topics:[
+    let subscription = await web3.eth.subscribe('logs', { address : CA, topics:[
         "0xf800216b49e9f4066dd1d33ae81712cebc8643f9aa20ad16aa348eae951825a7"
     ]},(err,event) => {
         if (event){
@@ -276,7 +276,7 @@ app.post('/buy', async (req, res) => {
 app.get("/listensa/:wallet/:sa", async(req, res) =>{
     console.log("구매 들어옴!");
     const CA = req.params.sa;
-    let subscription = web3.eth.subscribe('logs', { address : CA, topics:[
+    let subscription = await web3.eth.subscribe('logs', { address : CA, topics:[
         "0xdccb5bce6e0213237e0f6a2b3fac1111566917989d8d207b69e82385a13a9759"
     ]},(err,event) => {
         if (event){
@@ -340,6 +340,67 @@ app.get("/listensa/:wallet/:sa", async(req, res) =>{
     //     }
     // });
 })
+app.post("/cancleSale", async(req, res) =>{
+    const from = req.body.wallet;
+    const nonce = await web3.eth.getTransactionCount(from);
+    const CA = req.body.saleContractAddress;
+    console.log(CA);
+    const abi = nftsale.abi;
+    const deployed = await new web3.eth.Contract(abi, CA);
+    const data = await deployed.methods.cancelSale().encodeABI();
+    let txObject = {
+        nonce,
+        from,
+        to: CA,
+        data
+    };
 
+    var OPTIONS = {
+        headers: {'Content-Type': 'application/json'},
+        url: "http://localhost:8000/selly-trade-service/trade-cancel",
+            body: JSON.stringify({
+            saleContractAddress : req.body.saleContractAddress,
+            wallet : req.body.wallet,
+            seller : req.body.seller,
+        })
+    };
+    request.post(OPTIONS, (err, res, body) =>{ });
 
+    return res.json(txObject);
+})
+app.get("/listencancel/:wallet/:sa", async(req, res)=>{
+    const CA = req.params.sa;
+    let subscription = web3.eth.subscribe('logs', { address : CA, topics:[
+        "0xd9b6a328868f7e8d317d22d8a06ed8853be50e49fa45fb32826e7efaef4b8651"
+    ]},(err,event) => {
+        if (event){
+            console.log(event);                                      
+        const params = [{type : 'address', name: 'ownershipCA'},{type : 'address', name: 'saleCA'},{type : 'address', name: 'seller'}];
+        const value = web3.eth.abi.decodeLog(params, event.data);
+        console.log(req.params.wallet);
+        console.log(value);
+        const list = {
+            saleContractAddress: value.saleCA,
+            sellerWallet : value.seller,
+        }
+        // return res.json(list);
+        if (req.params.wallet.toUpperCase() == value.seller.toUpperCase()){
+            console.log(list);
+            subscription.unsubscribe(function(error, success){
+            if(success)
+                console.log('Successfully unsubscribed!');
+        });
+        return res.json(list);
+        }
+        }
+        if (err){
+            subscription.unsubscribe(function(error, success){
+                if(success)
+                    console.log('Successfully unsubscribed!');
+            });
+            console.log(err)
+            throw err
+        }
+    });
+})
 eurekaClient.registerWithEureka("selly-contract-service", 4000);

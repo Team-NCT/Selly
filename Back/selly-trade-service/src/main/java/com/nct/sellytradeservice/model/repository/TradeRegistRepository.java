@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TradeRegistRepository extends JpaRepository<TradeRegist, Long> {
+  TradeRegist findBysaleContractAddressAndSeller(String saleContractAddress, Long seller);
   Optional<TradeRegist> findByArticleId(Long ArticleId);
   Optional<TradeRegist> findByArticleIdAndSaleContractAddress(Long ArticleId, String saleContractAddress);
   List<TradeRegist> findByArticleId(Long articleId, Sort sort);
