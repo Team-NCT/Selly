@@ -1,3 +1,5 @@
-export interface CategoryType {
-  category: "all" | "analog" | "digital" | "photography";
+export interface ExploreType {
+  category: string;
+  sort: string;
+  order: string;
 }

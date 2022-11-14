@@ -4,4 +4,5 @@ export { default as createNFTAPI } from "./createNFTAPI/createNFTAPI";
 export { default as loginAPI } from "./loginAPI/loginAPI";
 export { default as userAPI } from "./userAPI/userAPI";
 export { default as NFTTransactionAPI } from "./NFTTransactionAPI/NFTTransactionAPI";
+export { default as exploreAPI } from "./exploreAPI/exploreAPI";
 export { default as saleNFTAPI } from "./saleNFTAPI/saleNFTAPI";

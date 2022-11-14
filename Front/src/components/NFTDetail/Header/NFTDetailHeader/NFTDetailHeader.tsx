@@ -3,7 +3,7 @@ import style from "./NFTDetailHeader.module.scss";
 import { BackArrowIcon } from "@/components/icon";
 import { FavoriteIcon, ShareIcon } from "../";
 
-const NFTDetailHeader = ({ title, id, imageUrl, favoriteStatus, url }: NFTDetailHeaderProps) => {
+const NFTDetailHeader = ({ title, id, imageUrl, url, userId }: NFTDetailHeaderProps) => {
   return (
     <header className={style.NFT_detail_header}>
       <section>
@@ -15,7 +15,7 @@ const NFTDetailHeader = ({ title, id, imageUrl, favoriteStatus, url }: NFTDetail
           <BackArrowIcon />
         </div>
         <div className={style.NFT_detail_header_right_icon}>
-          <FavoriteIcon favoriteStatus={favoriteStatus} />
+          <FavoriteIcon articleId={id} userId={userId} />
           <ShareIcon id={id} title={title} imageUrl={imageUrl} url={url} />
         </div>
       </section>

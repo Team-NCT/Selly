@@ -44,6 +44,12 @@
   margin-top: -20px;
 }
 
+.mobileTabTitle {
+  @media (max-width: 400px) {
+    @include font($body1, $semibold);
+  }
+}
+
 .selectBox {
   width: 200px;
 }

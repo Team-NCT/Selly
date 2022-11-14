@@ -7,10 +7,11 @@ import logoImage from "@/assets/images/logo.png";
 import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { logout, selectAccount } from "@/store/loginSlice";
 import { useLogin } from "@/hooks";
+import { WalletIcon } from "@/components/icon";
 
 const Navbar = () => {
   //* account 정보
-  const { userId } = useAppSelector(selectAccount);
+  const { userId, goerliToken } = useAppSelector(selectAccount);
   const dispatch = useAppDispatch();
   //* 로그인 훅
   const [login] = useLogin();
@@ -51,7 +52,7 @@ const Navbar = () => {
       ) : (
         ""
       )}
-      <nav className={HeaderStatus ? styles.nav_opacity : ""}>
+      <nav className={HeaderStatus ? styles.nav_background : ""}>
         <h2 className={styles.nav_title}>사이트 네비게이션</h2>
         <div className={styles.nav_head}>
           <NavLink to="/">
@@ -161,7 +162,10 @@ const Navbar = () => {
               <ProfileImage size="xxs" profileStyle="round" />
               <h5 className={styles.nav_username}>김김작가작가작가</h5>
               <div className={styles.dropdown_content_user}>
-                <h5>Balance</h5>
+                <h5 className={styles.wallet_token}>
+                  <span>{goerliToken}</span>
+                  <span>eth</span>
+                </h5>
                 <NavLink to={`/profile/${userId}`} className={styles.dropdown_item}>
                   Profile
                 </NavLink>
@@ -189,9 +193,7 @@ const Navbar = () => {
               }}>
               <button onClick={login}>
                 <Neon color="lilac" positionH="top" positionW="right" width={wallet}>
-                  <span className={`material-icons-outlined ${styles.wallet}`}>
-                    account_balance_wallet
-                  </span>
+                  <WalletIcon size={32} />
                 </Neon>
               </button>
             </li>
