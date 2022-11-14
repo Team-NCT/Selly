@@ -6,7 +6,7 @@ nav {
   top: 0;
   padding: 0 30px;
   transition: opacity 0.5s linear;
-  z-index: 1000;
+  z-index: 20;
   @include laptop {
     @include flex(row, space-between);
     padding: 0 30px;
@@ -25,11 +25,11 @@ nav {
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 998;
+  z-index: 19;
 }
 
-.nav_opacity {
-  opacity: 0;
+.nav_background {
+  background-color: $white;
 }
 
 .nav_head {
@@ -154,7 +154,7 @@ nav {
   top: -5px;
   right: 73px;
   background-color: $white;
-  min-width: 120px;
+  width: 140px;
   z-index: 1;
   border-radius: $radius-modal;
   padding: 5px 0;
