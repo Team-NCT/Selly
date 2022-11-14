@@ -65,19 +65,8 @@ app.get('/listen/:wallet', async (req, res) => {
         topics: [
         "0x8f839153139787443f022f61f0970bdd4fe0e1d1422ab05e0ec211288fd6b540"
     ]},(err,event) => {
-        if (err)
-        console.log(err)
-    });
-    subscription.on('error', err => { 
-        subscription.unsubscribe(function(error, success){
-            if(success)
-                console.log('Successfully unsubscribed!');
-        });
-        console.log(err)
-        throw err
-     });
-    subscription.on('data', (event) => {               
-        console.log(event);                         
+        if(event){
+            console.log(event);                         
         const params = [{type : 'uint256', name: 'tokenId'}, {type: "address", name: "owner"},{type: 'string', name: 'tokenURI'}]
         // const params = [{type : 'uint256', name: 'tokenId', indexed: true}, {type: "address", name: "owner", indexed: true}]
         // const params2 = {type: 'string', name: 'tokenURI'}
@@ -100,8 +89,50 @@ app.get('/listen/:wallet', async (req, res) => {
         });
         return res.json(list);
         }
-        
+        }
+        if (err){
+            subscription.unsubscribe(function(error, success){
+                if(success)
+                    console.log('Successfully unsubscribed!');
+            });
+            console.log(err)
+            throw err
+        }
     });
+    // subscription.on('error', err => { 
+    //     subscription.unsubscribe(function(error, success){
+    //         if(success)
+    //             console.log('Successfully unsubscribed!');
+    //     });
+    //     console.log(err)
+    //     throw err
+    //  });
+    // subscription.on('data', (event) => {               
+    //     console.log(event);                         
+    //     const params = [{type : 'uint256', name: 'tokenId'}, {type: "address", name: "owner"},{type: 'string', name: 'tokenURI'}]
+    //     // const params = [{type : 'uint256', name: 'tokenId', indexed: true}, {type: "address", name: "owner", indexed: true}]
+    //     // const params2 = {type: 'string', name: 'tokenURI'}
+    //     // const params = [{type : 'address', name: 'from'}, { type: 'uint256', name: 'token' } ];
+    //     const value = web3.eth.abi.decodeLog(params, event.data);
+    //     // const value2 = web3.eth.abi.decodeLog(params, event.data);
+    //     console.log(value);
+
+    //     console.log("--------------------------------")
+    //     const list = {
+    //         contractAddress : CA,
+    //         tokenId : value.tokenId
+    //     }
+    //     console.log(req.params.wallet);
+    //     if (req.params.wallet.toUpperCase() == value.owner.toUpperCase()){
+    //         console.log(list);
+    //         subscription.unsubscribe(function(error, success){
+    //         if(success)
+    //             console.log('Successfully unsubscribed!');
+    //     });
+    //     return res.json(list);
+    //     }
+        
+    // });
 });
 
 app.post("/sellregist", async(req, res) => {
@@ -148,19 +179,8 @@ app.get('/listen/:wallet/:ca', async (req, res) => {
     let subscription = web3.eth.subscribe('logs', { address : CA, topics:[
         "0xf800216b49e9f4066dd1d33ae81712cebc8643f9aa20ad16aa348eae951825a7"
     ]},(err,event) => {
-        if (err)
-        console.log(err)
-    });
-    subscription.on('error', err => { 
-        subscription.unsubscribe(function(error, success){
-            if(success)
-                console.log('Successfully unsubscribed!');
-        });
-        console.log(err)
-        throw err
-     });
-    subscription.on('data', (event) => {  
-        console.log(event);                                      
+        if (event){
+            console.log(event);                                      
         const params = [{type : 'address', name: 'ownershipCA'},{type : 'address', name: 'saleCA'},{type : 'address', name: 'wallet'}, { type: 'uint256', name: 'piece' }, { type: 'uint256', name: 'price' }];
         const value = web3.eth.abi.decodeLog(params, event.data);
         const list = {
@@ -176,8 +196,43 @@ app.get('/listen/:wallet/:ca', async (req, res) => {
         });
         return res.json(list);
         }
-        
+        }
+        if (err){
+            subscription.unsubscribe(function(error, success){
+                if(success)
+                    console.log('Successfully unsubscribed!');
+            });
+            console.log(err)
+            throw err
+        }
     });
+    // subscription.on('error', err => { 
+    //     subscription.unsubscribe(function(error, success){
+    //         if(success)
+    //             console.log('Successfully unsubscribed!');
+    //     });
+    //     console.log(err)
+    //     throw err
+    //  });
+    // subscription.on('data', (event) => {  
+    //     console.log(event);                                      
+    //     const params = [{type : 'address', name: 'ownershipCA'},{type : 'address', name: 'saleCA'},{type : 'address', name: 'wallet'}, { type: 'uint256', name: 'piece' }, { type: 'uint256', name: 'price' }];
+    //     const value = web3.eth.abi.decodeLog(params, event.data);
+    //     const list = {
+    //         saleContractAddress : value.saleCA,
+    //     }
+    //     console.log(req.params.wallet);
+    //     console.log(value);
+    //     if (req.params.wallet.toUpperCase() == value.wallet.toUpperCase()){
+    //         console.log(list);
+    //         subscription.unsubscribe(function(error, success){
+    //         if(success)
+    //             console.log('Successfully unsubscribed!');
+    //     });
+    //     return res.json(list);
+    //     }
+        
+    // });
 });
 
 app.post('/buy', async (req, res) => {
@@ -224,12 +279,8 @@ app.get("/listensa/:wallet/:sa", async(req, res) =>{
     let subscription = web3.eth.subscribe('logs', { address : CA, topics:[
         "0xdccb5bce6e0213237e0f6a2b3fac1111566917989d8d207b69e82385a13a9759"
     ]},(err,event) => {
-        if (err)
-        console.log(err)
-    });
-
-    subscription.on('data', (event) => {  
-        console.log(event);                                      
+        if (event){
+            console.log(event);                                      
         const params = [{type : 'address', name: 'F_CA'},{type : 'address', name: 'saleCA'},{type : 'address', name: 'seller'}, { type: 'address', name: 'buyer' }, { type: 'uint256', name: 'buyAmount' }, { type: 'uint256', name: 'payValue' }];
         const value = web3.eth.abi.decodeLog(params, event.data);
         console.log(req.params.wallet);
@@ -252,7 +303,42 @@ app.get("/listensa/:wallet/:sa", async(req, res) =>{
         });
         return res.json(list);
         }
+        }
+        if (err){
+            subscription.unsubscribe(function(error, success){
+                if(success)
+                    console.log('Successfully unsubscribed!');
+            });
+            console.log(err)
+            throw err
+        }
     });
+
+    // subscription.on('data', (event) => {  
+    //     console.log(event);                                      
+    //     const params = [{type : 'address', name: 'F_CA'},{type : 'address', name: 'saleCA'},{type : 'address', name: 'seller'}, { type: 'address', name: 'buyer' }, { type: 'uint256', name: 'buyAmount' }, { type: 'uint256', name: 'payValue' }];
+    //     const value = web3.eth.abi.decodeLog(params, event.data);
+    //     console.log(req.params.wallet);
+    //     console.log(value);
+    //     var price = parseFloat(Web3.utils.fromWei(value.payValue, 'ether'));
+    //     console.log(price);
+    //     const list = {
+    //         saleContractAddress: value.saleCA,
+    //         sellerId : value.seller,
+    //         buyerId : value.buyer,
+    //         pieceCnt : value.buyAmount,
+    //         tradePrice : price,
+    //     }
+    //     // return res.json(list);
+    //     if (req.params.wallet.toUpperCase() == value.buyer.toUpperCase()){
+    //         console.log(list);
+    //         subscription.unsubscribe(function(error, success){
+    //         if(success)
+    //             console.log('Successfully unsubscribed!');
+    //     });
+    //     return res.json(list);
+    //     }
+    // });
 })
 
 
