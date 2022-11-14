@@ -7,6 +7,7 @@ import com.nct.sellyarticleservice.client.SellyContractServiceClient;
 import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
+import com.nct.sellyarticleservice.vo.CategoryResponse;
 import com.nct.sellyarticleservice.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -164,47 +165,85 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public List<ArticleResponse> articleCategoryFilter(String category, boolean availability, String sort, String order) {
-//    List<Article> articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "createRegist"));
-//    ListarticleList(Sort.by(Sort.Direction.ASC, "createRegist"))
-//    return articleRepository.findAllByCategoryAndAvailability(category, availability);
-//    return articleList;
+  public List<CategoryResponse> articleCategoryFilter(String category, boolean availability, String sort, String order) {
     List<Article> articleList = new ArrayList<>();
-    List<ArticleResponse> articleResponseList = new ArrayList<>();
-    if (Objects.equals(sort, "asc")) {
-      switch (order) {
-        case "sellRegist":
-          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "createRegist"));
-          break;
-        case "trade":
-          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC));
-          break;
-        case "price":
-          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "price"));
-          break;
-        default:
-          articleList = articleRepository.findAllByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
-
+    List<CategoryResponse> articleResponseList = new ArrayList<>();
+    if (sort.equals("asc")) {
+      if (category.equals("all")) {
+        switch (order) {
+          case "sellRegist":
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "createRegist"));
+            break;
+          case "price":
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
+            break;
+        }      articleList.forEach(v-> {
+          CategoryResponse articleResponse = CategoryResponse.builder()
+                  .articleId(v.getArticleId())
+                  .articleName(v.getArticleName())
+                  .articleImgUrl(v.getArticleImgUrl())
+                  .recentMarketPrice(v.getRecentMarketPrice())
+                  .rateChange(1.1)
+                  .build();
+          articleResponseList.add(articleResponse);
+        });
+        return articleResponseList;
       }
-    } else {
       switch (order) {
         case "sellRegist":
-          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "createRegist"));
-          break;
-        case "trade":
-          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC));
+          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "createRegist"));
           break;
         case "price":
-          articleList = articleRepository.findAllByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "price"));
+          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "price"));
           break;
       }
       articleList.forEach(v-> {
-//        articleResponseList.add(mapper.map(v, ArticleResponse.class));
-        ArticleResponse articleResponse = ArticleResponse.builder()
+        CategoryResponse articleResponse = CategoryResponse.builder()
                 .articleId(v.getArticleId())
                 .articleName(v.getArticleName())
                 .articleImgUrl(v.getArticleImgUrl())
                 .recentMarketPrice(v.getRecentMarketPrice())
+                .rateChange(1.1)
+                .build();
+        articleResponseList.add(articleResponse);
+      });
+    return articleResponseList;
+    } else {
+      if (category.equals("all")) {
+        switch (order) {
+          case "sellRegist":
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.DESC, "createRegist"));
+            break;
+          case "price":
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.DESC, "price"));
+            break;
+        }      articleList.forEach(v-> {
+          CategoryResponse articleResponse = CategoryResponse.builder()
+                  .articleId(v.getArticleId())
+                  .articleName(v.getArticleName())
+                  .articleImgUrl(v.getArticleImgUrl())
+                  .recentMarketPrice(v.getRecentMarketPrice())
+                  .rateChange(1.1)
+                  .build();
+          articleResponseList.add(articleResponse);
+        });
+        return articleResponseList;
+      }
+      switch (order) {
+        case "sellRegist":
+          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "createRegist"));
+          break;
+        case "price":
+          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "price"));
+          break;
+      }
+      articleList.forEach(v-> {
+        CategoryResponse articleResponse = CategoryResponse.builder()
+                .articleId(v.getArticleId())
+                .articleName(v.getArticleName())
+                .articleImgUrl(v.getArticleImgUrl())
+                .recentMarketPrice(v.getRecentMarketPrice())
+                .rateChange(1.1)
                 .build();
         articleResponseList.add(articleResponse);
       });

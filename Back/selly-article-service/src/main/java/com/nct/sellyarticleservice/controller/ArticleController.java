@@ -4,6 +4,7 @@ import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
 import com.nct.sellyarticleservice.model.service.ArticleServiceImpl;
+import com.nct.sellyarticleservice.vo.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -62,7 +63,7 @@ public class ArticleController {
 
   // 카테고리 정렬
   @GetMapping("/category-filter/{category}/{sort}/{order}")
-  public List<ArticleResponse> articleCategoryFilter(@PathVariable("category") String category, @PathVariable("sort") String sort, @PathVariable("order") String order) {
+  public List<CategoryResponse> articleCategoryFilter(@PathVariable("category") String category, @PathVariable("sort") String sort, @PathVariable("order") String order) {
     boolean availability = true;
     return articleService.articleCategoryFilter(category, availability, sort, order);
   }
