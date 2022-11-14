@@ -10,24 +10,24 @@ import { useFollowMutation, useUnFollowMutation } from "@/api/server/userAPI";
 
 const Follow = ({ data }: FollowProps) => {
   const dispatch = useAppDispatch();
-  const { account } = useAppSelector(selectAccount);
+  const { userId } = useAppSelector(selectAccount);
 
   const [follow] = useFollowMutation();
   const [unFollow] = useUnFollowMutation();
 
   const followOnclickHandler = async () => {
     console.log("팔로우", data.userId);
-    if (!account.userId) {
+    if (!userId) {
       return;
     }
-    const res = await follow({ followerId: account.userId, followingId: data.userId }).unwrap();
+    const res = await follow({ followerId: userId, followingId: data.userId }).unwrap();
     console.log(res);
   };
 
   const unFollowOnClickHandler = async () => {
     console.log("언팔로우", data.userId);
-    if (!account.userId) return;
-    const res = await unFollow({ followerId: account.userId, followingId: data.userId }).unwrap();
+    if (!userId) return;
+    const res = await unFollow({ followerId: userId, followingId: data.userId }).unwrap();
     console.log(res);
   };
 

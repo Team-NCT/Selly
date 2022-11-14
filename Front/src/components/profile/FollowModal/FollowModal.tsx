@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import style from "./FollowModal.module.scss";
-import { Modal, Button } from "@/components/common";
+import { Modal } from "@/components/common";
 import { LeftArrowIcon } from "@/components/icon";
 import { TabType, FollowModalProps } from "./FollowModal.types";
 import { useAppDispatch } from "@/hooks";
