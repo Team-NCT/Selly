@@ -149,12 +149,15 @@ public class ArticleServiceImpl implements ArticleService{
               .availability(entity.isAvailability())
               .tokenId(entity.getTokenId())
               .contractAddress(entity.getContractAddress())
+              .primaryCnt((entity.getPrimaryCnt()))
               .build();
     }
     return ResponseArticle.builder()
             .articleId(entity.getArticleId())
             .articleName(entity.getArticleName())
             .articleImgUrl(entity.getArticleImgUrl())
+            .primaryCnt(entity.getPrimaryCnt())
+            .owner(entity.getOwner())
             .metaDataUrl(entity.getMetaDataUrl())
             .build();
   }

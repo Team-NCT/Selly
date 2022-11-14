@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
+
 @CrossOrigin("*")
 @RequiredArgsConstructor
 @RestController
@@ -29,9 +31,11 @@ public class AuctionController {
   }
 
   @PutMapping("/auction/join")
-  public ResponseAutcionbid bidding(@RequestBody RequestAuctionBid requestAuctionBid){
-    ResponseAutcionbid responseAutcionbid = mapper.map(auctionService.joinAuction(requestAuctionBid), ResponseAutcionbid.class);
-    return responseAutcionbid;
+  public String bidding(@RequestBody RequestAuctionBid requestAuctionBid) throws NullPointerException {
+    if (auctionService.joinAuction(requestAuctionBid) != null){
+      return "경매 입찰에 성공하였습니다.";
+    }
+    return "경매 입찰에 실패하였습니다.";
   }
 
 }

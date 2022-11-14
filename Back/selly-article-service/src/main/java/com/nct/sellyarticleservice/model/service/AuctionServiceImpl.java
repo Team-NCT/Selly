@@ -28,6 +28,8 @@ public class AuctionServiceImpl implements AuctionService{
   @Override
   public Auction createAuction(RequestAuctionRegist requestAuctionRegist, Long userId) {
     ResponseArticle responseArticle = articleService.findById(requestAuctionRegist.getArticleId());
+    System.out.println(responseArticle);
+    System.out.println(responseArticle.getArticleId());
     if (responseArticle.getArticleId() != null){
       List<Auction> check = auctionRepository.findByArticleId(requestAuctionRegist.getArticleId());
       final int[] checknum = {0};
@@ -40,6 +42,8 @@ public class AuctionServiceImpl implements AuctionService{
         return null;
       }
       NftPieceResponseDto nftPieceResponseDto = userServiceClient.getPiece(userId, requestAuctionRegist.getArticleId());
+      System.out.println(nftPieceResponseDto.getNftPieceCnt());
+      System.out.println(responseArticle.getPrimaryCnt());
       float get50 = ( (float) nftPieceResponseDto.getNftPieceCnt() / (float) responseArticle.getPrimaryCnt()) * 100;
       if (get50 <50){
         return null;
@@ -56,16 +60,21 @@ public class AuctionServiceImpl implements AuctionService{
   public Auction joinAuction(RequestAuctionBid requestAuctionBid) {
     ResponseArticle responseArticle = articleService.findById(requestAuctionBid.getArticleId());
     if (responseArticle.getArticleId() != null) {
-      Optional<Auction> auction = auctionRepository.findById(requestAuctionBid.getAuctionId());
-      mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-      Auction auction1 = mapper.map(auction, Auction.class);
-      auction1.setAuctionState(true);
-      auction1.setBuyer(requestAuctionBid.getBuyer());
-      if (auction.get().getAuctionStart() == null){
-        auction1.setAuctionStart(LocalDateTime.now());
+      Auction auction = auctionRepository.findByAuctionId(requestAuctionBid.getAuctionId());
+      if(auction.getLowPrice() > requestAuctionBid.getPrice()){
+        return null;
       }
-      auction1.setPrice(requestAuctionBid.getPrice());
-      return auctionRepository.save(auction1);
+      if(auction.getPrice() >= requestAuctionBid.getPrice()){
+        return null;
+      }
+      mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+      auction.setAuctionState(true);
+      auction.setBuyer(requestAuctionBid.getBuyer());
+      if (auction.getAuctionStart() == null){
+        auction.setAuctionStart(LocalDateTime.now());
+      }
+      auction.setPrice(requestAuctionBid.getPrice());
+      return auctionRepository.save(auction);
     }
     return null;
   }
