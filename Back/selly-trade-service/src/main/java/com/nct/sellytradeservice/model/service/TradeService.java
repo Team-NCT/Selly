@@ -23,4 +23,6 @@ public interface TradeService {
   List<TradeRegistResponse> getTradeRegistList(Long articleId);
 
   List<TradeRegistResponse> getUserTradeRegistList(Long userId, Long articleId);
+
+  String dropTradeRegist(RequestDeleteTradeRegist requestDeleteTradeRegist);
 }

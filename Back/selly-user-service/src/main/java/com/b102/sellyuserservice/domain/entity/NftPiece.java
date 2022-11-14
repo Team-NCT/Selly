@@ -31,9 +31,9 @@ public class NftPiece {
   private LocalDateTime updateRegist;
 
   public void updateOwnership(Integer nftPieceCnt, double avgPrice, boolean trade) {
-  this.nftPieceCnt = nftPieceCnt;
-  this.avgPrice = avgPrice;
-  this.trade = trade;
+    this.nftPieceCnt = nftPieceCnt;
+    this.avgPrice = avgPrice;
+    this.trade = trade;
   }
   public void updateTrade(boolean trade) {
     this.trade = trade;

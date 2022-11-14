@@ -116,4 +116,17 @@ public class TradeController {
     hashMap.put("historyList", historyResponseList);
     return hashMap;
   }
+
+  @DeleteMapping("/trade-cancel")
+  public String deleteTradeRegist(@RequestBody RequestDeleteTradeRegist requestDeleteTradeRegist){
+    return tradeService.dropTradeRegist(requestDeleteTradeRegist);
+  }
+
+//  @GetMapping("/ownership/{userId}")
+//  public ResponseEntity<Object> userOwnership (@PathVariable("userId") Long userId, @) {
+//    System.out.println(userId);
+//    NftPieceResponseDto nftPieceResponseDto = userServiceClient.getOwnership(userId, tradeRequest);
+//    return ResponseEntity.ok().body(nftPieceResponseDto);
+//  }
+
 }
