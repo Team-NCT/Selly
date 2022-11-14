@@ -22,8 +22,8 @@ spring:
 
 
 eureka:
-  instance:
-    instance-id: 15.165.177.117
+#  instance:
+#    instance-id: 15.165.177.117
   client:
     register-with-eureka: true
     fetch-registry: true
