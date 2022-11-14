@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.Nullable;
 
 @RequiredArgsConstructor
 @Getter
@@ -12,12 +13,14 @@ public class FractionResponse {
   private Long articleId;
   private String articleName;
   private String articleImgUrl;
-  private double recentMarketPrice;
+  @Nullable
+  private String recentMarketPrice;
+  @Nullable
   private double articleMargin;
   private Integer pieceCnt;
 
   @Builder
-  public FractionResponse(Long articleId, String articleName, String articleImgUrl, double recentMarketPrice, double articleMargin, Integer pieceCnt) {
+  public FractionResponse(Long articleId, String articleName, String articleImgUrl, String recentMarketPrice, double articleMargin, Integer pieceCnt) {
     this.articleId = articleId;
     this.articleName = articleName;
     this.articleImgUrl = articleImgUrl;
@@ -29,5 +32,6 @@ public class FractionResponse {
     this.articleId = articleId;
     this.articleName = articleName;
     this.articleImgUrl = articleImgUrl;
+    this.recentMarketPrice = null;
   }
 }

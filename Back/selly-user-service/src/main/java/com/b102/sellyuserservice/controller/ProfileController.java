@@ -31,7 +31,14 @@ public class ProfileController {
   // 유저가 판매중인 작품리스트 조회 (Profile-ForSale)
   @GetMapping("/user-forSale/{userId}")
   public ResponseEntity<List<ArticleResponse>> userSaleArticleList(@PathVariable("userId") Long userId) {
-    List<ArticleResponse> responses = profileService.findUserSaleArticleList(userId);
+//    List<ArticleResponse> responses = profileService.findUserSaleArticleList(userId);
+    ArticleResponse articleResponse = ArticleResponse.builder()
+            .articleName("articleName")
+            .articleImgUrl("articleImgUrl")
+            .articleId(1L)
+            .build();
+    List<ArticleResponse> responses = new ArrayList<>();
+    responses.add(articleResponse);
     return ResponseEntity.ok().body(responses);
   }
 
@@ -44,19 +51,20 @@ public class ProfileController {
               .articleId(1L)
               .articleImgUrl("articleImgUrl")
               .articleName("articleName")
-              .recentMarketPrice(1.1)
+              .recentMarketPrice(String.valueOf(1.1))
               .articleMargin(1.5)
               .pieceCnt(1)
               .build();
       responses.add(fractionResponse);
       return ResponseEntity.ok().body(responses);
     }
-//    FractionResponse fractionResponse = FractionResponse.builder()
-//            .articleId(1L)
-//            .articleImgUrl("articleImgUrl")
-//            .articleName("articleName")
-//            .build();
-    FractionResponse fractionResponse = new FractionResponse(1L, "articleName", "articleUrl");
+    FractionResponse fractionResponse = FractionResponse.builder()
+            .articleId(1L)
+            .articleImgUrl("articleImgUrl")
+            .articleName("articleName")
+            .recentMarketPrice(null)
+            .build();
+//    FractionResponse fractionResponse = new FractionResponse(1L, "articleName", "articleUrl");
     responses.add(fractionResponse);
     return ResponseEntity.ok().body(responses);
   }
