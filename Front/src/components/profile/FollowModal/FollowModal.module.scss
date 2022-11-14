@@ -6,12 +6,15 @@
   max-width: 624px;
   max-height: 660px;
   min-height: 300px;
-  padding: 32px 32px 60px 32px;
-  gap: 32px;
+  padding: 32px 32px 54px 32px;
+  gap: 24px;
   border-radius: $radius-modal;
 
   @include mobile {
-    padding: 24px 24px 52px 24px;
+    width: calc(100vw - 48px);
+    min-height: 240px;
+    max-height: 480px;
+    padding: 24px 24px 36px 24px;
   }
 
   .header {
@@ -22,6 +25,15 @@
 
     button {
       transform: translateY(8%);
+    }
+
+    @include mobile {
+      @include font($h5, $semibold);
+
+      gap: 16px;
+      button {
+        transform: translateY(4%);
+      }
     }
   }
 
@@ -36,6 +48,10 @@
       padding: 12px 0px 16px 0px;
       color: $black;
       border-bottom: 2px solid $black;
+
+      @include mobile {
+        @include font($body1, $medium);
+      }
     }
   }
 
@@ -61,5 +77,9 @@
     gap: 40px;
     padding: 0 32px;
     overflow-y: scroll;
+
+    @include mobile {
+      height: 300px;
+    }
   }
 }
