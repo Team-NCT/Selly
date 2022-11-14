@@ -28,14 +28,14 @@ public class SellRegistRequest {
 
   private String category;
 
-  private String meteDataUrl;
+  private String metaDataUrl;
 
   private String articleImgUrl;
 
   private String articleName;
   private String ownershipContractAddress;
   @Builder
-  public SellRegistRequest(Long seller, double tradePrice, String tokenId, Integer pieceCnt, String contractAddress, boolean status, String category, String meteDataUrl, String articleImgUrl, String wallet, String articleName, String ownershipContractAddress) {
+  public SellRegistRequest(Long seller, double tradePrice, String tokenId, Integer pieceCnt, String contractAddress, boolean status, String category, String metaDataUrl, String articleImgUrl, String wallet, String articleName, String ownershipContractAddress) {
     this.seller = seller;
     this.tradePrice = tradePrice;
     this.pieceCnt = pieceCnt;
@@ -44,7 +44,7 @@ public class SellRegistRequest {
     this.contractAddress = contractAddress;
     this.status = status;
     this.category = category;
-    this.meteDataUrl = meteDataUrl;
+    this.metaDataUrl = metaDataUrl;
     this.articleImgUrl = articleImgUrl;
     this.wallet = wallet;
     this.articleName = articleName;
