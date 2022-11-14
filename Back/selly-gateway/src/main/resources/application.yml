@@ -180,7 +180,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://nftselly.com:8761/eureka
+      defaultZone: 15.165.177.117:8761/eureka
+#      defaultZone: http://127.0.0.1:8761/eureka
 
 token:
   secret: '01234567890123456789012345678901234567890123456789'
