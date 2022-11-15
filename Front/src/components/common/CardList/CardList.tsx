@@ -7,11 +7,11 @@ const CardList = ({ data }: CardListProps) => {
     <ul className={style.card_list}>
       {data.map((item) => (
         <CardListItem
-          key={item.id}
-          id={item.id}
-          url={item.url}
-          title={item.title}
-          supply={item.supply}
+          key={item.articleId}
+          articleId={item.articleId}
+          articleImgUrl={item.articleImgUrl}
+          articleName={item.articleName}
+          presentSalePieceCnt={item.presentSalePieceCnt}
         />
       ))}
     </ul>

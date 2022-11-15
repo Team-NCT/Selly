@@ -2,12 +2,12 @@ export interface NFTDetailHistoryModalProps {
   /**
    * 최고가
    */
-  highest: number;
+  maxPrice: number;
 
   /**
    * 최저가
    */
-  lowest: number;
+  lowPrice: number;
 
   /**
    * open 여부
