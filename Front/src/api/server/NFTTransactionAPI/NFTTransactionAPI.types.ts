@@ -29,3 +29,9 @@ export interface RegisterSellNFTFractionType {
   pieceCnt: number;
   ownershipContractAddress: string;
 }
+
+export interface cancleSellNFTFractionType {
+  seller: number;
+  wallet: string;
+  saleContractAddress: string;
+}

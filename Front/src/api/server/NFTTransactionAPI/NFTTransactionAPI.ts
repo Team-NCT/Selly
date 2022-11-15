@@ -1,13 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SELLY_API } from "@/constants/server";
+import type { RootState } from "@/store";
 import {
   NFTFractionRecordType,
   RequestDataType,
   SellNFTFractionType,
   RegisterSellNFTFractionType,
+  cancleSellNFTFractionType,
 } from "./NFTTransactionAPI.types";
 import { SignedTransactionType, PayableSignedTransactionType } from "@/types/transaction.types";
-import type { RootState } from "@/store";
+import sleep from "@/helpers/utils/sleep";
+import { sendTransaction, sendPayableTransaction } from "@/api/blockchain";
+import {
+  closeSellStatus,
+  closeSell,
+  closeBuy,
+  closeLoading,
+  openLoading,
+} from "@/store/modalSlice";
+import { openAlert, setAlertContent, setAlertStyles, setIconStyles } from "@/store/alertSlice";
 
 const NFTTransactionAPI = createApi({
   reducerPath: "NFTTransactionAPI",
@@ -22,7 +33,7 @@ const NFTTransactionAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ["fraction", "sell", "buy", "auction"],
+  tagTypes: ["fraction", "sell", "buy", "auction", "cancle"],
   endpoints: (build) => ({
     //@ description: NFT 구매를 위해 조각 거래 정보를 Fetch하는 API
     fetchNFTFractionRecord: build.query<NFTFractionRecordType[], number>({
@@ -44,19 +55,84 @@ const NFTTransactionAPI = createApi({
     }),
 
     //@ description: 특정 조각을 구매하는 API
-    buyNFTFraction: build.mutation<PayableSignedTransactionType, SellNFTFractionType>({
-      query: (body) => ({ url: "selly-contract-service/buy", method: "POST", body }),
-      invalidatesTags: ["buy"],
+    buyNFTFraction: build.mutation<boolean, SellNFTFractionType>({
+      queryFn: async (body, { dispatch }, extraOptions, baseQuery) => {
+        try {
+          const { data } = await baseQuery({
+            url: "selly-contract-service/buy",
+            method: "POST",
+            body,
+          });
+          dispatch(openLoading());
+          await sendPayableTransaction(data as PayableSignedTransactionType);
+          dispatch(closeLoading());
+          dispatch(closeBuy());
+          await sleep(2000);
+          return { data: true };
+        } catch (error) {
+          dispatch(closeLoading());
+          dispatch(openAlert());
+          dispatch(setAlertContent("거래를 중단하셨습니다"));
+          dispatch(setAlertStyles("error"));
+          dispatch(setIconStyles(false));
+          return { data: false };
+        }
+      },
+      invalidatesTags: ["buy", "fraction"],
     }),
 
     //@ description: 특정 조각을 판매등록하는 API
-    registerSellNFTFraction: build.mutation<SignedTransactionType, RegisterSellNFTFractionType>({
-      query: (body) => ({
-        url: "selly-contract-service/sellregist",
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: ["sell"],
+    registerSellNFTFraction: build.mutation<boolean, RegisterSellNFTFractionType>({
+      queryFn: async (body, { dispatch }, extraOptions, baseQuery) => {
+        try {
+          const { data } = await baseQuery({
+            url: "selly-contract-service/sellregist",
+            method: "POST",
+            body,
+          });
+          dispatch(openLoading());
+          await sendTransaction(data as SignedTransactionType);
+          dispatch(closeLoading());
+          dispatch(closeSell());
+          await sleep(2000);
+          return { data: true };
+        } catch (error) {
+          dispatch(closeLoading());
+          dispatch(openAlert());
+          dispatch(setAlertContent("거래를 중단하셨습니다"));
+          dispatch(setAlertStyles("error"));
+          dispatch(setIconStyles(false));
+          return { data: false };
+        }
+      },
+      invalidatesTags: ["sell", "fraction"],
+    }),
+
+    //@ description: 조각을 판매 취소하는 API
+    cancleSellNFTFraction: build.mutation<boolean, cancleSellNFTFractionType>({
+      queryFn: async (body, { dispatch }, extraOptions, baseQuery) => {
+        try {
+          const { data } = await baseQuery({
+            url: "selly-contract-service/cancelSale",
+            method: "POST",
+            body,
+          });
+          dispatch(openLoading());
+          await sendTransaction(data as SignedTransactionType);
+          dispatch(closeLoading());
+          dispatch(closeSellStatus());
+          await sleep(2000);
+          return { data: true };
+        } catch (error) {
+          dispatch(closeLoading());
+          dispatch(openAlert());
+          dispatch(setAlertContent("거래를 중단하셨습니다"));
+          dispatch(setAlertStyles("error"));
+          dispatch(setIconStyles(false));
+          return { data: false };
+        }
+      },
+      invalidatesTags: ["cancle", "fraction"],
     }),
   }),
 });
@@ -70,5 +146,6 @@ export const {
   useLazyFetchUserNFTFractionQuery,
   useBuyNFTFractionMutation,
   useRegisterSellNFTFractionMutation,
+  useCancleSellNFTFractionMutation,
 } = NFTTransactionAPI;
 export default NFTTransactionAPI;

@@ -1,6 +1,7 @@
 import "@/styles/base/_base.scss";
 import { Route, Routes } from "react-router-dom";
 import { createPortal } from "react-dom";
+import { useEffect } from "react";
 import { useAppSelector } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components/common";
@@ -8,17 +9,15 @@ import {
   Home,
   Create,
   NFTDetail,
-  Sell,
   Settings,
+  Sell,
   Profile,
   Explore,
   Category,
   SearchResult,
+  NotFound,
 } from "@/pages";
 import { useCheckLogined, useSetGoerli } from "@/hooks";
-
-import { useEffect } from "react";
-import NotFound from "./pages/404NotFound/notFound";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
