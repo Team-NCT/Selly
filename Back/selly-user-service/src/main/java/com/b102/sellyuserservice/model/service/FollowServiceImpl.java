@@ -60,13 +60,13 @@ public class FollowServiceImpl implements FollowService{
   }
 
   @Override
-  public List<FollowEntity> myFollowerDetail(Long userId, Long lastFollowingId) {
-    return followRepository.findByFollowerIdAndFollowingIdLessThanOrderByFollowingIdDesc(userId, lastFollowingId, PageRequest.of(0, 5));
+  public List<FollowEntity> myFollowerDetail(Long followerId, Long lastFollowingId) {
+    return followRepository.findByFollowerIdAndFollowingIdLessThanOrderByFollowingIdDesc(followerId, lastFollowingId, PageRequest.of(0, 5));
   }
 
   @Override
-  public List<FollowEntity> myFollowingDetail(Long userId, Long lastFollowerId) {
-    return followRepository.findByFollowingIdAndFollowerIdLessThanOrderByFollowerIdDesc(userId, lastFollowerId, PageRequest.of(0, 5));
+  public List<FollowEntity> myFollowingDetail(Long followingId, Long lastFollowerId) {
+    return followRepository.findByFollowingIdAndFollowerIdLessThanOrderByFollowerIdDesc(followingId, lastFollowerId, PageRequest.of(0, 5));
   }
 
   @Override
