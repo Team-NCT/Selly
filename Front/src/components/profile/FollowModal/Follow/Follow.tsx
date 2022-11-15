@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { EthereumIcon } from "@/components/icon";
 import { useFollowMutation, useUnFollowMutation } from "@/api/server/userAPI";
 
-const Follow = ({ data, type }: FollowProps) => {
+const Follow = ({ data }: FollowProps) => {
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAccount);
 

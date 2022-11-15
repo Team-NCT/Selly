@@ -37,9 +37,9 @@ const FollowModal = ({ type, nickname, profilePageId }: FollowModalProps) => {
         </section>
         <ul className={style.follow_user_section}>
           {tab === "FOLLOWER" &&
-            followersData.data?.map((item, idx) => <Follow key={idx} data={item} type={type} />)}
+            followersData.data?.map((item, idx) => <Follow key={idx} data={item} />)}
           {tab === "FOLLOWING" &&
-            follwingData.data?.map((item, idx) => <Follow key={idx} data={item} type={type} />)}
+            follwingData.data?.map((item, idx) => <Follow key={idx} data={item} />)}
         </ul>
       </section>
     </Modal>

@@ -10,23 +10,7 @@ const Fractions = () => {
   const { userId } = useAppSelector(selectAccount);
   const arr = response.data ? response.data : [];
 
-  const fractionsData2 = [];
-
-  if (params.id !== userId) {
-    for (const element of arr) {
-      const card = {
-        id: element.articleId,
-        title: element.articleName,
-        url: element.articleImgUrl,
-      };
-      fractionsData2.push(card);
-    }
-  }
-  return Number(params.id) === userId ? (
-    <DescCardList data={arr} />
-  ) : (
-    <CardList data={fractionsData2} />
-  );
+  return Number(params.id) === userId ? <DescCardList data={arr} /> : <CardList data={arr} />;
 };
 
 export default Fractions;

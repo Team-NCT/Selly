@@ -111,8 +111,13 @@ export const {
   useFetchSettingsMutation,
   useFollowMutation,
   useUnFollowMutation,
+  useFetchUserFollowerQuery,
+  useFetchUserFollowingQuery,
   useFetchCreatedDataQuery,
   useFetchForSaleDataQuery,
   useFetchFractionsDataQuery,
+  useFetchRevenueDataQuery,
+  useFetchArtistTotalRankingDataQuery,
+  useFetchArtistTrendingRankingDataQuery,
 } = userAPI;
 export default userAPI;
