@@ -27,19 +27,19 @@
       padding: 16px 12px;
     }
     .card_content_title {
-      @include font($caption, $semibold, $main-font);
+      @include font($body1, $semibold, $main-font);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       max-width: 80%;
       margin-bottom: 16px;
-
+      min-height: 19.09px;
       @include tablet {
         @include font($body2, $semibold, $main-font);
       }
 
       @include laptop {
-        @include font($body2, $semibold, $main-font);
+        @include font($body1, $semibold, $main-font);
       }
     }
   }

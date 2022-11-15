@@ -1,11 +1,17 @@
 .header {
   @include flex(column, flex-start, flex-start);
   gap: 8px;
+  margin-bottom: 24px;
 
   .step_title {
     @include flex(row, flex-start, center);
-    @include font($h5, $bold);
-    gap: 16px;
+    @include font($body1, $semibold);
+    gap: 12px;
+
+    @include laptop {
+      @include font($h5, $bold);
+      gap: 16px;
+    }
 
     .step_arrow {
       width: 14px;
@@ -23,5 +29,38 @@
 
   .desc {
     @include font($body2, $regular);
+  }
+}
+
+.content {
+  @include flex(column-reverse, center, stretch);
+  gap: 24px;
+
+  @media (min-width: #{800px}) {
+    @include flex(row, space-between, flex-start);
+    gap: 48px;
+
+    .sell_info {
+      position: sticky;
+      top: 128px;
+    }
+  }
+}
+
+.scroll_up_icon {
+  @include shadow-drop4;
+  display: block;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: $white;
+  opacity: 80%;
+
+
+  @media (min-width: #{800px}) {
+    display: none;
   }
 }

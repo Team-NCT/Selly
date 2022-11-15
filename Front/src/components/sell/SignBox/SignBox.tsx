@@ -9,6 +9,7 @@ import { selectSellInfo } from "@/store/sellInfoSlice";
 import { selectAccount } from "@/store/loginSlice";
 import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
 import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
+import { PencilIcon } from "@/components/icon";
 
 import Web3 from "web3";
 
@@ -141,23 +142,28 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
         {idx}
       </div>
       <div className={style.sign_box_section}>
-        <h1 className={style.sign_box_title}>
-          <Neon
-            color="muscat"
-            positionH="top"
-            positionW="right"
-            width={isActive ? 60 : 0}
-            height={70}
-            horizontal={4}>
-            {title}
-          </Neon>
-        </h1>
-        <p className={style.sign_box_desc}>{desc}</p>
-        {isActive && (
-          <Button size="fillContainer" onClick={onClickHandler} disabled={!signable}>
-            {buttonText}
-          </Button>
-        )}
+        <div className={style.pencil_icon}>
+          <PencilIcon />
+        </div>
+        <div className={style.content_section}>
+          <h1 className={style.sign_box_title}>
+            <Neon
+              color="muscat"
+              positionH="top"
+              positionW="right"
+              width={isActive ? 60 : 0}
+              height={70}
+              horizontal={4}>
+              {title}
+            </Neon>
+          </h1>
+          <p className={style.sign_box_desc}>{desc}</p>
+          {isActive && (
+            <Button size="fillContainer" onClick={onClickHandler} disabled={!signable}>
+              {buttonText}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

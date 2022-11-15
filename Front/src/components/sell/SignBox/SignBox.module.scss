@@ -1,24 +1,55 @@
 .sign_box {
-  @include flex(row, space-between, center);
-  width: 430px;
+  @include flex(row, space-around, center);
+  width: 100%;
+  gap: 32px;
+
+  @include mobile {
+    @include flex(row, space-between, center);
+    gap: 12px;
+  }
 }
 
 .sign_box_section {
-  @include flex(column, center, flex-start);
+  @include flex(row, flex-start, flex-start);
   @include shadow-drop4;
-  width: 342px;
+  width: 380px;
   border-radius: $radius-card;
   padding: 16px 16px;
   gap: 12px;
-  word-break: keep-all;
-  
-  .sign_box_title {
-    @include font($h5, $bold, $main-font);
+
+  .pencil_icon {
+    flex-shrink: 0;
+    fill: $black200;
   }
 
-  .sign_box_desc {
-    @include font($body2, $medium, $main-font);
-    line-height: 150%;
+  .content_section
+  {
+    @include flex(column, center, flex-start);
+    gap: 12px;
+    word-break: keep-all;
+
+    .sign_box_title {
+      @include font($h5, $bold, $main-font);
+
+      @include mobile{
+        @include font($body1, $bold, $main-font);
+      }
+    }
+  
+    .sign_box_desc {
+      @include font($body2, $medium, $main-font);
+      line-height: 150%;
+    }
+
+    Button {
+      @include mobile{
+        @include font($body1, $bold, $main-font);
+      }
+    }
+  }
+
+  @media (max-width: #{800px - 1}) {
+    width: 460px;
   }
 }
 
@@ -26,18 +57,28 @@
   @include flex-center;
   @include font($h5, $bold, $main-font);
   @include shadow-drop4;
+  flex-shrink: 0;
   width: 48px;
   height: 48px;
   border-radius: 50%;
   background-color: $white;
+
+  @include mobile{
+    @include font($body1, $bold, $main-font);
+  }
 }
 
 .sign_box_idx_active {
   @include flex-center;
   @include font($h5, $bold, $main-font);
   @include shadow-drop4;
+  flex-shrink: 0;
   width: 48px;
   height: 48px;
   border-radius: 50%;
   background-color: $muscat;
+
+  @include mobile{
+    @include font($body1, $bold, $main-font);
+  }
 }

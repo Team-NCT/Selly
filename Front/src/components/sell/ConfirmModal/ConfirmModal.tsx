@@ -34,7 +34,10 @@ const ConfirmModal = ({ confirmNavigation, cancelNavigation, changeStep }: Dialo
   return (
     <Modal close={cancelHandler}>
       <section className={style.confirm_modal}>
-        <h1>정말 나가시겠습니까?</h1>
+        <div className={style.text_section}>
+          <h1>정말 나가시겠습니까?</h1>
+          <h1 className={style.alert_text}>완료되지 않은 서명 단계는 저장되지 않습니다!</h1>
+        </div>
         <div className={style.button_section}>
           <Button onClick={confirmHandler}>확인</Button>
           <Button bg="blackberry" color="outline" onClick={cancelHandler}>

@@ -1,10 +1,18 @@
 const SellyNFT = artifacts.require("SellyERC721")
 
-contract("SellyERC721", () => {
-  it ("Start Test!", async () => {
+contract("SellyERC721", (account) => {
+  it ("Mint Test!", async () => {
     const instance = await SellyNFT.deployed();
-    const response = await instance.current();
-    console.log("zzzz", response);
-    assert.equal(response, 1, "WRONG");
+    const response1 = await instance.current();
+    console.log("before mint", response1);
+    const response2 = await instance.createMine("temporary_URI");
+    await instance.create(account[0], "temporary_URI2");
+    console.log('mint_myself', response2);
+    const current_num = await instance.current();
+    const response3 = await instance.tokenIDsofWallet(account[0]);
+    console.log('tokenIds', response3);
+    const response4 = await instance.tokenURIsofWallet(account[0]);
+    console.log('tokenUris', response4);
+    assert.equal(current_num, 2, "WRONG");
   })
 })
