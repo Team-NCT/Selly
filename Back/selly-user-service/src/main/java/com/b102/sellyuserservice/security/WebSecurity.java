@@ -88,7 +88,7 @@ public class WebSecurity {
             .and()
             .authorizeRequests().antMatchers("/error/**").permitAll()
             .antMatchers("/**")
-            .access("hasIpAddress('172.17.0.1')")
+            .access("hasIpAddress('172.17.0.1') or hasIpAddress('172.17.0.1') or hasIpAddress('172.17.0.4')")
 //            .permitAll()
             .and()
             .addFilter(getCustomAuthenticationFilter());
