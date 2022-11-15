@@ -10,7 +10,14 @@
     img {
       width: 100%;
       aspect-ratio: 1/1;
-      object-fit: cover;
+      object-fit: contain;
+      border-radius: $radius-card $radius-card 0px 0px;
+    }
+    .error_image {
+      width: 100%;
+      background-color: $navy250;
+      aspect-ratio: 1/1;
+      object-fit: none;
       border-radius: $radius-card $radius-card 0px 0px;
     }
   }

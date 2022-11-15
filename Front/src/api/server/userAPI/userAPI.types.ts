@@ -48,3 +48,13 @@ export interface FetchSettingsType {
   };
   userId: number;
 }
+
+export interface ArtistRankingType {
+  userId: number;
+  nickname: string;
+  image: string;
+  certification: boolean;
+  wallet: string;
+  followerCnt: number;
+  nftCnt: number;
+}

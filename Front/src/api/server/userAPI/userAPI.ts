@@ -9,6 +9,7 @@ import {
   RevenueType,
   SettingsType,
   FetchSettingsType,
+  ArtistRankingType,
 } from "./userAPI.types";
 import type { RootState } from "@/store";
 
@@ -92,6 +93,16 @@ const userAPI = createApi({
       query: (value) => `profile/margin${value}`,
       providesTags: ["profile"],
     }),
+    //@ description: Artist Trending Ranking 데이터를 가져오는 API
+    fetchArtistTrendingRankingData: build.query<ArtistRankingType[], void>({
+      query: () => "ranking/trend",
+      providesTags: ["user"],
+    }),
+    //@ description: Artist Total Ranking 데이터를 가져오는 API
+    fetchArtistTotalRankingData: build.query<ArtistRankingType[], void>({
+      query: () => "ranking/total",
+      providesTags: ["user"],
+    }),
   }),
 });
 
@@ -103,8 +114,5 @@ export const {
   useFetchCreatedDataQuery,
   useFetchForSaleDataQuery,
   useFetchFractionsDataQuery,
-  useFetchUserFollowerQuery,
-  useFetchUserFollowingQuery,
-  useFetchRevenueDataQuery,
 } = userAPI;
 export default userAPI;

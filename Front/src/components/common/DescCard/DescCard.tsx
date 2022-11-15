@@ -1,5 +1,7 @@
 import style from "./DescCard.module.scss";
+import { useState } from "react";
 import { DescCardProps } from "./DescCard.types";
+import sellyIcon from "@/assets/images/sellyLogo.svg";
 
 const DescCard = ({
   articleImgUrl,
@@ -8,10 +10,21 @@ const DescCard = ({
   rateChange,
   pieceCnt,
 }: DescCardProps) => {
+  const [errorStatus, setErrorStatus] = useState(true);
+
+  const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = sellyIcon;
+    setErrorStatus(false);
+  };
+
   return (
     <div className={style.card}>
       <figure>
-        <img src={articleImgUrl} alt={articleName}></img>
+        <img
+          src={!articleImgUrl ? sellyIcon : articleImgUrl}
+          alt={articleName}
+          onError={handleImgError}
+          className={!articleImgUrl || !errorStatus ? style.error_image : ""}></img>
       </figure>
       <div className={style.card_content}>
         <p className={style.card_content_title}>{articleName}</p>

@@ -6,8 +6,8 @@ const Explore = () => {
   return (
     <main className={style.container}>
       <CategorySection />
-      <ExploreSelectBox category="all" sort="asc" order="sell" />
-      <ExploreCardList category="all" sort="asc" order="sell" />
+      <ExploreSelectBox category="all" sort="asc" order="sellRegist" />
+      <ExploreCardList category="all" sort="asc" order="sellRegist" />
     </main>
   );
 };

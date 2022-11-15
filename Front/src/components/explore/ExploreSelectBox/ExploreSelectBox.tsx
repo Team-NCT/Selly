@@ -6,7 +6,11 @@ import { selectToParams, paramsToSelect } from "@/helpers/service/sortExplore";
 import { useNavigate } from "react-router-dom";
 import { ExploreSelectBoxProps } from "./ExploreSelectBox.types";
 
-const ExploreSelectBox = ({ category, sort = "asc", order = "sell" }: ExploreSelectBoxProps) => {
+const ExploreSelectBox = ({
+  category,
+  sort = "asc",
+  order = "sellRegist",
+}: ExploreSelectBoxProps) => {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState<ExploreSelectBoxType>(
     paramsToSelect({ sort, order })
@@ -15,7 +19,7 @@ const ExploreSelectBox = ({ category, sort = "asc", order = "sell" }: ExploreSel
   console.log(selectedTab);
 
   //* 정렬 기준 선택 selectBox
-  const SortBy = ["등록일 순", "등록일 역순", "거래일 순", "거래일 역순", "낮은 가격", "높은 가격"];
+  const SortBy = ["등록일 순", "등록일 역순", "낮은 가격", "높은 가격"];
   const onChange = (event: React.FormEvent) => {
     const form = event.target as HTMLFormElement;
     setSelectedTab(form.value);

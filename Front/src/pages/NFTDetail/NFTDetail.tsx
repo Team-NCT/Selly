@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import style from "./NFTDetail.module.scss";
 import { MetaDataType, initialMetaData } from "@/types/metaData.types";
 import { useAppSelector, useAppDispatch } from "@/hooks";
@@ -27,6 +27,7 @@ import {
 
 const NFTDetail = () => {
   const { articleId } = useParams();
+  const navigate = useNavigate();
   const [metaData, setMetaData] = useState<MetaDataType>(initialMetaData);
   const numberArticleId = articleId ? parseInt(articleId) : NaN;
   const dispatch = useAppDispatch();
@@ -58,11 +59,10 @@ const NFTDetail = () => {
     };
   }, [dispatch, userId]);
 
-  //TODO_JK: 404 페이지 구현 후 수정
   useEffect(() => {
     if (!isError) return;
-    alert("404페이지로 이동");
-  }, [isError]);
+    navigate("/404");
+  }, [isError, navigate]);
 
   //* 메타 데이터 fetch
   useEffect(() => {
@@ -90,6 +90,7 @@ const NFTDetail = () => {
             contractAddress={data.article.contractAddress}
             tokenId={data.article.tokenId}
             metaData={metaData}
+            primaryCnt={data.article.primaryCnt}
           />
           <div>
             <NFTDetailTransaction articleId={numberArticleId} userId={userId} />
