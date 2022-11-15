@@ -20,7 +20,7 @@ const Card = ({ articleImgUrl, articleName, presentSalePieceCnt }: CardProps) =>
     <div className={style.card}>
       <figure>
         <img
-          src={!url ? sellyIcon : articleImgUrl}
+          src={!articleImgUrl ? sellyIcon : articleImgUrl}
           alt={articleName}
           onError={handleImgError}
           className={!url || !errorStatus ? style.error_image : ""}></img>
