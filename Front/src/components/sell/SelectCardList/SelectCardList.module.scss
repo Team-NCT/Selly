@@ -13,12 +13,7 @@
   }
 
   @include laptop {
-    @include grid(calc((100% - 60px) / 3));
-    column-gap: 48px;
-    row-gap: 48px;
-  }
-  @include desktop {
-    @include grid(calc((100% - 128px) / 3));
+    @include grid(calc((100% - 100px) / 3));
     column-gap: 48px;
     row-gap: 48px;
   }

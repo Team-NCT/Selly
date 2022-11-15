@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { SelectSectionProps } from "./SelectSection.types";
 import { SelectCardList, SellInfoForm, SelectedCard } from "@/components/sell";
 import style from "./SelectSection.module.scss";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { useAppSelector, useInfiniteScroll } from "@/hooks";
 import { UpArrowIcon } from "@/components/icon";
+import { Spinner } from "@/components/common";
 
-const FETCH_SIZE = 3;
+const FETCH_SIZE = 5;
 
-// TODO_YK: alchemy 깃헙에서 type 가져오기!!
-function SelectSection({ datas, changeStep }: any) {
+function SelectSection({ datas, changeStep }: SelectSectionProps) {
   const NFTValue = useAppSelector(selectNFTValue);
   const [items, setItems] = useState<Array<any>>([]);
   const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
@@ -32,20 +33,18 @@ function SelectSection({ datas, changeStep }: any) {
     window.scrollTo(0, 0);
   };
 
-  //* 처음 datas에서 초기값 받아오기
+  //* 처음 datas에서 초기값 받아오기 및 state 초기화
   useEffect(() => {
     if (!datas) return;
-    const nextDatas = datas.slice((page - 1) * FETCH_SIZE, page * FETCH_SIZE);
-    if (page * FETCH_SIZE >= datas.length) {
+    setIsFinished(false);
+    console.log("???", datas);
+    const nextDatas = datas.slice(0, FETCH_SIZE);
+    if (FETCH_SIZE >= datas.length) {
       setIsFinished(true);
     }
-    setItems((pre) => [...pre, ...nextDatas]);
-    setPage((pre) => pre + 1);
+    setItems([...nextDatas]);
+    setPage(2);
   }, [datas]);
-
-  useEffect(() => {
-    console.log("ffff", items);
-  }, [items]);
 
   return (
     <>
@@ -59,10 +58,19 @@ function SelectSection({ datas, changeStep }: any) {
       </header>
       <section className={style.content}>
         <div className={style.select_card_list}>
-          {items.length !== 0 ? (
-            <SelectCardList data={items} defaultSelectedIdx={NFTValue.selectIdx} />
+          {datas ? (
+            items.length !== 0 ? (
+              <SelectCardList data={items} defaultSelectedIdx={NFTValue.selectIdx} />
+            ) : (
+              <div className={style.nft_none}>
+                <p>현재 판매 가능한 NFT가 없습니다</p>
+                <p>(っ °Д °;)っ</p>
+              </div>
+            )
           ) : (
-            <div></div>
+            <div className={style.spinner}>
+              <Spinner />
+            </div>
           )}
         </div>
         <div className={style.sell_info}>

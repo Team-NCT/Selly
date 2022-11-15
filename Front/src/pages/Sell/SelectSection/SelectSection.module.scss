@@ -45,6 +45,12 @@
       top: 128px;
     }
   }
+
+  .select_card_list {
+    @include flex(row, center, center);
+    width: 100%;
+    min-height: 300px;
+  }
 }
 
 .scroll_up_icon {
@@ -63,4 +69,9 @@
   @media (min-width: #{800px}) {
     display: none;
   }
+}
+
+.nft_none {
+  @include font($body2, $medium, $black200);
+  @include flex(column, center, center);
 }
