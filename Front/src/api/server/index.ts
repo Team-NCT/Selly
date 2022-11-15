@@ -7,3 +7,4 @@ export { default as NFTTransactionAPI } from "./NFTTransactionAPI/NFTTransaction
 export { default as exploreAPI } from "./exploreAPI/exploreAPI";
 export { default as saleNFTAPI } from "./saleNFTAPI/saleNFTAPI";
 export { default as rankingAPI } from "./rankingAPI/rankingAPI";
+export { default as bookmarkAPI } from "./bookmarkAPI/bookmarkAPI";
