@@ -22,3 +22,13 @@ export interface DescCardType {
   articleMargin?: string;
   pieceCnt?: number;
 }
+
+export interface ArtistRankingType {
+  userId: number;
+  nickname: string;
+  image: string;
+  certification: boolean;
+  wallet: string;
+  followerCnt: number;
+  nftCnt: number;
+}

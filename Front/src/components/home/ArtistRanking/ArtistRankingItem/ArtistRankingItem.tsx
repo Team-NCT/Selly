@@ -14,7 +14,6 @@ const ArtistRankingItem = (props: ArtistRankingProps) => {
           <div className={style.item_artist_info}>
             <div className={style.item_artist_line}>
               <div className={style.item_artist_nickname}>{props.nickname}</div>
-              {props.isAuth && <span>✓</span>}
             </div>
             <div className={style.item_artist_wallet}>
               <EthereumIcon />
@@ -25,7 +24,7 @@ const ArtistRankingItem = (props: ArtistRankingProps) => {
       </div>
       <div className={style.item_cnt_section}>
         <div className={style.item_artist_cnt}>{props.followerCnt}</div>
-        <div className={style.item_artist_cnt}>{props.NFTCnt}</div>
+        <div className={style.item_artist_cnt}>{props.nftCnt}</div>
       </div>
     </Link>
   );
