@@ -4,6 +4,7 @@ import com.nct.sellytradeservice.client.FeignClientException;
 import com.nct.sellytradeservice.client.UserServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
+import com.nct.sellytradeservice.model.service.TradeLogService;
 import com.nct.sellytradeservice.model.service.TradeService;
 import com.nct.sellytradeservice.model.service.TradeServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +28,7 @@ public class TradeController {
   private final TradeService tradeService;
   private final TradeLogRepository tradeLogRepository;
   private final UserServiceClient userServiceClient;
+  private final TradeLogService tradeLogService;
 
   @GetMapping("/all")
   public List<TradeResponse> findAll() {
@@ -128,5 +131,10 @@ public class TradeController {
 //    NftPieceResponseDto nftPieceResponseDto = userServiceClient.getOwnership(userId, tradeRequest);
 //    return ResponseEntity.ok().body(nftPieceResponseDto);
 //  }
+
+  @GetMapping("/trade-log/{sellerId}")
+  public float searchSellerLog(@PathVariable("sellerId") Long sellerId){
+    return tradeLogService.searchPieceAndPriceLog(sellerId);
+  }
 
 }

@@ -1,5 +1,6 @@
 package com.b102.sellyuserservice.model.service;
 
+import com.b102.sellyuserservice.client.TradeServiceClient;
 import com.b102.sellyuserservice.controller.UserController;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -32,6 +34,7 @@ public class UserServiceImpl implements UserService {
   private final ModelMapper mapper;
 
   private UserController userController;
+  private final TradeServiceClient tradeServiceClient;
   @Override
   public UserDetails loadUserByUsername(String wallet) throws UsernameNotFoundException {
     UserEntity userEntity = userRepository.findByWallet(wallet);
@@ -83,6 +86,15 @@ public class UserServiceImpl implements UserService {
     if (userEntity == null){
       throw new UsernameNotFoundException("해당 유저가 없습니다.");
     }
+    float returnValue = tradeServiceClient.getLog(userId);
+    if (!userEntity.isCertification()){
+      if (returnValue >= 1.0){
+        System.out.println(returnValue >= 1.0);
+        userEntity.setCertification(true);
+        userRepository.save(userEntity);
+      }
+    }
+
     return new ModelMapper().map(userEntity, UserDto.class);
   }
 
