@@ -94,7 +94,7 @@ const NFTDetail = () => {
           />
           <div>
             <NFTDetailTransaction articleId={numberArticleId} userId={userId} />
-            <NFTDetailHistory />
+            <NFTDetailHistory articleId={numberArticleId} />
           </div>
         </main>
 

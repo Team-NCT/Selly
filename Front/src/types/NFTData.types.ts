@@ -46,3 +46,15 @@ export interface NFTCardDataType {
    */
   presentSalePieceCnt?: number;
 }
+
+export interface NFTFractionHistoryType {
+  date: string;
+  avgPrice: number;
+  lowPrice: number;
+  maxPrice: number;
+}
+
+export interface NFTFractionHistoryListType {
+  historyList: NFTFractionHistoryType[];
+  avgPrice: number;
+}
