@@ -3,14 +3,20 @@ import { DescCardList, Spinner } from "@/components/common";
 import { useEffect } from "react";
 import { ExploreParamsType } from "./ExploreCardList.types";
 import style from "./ExploreCardList.module.scss";
+import { useNavigate } from "react-router-dom";
+
+const CATEGORY = ["all", "digital", "analog", "photography"];
+const SORT = ["asc", "desc"];
+const ORDER = ["sellRegist", "price"];
 
 const ExploreCardList = ({ category, sort, order }: ExploreParamsType) => {
-  const { data, isError } = useFetchNFTListQuery({ category, sort, order });
+  const { data } = useFetchNFTListQuery({ category, sort, order });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isError) return;
-    alert("404로 이동"), [isError];
-  }, [isError]);
+    if (CATEGORY.includes(category) && SORT.includes(sort) && ORDER.includes(order)) return;
+    navigate("/404");
+  }, [category, navigate, order, sort]);
 
   return (
     <section className={style.container}>
