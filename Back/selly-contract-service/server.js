@@ -364,7 +364,7 @@ app.post("/cancleSale", async(req, res) =>{
             seller : req.body.seller,
         })
     };
-    request.post(OPTIONS, (err, res, body) =>{ });
+    request.delete(OPTIONS, (err, res, body) =>{ });
 
     return res.json(txObject);
 })
