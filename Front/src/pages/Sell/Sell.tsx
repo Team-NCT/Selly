@@ -40,21 +40,14 @@ function Sell() {
   return (
     <main>
       <h1 className={style.sell_title}>
-        <Neon color="muscat150" positionH="top" positionW="left" vertical={0} width={48}>
-          Sell NFT
+        <Neon color="muscat150" positionH="top" positionW="right" width={70} vertical={1}>
+          Sell
         </Neon>
+        <span className={style.title_span}>NFT</span>
       </h1>
       <article className={style.content}>
-        <section className={style.select_section}>
-          {step === "SELECT" && <SelectSection datas={NFTdatas} />}
-          {step === "SIGN" && <SignSection changeStep={changeStep} />}
-        </section>
-        <section className={style.selected_NFT_section}>
-          <h2>Selected NFT</h2>
-          <SelectedCard url={NFTValue.articleUrl} title={NFTValue.articleName} />
-          {step === "SELECT" && <SellInfoForm changeStep={changeStep} />}
-          {step === "SIGN" && <SellInfoCard />}
-        </section>
+        {step === "SELECT" && <SelectSection datas={NFTdatas} changeStep={changeStep} />}
+        {step === "SIGN" && <SignSection changeStep={changeStep} />}
       </article>
     </main>
   );

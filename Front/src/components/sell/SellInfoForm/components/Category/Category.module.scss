@@ -1,10 +1,10 @@
-// .category {
-//   @include flex(column, flex-start, stretch);
-// }
-
-.category_label {
-  Label {
-    @include font($body2, $bold);
-  }
+.category {
   margin-bottom: 12px;
+
+  .category_label {
+    Label {
+      @include font($body2, $bold);
+    }
+    margin-bottom: 12px;
+  }
 }

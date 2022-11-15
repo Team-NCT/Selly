@@ -1,5 +1,9 @@
-.fraction_num_label {
-  Label {
-    @include font($body2, $bold);
+.fraction_num {
+  min-height: 89px;
+
+  .fraction_num_label {
+    Label {
+      @include font($body2, $bold);
+    }
   }
 }
