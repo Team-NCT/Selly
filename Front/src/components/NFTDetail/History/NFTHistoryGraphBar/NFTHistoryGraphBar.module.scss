@@ -13,7 +13,7 @@
     }
 
     .NFT_history_graph_average {
-      @include font($caption, $regular, $main-font);
+      @include font($caption, $medium, $main-font);
       position: absolute;
       top: -16px;
       left: 50%;

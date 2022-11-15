@@ -9,6 +9,7 @@ import {
   cancleSellNFTFractionType,
 } from "./NFTTransactionAPI.types";
 import { SignedTransactionType, PayableSignedTransactionType } from "@/types/transaction.types";
+import { NFTFractionHistoryListType } from "@/types/NFTData.types";
 import sleep from "@/helpers/utils/sleep";
 import { sendTransaction, sendPayableTransaction } from "@/api/blockchain";
 import {
@@ -33,7 +34,7 @@ const NFTTransactionAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ["fraction", "sell", "buy", "auction", "cancle"],
+  tagTypes: ["fraction", "sell", "buy", "auction", "cancle", "history"],
   endpoints: (build) => ({
     //@ description: NFT 구매를 위해 조각 거래 정보를 Fetch하는 API
     fetchNFTFractionRecord: build.query<NFTFractionRecordType[], number>({
@@ -52,6 +53,12 @@ const NFTTransactionAPI = createApi({
       query: ({ articleId, userId }) =>
         `selly-user-service/nftPiece/${userId}?articleId=${articleId}`,
       providesTags: ["fraction"],
+    }),
+
+    //@ description: NFT 조각 거래 history를 Fetch하는 API
+    fetchNFTFractionHistory: build.query<NFTFractionHistoryListType, number>({
+      query: (articleId) => `selly-trade-service/nft-trade-history/${articleId}`,
+      providesTags: ["history"],
     }),
 
     //@ description: 특정 조각을 구매하는 API
@@ -78,7 +85,7 @@ const NFTTransactionAPI = createApi({
           return { data: false };
         }
       },
-      invalidatesTags: ["buy", "fraction"],
+      invalidatesTags: ["buy", "fraction", "history"],
     }),
 
     //@ description: 특정 조각을 판매등록하는 API
@@ -144,6 +151,7 @@ export const {
   useLazyFetchOwnedNFTCountQuery,
   useFetchOwnedNFTCountQuery,
   useLazyFetchUserNFTFractionQuery,
+  useFetchNFTFractionHistoryQuery,
   useBuyNFTFractionMutation,
   useRegisterSellNFTFractionMutation,
   useCancleSellNFTFractionMutation,
