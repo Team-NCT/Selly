@@ -10,5 +10,5 @@ public class ResponseFollowingUser {
   private String wallet;
   private String image;
   private String nickname;
-  private boolean myFollower;
+  private boolean myFollowing;
 }
