@@ -63,7 +63,8 @@ const Header = ({
               <div className={style.followNumber}>{data?.followingCnt}</div>
             </button>
           </div>
-          {profilePageId !== Number(userId) &&
+          {!!userId &&
+            profilePageId !== Number(userId) &&
             (!data?.myFollowing ? (
               <Button size="fillContainer" type="button" onClick={followOnclickHandler}>
                 Follow

@@ -42,7 +42,8 @@ const Follow = ({ data }: FollowProps) => {
         </div>
       </Link>
       <div className={style.button_section}>
-        {data.userId !== Number(userId) &&
+        {!!Number(userId) &&
+          data.userId !== Number(userId) &&
           (data?.myFollowing ? (
             <Button
               bg="blackberry"

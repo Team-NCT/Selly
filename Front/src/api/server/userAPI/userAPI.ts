@@ -19,12 +19,12 @@ const userAPI = createApi({
     baseUrl: USER_SERVICE_API,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).account.token;
-      const userId = (getState() as RootState).account.userId;
+      const userId = (getState() as RootState).account.userId || 0;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
-        headers.set("userId", String(userId));
-        headers.set("Content-type", "application/json; charset=utf-8");
       }
+      headers.set("userId", String(userId));
+      headers.set("Content-type", "application/json; charset=utf-8");
 
       return headers;
     },
