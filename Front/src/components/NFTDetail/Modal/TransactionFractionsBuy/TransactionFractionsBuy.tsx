@@ -5,11 +5,20 @@ import { selectFraction } from "@/store/fractionSlice";
 import { closeBuy } from "@/store/modalSlice";
 import style from "./TransactionFractionsBuy.module.scss";
 import { fPointCheck } from "@/helpers/utils/numberValidation";
+import {
+  useSellNFTFractionMutation,
+  useLazyFetchNFTFractionRecordQuery,
+} from "@/api/server/NFTTransactionAPI";
+import { TransactionFractionsBuyProps } from "./TransactionFractionsBuy.types";
+import { sendPayableTransaction } from "@/api/blockchain/sendTransaction";
 
-const TransactionFractionsBuy = () => {
+const TransactionFractionsBuy = ({ articleId, userId, address }: TransactionFractionsBuyProps) => {
   const dispatch = useAppDispatch();
-  const { count, price, saleContract } = useAppSelector(selectFraction);
+  const { pieceCnt, tradePrice, saleContractAddress, sellerId } = useAppSelector(selectFraction);
+  const [sellNFTFraction] = useSellNFTFractionMutation();
+  const [fetchNFTFractionData] = useLazyFetchNFTFractionRecordQuery();
 
+  //* 유효성 검사
   const checkInputValidation = useCallback(
     (value: string) => {
       setInputStatus(true);
@@ -19,7 +28,7 @@ const TransactionFractionsBuy = () => {
         setButtonStatus(true);
         return value;
       }
-      if (!(Number(value) <= count)) {
+      if (!(Number(value) <= pieceCnt)) {
         setInputStatus(false);
         setErrorMessage("구매할 수 없는 수량입니다");
         setButtonStatus(true);
@@ -33,11 +42,11 @@ const TransactionFractionsBuy = () => {
         return value;
       }
 
-      setTotalPrice(Number(value) * price);
+      setTotalPrice(Number(value) * tradePrice);
       setButtonStatus(false);
       return value;
     },
-    [count, price]
+    [pieceCnt, tradePrice]
   );
   const [value, handleInputChange] = useInputState("", checkInputValidation);
   const [inputStatus, setInputStatus] = useState(true);
@@ -45,15 +54,27 @@ const TransactionFractionsBuy = () => {
   const [buttonStatus, setButtonStatus] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const handlerFormSumbit = (event: FormEvent) => {
+  //* 구매 요청 함수
+  const handlerFormSumbit = async (event: FormEvent) => {
     event.preventDefault();
-    //TODO_JK: API 구현 후 연결
+    if (!userId || !address) return;
     const payload = {
-      value,
-      price,
-      saleContract,
+      buyerId: userId,
+      wallet: address,
+      articleId,
+      sellerId,
+      pieceCnt,
+      tradePrice,
+      saleContractAddress,
     };
-    alert(payload + "전송");
+    try {
+      const response = await sellNFTFraction(payload).unwrap();
+      const data = await sendPayableTransaction(response);
+      await fetchNFTFractionData(articleId);
+      console.log(data);
+    } catch (error) {
+      console.error("에러", error);
+    }
   };
 
   return (
@@ -65,9 +86,11 @@ const TransactionFractionsBuy = () => {
             구매 조각 개수
           </Label>
           <p className={style.NFT_detail_buy_input_description}>
-            구매할 수 있는 조각 개수: {count} 개
+            구매할 수 있는 조각 개수: {pieceCnt} 개
           </p>
-          <p className={style.NFT_detail_buy_input_description}>선택된 조각 가격: {price} ETH</p>
+          <p className={style.NFT_detail_buy_input_description}>
+            선택된 조각 가격: {tradePrice} ETH
+          </p>
           <div>
             <NumberInput
               id="buy-fraction"
@@ -80,9 +103,7 @@ const TransactionFractionsBuy = () => {
         </section>
         <div className={style.NFT_detail_buy_price}>
           <p>지불 금액(가스비 제외): </p>
-          <p>
-            약 {fPointCheck(totalPrice.toString(), 4) ? totalPrice : totalPrice.toFixed(4)} ETH{" "}
-          </p>
+          <p>약 {fPointCheck(totalPrice.toString(), 4) ? totalPrice : totalPrice.toFixed(4)} ETH</p>
         </div>
         <Button size="fillContainer" disabled={buttonStatus}>
           조각 구매하기

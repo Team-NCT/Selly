@@ -1,3 +1,5 @@
 export { default as getNFTsForOwnerAPI } from "./getNFTsForOwnerAPI";
-export { testSign } from "./contracts";
+export { makeVault, approveVault, makeFraction } from "./contracts";
+export { default as getNFTData } from "./getNFTData";
+export * from "./sendTransaction";
 export * from "./metamaskAPI";

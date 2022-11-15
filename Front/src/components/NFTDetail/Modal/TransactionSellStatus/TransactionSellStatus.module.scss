@@ -54,4 +54,12 @@
       }
     }
   }
+
+  .NFT_detail_sell_status_none {
+    @include font($h5, $semibold, $black450);
+    @include flex(column, center, center);
+    width: 100%;
+    height: 264px;
+    margin: 0 auto;
+  }
 }

@@ -5,3 +5,5 @@ export { default as Created } from "./Created/Created";
 export { default as ForSale } from "./ForSale/ForSale";
 export { default as ProfileTab } from "./ProfileTab/ProfileTab";
 export { default as Collected } from "./Collected/Collected";
+export { default as FollowModal } from "./FollowModal/FollowModal";
+export { default as Fractions } from "./Fractions/Fractions";

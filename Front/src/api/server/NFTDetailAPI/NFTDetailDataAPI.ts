@@ -9,11 +9,11 @@ const NFTDetailAPI = createApi({
   endpoints: (build) => ({
     //@ description: NFT 상세 정보를 Fetch하는 API
     fetchNFTData: build.query<NFTDetailDataType, number>({
-      query: (nftId) => `${nftId}`,
+      query: (nftId) => `nft/${nftId}`,
       providesTags: ["NFTDetail"],
     }),
   }),
 });
 
-export const { useFetchNFTDataQuery, useLazyFetchNFTDataQuery } = NFTDetailAPI;
+export const { useFetchNFTDataQuery } = NFTDetailAPI;
 export default NFTDetailAPI;

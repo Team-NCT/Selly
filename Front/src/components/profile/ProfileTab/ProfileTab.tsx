@@ -1,7 +1,7 @@
 import { Neon, SelectBox } from "@/components/common";
 import { getViewportSize } from "@/helpers/utils/getViewportSize";
 import { useState, useCallback, useEffect } from "react";
-import { Created, ForSale, Collected } from "@/components/profile";
+import { Created, ForSale, Collected, Fractions } from "@/components/profile";
 import style from "./ProfileTab.module.scss";
 
 const ProfileTab = () => {
@@ -37,7 +37,7 @@ const ProfileTab = () => {
       <div className={style.profileTab}>
         {windowWidth < 550 ? (
           <div className={style.mobileTab}>
-            <span>NFT Category</span>
+            <span className={style.mobileTabTitle}>NFT Category</span>
             <div className={style.selectBox}>
               <SelectBox
                 list={tabItems}
@@ -66,6 +66,7 @@ const ProfileTab = () => {
           ))
         )}
       </div>
+      {selectedTab === "Fractions" && <Fractions />}
       {selectedTab === "Created" && <Created />}
       {selectedTab === "ForSale" && <ForSale />}
       {selectedTab === "Collected" && <Collected />}

@@ -1,38 +1,30 @@
-// import { useLazyFetchNFTListQuery } from "@/api/server/exploreAPI/exploreAPI";
-import { DescCardList, SelectBox } from "@/components/common";
-import React, { useCallback } from "react";
-import { ExploreCardProps } from "./ExploreCardList.types";
+import { useFetchNFTListQuery } from "@/api/server/exploreAPI/exploreAPI";
+import { DescCardList, Spinner } from "@/components/common";
+import { useEffect } from "react";
+import { ExploreParamsType } from "./ExploreCardList.types";
+import style from "./ExploreCardList.module.scss";
 
-const ExploreCardList = (props: ExploreCardProps) => {
-  //* 정렬 기준 선택 selectBox
-  const SortBy = [
-    "등록일 순",
-    "등록일 역순",
-    "판매일 순",
-    "판매일 역순",
-    "낮은 가격",
-    "높은 가격",
-    "조각 당 낮은 가격",
-    "조각 당 높은 가격",
-  ];
-  const onChange = (event: React.FormEvent) => {
-    const form = event.target as HTMLFormElement;
-    console.log(form.value);
-  };
-  // const [fetchNFTList] = useLazyFetchNFTListQuery();
-  // const requestExplore = useCallback(
-  //   async (keyword:string)
-  // )
+const ExploreCardList = ({ category, sort, order }: ExploreParamsType) => {
+  const { data, isError } = useFetchNFTListQuery({ category, sort, order });
+
+  useEffect(() => {
+    if (!isError) return;
+    alert("404로 이동"), [isError];
+  }, [isError]);
+
   return (
-    <div>
-      <SelectBox
-        list={SortBy}
-        category={"정렬"}
-        defaultValue="등록일 순"
-        onChange={(e) => onChange(e)}
-      />
-      {/* <DescCardList /> */}
-    </div>
+    <section className={style.container}>
+      {!data ? (
+        <div className={style.loading}>
+          <Spinner />
+          Loading...
+        </div>
+      ) : data?.length === 0 ? (
+        <div className={style.no_data}>현재 조건에 맞는 판매 등록된 NFT가 없어요!</div>
+      ) : (
+        <DescCardList data={data} />
+      )}
+    </section>
   );
 };
 

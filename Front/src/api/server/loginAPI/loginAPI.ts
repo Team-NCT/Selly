@@ -25,7 +25,7 @@ const loginAPI = createApi({
           const header = meta?.response?.headers;
           dispatch(setAccount({ token: header?.get("token"), userId: header?.get("userId") }));
         } catch (error) {
-          console.log("로그인 API");
+          console.log("실패용");
           dispatch(logout());
         }
       },

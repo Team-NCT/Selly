@@ -5,7 +5,7 @@ import defaultImage from "@/assets/images/profile.png";
 const ProfileImage = ({ url, size, profileStyle }: ProfileImageProps) => {
   return (
     <img
-      src={url ? url : defaultImage}
+      src={!url || url === "default" ? defaultImage : url}
       alt="user-profile"
       className={`${style[`size_${size}`]} ${style[`profile_${profileStyle}`]}`}></img>
   );
