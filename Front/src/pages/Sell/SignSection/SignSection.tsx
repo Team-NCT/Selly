@@ -57,7 +57,7 @@ function SignSection({ changeStep }: SignSectionProps) {
       </header>
       <section className={style.content}>
         <div className={style.sign_box_list}>
-          <SignBoxList data={SIGN_DATAS} />
+          <SignBoxList data={SIGN_DATAS} setShowDialog={setShowDialog} />
         </div>
         <div className={style.sell_info}>
           <SellInfoCard />

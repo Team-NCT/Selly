@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import style from "./Sell.module.scss";
 import { Neon } from "@/components/common";
 import { SelectSection, SignSection } from ".";
-import { useAppSelector, useAppDispatch } from "@/hooks";
+import { useAppSelector, useAppDispatch, useAlert } from "@/hooks";
 import { resetNFTValue } from "@/store/selectNFTSlice";
 import { resetSellInfo } from "@/store/sellInfoSlice";
 import { getNFTsForOwnerAPI } from "@/api/blockchain";
 import { selectAccount } from "@/store/loginSlice";
 import { resetSignData } from "@/store/signDataSlice";
+import { useNavigate } from "react-router-dom";
 
 export type stepType = "SELECT" | "SIGN";
 
@@ -15,7 +16,9 @@ function Sell() {
   const [step, setStep] = useState<stepType>("SELECT");
   const [NFTdatas, setNFTdatas] = useState<any>(null);
   const { address, userId } = useAppSelector(selectAccount);
+  const { openLoginAlert } = useAlert();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const changeStep = (step: stepType) => {
     setStep(step);
@@ -39,10 +42,11 @@ function Sell() {
     setStep("SELECT");
   }, [address]);
 
-  // TODO_YK: 알럿창 + 홈으로 가도록
+  //* 로그인 되어있지 않으면 다시 뒤로 보내기
   useEffect(() => {
     if (userId) return;
-    alert("로그인이 필요");
+    openLoginAlert();
+    navigate(-1);
   }, [userId]);
 
   return (

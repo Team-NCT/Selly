@@ -11,4 +11,5 @@ export interface SignBoxListProps {
    * 사이트에서 서명 박스를 나타낼 때 필요한 데이터 리스트
    */
   data: SignBoxItemProps[];
+  setShowDialog: (status: boolean) => void;
 }
