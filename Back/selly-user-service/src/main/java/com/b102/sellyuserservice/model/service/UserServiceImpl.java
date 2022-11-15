@@ -103,20 +103,22 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserDto updateUser(Long userId, RequestUpdate user) throws UnsupportedEncodingException {
     UserEntity userEntity = userRepository.findByUserId(userId);
-    Base64.Encoder encoder = Base64.getEncoder();
-    if (user.getImage() != null){
-      String encodeImg = null;
-      byte[] imageEncode =  encoder.encode(user.getImage().getBytes());
-      encodeImg = new String(imageEncode, "UTF-8");
-      userEntity.setImage(encodeImg);
-    }
-
-    if (user.getBanner() != null){
-      String encodeBanner = null;
-      byte[] bannerEncode =  encoder.encode(user.getBanner().getBytes());
-      encodeBanner = new String(bannerEncode, "UTF-8");
-      userEntity.setBanner(encodeBanner);
-    }
+//    Base64.Encoder encoder = Base64.getEncoder();
+//    if (user.getImage() != null){
+//      String encodeImg = null;
+//      byte[] imageEncode =  encoder.encode(user.getImage().getBytes());
+//      encodeImg = new String(imageEncode, "UTF-8");
+//      userEntity.setImage(encodeImg);
+        userEntity.setImage(user.getImage());
+//    }
+//
+//    if (user.getBanner() != null){
+//      String encodeBanner = null;
+//      byte[] bannerEncode =  encoder.encode(user.getBanner().getBytes());
+//      encodeBanner = new String(bannerEncode, "UTF-8");
+//      userEntity.setBanner(encodeBanner);
+        userEntity.setBanner(user.getBanner());
+//    }
 
     userEntity.setIntroduction(user.getIntroduction());
     userEntity.setNickname(user.getNickname());
