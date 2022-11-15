@@ -13,9 +13,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
   List<ResponseInfoArticle> findByArticleId(Long articleId);
   Article findByContractAddressAndTokenId(String contractAddress, String tokenId);
-  List<Article> findAllByCategoryAndAvailability(String category, boolean availability, Sort sort);
+  List<Article> findByCategoryAndAvailability(String category, boolean availability, Sort sort);
 
-  List<Article> findAllByAvailability(boolean availability, Sort sort);
+  List<Article> findByAvailability(boolean availability, Sort sort);
 
   List<Article> findAllByStatus(boolean status);
 
