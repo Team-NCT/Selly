@@ -27,6 +27,6 @@ public class BookMark {
   @Builder
   public BookMark(Long userId, Long articleId) {
     this.userId = userId;
-    this.bookMarkId = articleId;
+    this.articleId = articleId;
   }
 }

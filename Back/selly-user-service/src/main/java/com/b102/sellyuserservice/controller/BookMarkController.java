@@ -27,7 +27,15 @@ public class BookMarkController {
   @PostMapping("/bookmark")
   public ResponseEntity<BookMarkResponse> createBookMark(@RequestBody BookMarkRequest bookMarkRequest) {
     BookMarkResponse bookMarkResponse = bookMarkService.createBoomMark(bookMarkRequest);
-    return ResponseEntity.status(HttpStatus.CREATED).body(bookMarkResponse);
+    System.out.println("여기");
+    System.out.println(bookMarkResponse);
+
+    if (bookMarkResponse != null){
+      return ResponseEntity.status(HttpStatus.CREATED).body(bookMarkResponse);
+    }else{
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
   }
   // 북마크 해제
   @DeleteMapping("/bookmark")

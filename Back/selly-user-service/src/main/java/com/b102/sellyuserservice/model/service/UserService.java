@@ -20,6 +20,9 @@ public interface UserService extends UserDetailsService {
 
   // 특정 아이디 조회
   UserDto getUserByUserId(Long UserId);
+  List<AuthorRankingResponse> findByAllId();
+  List<AuthorRankingTotalResponse> userArticleRanking();
+
 
   // 모든 아이디 조회
   Iterable<UserEntity> getUserByAll();

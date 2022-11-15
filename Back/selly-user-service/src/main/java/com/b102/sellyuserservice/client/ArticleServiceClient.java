@@ -14,4 +14,7 @@ public interface ArticleServiceClient {
 
   @GetMapping("/selly-article-service/AuthorSearch/{userId}")
   List<ArticleResponse> searchByOwner(@PathVariable("userId") Long userId);
+
+  @GetMapping("/selly-article-service/articleCount/{userId}")
+  Integer returnArticleCnt(@PathVariable("userId") Long userId);
 }

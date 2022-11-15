@@ -3,11 +3,15 @@ package com.nct.sellytradeservice.model.repository;
 import com.nct.sellytradeservice.domain.entity.TradeRegist;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TradeRegistRepository extends JpaRepository<TradeRegist, Long> {
+
+  @Query(value = "SELECT * FROM TradeRegist GROUP BY articleId", nativeQuery = true)
+  List<TradeRegist> findAllGroupByArticleId();
   TradeRegist findBysaleContractAddressAndSeller(String saleContractAddress, Long seller);
   Optional<TradeRegist> findByArticleId(Long ArticleId);
   Optional<TradeRegist> findByArticleIdAndSaleContractAddress(Long ArticleId, String saleContractAddress);

@@ -1,8 +1,11 @@
 package com.b102.sellyuserservice.controller;
 
+import com.b102.sellyuserservice.model.service.UserService;
 import com.b102.sellyuserservice.vo.AuthorRankingResponse;
+import com.b102.sellyuserservice.vo.AuthorRankingTotalResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,35 +20,24 @@ import java.util.List;
 @RestController
 public class RankingController {
 
+  private final UserService userService;
   @GetMapping("/total")
   public ResponseEntity<List<AuthorRankingResponse>> totalAuthorRanking() {
-    List<AuthorRankingResponse> authorRankingResponseList = new ArrayList<>();
-    AuthorRankingResponse authorRankingResponse = AuthorRankingResponse.builder()
-            .userId(1L)
-            .nickname("nickname")
-            .image("https://skywalker.infura-ipfs.io/ipfs/QmP5VS1uroszxVxWk5Xsa9nGVnpiNaF4ZAkhLjszkSzY4R")
-            .wallet("wallet")
-            .followerCnt(17)
-            .nftCnt(1)
-            .certification(true)
-            .build();
-    authorRankingResponseList.add(authorRankingResponse);
-    return ResponseEntity.ok().body(authorRankingResponseList);
+    List<AuthorRankingResponse> authorRankingResponseList = userService.findByAllId();
+    if (authorRankingResponseList != null){
+      return ResponseEntity.status(HttpStatus.OK).body(authorRankingResponseList);
+    } else{
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
   }
 
   @GetMapping("/trend")
-  public ResponseEntity<List<AuthorRankingResponse>> trandingAuthorRanking() {
-    List<AuthorRankingResponse> authorRankingResponseList = new ArrayList<>();
-    AuthorRankingResponse authorRankingResponse = AuthorRankingResponse.builder()
-            .userId(1L)
-            .nickname("nickname")
-            .image("https://skywalker.infura-ipfs.io/ipfs/QmP5VS1uroszxVxWk5Xsa9nGVnpiNaF4ZAkhLjszkSzY4R")
-            .wallet("wallet")
-            .followerCnt(17)
-            .nftCnt(1)
-            .certification(true)
-            .build();
-    authorRankingResponseList.add(authorRankingResponse);
-    return ResponseEntity.ok().body(authorRankingResponseList);
+  public ResponseEntity<List<AuthorRankingTotalResponse>> trandingAuthorRanking() {
+    List<AuthorRankingTotalResponse> authorRankingTotalResponses = userService.userArticleRanking();
+    if (authorRankingTotalResponses != null){
+      return ResponseEntity.status(HttpStatus.OK).body(authorRankingTotalResponses);
+    } else{
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
   }
 }

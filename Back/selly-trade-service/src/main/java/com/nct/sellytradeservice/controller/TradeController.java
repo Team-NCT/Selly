@@ -136,5 +136,18 @@ public class TradeController {
   public float searchSellerLog(@PathVariable("sellerId") Long sellerId){
     return tradeLogService.searchPieceAndPriceLog(sellerId);
   }
-
+  @GetMapping("/trade-ranking")
+  public ResponseEntity<List<TradeRankDto>> tradeRanking(){
+    List<TradeRankDto> tradeRankDto = tradeLogService.tradeRank();
+    if (tradeRankDto != null){
+      return ResponseEntity.status(HttpStatus.OK).body(tradeRankDto);
+    }
+    else{
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+  }
+  @GetMapping("/trade-article-count/{userId}")
+  public Integer sellerArticleCount(@PathVariable("userId") Long userId){
+    return tradeLogRepository.countBySeller(userId);
+  }
 }

@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
   Long countBy();
 
+  Integer countByOwner(Long owner);
+
   List<ResponseInfoArticle> findByArticleId(Long articleId);
   Article findByContractAddressAndTokenId(String contractAddress, String tokenId);
   List<Article> findByCategoryAndAvailability(String category, boolean availability, Sort sort);
