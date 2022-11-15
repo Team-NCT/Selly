@@ -72,7 +72,7 @@ const NFTTransactionAPI = createApi({
         } catch (error) {
           dispatch(closeLoading());
           dispatch(openAlert());
-          dispatch(setAlertContent("거래를 중단하셨습니다"));
+          dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
           return { data: false };
@@ -99,7 +99,7 @@ const NFTTransactionAPI = createApi({
         } catch (error) {
           dispatch(closeLoading());
           dispatch(openAlert());
-          dispatch(setAlertContent("거래를 중단하셨습니다"));
+          dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
           return { data: false };
@@ -126,7 +126,7 @@ const NFTTransactionAPI = createApi({
         } catch (error) {
           dispatch(closeLoading());
           dispatch(openAlert());
-          dispatch(setAlertContent("거래를 중단하셨습니다"));
+          dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
           return { data: false };
