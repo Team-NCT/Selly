@@ -7,6 +7,8 @@ import {
   cardType,
   DescCardType,
   RevenueType,
+  SettingsType,
+  FetchSettingsType,
 } from "./userAPI.types";
 import type { RootState } from "@/store";
 
@@ -26,12 +28,21 @@ const userAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ["user", "profile"],
+  tagTypes: ["user", "profile", "settings"],
   endpoints: (build) => ({
     //@ description: 프로필에 들어갔을 때 유저의 정보를 fetch하는 API
     fetchUserProfile: build.query<UserProfileType, fetchUserProfileParamsData>({
       query: (param) => `users/${param.profileId}/${param.userId}`,
-      providesTags: ["user"],
+      providesTags: ["user", "settings"],
+    }),
+    //@ description: 유저 프로필을 업데이트 하는 API
+    fetchSettings: build.mutation<SettingsType, FetchSettingsType>({
+      query: (params) => ({
+        url: `users/${params.userId}`,
+        method: "PUT",
+        body: params.data,
+      }),
+      invalidatesTags: ["settings"],
     }),
     //@ description: 유저를 팔로우하는 API
     follow: build.mutation<followDataType, followDataType>({
@@ -86,6 +97,7 @@ const userAPI = createApi({
 
 export const {
   useFetchUserProfileQuery,
+  useFetchSettingsMutation,
   useFollowMutation,
   useUnFollowMutation,
   useFetchCreatedDataQuery,

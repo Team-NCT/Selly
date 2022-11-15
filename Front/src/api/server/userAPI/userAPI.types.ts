@@ -29,3 +29,22 @@ export interface RevenueType {
   margin: number;
   principal: number;
 }
+
+export interface SettingsType {
+  userId: number;
+  wallet: string;
+  nickname: string;
+  image: string;
+  banner: string;
+  introduction: string;
+}
+
+export interface FetchSettingsType {
+  data: {
+    nickname: string;
+    image: string;
+    banner: string;
+    introduction: string;
+  };
+  userId: number;
+}

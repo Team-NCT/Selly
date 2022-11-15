@@ -22,7 +22,11 @@ const Fractions = () => {
       fractionsData2.push(card);
     }
   }
-  return params.id === userId ? <DescCardList data={arr} /> : <CardList data={fractionsData2} />;
+  return Number(params.id) === userId ? (
+    <DescCardList data={arr} />
+  ) : (
+    <CardList data={fractionsData2} />
+  );
 };
 
 export default Fractions;
