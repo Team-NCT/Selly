@@ -1,11 +1,9 @@
 package com.b102.sellyuserservice.vo;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
-public class AuthorRankingResponse {
+public class AuthorRankingTotalResponse {
   private Long userId;
   private String nickname;
   private String image;
@@ -13,5 +11,5 @@ public class AuthorRankingResponse {
   private Integer followerCnt;
   private Integer nftCnt;
   private boolean certification;
-
+  private Integer tradeCount;
 }

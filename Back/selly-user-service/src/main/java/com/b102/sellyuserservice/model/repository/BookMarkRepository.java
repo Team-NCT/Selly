@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface BookMarkRepository extends JpaRepository<BookMark, Long> {
   BookMark findByUserIdAndArticleId(Long userId, Long articleId);
-
   List<BookMark> findByUserId(Long userId);
 }

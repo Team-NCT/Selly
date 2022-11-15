@@ -11,4 +11,7 @@ import java.math.BigDecimal;
 public interface TradeServiceClient {
   @GetMapping("/selly-trade-service/trade-log/{sellerId}")
   float getLog(@PathVariable("sellerId") Long sellerId);
+
+  @GetMapping("/selly-trade-service/trade-article-count/{userId}")
+  Integer getArticleCount(@PathVariable("userId") Long userId);
 }

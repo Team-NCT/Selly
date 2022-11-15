@@ -1,14 +1,17 @@
 package com.nct.sellyarticleservice.controller;
 
+import com.nct.sellyarticleservice.client.TradeServiceClient;
 import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
 import com.nct.sellyarticleservice.model.service.ArticleServiceImpl;
 import com.nct.sellyarticleservice.vo.ArticleRankingResponse;
 import com.nct.sellyarticleservice.vo.CategoryResponse;
+import com.nct.sellyarticleservice.vo.TradeRankDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +28,7 @@ public class ArticleController {
   private final ArticleServiceImpl articleService;
 
   private final ArticleRepository articleRepository;
+
 
   //  @GetMapping("/{articleId}")
 //  public ArticleResponse findById (@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
@@ -180,16 +184,20 @@ public class ArticleController {
 
   //작품 랭킹
   @GetMapping("/articleRanking")
-  public List<ArticleRankingResponse> articleRanking() {
-    List<ArticleRankingResponse> rankingResponseList = new ArrayList<>();
-    ArticleRankingResponse articleRankingResponse = ArticleRankingResponse.builder()
-            .articleId(1L)
-            .articleImgUrl("imgurl")
-            .articleName("name")
-            .presentSalePieceCnt(10)
-            .build();
-    rankingResponseList.add(articleRankingResponse);
-    return rankingResponseList;
+  public ResponseEntity<List<ArticleRankingResponse>> articleRanking() {
+    List<ArticleRankingResponse> rankingResponseList = articleService.rankingTop10();
+
+    if(rankingResponseList != null){
+      return ResponseEntity.status(HttpStatus.OK).body(rankingResponseList);
+
+    } else{
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+  }
+
+  @GetMapping("/articleCount/{userId}")
+  public Integer articleCount(@PathVariable("userId") Long userId){
+    return articleRepository.countByOwner(userId);
   }
 }
 

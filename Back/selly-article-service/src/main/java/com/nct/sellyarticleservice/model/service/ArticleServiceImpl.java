@@ -1,4 +1,5 @@
 package com.nct.sellyarticleservice.model.service;
+import com.nct.sellyarticleservice.client.TradeServiceClient;
 import com.nct.sellyarticleservice.client.UserServiceClient;
 import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
 //import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
@@ -7,8 +8,10 @@ import com.nct.sellyarticleservice.client.SellyContractServiceClient;
 import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
+import com.nct.sellyarticleservice.vo.ArticleRankingResponse;
 import com.nct.sellyarticleservice.vo.CategoryResponse;
 import com.nct.sellyarticleservice.vo.ResponseUser;
+import com.nct.sellyarticleservice.vo.TradeRankDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -27,7 +30,7 @@ public class ArticleServiceImpl implements ArticleService{
   private final UserServiceClient userServiceClient;
   private final SellyContractServiceClient sellyContractServiceClient;
   private ModelMapper mapper = new ModelMapper();
-
+  private final TradeServiceClient tradeServiceClient;
   @Transactional
   @Override
   public ResponseArticle createArticle(RequestArticleCreate requestArticleCreate) {
@@ -362,5 +365,26 @@ public class ArticleServiceImpl implements ArticleService{
     result.put("user",responseInfoUser);
     result.put("article", responseInfoArticle);
     return result;
+  }
+
+  @Override
+  public List<ArticleRankingResponse> rankingTop10() {
+    List<TradeRankDto> tradeRankDtos = tradeServiceClient.tradeRanking();
+    if (tradeRankDtos == null){
+      return null;
+    }
+    List<ArticleRankingResponse> returnValue = new ArrayList<>();
+    tradeRankDtos.forEach(v->{
+      Article article = articleRepository.findById(v.getArticleId())
+              .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + v.getArticleId()));
+      ArticleRankingResponse articleRankingResponse = new ArticleRankingResponse();
+      articleRankingResponse.setArticleId(article.getArticleId());
+      articleRankingResponse.setArticleName(article.getArticleName());
+      articleRankingResponse.setArticleImgUrl(article.getArticleImgUrl());
+      articleRankingResponse.setPrimaryCnt(article.getPrimaryCnt());
+      articleRankingResponse.setPresentSalePieceCnt(v.getPieceCount());
+      returnValue.add(articleRankingResponse);
+    });
+    return returnValue;
   }
 }
