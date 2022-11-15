@@ -9,6 +9,7 @@ const DescCardListItem = ({
   recentMarketPrice,
   rateChange,
   articleId,
+  pieceCnt,
 }: NFTDescCardDataType) => {
   const href = `/detail/${articleId}`;
   return (
@@ -19,6 +20,7 @@ const DescCardListItem = ({
           articleName={articleName}
           recentMarketPrice={recentMarketPrice}
           rateChange={rateChange}
+          pieceCnt={pieceCnt}
         />
       </Link>
     </li>

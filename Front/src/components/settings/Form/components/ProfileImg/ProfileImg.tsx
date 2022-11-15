@@ -12,7 +12,7 @@ import style from "./ProfileImg.module.scss";
 
 const ProfileImg = () => {
   const dispatch = useAppDispatch();
-  const { profileData } = useAppSelector(selectProfileData);
+  const { image } = useAppSelector(selectProfileData);
 
   //* 알럿
   const { openAlertModal } = useAlert();
@@ -75,7 +75,7 @@ const ProfileImg = () => {
         <ImageInput
           handleInputChange={handleInputChange}
           id="image-input"
-          imageUrl={profileData.image}
+          imageUrl={image}
           limit={10}
           styles="round"
         />

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useAppSelector } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components/common";
+import { selectAccount } from "@/store/loginSlice";
 import {
   Home,
   Create,
@@ -26,17 +27,28 @@ function App() {
 
   const [checkWallet, checkWalletAccount] = useCheckLogined();
   const [setGoerliToken] = useSetGoerli();
+  const { userId } = useAppSelector(selectAccount);
+  const disconnect = () => {
+    console.log("disconnect");
+  };
+  const connect = () => {
+    console.log("connect");
+  };
 
   useEffect(() => {
     window.ethereum?.on("chainChanged", checkWallet);
     window.ethereum?.on("accountsChanged", checkWalletAccount);
-    if (window.ethereum) {
+    window.ethereum?.on("disconnect", disconnect);
+    window.ethereum?.on("connect", connect);
+    if (window.ethereum && userId) {
       setGoerliToken();
     }
 
     return () => {
       window.ethereum?.removeListener("chainChanged", checkWallet);
       window.ethereum?.removeListener("accountsChanged", checkWalletAccount);
+      window.ethereum?.removeListener("disconnect", disconnect);
+      window.ethereum?.removeListener("connect", connect);
     };
   });
 
