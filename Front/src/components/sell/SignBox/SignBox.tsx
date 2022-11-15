@@ -10,7 +10,8 @@ import { selectAccount } from "@/store/loginSlice";
 import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
 import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
 import { PencilIcon } from "@/components/icon";
-import { closeLoading, openLoading, selectModal } from "@/store/modalSlice";
+import { closeLoading, openLoading } from "@/store/modalSlice";
+import { openAlert, setAlertContent, setAlertStyles, setIconStyles } from "@/store/alertSlice";
 
 import Web3 from "web3";
 
@@ -59,24 +60,43 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
     };
     console.log(body);
     const response = await createSale(body).unwrap();
-    const payload = {
-      nonce: response.nonce,
-      to: response.to,
-      from: response.from,
-      data: response.data,
-    };
-    try {
-      const sendRes = await web3.eth.sendTransaction(payload);
-      console.log(sendRes);
-      return sendRes.status;
-    } catch (e) {
-      console.error(e);
-      return false;
-    }
+    console.log(response);
+    return false;
+  };
+
+  const testHandler = () => {
+    if (!address || !userId) return;
+    const userWallet = address;
+
+    Onsale({
+      CA,
+      tokenId,
+      num,
+      articleName,
+      code,
+      F_NFTCA,
+      setValue,
+      userWallet,
+      userId,
+      metaDataUrl,
+      articleUrl,
+      category,
+      price,
+    }).then((res) => {
+      if (res) {
+        setIsCompleted(true);
+        goNext(idx);
+      } else {
+        setButtonText("서명하기");
+        setSignable(true);
+        alert("블록체인 통신 상태 ERROR");
+        console.error("블록체인 통신 상태 ERROR");
+      }
+    });
   };
 
   const onClickHandler = () => {
-    // if (!address || !userId) return;
+    if (!address || !userId) return;
     const userWallet = address;
 
     setSignable(false);
@@ -126,15 +146,16 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
       category,
       price,
     }).then((res) => {
-      dispatch(closeLoading());
       if (res) {
         setIsCompleted(true);
         goNext(idx);
       } else {
         setButtonText("서명하기");
         setSignable(true);
-        alert("블록체인 통신 상태 ERROR");
-        console.error("블록체인 통신 상태 ERROR");
+        dispatch(openAlert());
+        dispatch(setAlertContent("블록체인 통신 ERROR"));
+        dispatch(setAlertStyles("error"));
+        dispatch(setIconStyles(false));
       }
     });
   };
@@ -173,6 +194,9 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
           )}
         </div>
       </div>
+      <Button size="fillContainer" onClick={testHandler}>
+        서명
+      </Button>
     </div>
   );
 };
