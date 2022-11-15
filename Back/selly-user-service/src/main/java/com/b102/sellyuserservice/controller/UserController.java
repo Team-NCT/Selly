@@ -20,6 +20,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
@@ -152,20 +153,19 @@ public class UserController {
   public ResponseEntity<ResponseUser> updateUser(@PathVariable("userId") Long userId, @RequestBody RequestUpdate user) throws UnsupportedEncodingException {
     UserDto userDto = userService.updateUser(userId, user);
     ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
-    if(returnValue.getImage() != null){
-      byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
-      returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
-    } else if (returnValue.getImage() == null){
-      returnValue.setImage("default");
-    }
+//    if(returnValue.getImage() != null){
+//      byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
+//      returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+//    } else if (returnValue.getImage() == null){
+//      returnValue.setImage("default");
+//    }
 
-    if (returnValue.getBanner() != null){
-      byte[] bannerDecode = Base64.getDecoder().decode(returnValue.getBanner());
-      returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
-    } else if (returnValue.getBanner() == null){
-      returnValue.setBanner("default");
-    }
-
+//    if (returnValue.getBanner() != null){
+//      byte[] bannerDecode = Base64.getDecoder().decode(returnValue.getBanner());
+//      returnValue.setBanner(new String(bannerDecode, StandardCharsets.UTF_8));
+//    } else if (returnValue.getBanner() == null){
+//      returnValue.setBanner("default");
+//    }
     return ResponseEntity.status(HttpStatus.OK).body(returnValue);
   }
 
@@ -178,5 +178,6 @@ public class UserController {
   public String nicknameCheck(@PathVariable("nickname") String nickname){
     return userService.findByNickname(nickname);
   }
+
 
 }
