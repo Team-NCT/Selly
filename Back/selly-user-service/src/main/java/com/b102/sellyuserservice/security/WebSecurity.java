@@ -62,7 +62,7 @@ public class WebSecurity {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://nftselly.com/"));
+    configuration.setAllowedOrigins(Arrays.asList("https://nftselly.com/"));
     configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(Arrays.asList("*"));
     configuration.setExposedHeaders(Arrays.asList("token", "userId"));
@@ -76,21 +76,20 @@ public class WebSecurity {
 
 //    http
 //            .cors(cors -> cors.disable());
-    http
-//            .httpBasic().disable()
-            .cors().configurationSource(corsConfigurationSource())
-            .and()
+    http.csrf().disable();
+    http.authorizeRequests().antMatchers("/actuator/**").permitAll();
+    http.cors().configurationSource(corsConfigurationSource())
 //            .cors().configurationSource(corsConfigurationSource()).and()
 //            .httpBasic().disable()
-            .csrf().disable()
+
 //            .cors().configurationSource(corsConfigurationSource()).and()
 //            .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests().antMatchers("/error/**").permitAll()
             .antMatchers("/**")
-//            .access("hasIpAddress('127.0.0.1')")
-            .permitAll()
+            .access("hasIpAddress('172.17.0.4')")
+//            .permitAll()
             .and()
             .addFilter(getCustomAuthenticationFilter());
     return http.build();
