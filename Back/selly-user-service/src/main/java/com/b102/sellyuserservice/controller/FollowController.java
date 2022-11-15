@@ -97,7 +97,7 @@ public class FollowController {
         userDto.setImage("default");
       }
       ResponseFollowingUser responseFollowingUser = new ModelMapper().map(userDto, ResponseFollowingUser.class);
-      responseFollowingUser.setMyFollower(followService.myFollowerCheck(v.getFollowerId(), userId));
+      responseFollowingUser.setMyFollowing(followService.myFollowerCheck(v.getFollowerId(), userId));
       result.add(responseFollowingUser);
     });
     return ResponseEntity.status(HttpStatus.OK).body(result);
