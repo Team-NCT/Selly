@@ -2,19 +2,16 @@ import { FormEvent, useState, useCallback } from "react";
 import { Modal, Label, NumberInput, Button } from "@/components/common";
 import { useInputState, useAppSelector, useAppDispatch } from "@/hooks";
 import { selectFraction } from "@/store/fractionSlice";
-import { closeBuy, openLoading, closeLoading } from "@/store/modalSlice";
+import { closeBuy } from "@/store/modalSlice";
 import style from "./TransactionFractionsBuy.module.scss";
 import { fPointCheck } from "@/helpers/utils/numberValidation";
 import { useBuyNFTFractionMutation } from "@/api/server/NFTTransactionAPI";
 import { TransactionFractionsBuyProps } from "./TransactionFractionsBuy.types";
-import { sendPayableTransaction } from "@/api/blockchain";
-import { useRefetchTransactionData } from "@/hooks";
 
 const TransactionFractionsBuy = ({ articleId, userId, address }: TransactionFractionsBuyProps) => {
   const dispatch = useAppDispatch();
   const { pieceCnt, tradePrice, saleContractAddress, sellerId } = useAppSelector(selectFraction);
   const [buyNFTFraction] = useBuyNFTFractionMutation();
-  const { refetchNFTFractionData } = useRefetchTransactionData(articleId, userId as number);
 
   //* 유효성 검사
   const checkInputValidation = useCallback(
@@ -66,19 +63,7 @@ const TransactionFractionsBuy = ({ articleId, userId, address }: TransactionFrac
       tradePrice,
       saleContractAddress,
     };
-    try {
-      const response = await buyNFTFraction(payload).unwrap();
-      dispatch(openLoading());
-      await sendPayableTransaction(response);
-      dispatch(closeLoading());
-      dispatch(closeBuy());
-      setTimeout(() => {
-        refetchNFTFractionData();
-      }, 2000);
-    } catch (error) {
-      dispatch(closeLoading());
-      console.error(error);
-    }
+    buyNFTFraction(payload);
   };
 
   return (

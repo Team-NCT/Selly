@@ -5,16 +5,25 @@ import { closeSellStatus } from "@/store/modalSlice";
 import { numberAddComma } from "@/helpers/utils/numberConversion";
 import { useFetchUserNFTFractionQuery } from "@/api/server/NFTTransactionAPI/NFTTransactionAPI";
 import { TransactionFractionsBuyProps } from "../TransactionFractionsBuy/TransactionFractionsBuy.types";
+import { useCancleSellNFTFractionMutation } from "@/api/server/NFTTransactionAPI";
+import { NFTFractionRecordType } from "@/api/server/NFTTransactionAPI";
 
 const TransactionSellStatus = ({ address, articleId, userId }: TransactionFractionsBuyProps) => {
   const dispatch = useAppDispatch();
+  const [cancleSellNFTFraction] = useCancleSellNFTFractionMutation();
   const { data, isSuccess } = useFetchUserNFTFractionQuery({
     articleId,
     userId: userId ? userId : NaN,
   });
 
-  const handleButtonClick = (saleContract: string) => {
-    alert(saleContract);
+  const handleButtonClick = (item: NFTFractionRecordType) => {
+    if (!address || !userId) return;
+    const payload = {
+      seller: userId,
+      wallet: address,
+      saleContractAddress: item.saleContractAddress,
+    };
+    cancleSellNFTFraction(payload);
   };
 
   if (isSuccess)
@@ -28,9 +37,7 @@ const TransactionSellStatus = ({ address, articleId, userId }: TransactionFracti
                 <li key={item.saleContractAddress}>
                   <p>{numberAddComma(item.pieceCnt)} 개 </p>
                   <p>{item.tradePrice}ETH</p>
-                  <button onClick={() => handleButtonClick(item.saleContractAddress)}>
-                    판매 취소
-                  </button>
+                  <button onClick={() => handleButtonClick(item)}>판매 취소</button>
                 </li>
               ))}
             </ul>
