@@ -62,4 +62,13 @@
       border: 0;
     }
   }
+
+  .NFT_detail_history_none {
+    @include font($h5, $medium, $black200);
+    @include flex(column, center, center);
+    width: 100%;
+    height: 182px;
+    background-color: $white150;
+    margin: 0 auto;
+  }
 }

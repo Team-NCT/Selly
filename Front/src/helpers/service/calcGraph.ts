@@ -1,7 +1,7 @@
 //* 그래프 관련 계산 함수
 import { NFTFractionHistoryType } from "@/types/NFTData.types";
 
-interface calcNFTDetailHistoryType extends NFTFractionHistoryType {
+export interface calcNFTDetailHistoryType extends NFTFractionHistoryType {
   height: number;
 }
 
@@ -18,14 +18,14 @@ export const calcNFTTransactionHistoryGraph = (
   let maxValue = 0;
 
   for (const history of historyList) {
-    if (history.average <= maxValue) {
+    if (history.avgPrice <= maxValue) {
       continue;
     }
-    maxValue = history.average;
+    maxValue = history.avgPrice;
   }
 
   const graphList = historyList.map((item) => {
-    const height = (item.average / maxValue) * 100;
+    const height = (item.avgPrice / maxValue) * 100;
     return { height, ...item };
   });
 

@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { NFTHistoryGraphBarProps } from "./NFTHistoryGraphBar.types";
 import style from "./NFTHistoryGraphBar.module.scss";
 import { convertYMDWithComma } from "@/helpers/utils/convertDate";
+import { calcNFTDetailHistoryType } from "@/helpers/service/calcGraph";
 import { NFTHistoryModal } from "@/components/NFTDetail/History";
 
 const NFTHistoryGraphBar = ({
-  height,
+  avgPrice,
   date,
-  average,
-  highest,
-  lowest,
-}: NFTHistoryGraphBarProps) => {
+  height,
+  lowPrice,
+  maxPrice,
+}: calcNFTDetailHistoryType) => {
   const [modalStatus, setModalStatus] = useState(false);
 
   const handleMouseEnter = () => {
@@ -28,9 +28,9 @@ const NFTHistoryGraphBar = ({
       onFocus={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
       <div className={style[`height-${height}`]}>
-        <p className={style.NFT_history_graph_average}>{average}</p>
+        <p className={style.NFT_history_graph_average}>{avgPrice}</p>
         <p className={style.NFT_history_graph_date}> {convertYMDWithComma(date)} </p>
-        <NFTHistoryModal open={modalStatus} highest={highest} lowest={lowest} />
+        <NFTHistoryModal open={modalStatus} maxPrice={maxPrice} lowPrice={lowPrice} />
       </div>
     </li>
   );

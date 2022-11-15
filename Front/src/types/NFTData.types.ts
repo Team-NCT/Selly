@@ -49,9 +49,9 @@ export interface NFTCardDataType {
 
 export interface NFTFractionHistoryType {
   date: string;
-  average: number;
-  lowest: number;
-  highest: number;
+  avgPrice: number;
+  lowPrice: number;
+  maxPrice: number;
 }
 
 export interface NFTFractionHistoryListType {
