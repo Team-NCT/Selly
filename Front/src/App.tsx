@@ -18,7 +18,7 @@ import {
 import { useCheckLogined, useSetGoerli } from "@/hooks";
 
 import { useEffect } from "react";
-import NotFound from "./pages/404NotFound/notFound";
+import NotFound from "./pages/404NotFound/NotFound";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
