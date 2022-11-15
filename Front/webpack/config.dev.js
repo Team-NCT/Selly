@@ -19,6 +19,7 @@ const devConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "public/index.html",
+      favicon: "src/assets/images/sellyLogo.svg",
     }),
 
     // react를 import하지 않아도 된다.
