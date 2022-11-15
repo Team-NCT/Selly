@@ -2,11 +2,11 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import style from "./Carousel.module.scss";
 import { CardListItem } from "@/components/common";
 import { LeftArrowIcon, RightArrowIcon } from "@/components/icon";
-import { CarouselProps } from "./Carousel.types";
+import { NFTCardDataType } from "@/types/NFTData.types";
 
 const CAROUSEL_WIDTH = 3152;
 
-const Carousel = ({ data }: CarouselProps) => {
+const Carousel = ({ data }: { data: NFTCardDataType[] }) => {
   const [step, setStep] = useState<number>(0);
   const [moveWidth, setMoveWidth] = useState<number>(0);
   const ulRef = useRef<HTMLUListElement>(null);
@@ -60,11 +60,11 @@ const Carousel = ({ data }: CarouselProps) => {
         ref={ulRef}>
         {data.map((item) => (
           <CardListItem
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            url={item.url}
-            supply={item.supply}
+            key={item.articleId}
+            articleId={item.articleId}
+            articleName={item.articleName}
+            articleImgUrl={item.articleImgUrl}
+            presentSalePieceCnt={item.presentSalePieceCnt}
           />
         ))}
       </ul>
