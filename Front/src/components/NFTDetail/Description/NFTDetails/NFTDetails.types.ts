@@ -7,7 +7,7 @@ export interface NFTDetailsProps {
   /**
    * NFT초기 발행 조각 수
    */
-  primaryCnt: number;
+  primaryCnt?: number;
 
   /**
    * NFT 토큰 아이디

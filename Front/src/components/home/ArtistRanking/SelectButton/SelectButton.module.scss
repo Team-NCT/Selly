@@ -1,9 +1,17 @@
 .item_active {
-  @include font($h3, $medium, $black350);
+  @include font($h5, $medium, $black350);
+
+  @include laptop {
+    @include font($h4, $medium, $black350);
+  }
 }
 
 .item_inactive {
-  @include font($h3, $medium, $black);
+  @include font($h5, $medium, $black);
+
+  @include laptop {
+    @include font($h4, $medium, $black);
+  }
 }
 
 .selct_container {

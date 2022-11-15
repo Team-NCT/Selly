@@ -3,24 +3,33 @@ import { RootState } from "@/store";
 
 interface ProfleDataState {
   profileData: {
+    userId: number;
+    wallet: string;
     nickname: string;
     introduction: string;
     image: string;
     banner: string;
     imageFile: File | null;
     bannerFile: File | null;
+    followerCnt: number;
+    followingCnt: number;
+    myFollowing: boolean;
   };
 }
 
 const initialState: ProfleDataState = {
   profileData: {
-    nickname: "둘기",
-    introduction: "자기 소개",
-    image:
-      "https://w.namu.la/s/6d37d2792f61b69511edc288e16598d0722ff0407af67089c0004ddeda7ad7b9bdc0b2e4880db9548efe21f2082a4c34545902a67aaa00eafce75c7f89fcdcb8eeae5357f92572f0758218fb6961e1f7b7e989a1abd448bfc6001607f77bba8a",
-    banner: "https://cdn.mos.cms.futurecdn.net/jbCNvTM4gwr2qV8X8fW3ZB-970-80.png.webp",
+    userId: 0,
+    wallet: "",
+    nickname: "",
+    introduction: "",
+    image: "",
+    banner: "",
     imageFile: null,
     bannerFile: null,
+    followerCnt: 0,
+    followingCnt: 0,
+    myFollowing: false,
   },
 };
 
@@ -29,6 +38,12 @@ const slice = createSlice({
   initialState,
 
   reducers: {
+    setUserId: (state, action: PayloadAction<number>) => {
+      state.profileData.userId = action.payload;
+    },
+    setWallet: (state, action: PayloadAction<string>) => {
+      state.profileData.wallet = action.payload;
+    },
     setNickname: (state, action: PayloadAction<string>) => {
       state.profileData.nickname = action.payload;
     },
@@ -47,19 +62,38 @@ const slice = createSlice({
     setBannerFile: (state, action: PayloadAction<File | null>) => {
       state.profileData.bannerFile = action.payload;
     },
+    setFollowerCnt: (state, action: PayloadAction<number>) => {
+      state.profileData.followerCnt = action.payload;
+    },
+    setFollowingCnt: (state, action: PayloadAction<number>) => {
+      state.profileData.followingCnt = action.payload;
+    },
+    setMyFollowing: (state, action: PayloadAction<boolean>) => {
+      state.profileData.myFollowing = action.payload;
+    },
     setProfileData: (
       state,
       action: PayloadAction<{
+        userId: number;
+        wallet: string;
         nickname: string;
         introduction: string;
         image: string;
         banner: string;
+        followerCnt: number;
+        followingCnt: number;
+        myFollowing: boolean;
       }>
     ) => {
+      state.profileData.userId = action.payload.userId;
+      state.profileData.wallet = action.payload.wallet;
       state.profileData.nickname = action.payload.nickname;
       state.profileData.introduction = action.payload.introduction;
       state.profileData.image = action.payload.image;
       state.profileData.banner = action.payload.banner;
+      state.profileData.followerCnt = action.payload.followerCnt;
+      state.profileData.followingCnt = action.payload.followingCnt;
+      state.profileData.myFollowing = action.payload.myFollowing;
     },
   },
 });
@@ -73,12 +107,17 @@ export const selectProfileData = createSelector(
 );
 
 export const {
+  setUserId,
+  setWallet,
   setNickname,
   setIntroduction,
   setImage,
   setBanner,
   setImageFile,
   setBannerFile,
+  setFollowerCnt,
+  setFollowingCnt,
+  setMyFollowing,
   setProfileData,
 } = slice.actions;
 export default slice.reducer;

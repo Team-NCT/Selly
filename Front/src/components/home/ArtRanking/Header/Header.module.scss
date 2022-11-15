@@ -1,6 +1,10 @@
 .home_art_header {
-  @include font($h2, $bold);
+  @include font($h4, $bold);
   @include flex(row, flex-start);
-  width: 100%;
   gap: 10px;
+  width: 100%;
+
+  @include laptop {
+    @include font($h2, $bold);
+  }
 }

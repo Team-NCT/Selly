@@ -2,10 +2,9 @@ import style from "./ShareDropdown.module.scss";
 import { ShareDropDownProps } from "./ShareDropDown.types";
 import { useKakaoShare } from "@/hooks";
 
-const ShareDropdown = ({ title, id, imageUrl, url = "" }: ShareDropDownProps) => {
+const ShareDropdown = ({ title, id, imageUrl, url }: ShareDropDownProps) => {
   const { kakaoShare } = useKakaoShare();
   const clickShareButton = () => {
-    console.log(title, id, imageUrl);
     kakaoShare({ title, id, imageUrl });
   };
   return (

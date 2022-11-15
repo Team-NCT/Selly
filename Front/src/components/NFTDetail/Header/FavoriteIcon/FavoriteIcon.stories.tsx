@@ -14,5 +14,6 @@ export default {
 export const Default: Story<FavoriteIconProps> = (args) => <FavoriteIcon {...args} />;
 
 Default.args = {
-  favoriteStatus: true,
+  articleId: 1,
+  userId: 1,
 };

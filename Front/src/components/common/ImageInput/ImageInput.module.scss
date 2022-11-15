@@ -36,8 +36,3 @@
   border-radius: 50%;
   background-color: $muscat100;
 }
-
-.input_error {
-  @include font($caption, $regular, $sherbet150);
-  margin-top: 10px;
-}

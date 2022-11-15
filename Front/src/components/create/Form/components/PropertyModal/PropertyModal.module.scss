@@ -1,5 +1,5 @@
 .property_modal_container {
-  @include flex(column, flex-start, flex-start);
+  @include flex(column, flex-start, center);
   margin: 24px;
   width: 80vw;
   max-width: 552px;
@@ -8,15 +8,22 @@
   gap: 20px;
 }
 
-.property_modal_label {
-  @include font($h5, $medium);
+.property_modal_header {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20px;
 }
 
-.property_modal_header {
-  @include flex(row, center);
+.property_modal_label {
+  @include font($h5, $bold);
+}
+
+.property_modal_title {
+  @include flex(row, center, center);
   @include font($body1, $bold);
-  width: 100%;
   padding-left: 32px;
+  width: 100%;
+  max-width: 500px;
   gap: 16px;
 }
 
@@ -32,16 +39,24 @@
   @include flex(row, center, flex-start);
   width: 100%;
   flex: 1;
+
+  > div {
+    @include flex(column, flex-start, center);
+    gap: 4px;
+  }
 }
 
 .property_modal_add_button {
   @include flex-center;
   width: 100%;
+  > button {
+    @include font($body2, $bold, $black300);
+  }
 }
 
 .property_modal_input {
   @include flex(row, flex-start, center);
-  gap: 16px;
+  gap: 24px;
 }
 
 .property_modal_delete {
@@ -50,7 +65,12 @@
 }
 
 .proerty_button {
+  @include font($body2, $bold, $black300);
   @include flex(row, flex-end, flex-end);
   width: 100%;
   gap: 5px;
+
+  > button {
+    @include font($body2, $bold, $black300);
+  }
 }

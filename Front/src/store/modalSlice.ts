@@ -9,6 +9,9 @@ interface ModalState {
   sell: boolean;
   sellStatus: boolean;
   confirm: boolean;
+  follower: boolean;
+  following: boolean;
+  loading: boolean;
 }
 
 const initialState: ModalState = {
@@ -18,6 +21,9 @@ const initialState: ModalState = {
   sell: false,
   sellStatus: false,
   confirm: false,
+  follower: false,
+  following: false,
+  loading: false,
 };
 
 const slice = createSlice({
@@ -64,6 +70,27 @@ const slice = createSlice({
     closeConfirm: (state) => {
       state.confirm = false;
     },
+
+    openFollower: (state) => {
+      state.follower = true;
+    },
+
+    openFollowing: (state) => {
+      state.following = true;
+    },
+
+    closeFollow: (state) => {
+      state.follower = false;
+      state.following = false;
+    },
+
+    closeLoading: (state) => {
+      state.loading = false;
+    },
+
+    openLoading: (state) => {
+      state.loading = true;
+    },
   },
 });
 
@@ -86,6 +113,11 @@ export const {
   openSellStatus,
   openConfirm,
   closeConfirm,
+  openFollower,
+  openFollowing,
+  closeFollow,
+  closeLoading,
+  openLoading,
 } = slice.actions;
 
 export default slice.reducer;

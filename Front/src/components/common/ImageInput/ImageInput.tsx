@@ -1,5 +1,6 @@
 import { ChangeEvent, useCallback } from "react";
 import { ImageInputProps } from "./ImageInput.types";
+import { AddPhotoIcon } from "@/components/icon";
 import style from "./ImageInput.module.scss";
 
 const ImageInput = ({
@@ -30,7 +31,7 @@ const ImageInput = ({
         {/* 이미지가 없을 때 */}
         {!imageUrl && (
           <div className={style[`input_image_${styles}`]}>
-            <span className="material-icons-outlined">add_photo_alternate</span>
+            <AddPhotoIcon />
             <span className={style.input_image_desc}> GIF, JPG, JPEG, PNG, WEBP</span>
             <span className={style.input_image_desc}>파일 크기: 최대 {limit} MB</span>
           </div>

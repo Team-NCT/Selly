@@ -1,0 +1,81 @@
+.section {
+  width: 100%;
+}
+
+.title {
+  @include font($h4, $bold);
+  width: 100%;
+
+  @include laptop {
+    @include font($h2, $bold);
+  }
+}
+
+.proof_section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  justify-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: center;
+  width: 100%;
+  margin-top: 80px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(auto-fill, minmax(50%, auto));
+    justify-items: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+  }
+}
+
+.proof_content {
+  @include flex(column, center, flex-start);
+
+  @media (max-width: 800px) {
+    margin: 30px;
+  }
+}
+
+.proof_title {
+  @include font($h5, $semibold);
+
+  @media (max-width: 1375px) {
+    font-size: 18px;
+  }
+  @media (max-width: 950px) {
+    font-size: 16px;
+  }
+  @media (max-width: 800px) {
+    font-size: 3vw;
+  }
+}
+
+.proof_number {
+  @include font($h1, $semibold);
+
+  @media (max-width: 1375px) {
+    font-size: 40px;
+  }
+  @media (max-width: 950px) {
+    font-size: 32px;
+  }
+  @media (max-width: 800px) {
+    font-size: 7vw;
+  }
+}
+
+.proof_number_type {
+  @include font($h5, $semibold);
+
+  @media (max-width: 1375px) {
+    font-size: 18px;
+  }
+  @media (max-width: 950px) {
+    font-size: 16px;
+  }
+  @media (max-width: 800px) {
+    font-size: 3vw;
+  }
+}

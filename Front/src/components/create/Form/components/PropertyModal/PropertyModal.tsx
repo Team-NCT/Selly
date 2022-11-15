@@ -1,4 +1,5 @@
 import { Modal, Label, Button, TextInput } from "@/components/common";
+import { XIcon } from "@/components/icon";
 import { PropertyModalProps } from "./PropertyModal.types";
 import style from "./PropertyModal.module.scss";
 import React, { useEffect, useState } from "react";
@@ -58,9 +59,11 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
   //* 저장
   const saveHandler = (event: React.MouseEvent) => {
     event.preventDefault();
+    console.log(modalProperties);
     const saveProperties = modalProperties.filter(
       (property) => property.type.trim() && property.name.trim()
     );
+    console.log(saveProperties);
     setProperties(saveProperties);
     close();
   };
@@ -68,13 +71,15 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
   return (
     <Modal close={close}>
       <form className={style.property_modal_container}>
-        <Label id="create_properties" color="muscat" positionH="bottom" positionW="right">
-          <h1 className={style.property_modal_label}>Properties</h1>
-        </Label>
         <header className={style.property_modal_header}>
+          <Label id="create_properties" color="muscat" positionH="bottom" positionW="right">
+            <h1 className={style.property_modal_label}>Properties</h1>
+          </Label>
+        </header>
+        <section className={style.property_modal_title}>
           <div className={style.property_modal_title_type}>Type</div>
           <div className={style.property_modal_title_name}>Name</div>
-        </header>
+        </section>
         <section className={style.property_modal_content}>
           <div>
             {modalProperties.map((modalProperty, idx) => (
@@ -88,7 +93,7 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
                   <button
                     className={style.property_modal_delete}
                     onClick={(e) => deleteHandler(e, idx)}>
-                    X
+                    <XIcon />
                   </button>
                 </div>
                 <TextInput

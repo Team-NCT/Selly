@@ -20,6 +20,7 @@ export const NeonColor = [
   "ocean150",
   "ocean200",
   "ocean250",
+  "blackberry",
 ] as const;
 export type NeonColorType = typeof NeonColor[number];
 

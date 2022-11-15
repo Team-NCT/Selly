@@ -1,24 +1,24 @@
 .card_list {
   width: 100%;
-  @include grid(40%);
-  column-gap: 24px;
+  @include grid(calc((100% - 20px) / 2));
+  column-gap: 20px;
   row-gap: 24px;
 
   @include tablet {
-    @include grid(20%);
-    column-gap: 40px;
-    row-gap: 60px;
+    @include grid(calc((100% - 40px) / 3));
+    column-gap: 20px;
+    row-gap: 40px;
   }
 
   @include laptop {
-    @include grid(20%);
+    @include grid(calc((100% - 60px) / 4));
     column-gap: 20px;
-    row-gap: 60px;
+    row-gap: 48px;
   }
 
   @include desktop {
-    @include grid(15%);
-    column-gap: 40px;
-    row-gap: 80px;
+    @include grid(calc((100% - 128px) / 5));
+    column-gap: 32px;
+    row-gap: 60px;
   }
 }

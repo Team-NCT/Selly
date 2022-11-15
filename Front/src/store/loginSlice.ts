@@ -2,15 +2,17 @@ import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
 interface AccountState {
-  account: {
-    address: string | null;
-    userId: string | null | undefined;
-    token: string | null | undefined;
-  };
+  address: string | null;
+  userId: number | null | undefined;
+  token: string | null | undefined;
+  goerliToken: number | null;
 }
 
 const initialState: AccountState = {
-  account: { address: null, userId: null, token: null },
+  address: null,
+  userId: null,
+  token: null,
+  goerliToken: null,
 };
 
 const slice = createSlice({
@@ -22,19 +24,23 @@ const slice = createSlice({
       state,
       action: PayloadAction<{
         token: string | null | undefined;
-        userId: string | null | undefined;
+        userId: number | null | undefined;
       }>
     ) => {
-      state.account.userId = action.payload.userId;
-      state.account.token = action.payload.token;
+      state.userId = action.payload.userId;
+      state.token = action.payload.token;
     },
     setAddress: (state, action: PayloadAction<{ address: string | null }>) => {
-      state.account.address = action.payload.address;
+      state.address = action.payload.address;
+    },
+    setGoerliToken: (state, action: PayloadAction<{ goerliToken: number | null }>) => {
+      state.goerliToken = action.payload.goerliToken;
     },
     logout: (state) => {
-      state.account.userId = null;
-      state.account.token = null;
-      state.account.address = null;
+      state.userId = null;
+      state.token = null;
+      state.address = null;
+      state.goerliToken = null;
     },
   },
 });
@@ -47,5 +53,5 @@ export const selectAccount = createSelector(
   (account) => account
 );
 
-export const { setAccount, setAddress, logout } = slice.actions;
+export const { setAccount, setAddress, setGoerliToken, logout } = slice.actions;
 export default slice.reducer;

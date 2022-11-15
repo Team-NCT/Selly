@@ -1,14 +1,18 @@
-interface SystemError {
-  code: string | number;
-  message: string;
-}
+import Web3 from "web3";
+
+const web3 = new Web3(window.ethereum);
 
 export const getWallet = async () => {
-  const accounts = await window.ethereum.request({
-    method: "eth_requestAccounts",
-  });
+  try {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
 
-  return accounts[0];
+    return accounts[0];
+  } catch (error: unknown) {
+    const err = error as Error;
+    return err.code;
+  }
 };
 
 export const getChainId = async () => {
@@ -20,19 +24,13 @@ export const getChainId = async () => {
 };
 
 export const changeNetwork = async (chainId: string) => {
-  try {
-    await window.ethereum.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: chainId }],
-    });
-  } catch (error) {
-    const err = error as SystemError;
+  await window.ethereum.request({
+    method: "wallet_switchEthereumChain",
+    params: [{ chainId: chainId }],
+  });
+};
 
-    //* MetaMask에 해당 네트워크가 없는 경우 발생하는 에러
-    if (err.code === 4902) {
-      console.error("This network is not found in your network!");
-    } else {
-      console.error("Failed to switch this network");
-    }
-  }
+export const getGoerliToken = async (account: string) => {
+  const token = await web3.eth.getBalance(account);
+  return Number(Number(web3.utils.fromWei(token)).toFixed(4));
 };

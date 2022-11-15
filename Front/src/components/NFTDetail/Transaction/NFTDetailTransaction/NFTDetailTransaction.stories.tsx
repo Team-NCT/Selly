@@ -13,15 +13,11 @@ export default {
 
 export const Default: Story<NFTDetailTransactionProps> = (args) => (
   <div style={{ maxWidth: "600px" }}>
-    <NFTDetailTransaction {...args} />
+    <NFTDetailTransaction />
   </div>
 );
 
 Default.args = {
-  auction: {
-    auctionEndTime: "",
-    auctionStatus: true,
-    bidPrice: 0,
-    lowPrice: 0,
-  },
+  articleId: 1,
+  userId: 1,
 };

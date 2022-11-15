@@ -1,1 +1,1 @@
-export * from "./NFTDetailAPI";
+export * from "./NFTDetailDataAPI";

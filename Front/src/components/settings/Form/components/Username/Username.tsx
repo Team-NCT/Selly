@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import style from "./Username.module.scss";
 
 const Username = () => {
-  const { account } = useAppSelector(selectAccount);
+  const { nickname } = useAppSelector(selectAccount);
   const [status, setStatus] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ const Username = () => {
   useEffect(() => {
     const debounce = setTimeout(async () => {
       setStatus(false);
-      if (account.nickname + "1" === profileData.nickname) {
+      if (nickname + "1" === profileData.nickname) {
         setError("닉네임이 중복되었습니다.");
       } else if (!checkNumEngKor(profileData.nickname)) {
         setError("한글, 영어, 숫자의 조합만 가능합니다.");

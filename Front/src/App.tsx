@@ -15,28 +15,30 @@ import {
   Category,
   SearchResult,
 } from "@/pages";
-import { useCheckLogined } from "@/hooks";
+import { useCheckLogined, useSetGoerli } from "@/hooks";
 
 import { useEffect } from "react";
+import NotFound from "./pages/404NotFound/notFound";
 
 function App() {
   const { status: alertState, content, style, icon } = useAppSelector(selectAlert);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
 
-  const [checkWallet] = useCheckLogined();
+  const [checkWallet, checkWalletAccount] = useCheckLogined();
+  const [setGoerliToken] = useSetGoerli();
 
   useEffect(() => {
+    window.ethereum?.on("chainChanged", checkWallet);
+    window.ethereum?.on("accountsChanged", checkWalletAccount);
     if (window.ethereum) {
-      window.ethereum.on("chainChanged", () => {
-        console.log("체인 바뀜");
-        checkWallet();
-      });
-      window.ethereum.on("accountsChanged", () => {
-        console.log("아이디 바뀜");
-        checkWallet();
-      });
+      setGoerliToken();
     }
+
+    return () => {
+      window.ethereum?.removeListener("chainChanged", checkWallet);
+      window.ethereum?.removeListener("accountsChanged", checkWalletAccount);
+    };
   });
 
   return (
@@ -48,7 +50,7 @@ function App() {
           {/* Create 페이지 */}
           <Route path="/create" element={<Create />} />
           {/* NFT 상세 페이지 */}
-          <Route path="/detail/:id" element={<NFTDetail />} />
+          <Route path="/detail/:articleId" element={<NFTDetail />} />
           {/* setting 페이지 */}
           <Route path="/settings" element={<Settings />} />
           {/* profile 페이지 */}
@@ -61,6 +63,7 @@ function App() {
           {/* all, analog, digital, photography */}
           <Route path="/explore/:category" element={<Category />} />
           <Route path="/search" element={<SearchResult />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
 

@@ -1,0 +1,8 @@
+.title {
+  @include font($h4, $bold);
+  width: 100%;
+
+  @include laptop {
+    @include font($h2, $bold);
+  }
+}
