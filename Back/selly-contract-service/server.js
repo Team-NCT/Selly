@@ -90,14 +90,14 @@ app.get('/listen/:wallet', async (req, res) => {
         return res.json(list);
         }
         }
-        if (err){
-            subscription.unsubscribe(function(error, success){
-                if(success)
-                    console.log('Successfully unsubscribed!');
-            });
-            console.log(err)
-            throw err
-        }
+        // if (err){
+        //     subscription.unsubscribe(function(error, success){
+        //         if(success)
+        //             console.log('Successfully unsubscribed!');
+        //     });
+        //     console.log(err)
+        //     throw err
+        // }
     });
     // subscription.on('error', err => { 
     //     subscription.unsubscribe(function(error, success){
