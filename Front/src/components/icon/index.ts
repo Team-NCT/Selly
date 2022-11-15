@@ -12,3 +12,4 @@ export { default as BookmarkRemoveIcon } from "./BookmarkRemoveIcon/BookmarkRemo
 export { default as AddPhotoIcon } from "./AddPhotoIcon/AddPhotoIcon";
 export { default as PencilIcon } from "./PencilIcon/PencilIcon";
 export { default as UpArrowIcon } from "./UpArrowIcon/UpArrowIcon";
+export { default as LogoIcon } from "./LogoIcon/LogoIcon";

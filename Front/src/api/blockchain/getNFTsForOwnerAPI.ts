@@ -9,16 +9,18 @@ const settings = {
 const alchemy = new Alchemy(settings);
 
 const getNFTsForOwnerAPI = async (owner: string) => {
-  //TODO_YK: 계정 바뀔 때마다 다시
-  //TODO_YK: api로 페이징 처리가 가능하나, ERC721로만 필터링 하는 로직 추가 필요...ㅠㅠ
-  const nfts = await alchemy.nft.getNftsForOwner(
-    (owner = owner)
-    // { pageSize: 3 }
-  );
+  const nfts = await alchemy.nft.getNftsForOwner(owner);
 
   console.log("엔에프티", nfts);
 
-  return nfts;
+  let ERC721datas = [];
+  ERC721datas = nfts.ownedNfts.filter((nft) => {
+    return nft.tokenType === "ERC721" && nft.title !== "";
+  });
+
+  console.log("필터링", ERC721datas);
+
+  return ERC721datas;
 };
 
 export default getNFTsForOwnerAPI;

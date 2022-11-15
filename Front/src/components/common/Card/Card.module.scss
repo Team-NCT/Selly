@@ -13,6 +13,13 @@
       object-fit: cover;
       border-radius: $radius-card;
     }
+    
+    .error_image {
+      width: 100%;
+      background-color: $white200;
+      aspect-ratio: 1/1;
+      object-fit: none;
+    }
   }
 
   div {
