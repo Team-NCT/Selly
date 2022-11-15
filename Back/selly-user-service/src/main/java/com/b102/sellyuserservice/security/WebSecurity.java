@@ -87,6 +87,8 @@ public class WebSecurity {
 //            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests().antMatchers("/error/**").permitAll()
+            .and()
+            .authorizeRequests()
             .antMatchers("/","/**")
 //            .access("hasIpAddress('15.165.177.117') or hasIpAddress('172.17.0.1') or hasIpAddress('172.17.0.4')")
             .permitAll()
