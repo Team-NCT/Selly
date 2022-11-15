@@ -29,7 +29,7 @@ spring:
         - id: selly-user-service
           uri: lb://SELLY-USER-SERVICE
           predicates:
-            - Path=/api/selly-user-service/**
+            - Path=/selly-user-service/**
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-user-service/(?<segment>.*), /$\{segment}
@@ -138,7 +138,7 @@ spring:
         - id: selly-article-service
           uri: lb://SELLY-ARTICLE-SERVICE
           predicates:
-            - Path=/api/selly-article-service/**
+            - Path=/selly-article-service/**
           filters:
             - name: CustomFilter
             - name: LoggingFilter
@@ -149,7 +149,7 @@ spring:
         - id: selly-trade-service
           uri: lb://SELLY-TRADE-SERVICE
           predicates:
-            - Path=/api/selly-trade-service/**
+            - Path=/selly-trade-service/**
           filters:
             - name: CustomFilter
             - name: LoggingFilter
@@ -160,7 +160,7 @@ spring:
         - id: selly-search-service
           uri: lb://SELLY-SEARCH-SERVICE
           predicates:
-            - Path=/api/selly-search-service/**
+            - Path=/selly-search-service/**
           filters:
             - name: CustomFilter
             - name: LoggingFilter
@@ -171,7 +171,7 @@ spring:
         - id : selly-contract-service
           uri: lb://SELLY-CONTRACT-SERVICE
           predicates:
-            - Path=/api/selly-contract-service/**
+            - Path=/selly-contract-service/**
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-contract-service/(?<segment>.*), /$\{segment}
