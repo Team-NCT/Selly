@@ -46,7 +46,7 @@ function Sell() {
   useEffect(() => {
     if (userId) return;
     openLoginAlert();
-    navigate(-1);
+    // navigate(-1);
   }, [userId]);
 
   return (

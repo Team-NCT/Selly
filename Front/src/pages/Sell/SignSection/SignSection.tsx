@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import style from "./SignSection.module.scss";
 import { useAppSelector, useCallbackPrompt } from "@/hooks";
-import { selectModal } from "@/store/modalSlice";
+import { selectModal, openLoading, closeLoading } from "@/store/modalSlice";
 import { SignBoxList, ConfirmModal, SellInfoCard } from "@/components/sell";
 import { SIGN_DATAS } from "./SignDatas";
 import { stepType } from "@/pages/Sell/Sell";
+import { LoadingModal } from "@/components/common";
 
 export interface SignSectionProps {
   changeStep: (step: stepType) => void;
@@ -17,7 +18,7 @@ function SignSection({ changeStep }: SignSectionProps) {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
-  const { confirm } = useAppSelector(selectModal);
+  const { confirm, loading } = useAppSelector(selectModal);
 
   const listener = (event: BeforeUnloadEvent) => {
     event.preventDefault();
@@ -43,6 +44,7 @@ function SignSection({ changeStep }: SignSectionProps) {
           />,
           el
         )}
+      {loading && createPortal(<LoadingModal />, el)}
       <header className={style.header}>
         <div className={style.step_title}>
           <h3 className={style.step_sell}>판매 정보 등록</h3>
@@ -57,7 +59,7 @@ function SignSection({ changeStep }: SignSectionProps) {
       </header>
       <section className={style.content}>
         <div className={style.sign_box_list}>
-          <SignBoxList data={SIGN_DATAS} setShowDialog={setShowDialog} />
+          <SignBoxList data={SIGN_DATAS} confirmNavigation={confirmNavigation} />
         </div>
         <div className={style.sell_info}>
           <SellInfoCard />

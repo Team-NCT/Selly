@@ -1,3 +1,4 @@
+import { useState } from "react";
 import style from "./SellInfoCard.module.scss";
 import { Button } from "@/components/common";
 import { selectSellInfo } from "@/store/sellInfoSlice";
@@ -5,8 +6,11 @@ import { useAppSelector, useAppDispatch } from "@/hooks";
 import { openConfirm } from "@/store/modalSlice";
 import { EthereumIcon } from "@/components/icon";
 import { selectNFTValue } from "@/store/selectNFTSlice";
+import sellyIcon from "@/assets/images/sellyLogo.svg";
 
 const SellInfoCard = () => {
+  const [errorStatus, setErrorStatus] = useState(true);
+
   const dispatch = useAppDispatch();
   const sellInfo = useAppSelector(selectSellInfo);
   const NFTValue = useAppSelector(selectNFTValue);
@@ -15,11 +19,21 @@ const SellInfoCard = () => {
     dispatch(openConfirm());
   };
 
+  const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = sellyIcon;
+    setErrorStatus(false);
+  };
+
   return (
     <article className={style.sell_info_card}>
       <h1>Selected NFT</h1>
       <div className={style.content}>
-        <img src={NFTValue.articleUrl} alt={NFTValue.articleName} />
+        <img
+          src={!NFTValue.articleUrl ? sellyIcon : NFTValue.articleUrl}
+          alt={NFTValue.articleName}
+          onError={handleImgError}
+          className={!NFTValue.articleUrl || !errorStatus ? style.error_image : ""}
+        />
         <div className={style.sell_info}>
           <h2>
             카테고리

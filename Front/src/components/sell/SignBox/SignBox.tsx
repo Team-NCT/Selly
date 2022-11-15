@@ -2,7 +2,7 @@ import { useState } from "react";
 import style from "./SignBox.module.scss";
 import { SignBoxProps } from "./SignBox.types";
 import { Neon, Button } from "@/components/common";
-import { useAppSelector } from "@/hooks";
+import { useAppSelector, useAppDispatch } from "@/hooks";
 import { selectSignData } from "@/store/signDataSlice";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { selectSellInfo } from "@/store/sellInfoSlice";
@@ -10,6 +10,7 @@ import { selectAccount } from "@/store/loginSlice";
 import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
 import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
 import { PencilIcon } from "@/components/icon";
+import { closeLoading, openLoading, selectModal } from "@/store/modalSlice";
 
 import Web3 from "web3";
 
@@ -21,10 +22,11 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
   const [buttonText, setButtonText] = useState("서명하기");
 
   const { address, userId } = useAppSelector(selectAccount);
-
   const { F_NFTCA } = useAppSelector(selectSignData);
   const { CA, tokenId, metaDataUrl, articleName, articleUrl } = useAppSelector(selectNFTValue);
   const { category, code, num, price } = useAppSelector(selectSellInfo);
+
+  const dispatch = useAppDispatch();
 
   const [createSale] = useSaleNFTMutation();
 
@@ -74,12 +76,12 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
   };
 
   const onClickHandler = () => {
-    if (!address || !userId) return;
+    // if (!address || !userId) return;
     const userWallet = address;
 
     setSignable(false);
     setButtonText("서명 중");
-
+    dispatch(openLoading());
     if (!signFunction) {
       Onsale({
         CA,
@@ -124,6 +126,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
       category,
       price,
     }).then((res) => {
+      dispatch(closeLoading());
       if (res) {
         setIsCompleted(true);
         goNext(idx);
@@ -138,10 +141,15 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
 
   return (
     <div className={style.sign_box}>
-      <div className={isActive || isCompleted ? style.sign_box_idx_active : style.sign_box_idx}>
+      <div
+        className={
+          `${style.sign_box_idx} ` +
+          (isActive ? `${style.is_active} ` : "") +
+          (isCompleted ? `${style.is_completed} ` : "")
+        }>
         {idx}
       </div>
-      <div className={style.sign_box_section}>
+      <div className={`${style.sign_box_section} ` + (isCompleted ? `${style.is_completed}` : "")}>
         <div className={style.pencil_icon}>
           <PencilIcon />
         </div>

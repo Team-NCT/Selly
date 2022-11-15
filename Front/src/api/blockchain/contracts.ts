@@ -1,10 +1,5 @@
 import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
-import {
-  sellyERC721Contract,
-  F_NFTFactoryContract,
-  F_NFTContract,
-  F_NFT_SaleContract,
-} from "./web3Config";
+import { sellyERC721Contract, F_NFTFactoryContract, F_NFTContract } from "./web3Config";
 
 export const makeVault = async ({
   CA,
