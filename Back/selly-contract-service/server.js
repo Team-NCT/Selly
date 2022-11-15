@@ -340,7 +340,7 @@ app.get("/listensa/:wallet/:sa", async(req, res) =>{
     //     }
     // });
 })
-app.post("/cancleSale", async(req, res) =>{
+app.post("/cancelSale", async(req, res) =>{
     const from = req.body.wallet;
     const nonce = await web3.eth.getTransactionCount(from);
     const CA = req.body.saleContractAddress;
