@@ -23,7 +23,7 @@ const Card = ({ articleImgUrl, articleName, presentSalePieceCnt }: CardProps) =>
           src={!articleImgUrl ? sellyIcon : articleImgUrl}
           alt={articleName}
           onError={handleImgError}
-          className={!url || !errorStatus ? style.error_image : ""}></img>
+          className={!articleImgUrl || !errorStatus ? style.error_image : ""}></img>
       </figure>
       <div>
         <p className={style.card_title}>{articleName}</p>
