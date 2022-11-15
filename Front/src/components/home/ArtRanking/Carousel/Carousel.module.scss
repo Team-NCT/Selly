@@ -1,5 +1,6 @@
 .home_art_carousel {
   position: relative;
+  width: 100%;
 
   .home_art_carousel_window {
     @include flex(row, flex-start, center);

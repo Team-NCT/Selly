@@ -23,7 +23,12 @@ const loginAPI = createApi({
         try {
           const { meta } = await queryFulfilled;
           const header = meta?.response?.headers;
-          dispatch(setAccount({ token: header?.get("token"), userId: header?.get("userId") }));
+          dispatch(
+            setAccount({
+              token: header?.get("token"),
+              userId: header?.get("userId") ? Number(header?.get("userId")) : null,
+            })
+          );
         } catch (error) {
           console.log("실패용");
           dispatch(logout());

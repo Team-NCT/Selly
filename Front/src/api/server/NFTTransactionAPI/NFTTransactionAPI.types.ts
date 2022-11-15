@@ -21,7 +21,6 @@ export interface SellNFTFractionType {
 }
 
 export interface RegisterSellNFTFractionType {
-  articleId: number;
   seller: number;
   wallet: string;
   tokenId: string;
