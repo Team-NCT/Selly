@@ -193,7 +193,6 @@ contract FractionalizedNFT is ERC20, Ownable, ERC20Permit, ERC721Holder {
     function auctionEnd() public {
         require(!ended, "Already called");
         require(block.timestamp >= auctionEndTime, "To auction");
-        require(highestBid != 0, "Nobody makes a bid");
 
         ended = true;
         collection.safeTransferFrom(address(this), highestBidder, tokenId);
