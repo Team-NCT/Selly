@@ -9,6 +9,15 @@ contract FractionalizedNFTFactory {
   // 해당 NFT의 CA에 토큰 id를 넣으면 금고 컨트랙트(FractionalizedNFT)의 주소가 나오도록 매필
   mapping(address => mapping(uint256 => address)) public F_NFTCA;
   
+  // 이벤트
+  event FractionalizeNFT(
+    address F_CA,
+    address NFTCA,
+    uint256 tokenId,
+    address owner,
+    uint256 amount
+  );
+
   constructor() {}
 
   function Fractionalize 
@@ -27,6 +36,9 @@ contract FractionalizedNFTFactory {
     );
     fractionalizedNFTCAs.push(fractionalizedNFTCA);
     F_NFTCA[_NFTCA][_tokenId] = fractionalizedNFTCA;
+
+    emit FractionalizeNFT(fractionalizedNFTCA, _NFTCA, _tokenId, msg.sender, _amount);
+
     return fractionalizedNFTCA;
   }
 
