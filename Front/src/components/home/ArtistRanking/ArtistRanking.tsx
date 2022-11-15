@@ -1,10 +1,9 @@
 import { useState } from "react";
-import ArtistRankingList from "./ArtistRankingList/ArtistRankingList";
-import { arg1 } from "./dummy";
 import Header from "./Header/Header";
 import SelectButton from "./SelectButton/SelectButton";
 import style from "./ArtistRanking.module.scss";
 import ArtistRankingTitle from "./ArtistRankingTitle/ArtistRankingTitle";
+import { ArtistRankingTotalList, ArtistRankingTrendingList } from "./ArtistRankingList";
 
 const ArtistRanking = () => {
   const [isTotal, setIsTotal] = useState(true);
@@ -13,7 +12,7 @@ const ArtistRanking = () => {
       <Header />
       <SelectButton setIsTotal={setIsTotal} />
       <ArtistRankingTitle />
-      <ArtistRankingList {...arg1} />
+      {isTotal ? <ArtistRankingTotalList /> : <ArtistRankingTrendingList />}
     </div>
   );
 };

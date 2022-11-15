@@ -19,3 +19,13 @@
     column-gap: 100px;
   }
 }
+
+.loading {
+  @include flex(column);
+  @include font($h5, $semibold);
+  gap: 10px;
+}
+
+.no_data {
+  @include font($h5, $semibold);
+}

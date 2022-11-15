@@ -1,10 +1,5 @@
-export interface ArtistRankingProps {
-  userId: number;
-  nickname: string;
-  image: string;
-  isAuth: boolean;
-  wallet: string;
-  followerCnt: number;
-  NFTCnt: number;
+import { ArtistRankingType } from "@/api/server/userAPI/userAPI.types";
+
+export type ArtistRankingProps = ArtistRankingType & {
   rank: number;
-}
+};
