@@ -24,3 +24,15 @@ export interface NFTDescCardDataType {
    */
   rateChange?: number | null;
 }
+
+export interface NFTFractionHistoryType {
+  date: string;
+  average: number;
+  lowest: number;
+  highest: number;
+}
+
+export interface NFTFractionHistoryListType {
+  historyList: NFTFractionHistoryType[];
+  avgPrice: number;
+}

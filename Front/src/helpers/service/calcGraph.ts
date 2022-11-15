@@ -1,7 +1,7 @@
 //* 그래프 관련 계산 함수
-import { NFTDetailHistoryType } from "@/components/NFTDetail/History/NFTDetailHistory/NFTDetailHistory.types";
+import { NFTFractionHistoryType } from "@/types/NFTData.types";
 
-interface calcNFTDetailHistoryType extends NFTDetailHistoryType {
+interface calcNFTDetailHistoryType extends NFTFractionHistoryType {
   height: number;
 }
 
@@ -12,7 +12,7 @@ interface calcNFTDetailHistoryType extends NFTDetailHistoryType {
  * @ returns: 그래프 높이가 추가된 히스토리 리스트
  */
 export const calcNFTTransactionHistoryGraph = (
-  historyList: NFTDetailHistoryType[]
+  historyList: NFTFractionHistoryType[]
 ): calcNFTDetailHistoryType[] => {
   //* 바 그래프의 최대 값
   let maxValue = 0;
