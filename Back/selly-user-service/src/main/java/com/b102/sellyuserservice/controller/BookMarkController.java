@@ -1,5 +1,6 @@
 package com.b102.sellyuserservice.controller;
 
+import com.b102.sellyuserservice.domain.entity.BookMark;
 import com.b102.sellyuserservice.model.service.BookMarkService;
 import com.b102.sellyuserservice.vo.ArticleResponse;
 import com.b102.sellyuserservice.vo.BookMarkRequest;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Path;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -39,4 +41,14 @@ public class BookMarkController {
     return ResponseEntity.ok().body(bookMarkResponseList);
   }
 
+  @GetMapping("/bookmark/{articleId}/{userId}")
+  public Boolean bookMarkCheck(@PathVariable("articleId") Long articleId, @PathVariable("userId") Long userId){
+    BookMark bookMark = bookMarkService.checkBookMark(articleId, userId);
+    if (bookMark != null){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 }

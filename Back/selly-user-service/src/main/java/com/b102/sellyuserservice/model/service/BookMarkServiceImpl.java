@@ -66,4 +66,9 @@ public class BookMarkServiceImpl implements BookMarkService{
     });
     return bookMarkResponseList;
   }
+
+  @Override
+  public BookMark checkBookMark(Long articleId, Long userId) {
+    return bookMarkRepository.findByUserIdAndArticleId(userId, articleId);
+  }
 }
