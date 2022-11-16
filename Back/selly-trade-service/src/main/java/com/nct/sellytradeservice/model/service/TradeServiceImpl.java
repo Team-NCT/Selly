@@ -147,10 +147,15 @@ public class TradeServiceImpl implements TradeService {
       System.out.println("작품 없음");
       RequestArticleNoMinting requestArticleNoMinting = mapper.map(sellRegistRequest, RequestArticleNoMinting.class);
       requestArticleNoMinting.setOwner(sellRegistRequest.getSeller());
+      requestArticleNoMinting.setOriginalAuthor(sellRegistRequest.getSeller());
+      requestArticleNoMinting.setPrimaryCnt(sellRegistRequest.getPieceCnt());
+      System.out.println(requestArticleNoMinting);
       articleServiceClient.aricleCreateNoMinting(requestArticleNoMinting);
       ResponseArticleId getArticleId = articleServiceClient.responseArticleId(sellRegistRequest.getContractAddress(), sellRegistRequest.getTokenId());
+      System.out.println(getArticleId);
       mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
       TradeRegist tradeRegist = mapper.map(sellRegistRequest, TradeRegist.class);
+      System.out.println(tradeRegist);
       tradeRegist.setArticleId(getArticleId.getArticleId());
       ResponseSaleCA responseSaleCA = sellyContractServiceClient.responseSaleCa(sellRegistRequest.getWallet(), sellRegistRequest.getContractAddress());
       tradeRegist.setSaleContractAddress(responseSaleCA.getSaleContractAddress());
@@ -481,7 +486,7 @@ public class TradeServiceImpl implements TradeService {
 
   @Override
   public String dropTradeRegist(RequestDeleteTradeRegist requestDeleteTradeRegist) {
-    TradeRegist tradeRegist = tradeRegistRepository.findBysaleContractAddressAndSeller(requestDeleteTradeRegist.getSaleContractAddress(), requestDeleteTradeRegist.getSeller());
+    TradeRegist tradeRegist = tradeRegistRepository.findBySaleContractAddressAndSeller(requestDeleteTradeRegist.getSaleContractAddress(), requestDeleteTradeRegist.getSeller());
     if (tradeRegist == null){
       return "거래 등록 취소에 실패했습니다.";
     }

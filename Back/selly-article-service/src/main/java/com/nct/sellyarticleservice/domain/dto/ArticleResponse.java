@@ -17,7 +17,7 @@ public class ArticleResponse {
 
   private Long articleId;
 
-  private boolean availability;
+  private Boolean availability;
 
   private String category;
 
@@ -49,7 +49,7 @@ public class ArticleResponse {
 
   private Long owner;
 
-  private double recentMarketPrice;
+  private Double recentMarketPrice;
 
   @Builder
   public ArticleResponse(Long articleId, boolean availability, String category, String articleName,

@@ -13,7 +13,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
   Integer countByOwner(Long owner);
 
-  List<ResponseInfoArticle> findByArticleId(Long articleId);
+
+  Article findByArticleId(Long articleId);
   Article findByContractAddressAndTokenId(String contractAddress, String tokenId);
   List<Article> findByCategoryAndAvailability(String category, boolean availability, Sort sort);
 
