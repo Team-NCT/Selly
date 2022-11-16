@@ -22,7 +22,7 @@ exports.registerWithEureka = (appName, PORT) =>{
         eureka: {
             host: '15.165.177.117',
             port: 8761,
-            servicePath: '/eureka/apps/'
+            // servicePath: '/eureka/  '
         }
     })
     client.start();
