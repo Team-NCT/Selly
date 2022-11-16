@@ -76,20 +76,21 @@ public class WebSecurity {
 
 //    http
 //            .cors(cors -> cors.disable());
-    http
-//            .httpBasic().disable()
-            .cors().configurationSource(corsConfigurationSource())
-            .and()
+    http.csrf().disable();
+    http.authorizeRequests().antMatchers("/actuator/**").permitAll();
+    http.cors().configurationSource(corsConfigurationSource())
 //            .cors().configurationSource(corsConfigurationSource()).and()
 //            .httpBasic().disable()
-            .csrf().disable()
+
 //            .cors().configurationSource(corsConfigurationSource()).and()
 //            .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests().antMatchers("/error/**").permitAll()
-            .antMatchers("/**")
-//            .access("hasIpAddress('127.0.0.1')")
+            .and()
+            .authorizeRequests()
+            .antMatchers("/","/**")
+//            .access("hasIpAddress('15.165.177.117') or hasIpAddress('172.17.0.1') or hasIpAddress('172.17.0.4')")
             .permitAll()
             .and()
             .addFilter(getCustomAuthenticationFilter());

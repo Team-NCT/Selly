@@ -36,6 +36,7 @@ import {
   saleNFTAPI,
   userAPI,
   rankingAPI,
+  bookmarkAPI,
 } from "@/api/server";
 
 const reducers = combineReducers({
@@ -57,6 +58,7 @@ const reducers = combineReducers({
   [exploreAPI.reducerPath]: exploreAPI.reducer,
   [saleNFTAPI.reducerPath]: saleNFTAPI.reducer,
   [rankingAPI.reducerPath]: rankingAPI.reducer,
+  [bookmarkAPI.reducerPath]: bookmarkAPI.reducer,
 });
 
 // * session storage
@@ -84,7 +86,8 @@ const store = configureStore({
       NFTTransactionAPI.middleware,
       exploreAPI.middleware,
       saleNFTAPI.middleware,
-      rankingAPI.middleware
+      rankingAPI.middleware,
+      bookmarkAPI.middleware
     ),
 });
 
