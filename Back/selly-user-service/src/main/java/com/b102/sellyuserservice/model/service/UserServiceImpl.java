@@ -183,6 +183,12 @@ public class UserServiceImpl implements UserService {
       AuthorRankingResponse authorRankingResponse = mapper.map(v, AuthorRankingResponse.class);
       authorRankingResponse.setFollowerCnt(Math.toIntExact(followService.followerCount(authorRankingResponse.getUserId())));
       authorRankingResponse.setNftCnt(articleServiceClient.returnArticleCnt(v.getUserId()));
+      if(authorRankingResponse.getImage() != null){
+        byte[] imageDecode = Base64.getDecoder().decode(authorRankingResponse.getImage());
+        authorRankingResponse.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      } else {
+        authorRankingResponse.setImage("default");
+      }
       authorRankingResponses.add(authorRankingResponse);
     });
     Comparator<AuthorRankingResponse> cp = new Comparator<AuthorRankingResponse>() {
