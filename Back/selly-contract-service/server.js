@@ -42,7 +42,7 @@ app.post('/minting', async (req, res) => {
     console.log(data);
     var OPTIONS = {
         headers: {'Content-Type': 'application/json'},
-        url: "http://localhost:8000/selly-article-service/create",
+        url: "https://nftselly.com/selly-article-service/create",
             body: JSON.stringify({
             metaDataUrl : req.body.metaDataUrl,
             articleName : req.body.articleName,
@@ -153,7 +153,7 @@ app.post("/sellregist", async(req, res) => {
     };
     var OPTIONS = {
         headers: {'Content-Type': 'application/json'},
-        url: "http://localhost:8000/selly-trade-service/p2p-sell-regist",
+        url: "https://nftselly.com/selly-trade-service/p2p-sell-regist",
             body: JSON.stringify({
             seller : req.body.seller,
             contractAddress : req.body.contractAddress,
@@ -257,7 +257,7 @@ app.post('/buy', async (req, res) => {
     console.log(data);
     var OPTIONS = {
         headers: {'Content-Type': 'application/json'},
-        url: "http://localhost:8000/selly-trade-service/trade",
+        url: "https://nftselly.com/selly-trade-service/trade",
             body: JSON.stringify({
             saleContractAddress : req.body.saleContractAddress,
             pieceCnt : req.body.pieceCnt,
@@ -357,7 +357,7 @@ app.post("/cancelSale", async(req, res) =>{
 
     var OPTIONS = {
         headers: {'Content-Type': 'application/json'},
-        url: "http://localhost:8000/selly-trade-service/trade-cancel",
+        url: "https://nftselly.com/selly-trade-service/trade-cancel",
             body: JSON.stringify({
             saleContractAddress : req.body.saleContractAddress,
             wallet : req.body.wallet,
