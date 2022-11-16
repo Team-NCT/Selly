@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name ="traderegist")
 @EntityListeners(value= AuditingEntityListener.class)
 public class TradeRegist {
   @Id
