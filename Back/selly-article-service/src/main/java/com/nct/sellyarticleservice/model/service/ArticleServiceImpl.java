@@ -1,6 +1,6 @@
 package com.nct.sellyarticleservice.model.service;
+import com.nct.sellyarticleservice.client.TradeServiceClient;
 import com.nct.sellyarticleservice.client.UserServiceClient;
-import com.nct.sellyarticleservice.domain.dto.ArticleRequest;
 import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
 //import com.nct.sellyarticleservice.domain.dto.ArticleResponseDto;
 import com.nct.sellyarticleservice.domain.dto.ArticleUpdateRequest;
@@ -8,18 +8,19 @@ import com.nct.sellyarticleservice.client.SellyContractServiceClient;
 import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
+import com.nct.sellyarticleservice.vo.ArticleRankingResponse;
+import com.nct.sellyarticleservice.vo.CategoryResponse;
 import com.nct.sellyarticleservice.vo.ResponseUser;
+import com.nct.sellyarticleservice.vo.TradeRankDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -29,7 +30,7 @@ public class ArticleServiceImpl implements ArticleService{
   private final UserServiceClient userServiceClient;
   private final SellyContractServiceClient sellyContractServiceClient;
   private ModelMapper mapper = new ModelMapper();
-
+  private final TradeServiceClient tradeServiceClient;
   @Transactional
   @Override
   public ResponseArticle createArticle(RequestArticleCreate requestArticleCreate) {
@@ -48,8 +49,25 @@ public class ArticleServiceImpl implements ArticleService{
     System.out.println(responseListen);
     System.out.println("리슨 완료 !");
     article.setContractAddress(responseListen.getContractAddress());
-    article.setTokenId(responseListen.getToken());
+    article.setTokenId(responseListen.getTokenId());
+    article.setOriginalAuthor(requestArticleCreate.getOwner());
     articleRepository.save(article);
+    return mapper.map(article, ResponseArticle.class);
+  }
+
+  @Override
+  public ResponseArticle createArticleNoMinting(RequestArticleCreate requestArticleCreate) {
+    System.out.println("민팅 X 들어옴");
+    System.out.println(requestArticleCreate);
+    System.out.println(requestArticleCreate.getWallet());
+    requestArticleCreate.setMetaDataUrl("https://skywalker.infura-ipfs.io/ipfs/"+requestArticleCreate.getMetaDataUrl());
+    requestArticleCreate.setArticleImgUrl("https://skywalker.infura-ipfs.io/ipfs/" + requestArticleCreate.getArticleImgUrl());
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    Article article = mapper.map(requestArticleCreate, Article.class);
+    articleRepository.save(article);
+    System.out.println(requestArticleCreate.getMetaDataUrl());
+    System.out.println(requestArticleCreate.getArticleImgUrl());
+    System.out.println(requestArticleCreate.getWallet());
     return mapper.map(article, ResponseArticle.class);
   }
 
@@ -131,12 +149,15 @@ public class ArticleServiceImpl implements ArticleService{
               .availability(entity.isAvailability())
               .tokenId(entity.getTokenId())
               .contractAddress(entity.getContractAddress())
+              .primaryCnt((entity.getPrimaryCnt()))
               .build();
     }
     return ResponseArticle.builder()
             .articleId(entity.getArticleId())
             .articleName(entity.getArticleName())
             .articleImgUrl(entity.getArticleImgUrl())
+            .primaryCnt(entity.getPrimaryCnt())
+            .owner(entity.getOwner())
             .metaDataUrl(entity.getMetaDataUrl())
             .build();
   }
@@ -147,18 +168,103 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public List<Article> articleCategoryFilter(String category, boolean availability) {
-
-    return articleRepository.findAllByCategoryAndAvailability(category, availability);
+  public List<CategoryResponse> articleCategoryFilter(String category, boolean availability, String sort, String order) {
+    List<Article> articleList = new ArrayList<>();
+    List<CategoryResponse> articleResponseList = new ArrayList<>();
+    if (sort.equals("asc")) {
+      if (category.equals("all")) {
+        switch (order) {
+          case "sellRegist":
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "createRegist"));
+            break;
+          case "price":
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
+            break;
+        }      articleList.forEach(v-> {
+          CategoryResponse articleResponse = CategoryResponse.builder()
+                  .articleId(v.getArticleId())
+                  .articleName(v.getArticleName())
+                  .articleImgUrl(v.getArticleImgUrl())
+                  .recentMarketPrice(v.getRecentMarketPrice())
+                  .rateChange(1.1)
+                  .build();
+          articleResponseList.add(articleResponse);
+        });
+        return articleResponseList;
+      }
+      switch (order) {
+        case "sellRegist":
+          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "createRegist"));
+          break;
+        case "price":
+          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.ASC, "price"));
+          break;
+      }
+      articleList.forEach(v-> {
+        CategoryResponse articleResponse = CategoryResponse.builder()
+                .articleId(v.getArticleId())
+                .articleName(v.getArticleName())
+                .articleImgUrl(v.getArticleImgUrl())
+                .recentMarketPrice(v.getRecentMarketPrice())
+                .rateChange(1.1)
+                .build();
+        articleResponseList.add(articleResponse);
+      });
+    return articleResponseList;
+    } else {
+      if (category.equals("all")) {
+        switch (order) {
+          case "sellRegist":
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.DESC, "createRegist"));
+            break;
+          case "price":
+            articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.DESC, "price"));
+            break;
+        }      articleList.forEach(v-> {
+          CategoryResponse articleResponse = CategoryResponse.builder()
+                  .articleId(v.getArticleId())
+                  .articleName(v.getArticleName())
+                  .articleImgUrl(v.getArticleImgUrl())
+                  .recentMarketPrice(v.getRecentMarketPrice())
+                  .rateChange(1.1)
+                  .build();
+          articleResponseList.add(articleResponse);
+        });
+        return articleResponseList;
+      }
+      switch (order) {
+        case "sellRegist":
+          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "createRegist"));
+          break;
+        case "price":
+          articleList = articleRepository.findByCategoryAndAvailability(category, availability, Sort.by(Sort.Direction.DESC, "price"));
+          break;
+      }
+      articleList.forEach(v-> {
+        CategoryResponse articleResponse = CategoryResponse.builder()
+                .articleId(v.getArticleId())
+                .articleName(v.getArticleName())
+                .articleImgUrl(v.getArticleImgUrl())
+                .recentMarketPrice(v.getRecentMarketPrice())
+                .rateChange(1.1)
+                .build();
+        articleResponseList.add(articleResponse);
+      });
+    }
+    return articleResponseList;
   }
 
   @Override
-  public ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long id) {
-    Article article = articleRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + id));
+  public ArticleResponse updateArticle(ArticleUpdateRequest articleUpdateRequest, Long articleId) {
+    Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
     article.updateArticle(
             articleUpdateRequest.isAvailability(),
-            LocalDateTime.now()
+            LocalDateTime.now(),
+            articleUpdateRequest.getPrice(),
+            articleUpdateRequest.getOwnerContractAddress(),
+            articleUpdateRequest.getPrimaryCnt(),
+            articleUpdateRequest.getCategory()
     );
     articleRepository.save(article);
 
@@ -220,5 +326,65 @@ public class ArticleServiceImpl implements ArticleService{
       articleResponseList.add(new ModelMapper().map(v, ArticleResponse.class));
     });
     return articleResponseList;
+  }
+
+  @Override
+  public List<ArticleResponse> findByOriginalAuthor(Long userId) {
+    List<Article> articleList = articleRepository.findByOriginalAuthor(userId);
+    List<ArticleResponse> articleResponseList = new ArrayList<>();
+    articleList.forEach(v -> {
+      articleResponseList.add(ArticleResponse.builder()
+              .articleId(v.getArticleId())
+              .articleName(v.getArticleName())
+              .articleImgUrl(v.getArticleImgUrl())
+              .build());
+    });
+    return articleResponseList;
+  }
+  public ResponseArticleId findByArticleId(String contractAddress, String tokenId) {
+    Article responseArticleId = articleRepository.findByContractAddressAndTokenId(contractAddress, tokenId);
+    if (responseArticleId == null){
+      return null;
+    }
+    ResponseArticleId articleId = new ResponseArticleId();
+
+    articleId.setArticleId(responseArticleId.getArticleId());
+    return articleId;
+  }
+
+  @Override
+  public HashMap<String, Object> findByArticleAndUser(Long articleId) {
+    Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
+    Long owner = article.getOwner();
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    ResponseInfoArticle responseInfoArticle = mapper.map(article, ResponseInfoArticle.class);
+    ResponseUser responseUser = userServiceClient.getUser(owner);
+    ResponseInfoUser responseInfoUser = mapper.map(responseUser, ResponseInfoUser.class);
+    HashMap<String, Object> result = new HashMap<>();
+    result.put("user",responseInfoUser);
+    result.put("article", responseInfoArticle);
+    return result;
+  }
+
+  @Override
+  public List<ArticleRankingResponse> rankingTop10() {
+    List<TradeRankDto> tradeRankDtos = tradeServiceClient.tradeRanking();
+    if (tradeRankDtos == null){
+      return null;
+    }
+    List<ArticleRankingResponse> returnValue = new ArrayList<>();
+    tradeRankDtos.forEach(v->{
+      Article article = articleRepository.findById(v.getArticleId())
+              .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + v.getArticleId()));
+      ArticleRankingResponse articleRankingResponse = new ArticleRankingResponse();
+      articleRankingResponse.setArticleId(article.getArticleId());
+      articleRankingResponse.setArticleName(article.getArticleName());
+      articleRankingResponse.setArticleImgUrl(article.getArticleImgUrl());
+      articleRankingResponse.setPrimaryCnt(article.getPrimaryCnt());
+      articleRankingResponse.setPresentSalePieceCnt(v.getPieceCount());
+      returnValue.add(articleRankingResponse);
+    });
+    return returnValue;
   }
 }

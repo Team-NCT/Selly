@@ -41,9 +41,16 @@ public class FollowController {
     }
     FollowDto followDto = mapper.map(requestFollow, FollowDto.class);
     FollowDto returnValue = followService.followLike(followDto);
+    if (returnValue == null){
+      ResponseFollow responseFollow = new ResponseFollow();
+      responseFollow.setCode("400 Bad Request");
+      responseFollow.setMessage("이미 팔로워하고있습니다..");
+      return ResponseEntity.status(HttpStatus.CREATED).body(responseFollow);
+    }
     ResponseFollow responseFollow = mapper.map(returnValue, ResponseFollow.class);
-
     return ResponseEntity.status(HttpStatus.CREATED).body(responseFollow);
+
+
   }
 
   @DeleteMapping("follow")
@@ -55,9 +62,9 @@ public class FollowController {
     return followService.followUnLike(requestFollow);
   }
 
-  @GetMapping("follower/{userId}")
-  public ResponseEntity<List<ResponseFollowerUser>> searchMyFollower(@PathVariable("userId") Long userId, @RequestParam Long lastFollowingId){
-    List<FollowEntity> followList = followService.myFollowerDetail(userId, lastFollowingId);
+  @GetMapping("follower/{followerId}")
+  public ResponseEntity<List<ResponseFollowerUser>> searchMyFollower(@RequestHeader("userId") Long userId, @PathVariable("followerId") Long followerId, @RequestParam Long lastFollowingId){
+    List<FollowEntity> followList = followService.myFollowerDetail(followerId, lastFollowingId);
 
     List<ResponseFollowerUser> result = new ArrayList<>();
     followList.forEach(v -> {
@@ -70,15 +77,15 @@ public class FollowController {
       }
 
       ResponseFollowerUser responseFollowerUser = new ModelMapper().map(userDto, ResponseFollowerUser.class);
-      responseFollowerUser.setMyFollowing(followService.myFollowingCheck(v.getFollowingId(), v.getFollowerId()));
+      responseFollowerUser.setMyFollowing(followService.myFollowingCheck(v.getFollowingId(), userId));
       result.add(responseFollowerUser);
     });
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }
 
-  @GetMapping("following/{userId}")
-  public ResponseEntity<List<ResponseFollowingUser>> searchMyFollowing(@PathVariable("userId") Long userId, @RequestParam Long lastFollowerId){
-    List<FollowEntity> followList = followService.myFollowingDetail(userId, lastFollowerId);
+  @GetMapping("following/{followingId}")
+  public ResponseEntity<List<ResponseFollowingUser>> searchMyFollowing(@RequestHeader("userId") Long userId, @PathVariable("followingId") Long followingId, @RequestParam Long lastFollowerId){
+    List<FollowEntity> followList = followService.myFollowingDetail(followingId, lastFollowerId);
 
     List<ResponseFollowingUser> result = new ArrayList<>();
     followList.forEach(v -> {
@@ -90,7 +97,7 @@ public class FollowController {
         userDto.setImage("default");
       }
       ResponseFollowingUser responseFollowingUser = new ModelMapper().map(userDto, ResponseFollowingUser.class);
-      responseFollowingUser.setMyFollower(followService.myFollowerCheck(v.getFollowingId(), v.getFollowerId()));
+      responseFollowingUser.setMyFollowing(followService.myFollowerCheck(v.getFollowerId(), userId));
       result.add(responseFollowingUser);
     });
     return ResponseEntity.status(HttpStatus.OK).body(result);

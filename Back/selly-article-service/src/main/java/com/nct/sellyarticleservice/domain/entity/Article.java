@@ -61,6 +61,8 @@ public class  Article {
 
   private String ownershipContractAddress;
 
+  private Long originalAuthor;
+
 //  @Builder
 //  public Article(Long articleId, String contractAddress, boolean availability, String category, String articleName, String articleImgUrl, String articleIntroduction, String connectionLink, String attribute, String metaDataUrl, LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist, Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner, String tokenId, boolean auction, boolean status) {
 //    this.articleId = articleId;
@@ -82,9 +84,13 @@ public class  Article {
 //    this.status = status;
 //  }
 //
-  public void updateArticle(boolean availability, LocalDateTime createRegist) {
+  public void updateArticle(boolean availability, LocalDateTime createRegist, double price, String ownershipContractAddress, Integer primaryCnt, String category) {
 
     this.availability = availability;
     this.createRegist = createRegist;
+    this.price = price;
+    this.ownershipContractAddress = ownershipContractAddress;
+    this.primaryCnt = primaryCnt;
+    this.category = category;
   }
 }

@@ -23,9 +23,13 @@ public class FollowServiceImpl implements FollowService{
   public FollowDto followLike(FollowDto followDto) {
     ModelMapper mapper = new ModelMapper();
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-    FollowEntity followEntity = mapper.map(followDto, FollowEntity.class);
-    followRepository.save(followEntity);
-    return mapper.map(followEntity, FollowDto.class);
+    FollowEntity followEntity = followRepository.findByFollowerIdAndFollowingId(followDto.getFollowerId(), followDto.getFollowingId());
+    if (followEntity != null){
+      return null;
+    }
+    FollowEntity saveData = mapper.map(followDto, FollowEntity.class);
+    followRepository.save(saveData);
+    return mapper.map(saveData, FollowDto.class);
   }
 
   @Override
@@ -56,13 +60,13 @@ public class FollowServiceImpl implements FollowService{
   }
 
   @Override
-  public List<FollowEntity> myFollowerDetail(Long userId, Long lastFollowingId) {
-    return followRepository.findByFollowerIdAndFollowingIdLessThanOrderByFollowingIdDesc(userId, lastFollowingId, PageRequest.of(0, 5));
+  public List<FollowEntity> myFollowerDetail(Long followerId, Long lastFollowingId) {
+    return followRepository.findByFollowerIdAndFollowingIdLessThanOrderByFollowingIdDesc(followerId, lastFollowingId, PageRequest.of(0, 5));
   }
 
   @Override
-  public List<FollowEntity> myFollowingDetail(Long userId, Long lastFollowerId) {
-    return followRepository.findByFollowingIdAndFollowerIdLessThanOrderByFollowerIdDesc(userId, lastFollowerId, PageRequest.of(0, 5));
+  public List<FollowEntity> myFollowingDetail(Long followingId, Long lastFollowerId) {
+    return followRepository.findByFollowingIdAndFollowerIdLessThanOrderByFollowerIdDesc(followingId, lastFollowerId, PageRequest.of(0, 5));
   }
 
   @Override

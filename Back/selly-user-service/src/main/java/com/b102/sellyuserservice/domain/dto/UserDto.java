@@ -18,4 +18,5 @@ public class UserDto {
   private String nickname;
   private LocalDateTime createRegist;
   private LocalDateTime updateRegist;
+  private boolean certification;
 }

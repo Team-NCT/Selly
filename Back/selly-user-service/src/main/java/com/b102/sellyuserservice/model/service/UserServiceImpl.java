@@ -1,6 +1,7 @@
 package com.b102.sellyuserservice.model.service;
 
-import com.b102.sellyuserservice.controller.UserController;
+import com.b102.sellyuserservice.client.ArticleServiceClient;
+import com.b102.sellyuserservice.client.TradeServiceClient;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
 import com.b102.sellyuserservice.model.repository.NftPieceRepository;
@@ -11,7 +12,6 @@ import com.b102.sellyuserservice.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -31,7 +32,10 @@ public class UserServiceImpl implements UserService {
   private final BCryptPasswordEncoder passwordEncoder;
   private final ModelMapper mapper;
 
-  private UserController userController;
+  private final FollowService followService;
+
+  private final TradeServiceClient tradeServiceClient;
+  private final ArticleServiceClient articleServiceClient;
   @Override
   public UserDetails loadUserByUsername(String wallet) throws UsernameNotFoundException {
     UserEntity userEntity = userRepository.findByWallet(wallet);
@@ -83,6 +87,15 @@ public class UserServiceImpl implements UserService {
     if (userEntity == null){
       throw new UsernameNotFoundException("해당 유저가 없습니다.");
     }
+    float returnValue = tradeServiceClient.getLog(userId);
+    if (!userEntity.isCertification()){
+      if (returnValue >= 1.0){
+        System.out.println(returnValue >= 1.0);
+        userEntity.setCertification(true);
+        userRepository.save(userEntity);
+      }
+    }
+
     return new ModelMapper().map(userEntity, UserDto.class);
   }
 
@@ -149,5 +162,102 @@ public class UserServiceImpl implements UserService {
     }
     else
       return "사용할 수 있는 닉네임입니다.";
+  }
+
+  @Override
+  public List<AuthorRankingResponse> findByAllId() {
+    List<AuthorRankingResponse> authorRankingResponses = new ArrayList<>();
+    Iterable<UserEntity> userEntities = userRepository.findAll();
+    System.out.println(userEntities);
+    userEntities.forEach(v->{
+      float returnValue = tradeServiceClient.getLog(v.getUserId());
+      if (!v.isCertification()){
+        if (returnValue >= 1.0){
+          System.out.println(returnValue >= 1.0);
+          v.setCertification(true);
+          userRepository.save(v);
+        }
+      }
+      mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+      AuthorRankingResponse authorRankingResponse = mapper.map(v, AuthorRankingResponse.class);
+      authorRankingResponse.setFollowerCnt(Math.toIntExact(followService.followerCount(authorRankingResponse.getUserId())));
+      authorRankingResponse.setNftCnt(articleServiceClient.returnArticleCnt(v.getUserId()));
+      authorRankingResponses.add(authorRankingResponse);
+    });
+    Comparator<AuthorRankingResponse> cp = new Comparator<AuthorRankingResponse>() {
+      @Override
+      public int compare(AuthorRankingResponse o1,  AuthorRankingResponse o2) {
+        int a = o1.getFollowerCnt();
+        int b = o2.getFollowerCnt();
+        Long c = o1.getUserId();
+        Long d = o2.getUserId();
+        if (a > b){
+          return -1;
+        }else if (a == b){
+          if (c > d){
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+        else {
+          return 1;
+        }
+      }
+    };
+    authorRankingResponses.sort(cp);
+    if(authorRankingResponses.size() <=10){
+      return authorRankingResponses;
+    }
+    return  authorRankingResponses.subList(0, 9);
+  }
+
+  @Override
+  public List<AuthorRankingTotalResponse> userArticleRanking() {
+    List<AuthorRankingTotalResponse> authorRankingTotalResponses = new ArrayList<>();
+    Iterable<UserEntity> userEntities = userRepository.findAll();
+    System.out.println(userEntities);
+    userEntities.forEach(v->{
+      float returnValue = tradeServiceClient.getLog(v.getUserId());
+      if (!v.isCertification()){
+        if (returnValue >= 1.0){
+          System.out.println(returnValue >= 1.0);
+          v.setCertification(true);
+          userRepository.save(v);
+        }
+      }
+      mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+      AuthorRankingTotalResponse authorRankingTotalResponse = mapper.map(v, AuthorRankingTotalResponse.class);
+      authorRankingTotalResponse.setFollowerCnt(Math.toIntExact(followService.followerCount(authorRankingTotalResponse.getUserId())));
+      authorRankingTotalResponse.setNftCnt(articleServiceClient.returnArticleCnt(v.getUserId()));
+      authorRankingTotalResponse.setTradeCount(tradeServiceClient.getArticleCount(v.getUserId()));
+      authorRankingTotalResponses.add(authorRankingTotalResponse);
+    });
+    Comparator<AuthorRankingTotalResponse> cp = new Comparator<AuthorRankingTotalResponse>() {
+      @Override
+      public int compare(AuthorRankingTotalResponse o1,  AuthorRankingTotalResponse o2) {
+        int a = o1.getTradeCount();
+        int b = o2.getTradeCount();
+        Long c = o1.getUserId();
+        Long d = o2.getUserId();
+        if (a > b){
+          return -1;
+        }else if (a == b){
+          if (c > d){
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+        else {
+          return 1;
+        }
+      }
+    };
+    authorRankingTotalResponses.sort(cp);
+    if(authorRankingTotalResponses.size() <=10){
+      return authorRankingTotalResponses;
+    }
+    return  authorRankingTotalResponses.subList(0, 9);
   }
 }

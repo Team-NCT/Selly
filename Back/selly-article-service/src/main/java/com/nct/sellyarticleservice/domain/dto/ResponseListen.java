@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ResponseListen {
   private String contractAddress;
-  private String token;
+  private String tokenId;
 }

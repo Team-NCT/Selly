@@ -24,6 +24,10 @@ public class BookMarkServiceImpl implements BookMarkService{
   // 북마크 생성
   @Override
   public BookMarkResponse createBoomMark(BookMarkRequest bookMarkRequest) {
+    BookMark check = bookMarkRepository.findByUserIdAndArticleId(bookMarkRequest.getUserId(), bookMarkRequest.getArticleId());
+    if (check != null){
+      return null;
+    }
     BookMark bookMark = BookMark.builder()
             .userId(bookMarkRequest.getUserId())
             .articleId(bookMarkRequest.getArticleId())
@@ -65,5 +69,10 @@ public class BookMarkServiceImpl implements BookMarkService{
       bookMarkResponseList.add(mapper.map(bookMarkedarticleResponse, ArticleResponse.class));
     });
     return bookMarkResponseList;
+  }
+
+  @Override
+  public BookMark checkBookMark(Long articleId, Long userId) {
+    return bookMarkRepository.findByUserIdAndArticleId(userId, articleId);
   }
 }

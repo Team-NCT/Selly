@@ -20,6 +20,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
@@ -124,8 +125,9 @@ public class UserController {
   @GetMapping("/users/{profileId}/{userId}")
   public ResponseEntity<ResponseUser> getOtherUser(@PathVariable("profileId") Long profileId, @PathVariable("userId") Long userId) throws UnsupportedEncodingException {
     UserDto userDto = userService.getUserByUserId(profileId);
-
+    System.out.println("userDto : " + userDto);
     ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
+    System.out.println("returnValue : " + returnValue);
     if(returnValue.getImage() != null){
       byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
       returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));
@@ -139,8 +141,8 @@ public class UserController {
     } else if (returnValue.getBanner() == null){
       returnValue.setBanner("default");
     }
-    Long myFollowerCnt = followService.followerCount(userId);
-    Long myFollowingCnt = followService.followingCount(userId);
+    Long myFollowerCnt = followService.followerCount(profileId);
+    Long myFollowingCnt = followService.followingCount(profileId);
     returnValue.setFollowerCnt(myFollowerCnt);
     returnValue.setFollowingCnt(myFollowingCnt);
     Boolean myFollowing =  followService.myFollowingCheck(profileId, userId);
@@ -165,7 +167,6 @@ public class UserController {
     } else if (returnValue.getBanner() == null){
       returnValue.setBanner("default");
     }
-
     return ResponseEntity.status(HttpStatus.OK).body(returnValue);
   }
 
@@ -178,5 +179,4 @@ public class UserController {
   public String nicknameCheck(@PathVariable("nickname") String nickname){
     return userService.findByNickname(nickname);
   }
-
 }
