@@ -60,8 +60,8 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
     };
     console.log(body);
     const response = await createSale(body).unwrap();
-    console.log(response);
-    return false;
+    console.log("응답", response);
+    return response;
   };
 
   const testHandler = () => {
@@ -146,6 +146,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
       category,
       price,
     }).then((res) => {
+      dispatch(closeLoading());
       if (res) {
         setIsCompleted(true);
         goNext(idx);
