@@ -481,7 +481,7 @@ public class TradeServiceImpl implements TradeService {
 
   @Override
   public String dropTradeRegist(RequestDeleteTradeRegist requestDeleteTradeRegist) {
-    TradeRegist tradeRegist = tradeRegistRepository.findBysaleContractAddressAndSeller(requestDeleteTradeRegist.getSaleContractAddress(), requestDeleteTradeRegist.getSeller());
+    TradeRegist tradeRegist = tradeRegistRepository.findBySaleContractAddressAndSeller(requestDeleteTradeRegist.getSaleContractAddress(), requestDeleteTradeRegist.getSeller());
     if (tradeRegist == null){
       return "거래 등록 취소에 실패했습니다.";
     }

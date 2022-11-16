@@ -4,6 +4,7 @@ import com.nct.sellytradeservice.client.FeignClientException;
 import com.nct.sellytradeservice.client.UserServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
+import com.nct.sellytradeservice.model.repository.TradeRegistRepository;
 import com.nct.sellytradeservice.model.service.TradeLogService;
 import com.nct.sellytradeservice.model.service.TradeService;
 import com.nct.sellytradeservice.model.service.TradeServiceImpl;
@@ -29,6 +30,7 @@ public class TradeController {
   private final TradeLogRepository tradeLogRepository;
   private final UserServiceClient userServiceClient;
   private final TradeLogService tradeLogService;
+  private final TradeRegistRepository tradeRegistRepository;
 
   @GetMapping("/all")
   public List<TradeResponse> findAll() {
@@ -149,5 +151,11 @@ public class TradeController {
   @GetMapping("/trade-article-count/{userId}")
   public Integer sellerArticleCount(@PathVariable("userId") Long userId){
     return tradeLogRepository.countBySeller(userId);
+  }
+  @GetMapping("/trade-user-search/{userId}")
+  public List<Long> searchSellerArticleId(@PathVariable("userId") Long userId){
+    List<Long> returnValue = tradeRegistRepository.findSellerGroupByArticleId(userId);
+    System.out.println(returnValue);
+    return returnValue;
   }
 }
