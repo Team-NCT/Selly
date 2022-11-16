@@ -5,7 +5,6 @@ import { CONTRACT_SERVICE_API } from "@/constants/server";
 import { SignedTransactionType } from "@/types/transaction.types";
 import { F_NFTSaleType } from "./saleNFTAPI.types";
 import { openLoading, closeLoading } from "@/store/modalSlice";
-import { sendTransaction } from "@/api/blockchain";
 import { openAlert, setAlertContent, setAlertStyles, setIconStyles } from "@/store/alertSlice";
 
 export const SaleNFTAPI = createApi({
@@ -20,22 +19,6 @@ export const SaleNFTAPI = createApi({
         method: "POST",
         body: body,
       }),
-      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
-        try {
-          dispatch(openLoading());
-          const { data } = await queryFulfilled;
-          const response = await sendTransaction(data);
-          console.log(response);
-          dispatch(closeLoading());
-        } catch (error) {
-          console.error(error);
-          dispatch(closeLoading());
-          dispatch(openAlert());
-          dispatch(setAlertContent("거래가 중단되었습니다"));
-          dispatch(setAlertStyles("error"));
-          dispatch(setIconStyles(false));
-        }
-      },
       invalidatesTags: ["F_NFTSale"],
     }),
   }),

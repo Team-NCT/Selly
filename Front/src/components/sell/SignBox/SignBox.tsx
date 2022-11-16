@@ -12,6 +12,7 @@ import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
 import { PencilIcon } from "@/components/icon";
 import { closeLoading, openLoading } from "@/store/modalSlice";
 import { openAlert, setAlertContent, setAlertStyles, setIconStyles } from "@/store/alertSlice";
+import { sendTransaction } from "@/api/blockchain";
 
 import Web3 from "web3";
 
@@ -59,40 +60,16 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
       metaDataUrl,
     };
     console.log(body);
-    const response = await createSale(body).unwrap();
-    console.log("응답", response);
-    return response;
-  };
-
-  const testHandler = () => {
-    if (!address || !userId) return;
-    const userWallet = address;
-
-    Onsale({
-      CA,
-      tokenId,
-      num,
-      articleName,
-      code,
-      F_NFTCA,
-      setValue,
-      userWallet,
-      userId,
-      metaDataUrl,
-      articleUrl,
-      category,
-      price,
-    }).then((res) => {
-      if (res) {
-        setIsCompleted(true);
-        goNext(idx);
-      } else {
-        setButtonText("서명하기");
-        setSignable(true);
-        alert("블록체인 통신 상태 ERROR");
-        console.error("블록체인 통신 상태 ERROR");
-      }
-    });
+    try {
+      const response = await createSale(body).unwrap();
+      console.log("트랜잭션", response);
+      const txResponse = await sendTransaction(response);
+      console.log(txResponse);
+      return txResponse.status;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
   const onClickHandler = () => {
@@ -118,14 +95,17 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
         category,
         price,
       }).then((res) => {
+        dispatch(closeLoading());
         if (res) {
           setIsCompleted(true);
           goNext(idx);
         } else {
           setButtonText("서명하기");
           setSignable(true);
-          alert("블록체인 통신 상태 ERROR");
-          console.error("블록체인 통신 상태 ERROR");
+          dispatch(openAlert());
+          dispatch(setAlertContent("블록체인 통신 ERROR"));
+          dispatch(setAlertStyles("error"));
+          dispatch(setIconStyles(false));
         }
       });
       return;
@@ -195,9 +175,6 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
           )}
         </div>
       </div>
-      <Button size="fillContainer" onClick={testHandler}>
-        서명
-      </Button>
     </div>
   );
 };

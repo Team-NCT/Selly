@@ -17,9 +17,12 @@ export const makeVault = async ({
       .send({ from: userWallet });
     console.log(response);
 
-    setValue ? setValue(response.events.FractionalizeNFT.returnValues.F_CA) : null;
+    response = await F_NFTFactoryContract.methods.CAOfNFTCAbyTokenId(CA, parseInt(tokenId)).call();
+    console.log(response);
 
-    return response.status;
+    setValue ? setValue(response) : null;
+    if (response) return true;
+    return false;
   } catch (e) {
     console.error(e);
     return false;
