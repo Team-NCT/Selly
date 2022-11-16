@@ -15,8 +15,7 @@ const getNFTsForOwnerAPI = async (owner: string) => {
 
   let ERC721datas = [];
   ERC721datas = nfts.ownedNfts.filter((nft) => {
-    // return nft.tokenType === "ERC721" && nft.title !== "";
-    return true;
+    return nft.tokenType === "ERC721" && nft.title !== "";
   });
 
   console.log("필터링", ERC721datas);

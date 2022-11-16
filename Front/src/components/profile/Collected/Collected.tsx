@@ -14,7 +14,6 @@ const Collected = ({ wallet }: CollectedProps) => {
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<Array<any>>([]);
 
-  //TODO_TK: 상윤이꺼 머지되면 wallet 받도록 처리하기
   const getOwnERC721NFTs = async () => {
     if (!wallet) return;
     const datas = await getNFTsForOwnerAPI(wallet);
