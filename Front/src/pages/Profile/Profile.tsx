@@ -31,7 +31,7 @@ function Profile() {
       <main>
         <Header profilePageId={Number(id)} userId={Number(userId)} data={data} />
         {Number(id) === userId && <Revenue />}
-        <ProfileTab />
+        <ProfileTab wallet={data?.wallet} />
       </main>
       {follower &&
         createPortal(

@@ -1,10 +1,11 @@
+import { ProfileTabProps } from "./ProfileTab.types";
 import { Neon, SelectBox } from "@/components/common";
 import { getViewportSize } from "@/helpers/utils/getViewportSize";
 import { useState, useCallback, useEffect } from "react";
 import { Created, ForSale, Collected, Fractions } from "@/components/profile";
 import style from "./ProfileTab.module.scss";
 
-const ProfileTab = () => {
+const ProfileTab = ({ wallet }: ProfileTabProps) => {
   const [selectedTab, setSelectedTab] = useState<string>("Fractions");
   const [windowWidth, setWindowWidth] = useState(getViewportSize().width);
   const tabItems = ["Fractions", "Collected", "ForSale", "Created", "Bookmark"];
@@ -69,7 +70,7 @@ const ProfileTab = () => {
       {selectedTab === "Fractions" && <Fractions />}
       {selectedTab === "Created" && <Created />}
       {selectedTab === "ForSale" && <ForSale />}
-      {selectedTab === "Collected" && <Collected />}
+      {selectedTab === "Collected" && <Collected wallet={wallet} />}
     </section>
   );
 };
