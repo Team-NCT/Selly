@@ -48,6 +48,7 @@ public class ProfileController {
   public ResponseEntity<List<FractionResponse>> userFractionsList(@RequestHeader("userId") Long userId , @PathVariable("profileUserId") Long profileUserId) {
     List<FractionResponse> responses = new ArrayList<>();
     if (Objects.equals(userId, profileUserId)) {
+      List<FractionResponse> response = profileService.getFraction(userId, profileUserId);
       FractionResponse fractionResponse = FractionResponse.builder()
               .articleId(1L)
               .articleImgUrl("https://skywalker.infura-ipfs.io/ipfs/QmP5VS1uroszxVxWk5Xsa9nGVnpiNaF4ZAkhLjszkSzY4R")

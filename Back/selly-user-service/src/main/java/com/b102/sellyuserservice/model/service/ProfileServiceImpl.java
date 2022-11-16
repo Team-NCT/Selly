@@ -2,7 +2,9 @@ package com.b102.sellyuserservice.model.service;
 
 import com.b102.sellyuserservice.client.ArticleServiceClient;
 import com.b102.sellyuserservice.controller.ProfileController;
+import com.b102.sellyuserservice.model.repository.NftPieceRepository;
 import com.b102.sellyuserservice.vo.ArticleResponse;
+import com.b102.sellyuserservice.vo.FractionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class ProfileServiceImpl implements ProfileService{
 
   private final ArticleServiceClient articleServiceClient;
+  private final NftPieceRepository nftPieceRepository;
   @Override
   public List<ArticleResponse> findUserCreatedArticleList(Long userId) {
     List<ArticleResponse> articleResponseList = articleServiceClient.searchByOwner(userId);
@@ -32,6 +35,26 @@ public class ProfileServiceImpl implements ProfileService{
 
   @Override
   public List<ArticleResponse> findUserSaleArticleList(Long userId) {
+    return null;
+  }
+
+  @Override
+  public List<FractionResponse> getFraction(Long userId, Long profileUserId) {
+    List<FractionResponse> responses = new ArrayList<>();
+    if (userId.equals(profileUserId)) {
+      List<ArticleResponse> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
+      articleResponseList.forEach( v -> {
+
+        FractionResponse fractionResponse = FractionResponse.builder()
+                .articleId(v.getArticleId())
+                .articleName(v.getArticleName())
+                .articleImgUrl(v.getArticleImgUrl())
+                .build();
+        responses.add(fractionResponse);
+      });
+
+      return null;
+    }
     return null;
   }
 
