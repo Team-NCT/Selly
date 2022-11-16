@@ -7,11 +7,9 @@ import {
   SellNFTFractionType,
   RegisterSellNFTFractionType,
   cancleSellNFTFractionType,
-  DescCardType,
-  cardType,
 } from "./NFTTransactionAPI.types";
 import { SignedTransactionType, PayableSignedTransactionType } from "@/types/transaction.types";
-import { NFTFractionHistoryListType } from "@/types/NFTData.types";
+import { NFTFractionHistoryListType, DescCardType, cardType } from "@/types/NFTData.types";
 import sleep from "@/helpers/utils/sleep";
 import { sendTransaction, sendPayableTransaction } from "@/api/blockchain";
 import {
