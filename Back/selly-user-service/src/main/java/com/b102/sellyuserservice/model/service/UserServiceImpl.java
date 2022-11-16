@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Comparator;
@@ -231,6 +232,12 @@ public class UserServiceImpl implements UserService {
       authorRankingTotalResponse.setFollowerCnt(Math.toIntExact(followService.followerCount(authorRankingTotalResponse.getUserId())));
       authorRankingTotalResponse.setNftCnt(articleServiceClient.returnArticleCnt(v.getUserId()));
       authorRankingTotalResponse.setTradeCount(tradeServiceClient.getArticleCount(v.getUserId()));
+      if(authorRankingTotalResponse.getImage() != null){
+        byte[] imageDecode = Base64.getDecoder().decode(authorRankingTotalResponse.getImage());
+        authorRankingTotalResponse.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      } else {
+        authorRankingTotalResponse.setImage("default");
+      }
       authorRankingTotalResponses.add(authorRankingTotalResponse);
     });
     Comparator<AuthorRankingTotalResponse> cp = new Comparator<AuthorRankingTotalResponse>() {

@@ -7,10 +7,9 @@ import com.nct.sellysearchservice.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
 @RequiredArgsConstructor
 @Service
 public class SearchServiceImpl implements SearchService{
@@ -75,6 +74,15 @@ public class SearchServiceImpl implements SearchService{
     List<ArticleResponse> articleResponseList = articleServiceClient.articleSearchResponse(keyword);
     List<SearchUserResponse> userResponseList = userServiceClient.userSearchResponse(keyword);
     HashMap<String, Object> result = new HashMap<>();
+    userResponseList.forEach(v->{
+      if(v.getImage() != null){
+        byte[] imageDecode = Base64.getDecoder().decode(v.getImage());
+        v.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+      }else if (v.getImage() == null){
+        v.setImage("default");
+      }
+    });
+
     result.put("user", userResponseList);
     result.put("article", articleResponseList);
     return result;
