@@ -20,7 +20,6 @@ const Collected = () => {
     getOwnERC721NFTs();
   }, [address]);
 
-  // TODO_YK: 무한 스크롤
   return (
     <section className={style.collected_section}>
       {NFTdatas ? (

@@ -74,7 +74,7 @@ const userAPI = createApi({
     }),
     //@ description: Ceated 탭의 데이터를 가져오는 API
     fetchCreatedData: build.query<cardType[], number>({
-      query: (userId) => `/profile/user-created/${userId}/`,
+      query: (userId) => `profile/user-created/${userId}/`,
       providesTags: ["profile"],
     }),
     //@ description: 내수익 보기 데이터를 가져오는 API
