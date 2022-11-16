@@ -5,6 +5,7 @@ import com.b102.sellyuserservice.domain.dto.NftPieceDto;
 import com.b102.sellyuserservice.domain.dto.UserDto;
 import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.domain.entity.UserEntity;
+import com.b102.sellyuserservice.model.repository.UserRepository;
 import com.b102.sellyuserservice.model.service.FollowService;
 import com.b102.sellyuserservice.model.service.NftPieceService;
 import com.b102.sellyuserservice.model.service.UserService;
@@ -40,6 +41,7 @@ public class UserController {
   private final NftPieceService nftPieceService;
   private final FollowService followService;
   private final Environment env;
+  private final UserRepository userRepository;
 
   @PostMapping("/users")
   public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user) throws UnsupportedEncodingException {
@@ -180,4 +182,18 @@ public class UserController {
     return userService.findByNickname(nickname);
   }
 
+  @GetMapping("/nameAndImage")
+  public ResponseAlways nicknameAndImage(@RequestHeader("userId") Long userId){
+    UserEntity userEntity = userRepository.findByUserId(userId);
+    ModelMapper mapper = new ModelMapper();
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    ResponseAlways responseAlways = mapper.map(userEntity, ResponseAlways.class);
+    if(responseAlways.getImage() != null){
+      byte[] imageDecode = Base64.getDecoder().decode(responseAlways.getImage());
+      responseAlways.setImage(new String(imageDecode, StandardCharsets.UTF_8));
+    } else if (responseAlways.getImage() == null){
+      responseAlways.setImage("default");
+    }
+    return responseAlways;
+  }
 }
