@@ -6,3 +6,4 @@ export { default as SearchResult } from "./SearchResult/SearchResult";
 export { default as Profile } from "./Profile/Profile";
 export { default as Settings } from "./Settings/Settings";
 export { Explore, Category } from "./Explore";
+export { default as NotFound } from "./404NotFound/NotFound";

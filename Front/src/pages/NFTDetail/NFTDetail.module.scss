@@ -23,3 +23,8 @@
     }
   }
 }
+
+.NFT_detail_error {
+  @include flex-center;
+  height: calc(100vh - 84px);
+}

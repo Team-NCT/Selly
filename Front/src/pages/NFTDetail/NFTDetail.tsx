@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import style from "./NFTDetail.module.scss";
 import { MetaDataType, initialMetaData } from "@/types/metaData.types";
 import { useAppSelector, useAppDispatch } from "@/hooks";
-import { selectModal, closeBuy, closeSell, closeSellStatus } from "@/store/modalSlice";
+import {
+  selectModal,
+  closeBuy,
+  closeSell,
+  closeSellStatus,
+  closeLoading,
+} from "@/store/modalSlice";
 import { selectAccount } from "@/store/loginSlice";
 import { useFetchNFTDataQuery } from "@/api/server/NFTDetailAPI";
 import { getNFTData } from "@/api/blockchain";
+import { LoadingModal, Spinner } from "@/components/common";
 import {
   NFTDetailHeader,
   NFTDetailDescription,
@@ -20,10 +27,11 @@ import {
 
 const NFTDetail = () => {
   const { articleId } = useParams();
+  const navigate = useNavigate();
   const [metaData, setMetaData] = useState<MetaDataType>(initialMetaData);
   const numberArticleId = articleId ? parseInt(articleId) : NaN;
   const dispatch = useAppDispatch();
-  const { buy, sell, sellStatus } = useAppSelector(selectModal);
+  const { buy, sell, sellStatus, loading } = useAppSelector(selectModal);
   const { userId, address } = useAppSelector(selectAccount);
   const { data, isError, isSuccess } = useFetchNFTDataQuery(numberArticleId);
 
@@ -47,27 +55,27 @@ const NFTDetail = () => {
       dispatch(closeBuy());
       dispatch(closeSell());
       dispatch(closeSellStatus());
+      dispatch(closeLoading());
     };
   }, [dispatch, userId]);
 
-  //TODO_JK: 404 페이지 구현 후 수정
   useEffect(() => {
     if (!isError) return;
-    alert("404페이지로 이동");
-  }, [isError]);
+    navigate("/404");
+  }, [isError, navigate]);
 
+  //* 메타 데이터 fetch
   useEffect(() => {
     if (!data) return;
     if (!data.article.metaDataUrl) return;
-    console.log(data);
     (async () => {
       const response = await getNFTData(data.article.metaDataUrl);
       setMetaData(response);
     })();
   }, [data]);
 
-  return (
-    isSuccess && (
+  if (isSuccess)
+    return (
       <>
         <NFTDetailHeader
           id={numberArticleId}
@@ -82,13 +90,18 @@ const NFTDetail = () => {
             contractAddress={data.article.contractAddress}
             tokenId={data.article.tokenId}
             metaData={metaData}
+            primaryCnt={data.article.primaryCnt}
           />
           <div>
             <NFTDetailTransaction articleId={numberArticleId} userId={userId} />
-            <NFTDetailHistory />
+            <NFTDetailHistory articleId={numberArticleId} />
           </div>
         </main>
+
+        {/* 구매 모달 */}
         {buy && createPortal(<TransactionFractionsBuy {...args} />, el)}
+
+        {/* 조각 판매 등록 모달 */}
         {sell &&
           createPortal(
             <TransactionFractionsSell
@@ -99,9 +112,19 @@ const NFTDetail = () => {
             />,
             el
           )}
+
+        {/* 판매 현황 모달 */}
         {sellStatus && createPortal(<TransactionSellStatus {...args} />, el)}
+
+        {/* 로딩 모달 */}
+        {loading && createPortal(<LoadingModal />, el)}
       </>
-    )
+    );
+
+  return (
+    <main className={style.NFT_detail_error}>
+      <Spinner />
+    </main>
   );
 };
 

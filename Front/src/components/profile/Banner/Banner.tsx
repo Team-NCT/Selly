@@ -1,10 +1,8 @@
-import { useAppSelector } from "@/hooks/useStore";
-import { selectProfileData } from "@/store/profileDataSlice";
 import style from "./Banner.module.scss";
+import banner from "@/assets/images/banner.jpg";
 
-const Banner = () => {
-  const { profileData } = useAppSelector(selectProfileData);
-  return <img src={profileData.banner} alt="" className={style.banner} />;
+const Banner = ({ bannerUrl }: { bannerUrl: string | undefined }) => {
+  return <img src={bannerUrl === "default" ? banner : bannerUrl} alt="" className={style.banner} />;
 };
 
 export default Banner;

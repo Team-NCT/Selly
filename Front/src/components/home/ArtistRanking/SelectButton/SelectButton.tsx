@@ -15,18 +15,18 @@ const SelectButton = (props: SelectButtonProps) => {
       <button onClick={() => setIsTotal(true)}>
         {isTotal ? (
           <Neon color="lilac" positionH="bottom" positionW="right">
-            <span className={style.item_active}>Total</span>
+            <span className={style.item_active}>Trend</span>
           </Neon>
         ) : (
-          <span className={style.item_inactive}>Total</span>
+          <span className={style.item_inactive}>Trend</span>
         )}
       </button>
       <button onClick={() => setIsTotal(false)}>
         {isTotal ? (
-          <span className={style.item_inactive}>Trending</span>
+          <span className={style.item_inactive}>Follow</span>
         ) : (
           <Neon color="lilac" positionH="bottom" positionW="right">
-            <span className={style.item_active}>Trending</span>
+            <span className={style.item_active}>Follow</span>
           </Neon>
         )}
       </button>

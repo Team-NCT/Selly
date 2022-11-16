@@ -7,16 +7,20 @@ import { numberAddComma } from "@/helpers/utils/numberConversion";
 import { NFTDetailTransactionProps } from "../";
 import { useFetchNFTFractionRecordQuery } from "@/api/server/NFTTransactionAPI";
 import { NFTFractionRecordType } from "@/api/server/NFTTransactionAPI";
+import { useAlert } from "@/hooks";
 
 const TransactionFractions = ({ articleId, userId }: NFTDetailTransactionProps) => {
   const dispatch = useAppDispatch();
+  const { openLoginAlert } = useAlert();
   const { isSuccess, data, isError } = useFetchNFTFractionRecordQuery(articleId);
 
   //* 조각 구매 모달에 조각 정보를 전달하기 위해 store에 관련 데이터를 저장한다.
   const openBuyModal = (item: NFTFractionRecordType) => {
     if (!userId) {
-      return alert("로그인 하세요 ^^");
+      openLoginAlert();
+      return;
     }
+
     const data = {
       sellerId: item.seller,
       pieceCnt: item.pieceCnt,
@@ -30,7 +34,8 @@ const TransactionFractions = ({ articleId, userId }: NFTDetailTransactionProps) 
   //* 판매 모달
   const openSellModal = () => {
     if (!userId) {
-      return alert("로그인 하세요 ^^");
+      openLoginAlert();
+      return;
     }
     dispatch(openSell());
   };
@@ -38,7 +43,8 @@ const TransactionFractions = ({ articleId, userId }: NFTDetailTransactionProps) 
   //* 판매 현황 모달
   const openSellStatusModal = () => {
     if (!userId) {
-      return alert("로그인 하세요 ^^");
+      openLoginAlert();
+      return;
     }
     dispatch(openSellStatus());
   };
@@ -62,7 +68,10 @@ const TransactionFractions = ({ articleId, userId }: NFTDetailTransactionProps) 
               <li key={item.saleContractAddress}>
                 <p>{numberAddComma(item.pieceCnt)} 개 </p>
                 <p>{item.tradePrice}ETH</p>
-                <button onClick={() => openBuyModal(item)}>구매 하기</button>
+                {userId !== item.seller && (
+                  <button onClick={() => openBuyModal(item)}>구매 하기</button>
+                )}
+                {userId === item.seller && <div></div>}
               </li>
             ))}
           </ul>

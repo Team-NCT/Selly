@@ -124,6 +124,7 @@ const TransactionFractionsSell = ({
     return dispatchPrice({ type: "NORMAL", payload: value });
   };
 
+  //* 판매 등록
   const handlerFormSumbit = async (event: FormEvent) => {
     event.preventDefault();
     if (!userId || !address || !ownershipContractAddress) return;
@@ -132,18 +133,12 @@ const TransactionFractionsSell = ({
       wallet: address,
       pieceCnt: Number(countState.value),
       tradePrice: Number(priceState.value),
-      articleId,
       tokenId,
       contractAddress,
       ownershipContractAddress,
     };
-    console.log(payload);
 
-    try {
-      await registerSellNFTFraction(payload);
-    } catch (error) {
-      console.error(error);
-    }
+    registerSellNFTFraction(payload);
   };
 
   return (

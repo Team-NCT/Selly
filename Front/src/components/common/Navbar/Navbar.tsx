@@ -3,7 +3,7 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Neon, ProfileImage } from "@/components/common";
 import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
-import logoImage from "@/assets/images/logo.png";
+import sellyLogo from "@/assets/images/sellyLogo.svg";
 import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { logout, selectAccount } from "@/store/loginSlice";
 import { useLogin } from "@/hooks";
@@ -11,7 +11,7 @@ import { WalletIcon } from "@/components/icon";
 
 const Navbar = () => {
   //* account 정보
-  const { userId, goerliToken } = useAppSelector(selectAccount);
+  const { userId, goerliToken, address } = useAppSelector(selectAccount);
   const dispatch = useAppDispatch();
   //* 로그인 훅
   const [login] = useLogin();
@@ -55,8 +55,8 @@ const Navbar = () => {
       <nav className={HeaderStatus ? styles.nav_background : ""}>
         <h2 className={styles.nav_title}>사이트 네비게이션</h2>
         <div className={styles.nav_head}>
-          <NavLink to="/">
-            <img src={logoImage} alt="selly" />
+          <NavLink to="/" className={styles.logo}>
+            <img src={sellyLogo} alt="selly" />
           </NavLink>
           <button
             className={styles.navBtn}
@@ -160,7 +160,7 @@ const Navbar = () => {
           {userId ? (
             <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
               <ProfileImage size="xxs" profileStyle="round" />
-              <h5 className={styles.nav_username}>김김작가작가작가</h5>
+              <h5 className={styles.nav_username}>{address}</h5>
               <div className={styles.dropdown_content_user}>
                 <h5 className={styles.wallet_token}>
                   <span>{goerliToken}</span>

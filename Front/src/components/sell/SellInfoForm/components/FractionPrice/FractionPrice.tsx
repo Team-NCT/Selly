@@ -31,9 +31,15 @@ const FractionPrice = ({ value, changeHandler, setIsPriceTrue }: FractionPricePr
   }, [value]);
 
   return (
-    <div>
+    <div className={style.fraction_price}>
       <h2 className={style.fraction_price_label}>
-        <Label color="marmalade" positionH="bottom" positionW="right" id="fraction-price">
+        <Label
+          color="sherbet"
+          positionH="bottom"
+          positionW="right"
+          id="fraction-price"
+          width={46}
+          horizontal={8}>
           조각 당 가격
         </Label>
       </h2>

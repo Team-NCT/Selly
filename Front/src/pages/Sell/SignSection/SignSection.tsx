@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import style from "./SignSection.module.scss";
 import { useAppSelector, useCallbackPrompt } from "@/hooks";
 import { selectModal } from "@/store/modalSlice";
-import { SignBoxList, ConfirmModal } from "@/components/sell";
+import { SignBoxList, ConfirmModal, SellInfoCard } from "@/components/sell";
 import { SIGN_DATAS } from "./SignDatas";
 import { stepType } from "@/pages/Sell/Sell";
 
@@ -55,7 +55,14 @@ function SignSection({ changeStep }: SignSectionProps) {
           <strong>진행한 단계를 돌이킬 수 없습니다.</strong>
         </h3>
       </header>
-      <SignBoxList data={SIGN_DATAS} />
+      <section className={style.content}>
+        <div className={style.sign_box_list}>
+          <SignBoxList data={SIGN_DATAS} />
+        </div>
+        <div className={style.sell_info}>
+          <SellInfoCard />
+        </div>
+      </section>
     </>
   );
 }

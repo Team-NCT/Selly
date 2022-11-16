@@ -36,6 +36,7 @@ $bg-palette: (
   transform: translateX(-50%);
   width: 400px;
   padding: 16px;
+  z-index: 60;
   border-radius: $radius-alert;
   flex-wrap: nowrap;
   animation-delay: 0s;

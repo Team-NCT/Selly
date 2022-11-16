@@ -3,15 +3,25 @@
   width: 100%;
   aspect-ratio: 1/1;
   border-radius: $radius-card;
+
   figure {
     width: 100%;
+
     img {
       width: 100%;
       aspect-ratio: 1/1;
       object-fit: cover;
       border-radius: $radius-card;
     }
+    
+    .error_image {
+      width: 100%;
+      background-color: $white200;
+      aspect-ratio: 1/1;
+      object-fit: none;
+    }
   }
+
   div {
     @include flex(column, flex-end, flex-start);
     gap: 4px;

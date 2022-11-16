@@ -11,7 +11,7 @@ const Bio = () => {
   const [status, setStatus] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const dispatch = useAppDispatch();
-  const { profileData } = useAppSelector(selectProfileData);
+  const { introduction } = useAppSelector(selectProfileData);
 
   const changeBio = (event: React.FormEvent) => {
     const form = event.target as HTMLFormElement;
@@ -21,20 +21,20 @@ const Bio = () => {
   useEffect(() => {
     const debounce = setTimeout(async () => {
       setStatus(false);
-      if (!checkBadWord(profileData.introduction)) {
+      if (!checkBadWord(introduction)) {
         setError("비속어가 포함되어 있습니다.");
-      } else if (!checkValueLength(profileData.introduction.trim(), 5)) {
+      } else if (!checkValueLength(introduction.trim(), 5)) {
         setError("5글자 이상 입력헤 주세요");
       } else {
         setStatus(true);
       }
-      dispatch(setBioStatus(status && !!profileData.introduction));
+      dispatch(setBioStatus(status && !!introduction));
     }, 200);
 
     return () => {
       clearTimeout(debounce);
     };
-  }, [profileData.introduction, status, dispatch]);
+  }, [introduction, status, dispatch]);
 
   return (
     <section className={style.section}>
@@ -49,13 +49,13 @@ const Bio = () => {
         width={90}>
         <span className={style.text}>Bio</span>
       </Label>
-      {profileData.introduction ? "" : <span className={style.caption_danger}>*</span>}
+      {introduction ? "" : <span className={style.caption_danger}>*</span>}
       <TextInput
         handleInputChange={changeBio}
         id="Bio"
         maxLength={100}
         status={status}
-        value={profileData.introduction}
+        value={introduction}
         errorMessage={error}
         placeHolder="한 줄 소개를 입력해 주세요."
       />

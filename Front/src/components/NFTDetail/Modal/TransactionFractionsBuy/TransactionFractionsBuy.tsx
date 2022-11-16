@@ -5,18 +5,13 @@ import { selectFraction } from "@/store/fractionSlice";
 import { closeBuy } from "@/store/modalSlice";
 import style from "./TransactionFractionsBuy.module.scss";
 import { fPointCheck } from "@/helpers/utils/numberValidation";
-import {
-  useSellNFTFractionMutation,
-  useLazyFetchNFTFractionRecordQuery,
-} from "@/api/server/NFTTransactionAPI";
+import { useBuyNFTFractionMutation } from "@/api/server/NFTTransactionAPI";
 import { TransactionFractionsBuyProps } from "./TransactionFractionsBuy.types";
-import { sendPayableTransaction } from "@/api/blockchain/sendTransaction";
 
 const TransactionFractionsBuy = ({ articleId, userId, address }: TransactionFractionsBuyProps) => {
   const dispatch = useAppDispatch();
   const { pieceCnt, tradePrice, saleContractAddress, sellerId } = useAppSelector(selectFraction);
-  const [sellNFTFraction] = useSellNFTFractionMutation();
-  const [fetchNFTFractionData] = useLazyFetchNFTFractionRecordQuery();
+  const [buyNFTFraction] = useBuyNFTFractionMutation();
 
   //* 유효성 검사
   const checkInputValidation = useCallback(
@@ -58,23 +53,17 @@ const TransactionFractionsBuy = ({ articleId, userId, address }: TransactionFrac
   const handlerFormSumbit = async (event: FormEvent) => {
     event.preventDefault();
     if (!userId || !address) return;
+    if (userId === sellerId) return;
     const payload = {
       buyerId: userId,
       wallet: address,
+      pieceCnt: Number(value),
       articleId,
       sellerId,
-      pieceCnt,
       tradePrice,
       saleContractAddress,
     };
-    try {
-      const response = await sellNFTFraction(payload).unwrap();
-      const data = await sendPayableTransaction(response);
-      await fetchNFTFractionData(articleId);
-      console.log(data);
-    } catch (error) {
-      console.error("에러", error);
-    }
+    buyNFTFraction(payload);
   };
 
   return (

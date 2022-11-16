@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
 import style from "./Sell.module.scss";
 import { Neon } from "@/components/common";
-import { SelectedCard, SellInfoForm, SellInfoCard } from "@/components/sell";
 import { SelectSection, SignSection } from ".";
-import { useAppSelector } from "@/hooks";
-import { selectNFTValue } from "@/store/selectNFTSlice";
+import { useAppSelector, useAppDispatch } from "@/hooks";
+import { resetNFTValue } from "@/store/selectNFTSlice";
+import { resetSellInfo } from "@/store/sellInfoSlice";
 import { getNFTsForOwnerAPI } from "@/api/blockchain";
 import { selectAccount } from "@/store/loginSlice";
+import { resetSignData } from "@/store/signDataSlice";
 
 export type stepType = "SELECT" | "SIGN";
 
 function Sell() {
   const [step, setStep] = useState<stepType>("SELECT");
-  const [NFTdatas, setNFTdatas] = useState<any>("");
-  const NFTValue = useAppSelector(selectNFTValue);
-  const { address } = useAppSelector(selectAccount);
+  const [NFTdatas, setNFTdatas] = useState<any>(null);
+  const { address, userId } = useAppSelector(selectAccount);
+  const dispatch = useAppDispatch();
 
   const changeStep = (step: stepType) => {
     setStep(step);
@@ -24,37 +25,37 @@ function Sell() {
 
   const getOwnERC721NFTs = async () => {
     if (!address) return;
-    const { ownedNfts } = await getNFTsForOwnerAPI(address);
-    let datas = [];
-    datas = ownedNfts.filter((nft) => {
-      return nft.tokenType === "ERC721";
-    });
+    const datas = await getNFTsForOwnerAPI(address);
     console.log(datas);
     setNFTdatas(datas);
   };
 
+  //* 계정 바뀌면 데이터 리셋
   useEffect(() => {
     getOwnERC721NFTs();
-  }, []);
+    dispatch(resetNFTValue());
+    dispatch(resetSellInfo());
+    dispatch(resetSignData());
+    setStep("SELECT");
+  }, [address]);
+
+  // TODO_YK: 알럿창 + 홈으로 가도록
+  useEffect(() => {
+    if (userId) return;
+    alert("로그인이 필요");
+  }, [userId]);
 
   return (
     <main>
       <h1 className={style.sell_title}>
-        <Neon color="muscat150" positionH="top" positionW="left" vertical={0} width={48}>
-          Sell NFT
+        <Neon color="muscat150" positionH="top" positionW="right" width={70} vertical={1}>
+          Sell
         </Neon>
+        <span className={style.title_span}>NFT</span>
       </h1>
       <article className={style.content}>
-        <section className={style.select_section}>
-          {step === "SELECT" && <SelectSection datas={NFTdatas} />}
-          {step === "SIGN" && <SignSection changeStep={changeStep} />}
-        </section>
-        <section className={style.selected_NFT_section}>
-          <h2>Selected NFT</h2>
-          <SelectedCard url={NFTValue.articleUrl} title={NFTValue.articleName} />
-          {step === "SELECT" && <SellInfoForm changeStep={changeStep} />}
-          {step === "SIGN" && <SellInfoCard />}
-        </section>
+        {step === "SELECT" && <SelectSection datas={NFTdatas} changeStep={changeStep} />}
+        {step === "SIGN" && <SignSection changeStep={changeStep} />}
       </article>
     </main>
   );

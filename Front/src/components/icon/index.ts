@@ -10,3 +10,6 @@ export { default as SharingIcon } from "./SharingIcon/SharingIcon";
 export { default as BookmarkAddIcon } from "./BookmarkAddIcon/BookmarkAddIcon";
 export { default as BookmarkRemoveIcon } from "./BookmarkRemoveIcon/BookmarkRemoveIcon";
 export { default as AddPhotoIcon } from "./AddPhotoIcon/AddPhotoIcon";
+export { default as PencilIcon } from "./PencilIcon/PencilIcon";
+export { default as UpArrowIcon } from "./UpArrowIcon/UpArrowIcon";
+export { default as LogoIcon } from "./LogoIcon/LogoIcon";

@@ -25,9 +25,9 @@ const FractionCode = ({ value, changeHandler, setIsCodeTrue }: FractionCodeProps
   }, [value]);
 
   return (
-    <div>
+    <div className={style.fraction_code}>
       <h2 className={style.fraction_code_label}>
-        <Label color="lilac" positionH="bottom" positionW="right" id="fraction-code">
+        <Label color="ocean150" positionH="bottom" positionW="right" id="fraction-code">
           조각 코드
         </Label>
       </h2>

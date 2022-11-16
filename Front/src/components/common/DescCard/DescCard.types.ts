@@ -1,3 +1,5 @@
+import { NeonNumberType } from "../Neon/Neon.types";
+
 export interface DescCardProps {
   /**
    * NFT 이미지 url
@@ -12,10 +14,15 @@ export interface DescCardProps {
   /**
    * NFT 최근 거래 가격
    */
-  recentMarketPrice: number | null;
+  recentMarketPrice: NeonNumberType;
 
   /**
    * NFT 증감율
    */
-  rateChange?: number | null;
+  rateChange?: number;
+
+  /**
+   * 조각 수
+   */
+  pieceCnt?: number;
 }
