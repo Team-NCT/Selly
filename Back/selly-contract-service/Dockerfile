@@ -4,4 +4,4 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 4000
-CMD [ "node", "./bin/www" ]
+CMD [ "node", "server.js" ]
