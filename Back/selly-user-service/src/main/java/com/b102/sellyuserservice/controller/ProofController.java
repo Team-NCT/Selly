@@ -17,11 +17,11 @@ public class ProofController {
 
   private final UserRepository userRepository;
 
-  @GetMapping("/")
-  public SocialProof socialProof(){
-    Integer totalUsers = userRepository.countByAll();
-    SocialProof socialProof = new SocialProof();
-    socialProof.setTotalUsers(totalUsers);
-    return socialProof;
-  }
+//  @GetMapping("/")
+//  public SocialProof socialProof(){
+//    Integer totalUsers = userRepository.countByAll();
+//    SocialProof socialProof = new SocialProof();
+//    socialProof.setTotalUsers(totalUsers);
+//    return socialProof;
+//  }
 }
