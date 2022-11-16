@@ -8,8 +8,8 @@ contract SellyERC721 is ERC721Enumerable {
     mapping(uint256 => string) tokenURIs;
 
     event mintNFT(
-        uint256 indexed tokenId,
-        address indexed owner,
+        uint256 tokenId,
+        address owner,
         string tokenURI
     );
 
