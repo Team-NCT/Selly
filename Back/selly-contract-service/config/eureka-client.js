@@ -20,7 +20,7 @@ exports.registerWithEureka = (appName, PORT) =>{
             fetchRegistry: true
         },
         eureka: {
-            host: 'https://nftselly.com:8761',
+            host: 'https://nftselly.com',
             port: 8761,
             servicePath: '/eureka/apps/'
         }
