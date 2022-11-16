@@ -93,15 +93,15 @@ const userAPI = createApi({
       query: (value) => `profile/margin${value}`,
       providesTags: ["profile"],
     }),
-    //@ description: Artist Trending Ranking 데이터를 가져오는 API
+    //@ description: Artist Trend Ranking 데이터를 가져오는 API
     fetchArtistTrendingRankingData: build.query<ArtistRankingType[], void>({
-      query: () => "ranking/trend",
-      providesTags: ["user"],
-    }),
-    //@ description: Artist Total Ranking 데이터를 가져오는 API
-    fetchArtistTotalRankingData: build.query<ArtistRankingType[], void>({
       query: () => "ranking/total",
-      providesTags: ["user"],
+      providesTags: ["user", "settings"],
+    }),
+    //@ description: Artist follow Ranking 데이터를 가져오는 API
+    fetchArtistTotalRankingData: build.query<ArtistRankingType[], void>({
+      query: () => "ranking/trend",
+      providesTags: ["user", "settings"],
     }),
   }),
 });
