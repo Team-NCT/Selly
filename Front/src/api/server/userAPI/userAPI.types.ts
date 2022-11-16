@@ -14,15 +14,6 @@ export interface cardType {
   articleImgUrl: string;
 }
 
-export interface DescCardType {
-  articleId: number;
-  articleName: string;
-  articleImgUrl: string;
-  recentMarketPrice: number;
-  articleMargin: number;
-  pieceCnt: number;
-}
-
 export interface RevenueType {
   marginRate: number;
   totalAssetValue: number;

@@ -2,7 +2,7 @@ import { ProfileTabProps } from "./ProfileTab.types";
 import { Neon, SelectBox } from "@/components/common";
 import { getViewportSize } from "@/helpers/utils/getViewportSize";
 import { useState, useCallback, useEffect } from "react";
-import { Created, ForSale, Collected, Fractions } from "@/components/profile";
+import { Created, ForSale, Collected, Fractions, Bookmark } from "@/components/profile";
 import style from "./ProfileTab.module.scss";
 
 const ProfileTab = ({ wallet }: ProfileTabProps) => {
@@ -71,6 +71,7 @@ const ProfileTab = ({ wallet }: ProfileTabProps) => {
       {selectedTab === "Created" && <Created />}
       {selectedTab === "ForSale" && <ForSale />}
       {selectedTab === "Collected" && <Collected wallet={wallet} />}
+      {selectedTab === "Bookmark" && <Bookmark />}
     </section>
   );
 };

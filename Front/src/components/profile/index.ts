@@ -7,3 +7,4 @@ export { default as ProfileTab } from "./ProfileTab/ProfileTab";
 export { default as Collected } from "./Collected/Collected";
 export { default as FollowModal } from "./FollowModal/FollowModal";
 export { default as Fractions } from "./Fractions/Fractions";
+export { default as Bookmark } from "./Bookmark/Bookmark";

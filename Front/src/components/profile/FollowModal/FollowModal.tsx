@@ -5,7 +5,7 @@ import { LeftArrowIcon } from "@/components/icon";
 import { TabType, FollowModalProps } from "./FollowModal.types";
 import { useAppDispatch } from "@/hooks";
 import { closeFollow } from "@/store/modalSlice";
-import { Follow } from ".";
+import { default as Follow } from "./Follow/Follow";
 import { useFetchUserFollowerQuery, useFetchUserFollowingQuery } from "@/api/server/userAPI";
 
 const FollowModal = ({ type, nickname, profilePageId }: FollowModalProps) => {

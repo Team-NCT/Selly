@@ -1,6 +1,6 @@
-import style from "./Created.module.scss";
+import style from "./Bookmark.module.scss";
 import { CardList, Spinner } from "@/components/common";
-import { useFetchCreatedDataQuery } from "@/api/server/userAPI";
+import { useFetchBookmarkDataQuery } from "@/api/server/bookmarkAPI";
 import { cardType } from "@/types/NFTData.types";
 import { useParams } from "react-router-dom";
 import { useInfiniteScroll } from "@/hooks";
@@ -8,10 +8,10 @@ import { useState, useEffect } from "react";
 
 const FETCH_SIZE = 15;
 
-const Created = () => {
+const Bookmark = () => {
   const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
   const params = useParams();
-  const { data, isError, isSuccess } = useFetchCreatedDataQuery(Number(params.id));
+  const { data, isError, isSuccess } = useFetchBookmarkDataQuery(Number(params.id));
 
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<cardType[]>([]);
@@ -44,7 +44,7 @@ const Created = () => {
 
   if (isError) {
     return (
-      <section className={style.created_section}>
+      <section className={style.bookmark_section}>
         <div className={style.nft_none}>
           <p>에러가 발생했습니다 </p>
           <p> (っ °Д °;)っ </p>
@@ -54,13 +54,13 @@ const Created = () => {
   }
 
   return (
-    <section className={style.created_section}>
+    <section className={style.bookmark_section}>
       {isSuccess ? (
         data.length !== 0 ? (
           <CardList data={items} />
         ) : (
           <div className={style.nft_none}>
-            <p>제작한 NFT가 존재하지 않습니다</p>
+            <p>현재 즐겨찾기 중인 NFT가 없습니다</p>
             <p>(っ °Д °;)っ</p>
           </div>
         )
@@ -73,4 +73,4 @@ const Created = () => {
   );
 };
 
-export default Created;
+export default Bookmark;

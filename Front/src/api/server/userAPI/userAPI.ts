@@ -5,7 +5,6 @@ import {
   fetchUserProfileParamsData,
   followDataType,
   cardType,
-  DescCardType,
   RevenueType,
   SettingsType,
   FetchSettingsType,
@@ -75,17 +74,7 @@ const userAPI = createApi({
     }),
     //@ description: Ceated 탭의 데이터를 가져오는 API
     fetchCreatedData: build.query<cardType[], number>({
-      query: (userId) => `/profile/user-created/${userId}/`,
-      providesTags: ["profile"],
-    }),
-    //@ description: ForSale 탭의 데이터를 가져오는 API
-    fetchForSaleData: build.query<cardType[], number>({
-      query: (userId) => `/profile/user-forSale/${userId}/`,
-      providesTags: ["profile"],
-    }),
-    //@ description: Fractions 탭의 데이터를 가져오는 API
-    fetchFractionsData: build.query<DescCardType[], number>({
-      query: (userId) => `/profile/user-fractions/${userId}/`,
+      query: (userId) => `profile/user-created/${userId}/`,
       providesTags: ["profile"],
     }),
     //@ description: 내수익 보기 데이터를 가져오는 API
@@ -114,8 +103,6 @@ export const {
   useFetchUserFollowerQuery,
   useFetchUserFollowingQuery,
   useFetchCreatedDataQuery,
-  useFetchForSaleDataQuery,
-  useFetchFractionsDataQuery,
   useFetchRevenueDataQuery,
   useFetchArtistTotalRankingDataQuery,
   useFetchArtistTrendingRankingDataQuery,
