@@ -16,3 +16,11 @@ export interface UserType {
   image?: string;
   certification: boolean;
 }
+
+export interface UserFollowType {
+  userId: number;
+  wallet: string;
+  nickname: string;
+  image: string;
+  myFollowing: boolean;
+}

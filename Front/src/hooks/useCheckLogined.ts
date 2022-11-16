@@ -16,10 +16,17 @@ const useCheckLogined = () => {
 
   //* 지갑 체크
   const checkWallet = async () => {
+    console.log("기본");
     try {
       //* 모바일 환경 체크
       if (isMobileWeb()) {
         dispatch(logout());
+        goPage("/");
+        openAlertModal({
+          content: "메타마스크가 삭제되어 로그아웃 되었습니다.",
+          style: "error",
+          icon: false,
+        });
         return;
       }
 
@@ -67,6 +74,7 @@ const useCheckLogined = () => {
   };
 
   const checkWalletAccount = async () => {
+    console.log("업글");
     checkWallet();
     const address = await getWallet();
     if (address === -32002) {
