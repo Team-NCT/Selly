@@ -16,4 +16,6 @@ public interface NftPieceRepository extends JpaRepository<NftPiece, Long> {
   List<NftPiece> findByUserIdAndArticleIdAndTrade(Long userId, Long articleId, boolean b);
 
   List<ArticleResponse> findByUserId(Long profileUserId);
+
+  NftPiece findByArticleId(Long articleId);
 }

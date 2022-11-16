@@ -36,4 +36,5 @@ public class ArticleResponse {
   private String ownerNickname;
   private boolean certification;
   private boolean bookMark;
+  private Double recentMarketPrice;
 }

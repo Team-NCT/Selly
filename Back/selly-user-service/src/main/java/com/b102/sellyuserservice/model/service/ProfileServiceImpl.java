@@ -2,6 +2,7 @@ package com.b102.sellyuserservice.model.service;
 
 import com.b102.sellyuserservice.client.ArticleServiceClient;
 import com.b102.sellyuserservice.controller.ProfileController;
+import com.b102.sellyuserservice.domain.entity.NftPiece;
 import com.b102.sellyuserservice.model.repository.NftPieceRepository;
 import com.b102.sellyuserservice.vo.ArticleResponse;
 import com.b102.sellyuserservice.vo.FractionResponse;
@@ -43,19 +44,35 @@ public class ProfileServiceImpl implements ProfileService{
     List<FractionResponse> responses = new ArrayList<>();
     if (userId.equals(profileUserId)) {
       List<ArticleResponse> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
-      articleResponseList.forEach( v -> {
 
+      articleResponseList.forEach( v -> {
+        NftPiece nftPiece = nftPieceRepository.findByArticleId(v.getArticleId());
+        ArticleResponse articleResponse = articleServiceClient.getArticle(v.getArticleId());
         FractionResponse fractionResponse = FractionResponse.builder()
                 .articleId(v.getArticleId())
                 .articleName(v.getArticleName())
                 .articleImgUrl(v.getArticleImgUrl())
+                .recentMarketPrice(articleResponse.getRecentMarketPrice())
+                .pieceCnt(nftPiece.getNftPieceCnt())
+                .rateChange(articleResponse.getRecentMarketPrice()/ nftPiece.getAvgPrice())
                 .build();
         responses.add(fractionResponse);
       });
-
-      return null;
+      return responses;
     }
-    return null;
+    List<ArticleResponse> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
+
+    articleResponseList.forEach( v -> {
+      ArticleResponse articleResponse = articleServiceClient.getArticle(v.getArticleId());
+      FractionResponse fractionResponse = FractionResponse.builder()
+              .articleId(v.getArticleId())
+              .articleName(v.getArticleName())
+              .articleImgUrl(v.getArticleImgUrl())
+              .recentMarketPrice(articleResponse.getRecentMarketPrice())
+              .build();
+      responses.add(fractionResponse);
+    });
+    return responses;
   }
 
 

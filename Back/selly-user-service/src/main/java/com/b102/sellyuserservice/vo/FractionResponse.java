@@ -14,13 +14,13 @@ public class FractionResponse {
   private String articleName;
   private String articleImgUrl;
   @Nullable
-  private String recentMarketPrice;
+  private Double recentMarketPrice;
   @Nullable
-  private String rateChange;
+  private Double rateChange;
   private Integer pieceCnt;
 
   @Builder
-  public FractionResponse(Long articleId, String articleName, String articleImgUrl, String recentMarketPrice, String rateChange, Integer pieceCnt) {
+  public FractionResponse(Long articleId, String articleName, String articleImgUrl, Double recentMarketPrice, Double rateChange, Integer pieceCnt) {
     this.articleId = articleId;
     this.articleName = articleName;
     this.articleImgUrl = articleImgUrl;
