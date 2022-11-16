@@ -1,3 +1,4 @@
+import { CollectedProps } from "./Collected.types";
 import { useState, useEffect } from "react";
 import { CollectedCardList } from "./CollectedCardList";
 import { getNFTsForOwnerAPI } from "@/api/blockchain";
@@ -7,7 +8,7 @@ import style from "./Collected.module.scss";
 
 const FETCH_SIZE = 5;
 
-const Collected = ({ wallet }: { wallet: string }) => {
+const Collected = ({ wallet }: CollectedProps) => {
   const [NFTdatas, setNFTdatas] = useState<any>(null);
   const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
   const [page, setPage] = useState(1);
