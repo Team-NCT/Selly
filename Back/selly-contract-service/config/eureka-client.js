@@ -4,7 +4,7 @@ exports.registerWithEureka = (appName, PORT) =>{
     const client = new Eureka({
         instance: {
             app: appName,
-            hostName: "localhost",
+            hostName: "selly-contract-service",
             ipAddr: '15.165.177.117',
             vipAddress: appName,
             statusPageUrl: 'https://nftselly.com:4000/info',
