@@ -179,4 +179,5 @@ public class UserController {
   public String nicknameCheck(@PathVariable("nickname") String nickname){
     return userService.findByNickname(nickname);
   }
+
 }
