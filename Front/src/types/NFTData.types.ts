@@ -64,7 +64,7 @@ export interface NFTFractionHistoryListType {
   avgPrice: number;
 }
 
-export interface cardType {
+export interface CardType {
   articleId: number;
   articleName: string;
   articleImgUrl: string;

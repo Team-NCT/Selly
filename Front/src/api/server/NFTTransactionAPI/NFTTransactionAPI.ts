@@ -9,7 +9,7 @@ import {
   cancleSellNFTFractionType,
 } from "./NFTTransactionAPI.types";
 import { SignedTransactionType, PayableSignedTransactionType } from "@/types/transaction.types";
-import { NFTFractionHistoryListType, DescCardType, cardType } from "@/types/NFTData.types";
+import { NFTFractionHistoryListType, DescCardType, CardType } from "@/types/NFTData.types";
 import sleep from "@/helpers/utils/sleep";
 import { sendTransaction, sendPayableTransaction } from "@/api/blockchain";
 import {
@@ -56,7 +56,7 @@ const NFTTransactionAPI = createApi({
     }),
 
     //@ description: ForSale 탭의 데이터를 가져오는 API
-    fetchForSaleData: build.query<cardType[], number>({
+    fetchForSaleData: build.query<CardType[], number>({
       query: (userId) => `selly-user-service/profile/user-forSale/${userId}/`,
       providesTags: ["fraction"],
     }),
@@ -89,10 +89,10 @@ const NFTTransactionAPI = createApi({
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
-          dispatch(openAlert());
           dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
+          dispatch(openAlert());
           return { data: false };
         }
       },
@@ -116,10 +116,10 @@ const NFTTransactionAPI = createApi({
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
-          dispatch(openAlert());
           dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
+          dispatch(openAlert());
           return { data: false };
         }
       },
@@ -143,10 +143,10 @@ const NFTTransactionAPI = createApi({
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
-          dispatch(openAlert());
           dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
+          dispatch(openAlert());
           return { data: false };
         }
       },
