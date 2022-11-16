@@ -15,7 +15,7 @@ const NFTDetailHeader = ({ title, id, imageUrl, url, userId }: NFTDetailHeaderPr
           <BackArrowIcon />
         </div>
         <div className={style.NFT_detail_header_right_icon}>
-          <FavoriteIcon articleId={id} userId={userId} />
+          {userId && <FavoriteIcon articleId={id} userId={userId} />}
           <ShareIcon id={id} title={title} imageUrl={imageUrl} url={url} />
         </div>
       </section>
