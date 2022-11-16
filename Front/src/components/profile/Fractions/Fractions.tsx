@@ -1,5 +1,5 @@
 import { DescCardList, CardList } from "@/components/common";
-import { useFetchFractionsDataQuery } from "@/api/server/userAPI";
+import { useFetchFractionsDataQuery } from "@/api/server/NFTTransactionAPI";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "@/hooks/useStore";
 import { selectAccount } from "@/store/loginSlice";

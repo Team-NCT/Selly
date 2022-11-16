@@ -7,6 +7,8 @@ import {
   SellNFTFractionType,
   RegisterSellNFTFractionType,
   cancleSellNFTFractionType,
+  DescCardType,
+  cardType,
 } from "./NFTTransactionAPI.types";
 import { SignedTransactionType, PayableSignedTransactionType } from "@/types/transaction.types";
 import { NFTFractionHistoryListType } from "@/types/NFTData.types";
@@ -52,6 +54,17 @@ const NFTTransactionAPI = createApi({
     fetchOwnedNFTCount: build.query<number, RequestDataType>({
       query: ({ articleId, userId }) =>
         `selly-user-service/nftPiece/${userId}?articleId=${articleId}`,
+      providesTags: ["fraction"],
+    }),
+
+    //@ description: ForSale 탭의 데이터를 가져오는 API
+    fetchForSaleData: build.query<cardType[], number>({
+      query: (userId) => `selly-user-service/profile/user-forSale/${userId}/`,
+      providesTags: ["fraction"],
+    }),
+    //@ description: Fractions 탭의 데이터를 가져오는 API
+    fetchFractionsData: build.query<DescCardType[], number>({
+      query: (userId) => `selly-user-service/profile/user-fractions/${userId}/`,
       providesTags: ["fraction"],
     }),
 
@@ -155,5 +168,7 @@ export const {
   useBuyNFTFractionMutation,
   useRegisterSellNFTFractionMutation,
   useCancleSellNFTFractionMutation,
+  useFetchForSaleDataQuery,
+  useFetchFractionsDataQuery,
 } = NFTTransactionAPI;
 export default NFTTransactionAPI;

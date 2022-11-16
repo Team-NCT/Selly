@@ -5,6 +5,7 @@ import {
   requestDataType,
   bookmarkResponseType,
   cancleBookmarkReponseType,
+  DescCardType,
 } from "./bookmarkAPI.types";
 
 export const bookmarkAPI = createApi({
@@ -47,9 +48,19 @@ export const bookmarkAPI = createApi({
       }),
       invalidatesTags: ["bookmark"],
     }),
+
+    //@ description: Bookmark 탭의 데이터를 가져오는 API
+    fetchBookmarkData: build.query<DescCardType[], number>({
+      query: (userId) => `bookmark/${userId}/`,
+      providesTags: ["bookmark"],
+    }),
   }),
 });
 
-export const { useBookmarkNFTMutation, useCancleBookmarkNFTMutation, useCheckBookmarkStatusQuery } =
-  bookmarkAPI;
+export const {
+  useBookmarkNFTMutation,
+  useCancleBookmarkNFTMutation,
+  useCheckBookmarkStatusQuery,
+  useFetchBookmarkDataQuery,
+} = bookmarkAPI;
 export default bookmarkAPI;

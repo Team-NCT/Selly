@@ -1,7 +1,7 @@
 import { Neon, SelectBox } from "@/components/common";
 import { getViewportSize } from "@/helpers/utils/getViewportSize";
 import { useState, useCallback, useEffect } from "react";
-import { Created, ForSale, Collected, Fractions } from "@/components/profile";
+import { Created, ForSale, Collected, Fractions, Bookmark } from "@/components/profile";
 import style from "./ProfileTab.module.scss";
 
 const ProfileTab = () => {
@@ -70,6 +70,7 @@ const ProfileTab = () => {
       {selectedTab === "Created" && <Created />}
       {selectedTab === "ForSale" && <ForSale />}
       {selectedTab === "Collected" && <Collected />}
+      {selectedTab === "Bookmark" && <Bookmark />}
     </section>
   );
 };

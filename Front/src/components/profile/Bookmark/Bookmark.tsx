@@ -1,13 +1,13 @@
 import { CardList } from "@/components/common";
-import { useFetchForSaleDataQuery } from "@/api/server/NFTTransactionAPI";
+import { useFetchBookmarkDataQuery } from "@/api/server/bookmarkAPI";
 import { useParams } from "react-router-dom";
 
-const ForSale = () => {
+const Bookmark = () => {
   const params = useParams();
-  const response = useFetchForSaleDataQuery(Number(params.id));
+  const response = useFetchBookmarkDataQuery(Number(params.id));
   const arr = response.data ? response.data : [];
 
   return <CardList data={arr} />;
 };
 
-export default ForSale;
+export default Bookmark;
