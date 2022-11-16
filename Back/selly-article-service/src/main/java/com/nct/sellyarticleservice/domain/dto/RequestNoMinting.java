@@ -1,11 +1,13 @@
-package com.nct.sellytradeservice.domain.dto;
+package com.nct.sellyarticleservice.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+import javax.validation.constraints.NotNull;
+
 @Data
-public class RequestArticleNoMinting {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class RequestNoMinting {
   private Long owner;
   private String metaDataUrl;
   private String articleName;
