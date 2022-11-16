@@ -22,6 +22,8 @@ spring:
 
 
 eureka:
+  instance:
+    hostname: 15.165.177.117
 #  instance:
 #    instance-id: 15.165.177.117
 #  instance:
