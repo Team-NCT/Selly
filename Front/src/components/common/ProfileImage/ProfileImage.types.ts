@@ -18,5 +18,5 @@ export interface ProfileImageProps {
   /**
    * 인증 마크 여부
    */
-  certification: boolean;
+  certification?: boolean;
 }

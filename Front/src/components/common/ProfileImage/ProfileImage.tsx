@@ -3,7 +3,7 @@ import { ProfileImageProps } from "./ProfileImage.types";
 import defaultImage from "@/assets/images/profile.png";
 import { CheckMarkIcon } from "@/components/icon";
 
-const ProfileImage = ({ url, size, profileStyle, certification }: ProfileImageProps) => {
+const ProfileImage = ({ url, size, profileStyle, certification = false }: ProfileImageProps) => {
   //* 이미지 에러 처리
   const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = defaultImage;
