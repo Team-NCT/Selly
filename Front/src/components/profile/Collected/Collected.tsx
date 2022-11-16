@@ -6,7 +6,7 @@ import { useInfiniteScroll } from "@/hooks";
 import { Spinner } from "@/components/common";
 import style from "./Collected.module.scss";
 
-const FETCH_SIZE = 5;
+const FETCH_SIZE = 15;
 
 const Collected = ({ wallet }: CollectedProps) => {
   const [NFTdatas, setNFTdatas] = useState<any>(null);
@@ -39,7 +39,6 @@ const Collected = ({ wallet }: CollectedProps) => {
   useEffect(() => {
     if (!NFTdatas) return;
     setIsFinished(false);
-    console.log("???", NFTdatas);
     const nextDatas = NFTdatas.slice(0, FETCH_SIZE);
     if (FETCH_SIZE >= NFTdatas.length) {
       setIsFinished(true);
