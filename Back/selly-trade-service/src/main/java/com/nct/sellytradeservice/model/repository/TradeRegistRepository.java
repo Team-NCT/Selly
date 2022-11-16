@@ -1,6 +1,7 @@
 package com.nct.sellytradeservice.model.repository;
 
 import com.nct.sellytradeservice.domain.dto.ResponseArticleId;
+import com.nct.sellytradeservice.domain.dto.TradeRegistDto;
 import com.nct.sellytradeservice.domain.entity.TradeRegist;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;

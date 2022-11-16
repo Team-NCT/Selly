@@ -3,6 +3,7 @@ package com.nct.sellytradeservice.controller;
 import com.nct.sellytradeservice.client.FeignClientException;
 import com.nct.sellytradeservice.client.UserServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
+import com.nct.sellytradeservice.domain.entity.TradeRegist;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
 import com.nct.sellytradeservice.model.repository.TradeRegistRepository;
 import com.nct.sellytradeservice.model.service.TradeLogService;
@@ -152,7 +153,7 @@ public class TradeController {
   public Integer sellerArticleCount(@PathVariable("userId") Long userId){
     return tradeLogRepository.countBySeller(userId);
   }
-  @GetMapping("/trade-user-search/{userId}")
+  @GetMapping("/trade-search/{userId}")
   public List<Long> searchSellerArticleId(@PathVariable("userId") Long userId){
     List<Long> returnValue = tradeRegistRepository.findSellerGroupByArticleId(userId);
     System.out.println(returnValue);

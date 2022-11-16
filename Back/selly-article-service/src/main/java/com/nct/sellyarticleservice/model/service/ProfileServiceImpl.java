@@ -5,6 +5,7 @@ import com.nct.sellyarticleservice.domain.dto.ArticleResponse;
 import com.nct.sellyarticleservice.domain.dto.ResponseArticleId;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
+import com.nct.sellyarticleservice.vo.TradeRegistDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProfileServiceImpl implements ProfileService{
-  private TradeServiceClient tradeServiceClient;
-  private ArticleRepository articleRepository;
+  private final TradeServiceClient tradeServiceClient;
+  private final ArticleRepository articleRepository;
   @Override
   public List<ArticleResponse> findUserSaleArticleList(Long userId) {
     List<ArticleResponse> articleResponses = new ArrayList<>();
-    List<Long> articleId = tradeServiceClient.searchSellerArticleId(userId);
+    List<Long> articleId = tradeServiceClient.searchResult(userId);
     if (articleId == null){
       return null;
     }
