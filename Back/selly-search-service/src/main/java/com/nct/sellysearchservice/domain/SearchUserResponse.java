@@ -1,9 +1,10 @@
 package com.nct.sellysearchservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 import lombok.Getter;
 
-@Getter
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SearchUserResponse {
   private Long userId;

@@ -5,6 +5,7 @@ import com.nct.sellysearchservice.model.service.SearchService;
 import com.nct.sellysearchservice.model.service.SearchServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,10 @@ public class SearchController {
   @GetMapping("/search/{keyword}")
   public ResponseEntity<HashMap<String, Object>> getSearchResult(@PathVariable("keyword") String keyword) {
     HashMap<String, Object> result = searchService.getSearchResult(keyword);
-    return ResponseEntity.ok().body(result);
+    if (result != null){
+      return ResponseEntity.status(HttpStatus.OK).body(result);
+    }else {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
   }
 }

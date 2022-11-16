@@ -36,5 +36,5 @@ public interface ArticleService {
 
   HashMap<String, Object> findByArticleAndUser(Long articleId);
   
-  ResponseArticle createArticleNoMinting(RequestArticleCreate requestArticleCreate);
+  ResponseArticle createArticleNoMinting(RequestNoMinting requestNoMinting);
 }
