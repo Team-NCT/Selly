@@ -15,4 +15,8 @@ export interface ProfileImageProps {
    * 프로필 이미지 스타일
    */
   profileStyle: "round" | "square";
+  /**
+   * 인증 마크 여부
+   */
+  certification: boolean;
 }
