@@ -3,7 +3,6 @@ import { useRef, useEffect, useCallback, RefObject } from "react";
 const useScrollCount = (end: number, start = 0, duration = 2000) => {
   const element: RefObject<HTMLSpanElement> = useRef(null);
   const stepTime = Math.abs(Math.floor(duration / (end - start)));
-  console.log(stepTime);
 
   const onScroll: IntersectionObserverCallback = useCallback(
     ([entry]) => {
