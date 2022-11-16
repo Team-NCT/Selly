@@ -45,17 +45,6 @@ const Fractions = () => {
     setPage(2);
   }, [data]);
 
-  if (isError) {
-    return (
-      <section className={style.fractions_section}>
-        <div className={style.nft_none}>
-          <p>에러가 발생했습니다 </p>
-          <p> (っ °Д °;)っ </p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className={style.fractions_section}>
       {isSuccess ? (
