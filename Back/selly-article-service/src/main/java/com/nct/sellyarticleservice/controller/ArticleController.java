@@ -5,6 +5,7 @@ import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
 import com.nct.sellyarticleservice.model.service.ArticleServiceImpl;
+import com.nct.sellyarticleservice.model.service.ProfileService;
 import com.nct.sellyarticleservice.vo.ArticleRankingResponse;
 import com.nct.sellyarticleservice.vo.CategoryResponse;
 import com.nct.sellyarticleservice.vo.TradeRankDto;
@@ -28,6 +29,8 @@ public class ArticleController {
   private final ArticleServiceImpl articleService;
 
   private final ArticleRepository articleRepository;
+
+  private final ProfileService profileService;
 
 
   //  @GetMapping("/{articleId}")
@@ -198,6 +201,16 @@ public class ArticleController {
   @GetMapping("/articleCount/{userId}")
   public Integer articleCount(@PathVariable("userId") Long userId){
     return articleRepository.countByOwner(userId);
+  }
+
+  @GetMapping("/user-forSale/{userId}")
+  public ResponseEntity<List<ArticleResponse>> userSaleArticleList(@PathVariable("userId") Long userId) {
+    List<ArticleResponse> responses = profileService.findUserSaleArticleList(userId);
+    if (responses != null){
+      return ResponseEntity.status(HttpStatus.OK).body(responses);
+    }else{
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
   }
 }
 
