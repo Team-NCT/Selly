@@ -7,6 +7,7 @@ interface CardListProps {
 }
 
 const CollectedCardList = ({ data }: CardListProps) => {
+  console.log(data);
   return (
     <ul className={style.card_list}>
       {data.map((item, idx) => (

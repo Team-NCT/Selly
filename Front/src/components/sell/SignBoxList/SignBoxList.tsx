@@ -2,16 +2,18 @@ import { SignBoxListProps } from "./SignBoxList.types";
 import style from "./SignBoxList.module.scss";
 import { SignBox } from "@/components/sell";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { resetSignData, setF_NFTCA, setF_NFTSaleCA } from "@/store/signDataSlice";
+import { useAppDispatch } from "@/hooks";
+import { resetSignData, setF_NFTCA } from "@/store/signDataSlice";
 import { resetSellInfo } from "@/store/sellInfoSlice";
 import { resetNFTValue } from "@/store/selectNFTSlice";
 import { useNavigate } from "react-router-dom";
+import { useAlert, OpenAlertArg } from "@/hooks";
 
-const SelectCardList = ({ data }: SignBoxListProps) => {
+const SelectCardList = ({ data, confirmNavigation }: SignBoxListProps) => {
   const [activeBoxIdx, setActiveBoxIdx] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { openAlertModal } = useAlert();
 
   const goNext = (idx: number) => {
     setActiveBoxIdx(idx);
@@ -21,6 +23,13 @@ const SelectCardList = ({ data }: SignBoxListProps) => {
       dispatch(resetSellInfo());
       dispatch(resetNFTValue());
       navigate("/");
+      confirmNavigation();
+      const data: OpenAlertArg = {
+        content: "판매 등록이 완료되었습니다.",
+        style: "success",
+        icon: true,
+      };
+      openAlertModal(data);
     }
   };
 

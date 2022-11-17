@@ -1,9 +1,13 @@
 .confirm_modal {
   @include flex(column, space-between, center);
   @include shadow-modal;
+  gap: 32px;
   border-radius: $radius-card;
-  gap: 30px;
-  padding: 68px;
+  padding: 32px 32px;
+
+  @include tablet {
+    padding: 32px 64px;
+  }
 
   .text_section {
     @include flex(column, center, center);
@@ -11,20 +15,16 @@
     line-height: 200%;
 
     h1 {
-      @include font($h5, $semibold);
-      @include mobile {
-        @include font($body1, $semibold);
+      @include font($body1, $semibold);
+
+      @include tablet {
+        @include font($h5, $semibold);
       }
     }
 
     .alert_text {
       @include font($body2, $semibold);
       color: $sherbet150;
-
-      @include mobile {
-        @include font($body2, $semibold);
-        color: $sherbet150;
-      }
     }
   }
 
@@ -33,20 +33,8 @@
     gap: 40px;
 
     Button {
+      @include font($body1, $bold);
       flex-shrink: 0;
-
-      @include mobile {
-        @include font($body1, $bold);
-      }
     }
-
-    @include mobile {
-      gap: 28px;
-    }
-  }
-
-  @include mobile {
-    gap: 24px;
-    padding: 56px;
   }
 }

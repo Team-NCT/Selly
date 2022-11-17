@@ -17,7 +17,7 @@ const ProfileImage = ({ url, size, profileStyle, certification = false }: Profil
         onError={handleImgError}></img>
       {certification ? (
         <div className={style.certification}>
-          <CheckMarkIcon size={20} />
+          <CheckMarkIcon />
         </div>
       ) : (
         <></>
