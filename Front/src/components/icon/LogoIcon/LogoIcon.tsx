@@ -1,9 +1,11 @@
-const LogoIcon = () => {
+const LogoIcon = ({ size = 48 }: { size?: number }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      viewBox="0 0 497 594">
+      viewBox="0 0 497 594"
+      height={size}
+      width={size}>
       <defs>
         <style>
           {`.cls-1 {
