@@ -10,11 +10,10 @@
 .section {
   @include flex(column, flex-start, flex-start);
   width: 100%;
-  gap: 40px;
+  gap: 64px;
 }
 
 .profileTab {
-  margin-top: 64px;
   @include flex(row, flex-start);
   width: 100%;
   gap: 32px;
@@ -51,5 +50,5 @@
 }
 
 .selectBox {
-  width: 200px;
+  width: 160px;
 }

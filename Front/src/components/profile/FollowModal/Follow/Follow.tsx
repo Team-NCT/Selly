@@ -31,7 +31,12 @@ const Follow = ({ data }: FollowProps) => {
     <li className={style.follow_article}>
       <Link to={`/profile/${data.userId}`} onClick={() => dispatch(closeFollow())}>
         <div className={style.user_info}>
-          <ProfileImage size="xxs" profileStyle="square" url={data.image} />
+          <ProfileImage
+            size="xxs"
+            profileStyle="square"
+            url={data.image}
+            certification={data.certification}
+          />
           <div className={style.user_text_info}>
             <div className={style.nickname}>{data.nickname}</div>
             <div className={style.wallet}>

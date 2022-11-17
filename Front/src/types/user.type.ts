@@ -24,4 +24,5 @@ export interface UserFollowType {
   nickname: string;
   image: string;
   myFollowing: boolean;
+  certification: boolean;
 }

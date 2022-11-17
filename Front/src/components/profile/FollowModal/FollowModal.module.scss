@@ -19,7 +19,7 @@
 
   .header {
     @include flex(row, flex-start, center);
-    @include font($h4, $semibold);
+    @include font($h5, $semibold);
     width: 100%;
     gap: 32px;
 
@@ -43,15 +43,11 @@
     gap: 0px;
 
     button {
-      @include font($h5, $medium);
+      @include font($body1, $medium);
       width: 50%;
       padding: 12px 0px 16px 0px;
       color: $black;
       border-bottom: 2px solid $black;
-
-      @include mobile {
-        @include font($body1, $medium);
-      }
     }
   }
 
@@ -80,6 +76,7 @@
 
     @include mobile {
       height: 300px;
+      padding: 0 16px;
     }
   }
 }
