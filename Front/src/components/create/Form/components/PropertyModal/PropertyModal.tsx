@@ -67,15 +67,6 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
     close();
   };
 
-  //* 취소
-  const cancleHandler = (event: React.MouseEvent) => {
-    event.preventDefault();
-    console.log(properties);
-    setProperties([]);
-    close();
-    setProperties([...properties]);
-  };
-
   return (
     <Modal close={close}>
       <form className={style.property_modal_container}>
@@ -136,7 +127,7 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
           )}
         </section>
         <section className={style.proerty_button}>
-          <Button bg="disabled" color="none" onClick={(e) => cancleHandler(e)}>
+          <Button bg="disabled" color="none" onClick={() => close()}>
             취소
           </Button>
           <Button onClick={(e) => saveHandler(e)}>저장</Button>
