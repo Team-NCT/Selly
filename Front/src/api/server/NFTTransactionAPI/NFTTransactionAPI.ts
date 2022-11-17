@@ -27,9 +27,11 @@ const NFTTransactionAPI = createApi({
     baseUrl: SELLY_API,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).account.token;
+      const userId = (getState() as RootState).account.userId || 0;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
+      headers.set("userId", String(userId));
 
       return headers;
     },

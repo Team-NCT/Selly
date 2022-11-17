@@ -23,7 +23,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
   const { address, userId } = useAppSelector(selectAccount);
 
   const { F_NFTCA } = useAppSelector(selectSignData);
-  const { CA, tokenId, metaDataUrl, articleName, articleUrl } = useAppSelector(selectNFTValue);
+  const { CA, tokenId, metaDataUrl, articleName, articleImgUrl } = useAppSelector(selectNFTValue);
   const { category, code, num, price } = useAppSelector(selectSellInfo);
 
   const [createSale] = useSaleNFTMutation();
@@ -38,7 +38,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
     userWallet,
     userId,
     metaDataUrl,
-    articleUrl,
+    articleImgUrl,
     category,
     price,
   }: functionProps) => {
@@ -51,7 +51,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
       tradePrice: Number(price),
       category: category,
       wallet: userWallet,
-      articleUrl,
+      articleImgUrl,
       articleName,
       metaDataUrl,
     };
@@ -92,7 +92,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
         userWallet,
         userId,
         metaDataUrl,
-        articleUrl,
+        articleImgUrl,
         category,
         price,
       }).then((res) => {

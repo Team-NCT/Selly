@@ -14,6 +14,12 @@ const FractionPrice = ({ value, changeHandler, setIsPriceTrue }: FractionPricePr
       setIsPriceTrue(false);
       return;
     }
+    if (!isNumber(value) || Number(value) > Number.MAX_SAFE_INTEGER) {
+      setErrorMessage("입력 가능한 값이 초과되었습니다.");
+      setStatus(false);
+      setIsPriceTrue(false);
+      return;
+    }
     if (!isNumber(value) || !numberinRange(Number.MAX_SAFE_INTEGER, -1, value)) {
       setErrorMessage("0보다 큰 값을 입력해주세요");
       setStatus(false);
