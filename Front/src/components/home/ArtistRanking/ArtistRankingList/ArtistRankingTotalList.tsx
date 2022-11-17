@@ -14,7 +14,7 @@ const ArtistRankingTotalList = () => {
           Loading...
         </div>
       ) : data?.length === 0 ? (
-        <div className={style.no_data}>현재 Total Top 10 작가가 없어요</div>
+        <div className={style.no_data}>현재 Trend Top 10 작가가 없어요</div>
       ) : (
         <div className={style.artist_ranking_list}>
           {data.map((artistRank, idx) => (

@@ -1,20 +1,20 @@
-import style from "./ForSale.module.scss";
+import style from "./Bookmark.module.scss";
 import { CardList, Spinner } from "@/components/common";
-import { useFetchForSaleDataQuery } from "@/api/server/NFTTransactionAPI";
+import { useFetchBookmarkDataQuery } from "@/api/server/bookmarkAPI";
+import { cardType } from "@/types/NFTData.types";
 import { useParams } from "react-router-dom";
-import { CardType } from "@/types/NFTData.types";
 import { useInfiniteScroll } from "@/hooks";
 import { useState, useEffect } from "react";
 
 const FETCH_SIZE = 15;
 
-const ForSale = () => {
+const Bookmark = () => {
   const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
   const params = useParams();
-  const { data, isError, isSuccess } = useFetchForSaleDataQuery(Number(params.id));
+  const { data, isError, isSuccess } = useFetchBookmarkDataQuery(Number(params.id));
 
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState<CardType[]>([]);
+  const [items, setItems] = useState<cardType[]>([]);
 
   function fetchMoreItems() {
     if (!data) {
@@ -44,7 +44,7 @@ const ForSale = () => {
 
   if (isError) {
     return (
-      <section className={style.forsale_section}>
+      <section className={style.bookmark_section}>
         <div className={style.nft_none}>
           <p>에러가 발생했습니다 </p>
           <p> (っ °Д °;)っ </p>
@@ -54,13 +54,13 @@ const ForSale = () => {
   }
 
   return (
-    <section className={style.forsale_section}>
+    <section className={style.bookmark_section}>
       {isSuccess ? (
         data.length !== 0 ? (
           <CardList data={items} />
         ) : (
           <div className={style.nft_none}>
-            <p>현재 조각 판매 중인 NFT가 없습니다</p>
+            <p>현재 즐겨찾기 중인 NFT가 없습니다</p>
             <p>(っ °Д °;)っ</p>
           </div>
         )
@@ -73,4 +73,4 @@ const ForSale = () => {
   );
 };
 
-export default ForSale;
+export default Bookmark;

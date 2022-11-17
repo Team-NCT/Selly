@@ -20,7 +20,7 @@ const SelectCardList = ({ data, defaultSelectedIdx = -1 }: SelectCardListProps) 
           tokenId: data[idx].tokenId,
           metaDataUrl: data[idx].tokenUri.raw,
           articleName: data[idx].title,
-          articleUrl: data[idx].rawMetadata.image,
+          articleImgUrl: data[idx].rawMetadata.image,
           selectIdx: idx,
         })
       );

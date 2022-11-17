@@ -1,5 +1,5 @@
 import style from "./Category.module.scss";
-import { RadioList, Label } from "@/components/common";
+import { RadioList } from "@/components/common";
 import { CategoryProps } from "./Category.types";
 
 const CATEGORY_LIST = ["Digital", "Analog", "Photography"];
@@ -7,11 +7,7 @@ const CATEGORY_LIST = ["Digital", "Analog", "Photography"];
 const Category = ({ value, changeHandler }: CategoryProps) => {
   return (
     <div className={style.category}>
-      <h2 className={style.category_label}>
-        <Label color="muscat" positionH="bottom" positionW="right" id="fraction-price">
-          카테고리
-        </Label>
-      </h2>
+      <h2 className={style.category_label}>카테고리</h2>
       <RadioList
         list={CATEGORY_LIST}
         category="category"

@@ -13,3 +13,12 @@ export interface cancleBookmarkReponseType {
   code: number;
   message: string;
 }
+
+export interface DescCardType {
+  articleId: number;
+  articleName: string;
+  articleImgUrl: string;
+  recentMarketPrice: number;
+  articleMargin: number;
+  pieceCnt: number;
+}

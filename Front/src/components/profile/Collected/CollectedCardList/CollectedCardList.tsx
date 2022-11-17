@@ -7,10 +7,11 @@ interface CardListProps {
 }
 
 const CollectedCardList = ({ data }: CardListProps) => {
+  console.log(data);
   return (
     <ul className={style.card_list}>
       {data.map((item, idx) => (
-        <Card key={idx} url={item.rawMetadata.image} title={item.title} />
+        <Card key={idx} articleImgUrl={item.rawMetadata.image} articleName={item.title} />
       ))}
     </ul>
   );

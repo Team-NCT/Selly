@@ -6,7 +6,7 @@ export interface SelectNFTState {
   tokenId: string;
   metaDataUrl: string;
   articleName: string;
-  articleUrl: string;
+  articleImgUrl: string;
   selectIdx: number;
 }
 
@@ -15,7 +15,7 @@ const initialState: SelectNFTState = {
   tokenId: "",
   metaDataUrl: "",
   articleName: "",
-  articleUrl: "",
+  articleImgUrl: "",
   selectIdx: -1,
 };
 
@@ -29,7 +29,7 @@ const slice = createSlice({
       state.tokenId = action.payload.tokenId;
       state.metaDataUrl = action.payload.metaDataUrl;
       state.articleName = action.payload.articleName;
-      state.articleUrl = action.payload.articleUrl;
+      state.articleImgUrl = action.payload.articleImgUrl;
       state.selectIdx = action.payload.selectIdx;
     },
     resetNFTValue: (state) => {
@@ -37,7 +37,7 @@ const slice = createSlice({
       state.tokenId = "";
       state.metaDataUrl = "";
       state.articleName = "";
-      state.articleUrl = "";
+      state.articleImgUrl = "";
       state.selectIdx = -1;
     },
   },
