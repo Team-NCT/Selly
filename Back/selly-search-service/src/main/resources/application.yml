@@ -22,7 +22,7 @@ feign:
       default:
         connectTimeout: 999999
         readTimeout: 999999
-        
+
 eureka:
   instance:
     hostname: 15.165.177.117
