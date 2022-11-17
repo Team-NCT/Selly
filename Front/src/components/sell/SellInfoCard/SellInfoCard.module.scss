@@ -29,6 +29,23 @@
       }
     }
 
+    .error_image {
+      width: 100%;
+      background-color: $navy250;
+      aspect-ratio: 1/1;
+      object-fit: none;
+      border-radius: $radius-card;
+
+      @media (max-width: #{800px - 1}) {
+        @include flex(row, space-between, center);
+        width: 171px;
+      }
+      @include mobile {
+        @include flex(column, space-between, center);
+        width: 100%;
+      }
+    }
+
     .sell_info {
       @include flex(column, space-between, space-between);
       width: 100%;

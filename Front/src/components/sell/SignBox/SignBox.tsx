@@ -2,7 +2,7 @@ import { useState } from "react";
 import style from "./SignBox.module.scss";
 import { SignBoxProps } from "./SignBox.types";
 import { Neon, Button } from "@/components/common";
-import { useAppSelector } from "@/hooks";
+import { useAppSelector, useAppDispatch } from "@/hooks";
 import { selectSignData } from "@/store/signDataSlice";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { selectSellInfo } from "@/store/sellInfoSlice";
@@ -10,6 +10,9 @@ import { selectAccount } from "@/store/loginSlice";
 import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
 import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
 import { PencilIcon } from "@/components/icon";
+import { closeLoading, openLoading } from "@/store/modalSlice";
+import { openAlert, setAlertContent, setAlertStyles, setIconStyles } from "@/store/alertSlice";
+import { sendTransaction } from "@/api/blockchain";
 
 import Web3 from "web3";
 
@@ -21,10 +24,11 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
   const [buttonText, setButtonText] = useState("서명하기");
 
   const { address, userId } = useAppSelector(selectAccount);
-
   const { F_NFTCA } = useAppSelector(selectSignData);
   const { CA, tokenId, metaDataUrl, articleName, articleImgUrl } = useAppSelector(selectNFTValue);
   const { category, code, num, price } = useAppSelector(selectSellInfo);
+
+  const dispatch = useAppDispatch();
 
   const [createSale] = useSaleNFTMutation();
 
@@ -56,19 +60,14 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
       metaDataUrl,
     };
     console.log(body);
-    const response = await createSale(body).unwrap();
-    const payload = {
-      nonce: response.nonce,
-      to: response.to,
-      from: response.from,
-      data: response.data,
-    };
     try {
-      const sendRes = await web3.eth.sendTransaction(payload);
-      console.log(sendRes);
-      return sendRes.status;
-    } catch (e) {
-      console.error(e);
+      const response = await createSale(body).unwrap();
+      console.log("트랜잭션", response);
+      const txResponse = await sendTransaction(response);
+      console.log(txResponse);
+      return txResponse.status;
+    } catch (error) {
+      console.error(error);
       return false;
     }
   };
@@ -79,7 +78,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
 
     setSignable(false);
     setButtonText("서명 중");
-
+    dispatch(openLoading());
     if (!signFunction) {
       Onsale({
         CA,
@@ -96,14 +95,17 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
         category,
         price,
       }).then((res) => {
+        dispatch(closeLoading());
         if (res) {
           setIsCompleted(true);
           goNext(idx);
         } else {
           setButtonText("서명하기");
           setSignable(true);
-          alert("블록체인 통신 상태 ERROR");
-          console.error("블록체인 통신 상태 ERROR");
+          dispatch(openAlert());
+          dispatch(setAlertContent("블록체인 통신 ERROR"));
+          dispatch(setAlertStyles("error"));
+          dispatch(setIconStyles(false));
         }
       });
       return;
@@ -120,28 +122,36 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
       userWallet,
       userId,
       metaDataUrl,
-      articleUrl,
+      articleImgUrl,
       category,
       price,
     }).then((res) => {
+      dispatch(closeLoading());
       if (res) {
         setIsCompleted(true);
         goNext(idx);
       } else {
         setButtonText("서명하기");
         setSignable(true);
-        alert("블록체인 통신 상태 ERROR");
-        console.error("블록체인 통신 상태 ERROR");
+        dispatch(openAlert());
+        dispatch(setAlertContent("블록체인 통신 ERROR"));
+        dispatch(setAlertStyles("error"));
+        dispatch(setIconStyles(false));
       }
     });
   };
 
   return (
     <div className={style.sign_box}>
-      <div className={isActive || isCompleted ? style.sign_box_idx_active : style.sign_box_idx}>
+      <div
+        className={
+          `${style.sign_box_idx} ` +
+          (isActive ? `${style.is_active} ` : "") +
+          (isCompleted ? `${style.is_completed} ` : "")
+        }>
         {idx}
       </div>
-      <div className={style.sign_box_section}>
+      <div className={`${style.sign_box_section} ` + (isCompleted ? `${style.is_completed}` : "")}>
         <div className={style.pencil_icon}>
           <PencilIcon />
         </div>
