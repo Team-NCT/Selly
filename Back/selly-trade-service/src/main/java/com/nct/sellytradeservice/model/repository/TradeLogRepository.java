@@ -22,7 +22,7 @@ public interface TradeLogRepository extends JpaRepository<TradeLog, Long> {
   Integer countByArticleId(Long articleId);
   Integer countBySeller(Long seller);
 
-  @Query(value = "SELECT date_format(tradeTime, \"%Y-%m-%d\") AS date FROM TradeLog where articleId = :articleId GROUP BY date_format(tradeTime, \"%Y-%m-%d\") DESC LIMIT 5;"  , nativeQuery = true)
+  @Query(value = "SELECT date_format(tradeTime, \"%Y-%m-%d\") AS date FROM TradeLog where articleId = :articleId GROUP BY date_format(tradeTime, \"%Y-%m-%d\") LIMIT 5;"  , nativeQuery = true)
   List<String> selectRecentHistoryLimit5(@Param("articleId") Long articleId);
 
   @Query(value = "SELECT date_format(tradeTime, \"%Y-%m-%d\") As date, max(tradePrice) AS maxPrice, MIN(tradePrice) AS lowPrice, AVG(tradePrice) as avgPrice FROM TradeLog WHERE date_format(tradeTime, \"%Y-%m-%d\") = :historyDate AND articleId = :articleId GROUP BY articleId",nativeQuery = true)
