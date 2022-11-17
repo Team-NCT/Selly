@@ -1,7 +1,7 @@
 import style from "./Created.module.scss";
 import { CardList, Spinner } from "@/components/common";
-import { useFetchCreatedDataQuery } from "@/api/server/userAPI";
-import { cardType } from "@/types/NFTData.types";
+import { useFetchCreatedDataQuery } from "@/api/server/createNFTAPI";
+import { CardType } from "@/types/NFTData.types";
 import { useParams } from "react-router-dom";
 import { useInfiniteScroll } from "@/hooks";
 import { useState, useEffect } from "react";
@@ -9,12 +9,12 @@ import { useState, useEffect } from "react";
 const FETCH_SIZE = 15;
 
 const Created = () => {
-  const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
+  const { setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
   const params = useParams();
   const { data, isError, isSuccess } = useFetchCreatedDataQuery(Number(params.id));
 
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState<cardType[]>([]);
+  const [items, setItems] = useState<CardType[]>([]);
 
   function fetchMoreItems() {
     if (!data) {

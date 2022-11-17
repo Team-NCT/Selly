@@ -35,18 +35,3 @@ export interface cancleSellNFTFractionType {
   wallet: string;
   saleContractAddress: string;
 }
-
-export interface DescCardType {
-  articleId: number;
-  articleName: string;
-  articleImgUrl: string;
-  recentMarketPrice: number;
-  articleMargin: number;
-  pieceCnt: number;
-}
-
-export interface cardType {
-  articleId: number;
-  articleName: string;
-  articleImgUrl: string;
-}

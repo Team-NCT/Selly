@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const handleColor = () => {
     setHeaderColor(window.pageYOffset);
-    ScrollY > 64 ? setHeaderStatus(true) : setHeaderStatus(false);
+    ScrollY > 1 ? setHeaderStatus(true) : setHeaderStatus(false);
   };
 
   useEffect(() => {
