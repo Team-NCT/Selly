@@ -13,4 +13,6 @@ export interface NFTOwnerProps {
    * NFT 소유자 profileImage
    */
   image?: string;
+
+  certification: boolean;
 }

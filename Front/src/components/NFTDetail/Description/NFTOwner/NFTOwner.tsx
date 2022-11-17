@@ -3,7 +3,7 @@ import { NFTOwnerProps } from "./NFTOwner.types";
 import { Neon, ProfileImage } from "@/components/common";
 import { useNavigate } from "react-router-dom";
 
-const NFTOwner = ({ originalAuthor, nickname, image }: NFTOwnerProps) => {
+const NFTOwner = ({ originalAuthor, nickname, image, certification }: NFTOwnerProps) => {
   const navigate = useNavigate();
   const handleNFTOwnerClick = () => {
     navigate(`/profile/${originalAuthor}`);
@@ -14,7 +14,12 @@ const NFTOwner = ({ originalAuthor, nickname, image }: NFTOwnerProps) => {
         <h1>Owner</h1>
       </Neon>
       <button onClick={handleNFTOwnerClick}>
-        <ProfileImage profileStyle="square" size={"xxs"} url={image} />
+        <ProfileImage
+          profileStyle="square"
+          size={"xxs"}
+          url={image}
+          certification={certification}
+        />
         <p>{nickname}</p>
       </button>
     </div>

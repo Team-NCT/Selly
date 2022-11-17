@@ -114,7 +114,7 @@ const Form = () => {
         <Property />
         <div className={style.submit_button}>
           <Button form="create-form" disabled={!isFormTrue}>
-            create
+            Create
           </Button>
         </div>
       </section>

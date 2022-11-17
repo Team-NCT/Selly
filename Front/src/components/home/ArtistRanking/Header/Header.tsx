@@ -3,7 +3,7 @@ import style from "./Header.module.scss";
 
 const Header = () => {
   return (
-    <div className={style.header}>
+    <header className={style.header}>
       NFT
       <Neon color="ocean" positionH="top" positionW="right">
         Artists
@@ -11,7 +11,7 @@ const Header = () => {
       <Neon color="muscat" positionH="bottom" positionW="right">
         Top 10
       </Neon>
-    </div>
+    </header>
   );
 };
 

@@ -21,7 +21,7 @@ function Profile() {
 
   useEffect(() => {
     if (error) {
-      navigate("/not found");
+      navigate("/404");
     }
   }, [error, navigate]);
 
