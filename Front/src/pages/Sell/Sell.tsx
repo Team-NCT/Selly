@@ -5,7 +5,7 @@ import { SelectSection, SignSection } from ".";
 import { useAppSelector, useAppDispatch, useAlert, OpenAlertArg } from "@/hooks";
 import { resetNFTValue } from "@/store/selectNFTSlice";
 import { resetSellInfo } from "@/store/sellInfoSlice";
-import { getMySellyNfts } from "@/api/blockchain";
+import { getMySellyNfts, getNFTsForOwnerAPI } from "@/api/blockchain";
 import { selectAccount } from "@/store/loginSlice";
 import { resetSignData } from "@/store/signDataSlice";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ function Sell() {
   const [step, setStep] = useState<stepType>("SELECT");
   const [NFTdatas, setNFTdatas] = useState<CollectedNFTType[] | null>(null);
   const { address, userId } = useAppSelector(selectAccount);
-  const { openLoginAlert, openAlertModal } = useAlert();
+  const { openAlertModal } = useAlert();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -30,9 +30,10 @@ function Sell() {
 
   const getOwnERC721NFTs = async () => {
     if (!address || !SELLY_ERC_721_CA) return;
-    const datas = await getMySellyNfts({ CA: SELLY_ERC_721_CA, userWallet: address });
-    console.log("셀리 데이터!!", datas);
-    if (!datas) {
+    const sellyDatas = await getMySellyNfts({ CA: SELLY_ERC_721_CA, userWallet: address });
+    const alchemyDatas = await getNFTsForOwnerAPI(address);
+    console.log("셀리 데이터!!", sellyDatas, "외부 데이터!", alchemyDatas);
+    if (!sellyDatas) {
       const data: OpenAlertArg = {
         content: "에러가 발생했습니다.",
         style: "error",
@@ -42,7 +43,7 @@ function Sell() {
       setNFTdatas([]);
       return;
     }
-    setNFTdatas(datas);
+    setNFTdatas(sellyDatas.concat(alchemyDatas));
   };
 
   //* 계정 바뀌면 데이터 리셋
@@ -55,11 +56,11 @@ function Sell() {
   }, [address]);
 
   //* 로그인 되어있지 않으면 다시 뒤로 보내기
-  useEffect(() => {
-    if (userId) return;
-    openLoginAlert();
-    navigate(-1);
-  }, [userId]);
+  // useEffect(() => {
+  //   if (userId) return;
+  //   openLoginAlert();
+  //   navigate(-1);
+  // }, [userId]);
 
   return (
     <main>

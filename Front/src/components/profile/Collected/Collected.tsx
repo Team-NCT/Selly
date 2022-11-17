@@ -4,7 +4,7 @@ import { CollectedCardList } from "./CollectedCardList";
 import { useInfiniteScroll, useAlert, OpenAlertArg } from "@/hooks";
 import { Spinner } from "@/components/common";
 import style from "./Collected.module.scss";
-import { getMySellyNfts } from "@/api/blockchain";
+import { getMySellyNfts, getNFTsForOwnerAPI } from "@/api/blockchain";
 import { SELLY_ERC_721_CA } from "@/constants/blockchain";
 import { CollectedNFTType } from "@/types/NFTData.types";
 
@@ -19,8 +19,9 @@ const Collected = ({ wallet }: CollectedProps) => {
 
   const getOwnERC721NFTs = async () => {
     if (!wallet || !SELLY_ERC_721_CA) return;
-    const datas = await getMySellyNfts({ CA: SELLY_ERC_721_CA, userWallet: wallet });
-    if (!datas) {
+    const sellyDatas = await getMySellyNfts({ CA: SELLY_ERC_721_CA, userWallet: wallet });
+    const alchemyDatas = await getNFTsForOwnerAPI(wallet);
+    if (!sellyDatas) {
       const data: OpenAlertArg = {
         content: "에러가 발생했습니다.",
         style: "error",
@@ -30,7 +31,7 @@ const Collected = ({ wallet }: CollectedProps) => {
       setNFTdatas([]);
       return;
     }
-    setNFTdatas(datas);
+    setNFTdatas(sellyDatas.concat(alchemyDatas));
   };
 
   function fetchMoreItems() {

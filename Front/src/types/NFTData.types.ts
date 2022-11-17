@@ -81,8 +81,8 @@ export interface DescCardType {
 
 export interface CollectedNFTType {
   CA: string;
-  tokenId: number;
-  metaDataUrl: string;
+  tokenId: string;
+  metaDataUrl: string | undefined;
   articleName: string;
-  articleImgUrl: string;
+  articleImgUrl: string | undefined;
 }

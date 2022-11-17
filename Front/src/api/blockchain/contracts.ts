@@ -6,6 +6,7 @@ import {
   F_NFTContract,
 } from "./web3Config";
 import { default as getNFTData } from "./getNFTData";
+import { CollectedNFTType } from "@/types/NFTData.types";
 
 export const getMySellyNfts = async ({ CA, userWallet }: { CA: string; userWallet: string }) => {
   const result = [];
@@ -20,7 +21,7 @@ export const getMySellyNfts = async ({ CA, userWallet }: { CA: string; userWalle
       try {
         metaData = await getNFTData(metadataURI);
         console.log("??", metaData);
-        const NFTInfo = {
+        const NFTInfo: CollectedNFTType = {
           CA: CA,
           tokenId: tokenIds[i],
           metaDataUrl: metadataURI,
