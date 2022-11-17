@@ -50,11 +50,14 @@ function SelectSection({ datas, changeStep }: SelectSectionProps) {
     <>
       <header className={style.header}>
         <div className={style.step_title}>
-          <h3 className={style.step_sell}>판매 정보 등록</h3>
+          <h2 className={style.step_sell}>판매 정보 등록</h2>
           <div className={style.step_arrow}></div>
-          <h3 className={style.step_sign}>서명하기</h3>
+          <h2 className={style.step_sign}>서명하기</h2>
         </div>
-        <h3 className={style.desc}>판매할 NFT를 선택하고, 판매 정보를 입력해주세요.</h3>
+        <h2 className={style.desc}>판매할 NFT를 선택하고, 판매 정보를 입력해주세요.</h2>
+        <h2 className={style.desc}>
+          민팅한 뒤, <strong>10분 후에</strong> 확인할 수 있습니다.
+        </h2>
       </header>
       <section className={style.content}>
         <div className={style.select_card_list}>
