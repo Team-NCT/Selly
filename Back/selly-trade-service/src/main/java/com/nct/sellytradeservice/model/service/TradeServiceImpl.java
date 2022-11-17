@@ -330,32 +330,20 @@ public class TradeServiceImpl implements TradeService {
       log.debug("판매 등록 수정");
       tradeRegist.updateTradeRegist(stock, status);
       tradeRegistRepository.save(tradeRegist);
-      // 구매자 소유권 생성, 수정
-//      System.out.println("소유권 조회");
-//      ResponseEntity<NftPieceResponseDto> nftPieceDtoResponseEntity = userServiceClient.getOwnership(buyer, tradeRequest.getArticleId());
-//      System.out.println(nftPieceDtoResponseEntity.getStatusCodeValue());
-//      System.out.println(nftPieceDtoResponseEntity.getStatusCode());
-//      System.out.println(nftPieceDtoResponseEntity.getBody());
-//      System.out.println(nftPieceDtoResponseEntity.hasBody());
-//      System.out.println("소유권 조회 아예 실패임??");
-//      if (nftPieceDtoResponseEntity.getStatusCodeValue() != 500) {
-//        NftPieceResponseDto buyerOwnership = nftPieceDtoResponseEntity.getBody();
-//        System.out.println("구매자 소유권 수정");
-//        NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
-//                .articleId(tradeRequest.getArticleId())
-//                .userId(sellerId)
-//                .nftPieceCnt(buyerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt())
-//                .avgPrice((buyerOwnership.getAvgPrice() * buyerOwnership.getNftPieceCnt()
-//                        - tradeRequest.getTradePrice() * tradeRequest.getPieceCnt())
-//                        / (buyerOwnership.getNftPieceCnt() + tradeRequest.getPieceCnt()))
-////                  .avgPrice(10)
-////                  .nftPieceCnt(5L)
-//                .build();
-//        userServiceClient.updateOwnership(buyerId, nftPieceRequest);
-//      } else {
-//        System.out.println("구매자 소유권 등록");
-//        userServiceClient.createOwnership(buyer, tradeRequest);
-//      }
+      ResponseArticleUpdate responseArticleUpdate = new ResponseArticleUpdate();
+      if (tradeRegistRepository.selectArticleStatus(tradeRegist.getArticleId()) == 0){
+        responseArticleUpdate.setArticleId(tradeRegist.getArticleId());
+        responseArticleUpdate.setAvailability(false);
+        responseArticleUpdate.setRecentMarketPrice(tradeRegist.getTradePrice());
+        articleServiceClient.articleAvailability(responseArticleUpdate);
+      } else{
+        responseArticleUpdate.setArticleId(tradeRegist.getArticleId());
+        responseArticleUpdate.setAvailability(true);
+        responseArticleUpdate.setRecentMarketPrice(tradeRegist.getTradePrice());
+        articleServiceClient.articleAvailability(responseArticleUpdate);
+      }
+
+
       // 소유권 조회x 바로 post, put 요청
       log.debug("소유권 수정, 삭제");
       userServiceClient.createOrEditOwnership(buyerId, tradeRequest);
@@ -364,14 +352,9 @@ public class TradeServiceImpl implements TradeService {
       log.debug("판매자 소유권 수정, 삭제");
       ResponseEntity<NftPieceResponseDto> oSellerOwnership = userServiceClient.getOwnership(sellerId, tradeRequest.getArticleId());
       NftPieceResponseDto sellerOwnership = oSellerOwnership.getBody();
-//      if (oSellerOwnership.isPresent()) {
-//        NftPieceDto sellerOwnership = oSellerOwnership.get();
-//      }
-//      NftPieceDto sellerOwnership = userServiceClient.getOwnership(seller);
-//      NftPieceResponseDto sellerOwnership = oSellerOwnership.getBody();
+
       if (!status) {
         log.debug("판매자 소유권 삭제");
-//        ResponseEntity<Object> response = userServiceClient.deleteOwnership(seller, tradeRequest.getArticleId());
         userServiceClient.deleteOwnership(seller, tradeRequest.getArticleId());
       } else {
         log.debug("판매자 소유권 수정");
@@ -458,30 +441,6 @@ public class TradeServiceImpl implements TradeService {
         return "거래 로그 등록 완료";
       }
     return "존재하지 않는 거래입니다.";
-  }
-
-  // 거래 히스토리 조회
-  @GetMapping("/tradeLog")
-  public List<TradeLog> findTradeLogByArticleId(Long articleId) {
-    List<TradeLog> tradeLogList = tradeLogRepository.findByArticleId(articleId);
-    HashMap<String, Object> result = new HashMap<>();
-    List<TradeLogResponse> resultList = new ArrayList<>();
-    double sumPrice = 0;
-    int quantity = 0;
-    double maxPrice=0;
-    double minPrice = Double.MAX_VALUE;
-    for (TradeLog tradeLog: tradeLogList) {
-      sumPrice += tradeLog.getTradePrice();
-      quantity += tradeLog.getPieceCnt();
-    }
-//    List<TradeLog> tradeLogList1 = tradeLogRepository.findTop5ByArticleIdOrderByDesc(articleId);
-//    for (TradeLog tradeLog : tradeLogList1) {
-//
-//    }
-    double avgPrice = sumPrice/quantity;
-    result.put("avgPrice", avgPrice);
-
-    return null;
   }
 
   @Override

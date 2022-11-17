@@ -1,5 +1,6 @@
 package com.nct.sellytradeservice.controller;
 
+import com.nct.sellytradeservice.client.ArticleServiceClient;
 import com.nct.sellytradeservice.client.FeignClientException;
 import com.nct.sellytradeservice.client.UserServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
@@ -32,6 +33,8 @@ public class TradeController {
   private final UserServiceClient userServiceClient;
   private final TradeLogService tradeLogService;
   private final TradeRegistRepository tradeRegistRepository;
+
+  private final ArticleServiceClient articleServiceClient;
 
   @GetMapping("/all")
   public List<TradeResponse> findAll() {

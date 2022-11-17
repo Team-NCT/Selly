@@ -26,4 +26,8 @@ public interface ArticleServiceClient {
   @PostMapping("/selly-article-service/{articleId}")
   ResponseEntity<String> response(@RequestBody ArticleUpdateRequest articleUpdateRequest, @PathVariable("articleId") Long articleId);
 
+
+  @PutMapping("/selly-article-service/article-availability")
+  void articleAvailability(@RequestBody ResponseArticleUpdate responseArticleUpdate);
+
 }

@@ -23,4 +23,7 @@ public interface TradeRegistRepository extends JpaRepository<TradeRegist, Long> 
   List<TradeRegist> findByArticleId(Long articleId, Sort sort);
 
   List<TradeRegist> findBySellerAndArticleId(Long userId, Long articleId,Sort sort);
+
+  @Query(value = "SELECT SUM(pieceCnt) FROM TradeRegist WHERE articleId = :articleId", nativeQuery = true)
+  Integer selectArticleStatus(@Param("articleId") Long articleId);
 }
