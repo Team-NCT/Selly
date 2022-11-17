@@ -1,5 +1,24 @@
 .profile_image {
   position: relative;
+
+  .certification {
+    @include flex(row, center, center);
+    @include shadow-drop4;
+    position: absolute;
+    transform: translate(210%, -100%);
+    border: 1px solid $white;
+    border-radius: 50%;
+    fill: $white;
+    background-color: $ocean200;
+    transform: translate(200%, -100%);
+    width: 34%;
+    height: 34%;
+
+    svg {
+      width: 70%;
+      height:70%;
+    }
+  }
 }
 
 .profile_square {
@@ -50,17 +69,4 @@ img {
 
 .size_xxxl {
   width: 140px;
-}
-
-.certification {
-  @include flex(row, center, center);
-  @include shadow-drop4;
-  position: absolute;
-  transform: translate(210%, -100%);
-  width: 34%;
-  height: 34%;
-  border: 1px solid $white;
-  border-radius: 50%;
-  fill: $white;
-  background-color: $ocean200;
 }
