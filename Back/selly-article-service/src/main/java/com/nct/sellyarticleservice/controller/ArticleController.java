@@ -54,8 +54,8 @@ public class ArticleController {
   }
 
   @PostMapping("/create/nominting")
-  public ResponseArticle createArticleNoMinting(@RequestBody RequestArticleCreate requestArticleCreate) throws SQLException{
-    return articleService.createArticleNoMinting(requestArticleCreate);
+  public ResponseArticle createArticleNoMinting(@RequestBody RequestNoMinting requestNoMinting) throws SQLException{
+    return articleService.createArticleNoMinting(requestNoMinting);
   }
 
   @GetMapping("")

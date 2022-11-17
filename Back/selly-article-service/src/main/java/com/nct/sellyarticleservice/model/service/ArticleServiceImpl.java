@@ -56,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
-  public ResponseArticle createArticleNoMinting(RequestArticleCreate requestArticleCreate) {
+  public ResponseArticle createArticleNoMinting(RequestNoMinting requestArticleCreate) {
     System.out.println("민팅 X 들어옴");
     System.out.println(requestArticleCreate);
     System.out.println(requestArticleCreate.getWallet());
