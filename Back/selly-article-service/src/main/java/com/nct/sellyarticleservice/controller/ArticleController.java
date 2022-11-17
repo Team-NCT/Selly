@@ -11,6 +11,7 @@ import com.nct.sellyarticleservice.vo.CategoryResponse;
 import com.nct.sellyarticleservice.vo.TradeRankDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -211,6 +212,15 @@ public class ArticleController {
     }else{
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
+  }
+  @GetMapping("/findByArticleList")
+  public List<ArticleResponse> findByArticleList(@RequestParam("List") List<Long> articleIdList) {
+    List<ArticleResponse> articleResponseList = new ArrayList<>();
+    for (Long i : articleIdList) {
+      Article article = articleRepository.findByArticleId(i);
+      articleResponseList.add(new ModelMapper().map(article, ArticleResponse.class));
+    }
+    return articleResponseList;
   }
 }
 

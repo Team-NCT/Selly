@@ -56,7 +56,7 @@ public class ArticleResponse {
                          String articleImgUrl, String connectionLink, String attribute, String metaDataUrl,
                          LocalDateTime registTime, LocalDateTime createRegist, LocalDateTime updateRegist,
                          Long originalAuthor, Integer primaryCnt, Integer currentCnt, Double price, Long owner,
-                         double recentMarketPrice) {
+                         Double recentMarketPrice) {
     this.articleId = articleId;
     this.availability = availability;
     this.category = category;
