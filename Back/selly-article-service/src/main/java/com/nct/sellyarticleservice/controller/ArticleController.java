@@ -174,12 +174,13 @@ public class ArticleController {
 
   // 작품 판매상태 업데이트
   @PutMapping("/article-availability")
-  public void articleAvailability(@RequestBody ResponseArticleUpdate responseArticleUpdate){
+  public void articleAvailability(@RequestBody ResponseArticleUpdate responseArticleUpdate) {
     Article article = articleRepository.findByArticleId(responseArticleUpdate.getArticleId());
     article.setAvailability(responseArticleUpdate.isAvailability());
     article.setRecentMarketPrice(responseArticleUpdate.getRecentMarketPrice());
     articleRepository.save(article);
 
+  }
   @GetMapping("/findByArticleList")
   public List<ArticleResponse> findByArticleList(@RequestParam("List") List<Long> articleIdList) {
     List<ArticleResponse> articleResponseList = new ArrayList<>();
