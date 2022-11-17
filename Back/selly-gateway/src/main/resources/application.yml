@@ -175,6 +175,14 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-contract-service/(?<segment>.*), /$\{segment}
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 999999
+        readTimeout: 999999
+
 eureka:
 #  instance:
 #    instance-id: 15.165.177.117

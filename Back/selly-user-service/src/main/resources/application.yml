@@ -20,6 +20,12 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 999999
+        readTimeout: 999999
 
 eureka:
   instance:
