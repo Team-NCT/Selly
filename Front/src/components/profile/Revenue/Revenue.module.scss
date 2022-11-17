@@ -1,20 +1,18 @@
 .section {
-  width: 100%;
-  margin-bottom: 32px;
-  padding: 24px;
-
   @include shadow-modal;
   @include flex(column);
+  width: 100%;
+  margin-bottom: 128px;
   padding: 32px 4% 32px 4%;
 
-  @include tablet {
+  @media (max-width: 900px) {
     margin-bottom: 64px;
     padding: 32px;
   }
 
-  @include laptop {
-    margin-bottom: 128px;
-    padding: 32px 4% 32px 4%;
+  @media (max-width: 500px) {
+    margin-bottom: 32px;
+    padding: 24px;
   }
 }
 
@@ -38,7 +36,7 @@
   margin-bottom: 8px;
 
   @media (max-width: 500px) {
-    @include font($body1, $semibold);
+    @include font($body1, $bold);
   }
 }
 
