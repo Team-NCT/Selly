@@ -19,7 +19,7 @@ const SellInfoCard = () => {
     <article className={style.sell_info_card}>
       <h1>Selected NFT</h1>
       <div className={style.content}>
-        <img src={NFTValue.articleUrl} alt={NFTValue.articleName} />
+        <img src={NFTValue.articleImgUrl} alt={NFTValue.articleName} />
         <div className={style.sell_info}>
           <h2>
             카테고리
