@@ -1,6 +1,6 @@
 package com.nct.sellyarticleservice.controller;
 
-import com.nct.sellyarticleservice.client.TradeServiceClient;
+
 import com.nct.sellyarticleservice.domain.dto.*;
 import com.nct.sellyarticleservice.domain.entity.Article;
 import com.nct.sellyarticleservice.model.repository.ArticleRepository;
@@ -8,7 +8,6 @@ import com.nct.sellyarticleservice.model.service.ArticleServiceImpl;
 import com.nct.sellyarticleservice.model.service.ProfileService;
 import com.nct.sellyarticleservice.vo.ArticleRankingResponse;
 import com.nct.sellyarticleservice.vo.CategoryResponse;
-import com.nct.sellyarticleservice.vo.TradeRankDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -34,10 +33,7 @@ public class ArticleController {
   private final ProfileService profileService;
 
 
-  //  @GetMapping("/{articleId}")
-//  public ArticleResponse findById (@PathVariable("articleId") Long articleId, @RequestParam("userId") Long userId) {
-//    return articleService.findById(articleId, userId);
-//  }
+
   @GetMapping("/{articleId}")
   public ResponseArticle findById (@PathVariable("articleId") Long articleId) {
     return articleService.findById(articleId);
@@ -109,39 +105,6 @@ public class ArticleController {
     return articleList;
   }
 
-  // 필터
-//  @GetMapping("/filter")
-//  public List<Article> articleFilter(@RequestParam("criterion")String criterion, @RequestParam("order") String order) {
-//    List<Article> articleList = new ArrayList<>();
-//    if (criterion == "sale") {
-//      switch (order) {
-//        case "selling":
-//          articleList = articleRepository.findByAvailability(true, Sort.by(Sort.Direction.DESC, "createRegist"));
-//          break;
-//        case "soldout":
-//          articleList = articleRepository.findByAvailability(false, Sort.by(Sort.Direction.DESC, "createRegist"));
-//          break;
-//        case "all":
-//          articleList = articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createRegist"));
-//          break;
-//      }
-//      // 소유 조각 목록에서 내 Id로 조회한 뒤 중복되는 articleId 제거후 반환
-//    }else {
-//      switch (order) {
-//        case "selling":
-//          articleList = articleRepository.findByAvailability(true, Sort.by(Sort.Direction.DESC, "createRegist"));
-//          break;
-//        case "soldout":
-//          articleList = articleRepository.findByAvailability(false, Sort.by(Sort.Direction.DESC, "createRegist"));
-//          break;
-//        case "all":
-//          articleList = articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createRegist"));
-//          break;
-//      }
-//    }
-//    return articleList;
-//  }
-
   // 판매 등록 call
   @PostMapping("/{articleId}")
   public ResponseEntity<String> response(@RequestBody ArticleUpdateRequest articleUpdateRequest, @PathVariable("articleId") Long articleId) {
@@ -160,11 +123,6 @@ public class ArticleController {
   public List<ResponseArticle> getArticleByAuctionStatus(@PathVariable("auction") String auction) {
     return articleService.findByAuction(auction);
   }
-
-//  @PostMapping("/{articleId")
-//  public ResponseEntity<String> response (@PathVariable("articldId") Long articleId) {
-//    String response = articleService.regist
-//  }
 
   // 작품 검색
   @GetMapping("/search/{keyword}")
@@ -213,6 +171,15 @@ public class ArticleController {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
   }
+
+  // 작품 판매상태 업데이트
+  @PutMapping("/article-availability")
+  public void articleAvailability(@RequestBody ResponseArticleUpdate responseArticleUpdate){
+    Article article = articleRepository.findByArticleId(responseArticleUpdate.getArticleId());
+    article.setAvailability(responseArticleUpdate.isAvailability());
+    article.setRecentMarketPrice(responseArticleUpdate.getRecentMarketPrice());
+    articleRepository.save(article);
+
   @GetMapping("/findByArticleList")
   public List<ArticleResponse> findByArticleList(@RequestParam("List") List<Long> articleIdList) {
     List<ArticleResponse> articleResponseList = new ArrayList<>();
