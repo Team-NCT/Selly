@@ -2,21 +2,23 @@ import { useState, useEffect } from "react";
 import style from "./Sell.module.scss";
 import { Neon } from "@/components/common";
 import { SelectSection, SignSection } from ".";
-import { useAppSelector, useAppDispatch, useAlert } from "@/hooks";
+import { useAppSelector, useAppDispatch, useAlert, OpenAlertArg } from "@/hooks";
 import { resetNFTValue } from "@/store/selectNFTSlice";
 import { resetSellInfo } from "@/store/sellInfoSlice";
-import { getNFTsForOwnerAPI } from "@/api/blockchain";
+import { getMySellyNfts } from "@/api/blockchain";
 import { selectAccount } from "@/store/loginSlice";
 import { resetSignData } from "@/store/signDataSlice";
 import { useNavigate } from "react-router-dom";
+import { SELLY_ERC_721_CA } from "@/constants/blockchain";
+import { CollectedNFTType } from "@/types/NFTData.types";
 
 export type stepType = "SELECT" | "SIGN";
 
 function Sell() {
   const [step, setStep] = useState<stepType>("SELECT");
-  const [NFTdatas, setNFTdatas] = useState<any>(null);
+  const [NFTdatas, setNFTdatas] = useState<CollectedNFTType[] | null>(null);
   const { address, userId } = useAppSelector(selectAccount);
-  const { openLoginAlert } = useAlert();
+  const { openLoginAlert, openAlertModal } = useAlert();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -27,9 +29,19 @@ function Sell() {
   };
 
   const getOwnERC721NFTs = async () => {
-    if (!address) return;
-    const datas = await getNFTsForOwnerAPI(address);
-    console.log(datas);
+    if (!address || !SELLY_ERC_721_CA) return;
+    const datas = await getMySellyNfts({ CA: SELLY_ERC_721_CA, userWallet: address });
+    console.log("셀리 데이터!!", datas);
+    if (!datas) {
+      const data: OpenAlertArg = {
+        content: "에러가 발생했습니다.",
+        style: "error",
+        icon: false,
+      };
+      openAlertModal(data);
+      setNFTdatas([]);
+      return;
+    }
     setNFTdatas(datas);
   };
 

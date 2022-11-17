@@ -1,7 +1,7 @@
 import { stepType } from "@/pages/Sell/Sell";
+import { CollectedNFTType } from "@/types/NFTData.types";
 
 export interface SelectSectionProps {
-  datas: Array<any> | null;
+  datas: CollectedNFTType[] | null;
   changeStep: (step: stepType) => void;
 }
-// TODO_YK: alchemy 깃헙에서 type 가져오기!!
