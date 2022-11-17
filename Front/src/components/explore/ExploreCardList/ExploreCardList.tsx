@@ -31,7 +31,7 @@ const ExploreCardList = ({ category, sort, order }: ExploreParamsType) => {
 
   useEffect(() => {
     if (CATEGORY.includes(category) && SORT.includes(sort) && ORDER.includes(order)) return;
-    navigate("/404");
+    navigate("/404", { replace: false });
   }, [category, navigate, order, sort]);
 
   return (

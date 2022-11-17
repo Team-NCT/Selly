@@ -21,7 +21,7 @@ function Profile() {
 
   useEffect(() => {
     if (error) {
-      navigate("/404");
+      navigate("/404", { replace: false });
     }
   }, [error, navigate]);
 
