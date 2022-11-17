@@ -38,7 +38,7 @@
   margin-bottom: 8px;
 
   @media (max-width: 500px) {
-    @include font($body1, $regular);
+    @include font($body1, $semibold);
   }
 }
 
