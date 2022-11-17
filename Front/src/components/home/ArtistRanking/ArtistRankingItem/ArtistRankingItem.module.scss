@@ -10,12 +10,12 @@
     gap: 40px;
   }
   @media (min-width: 800px) {
-    gap: 10px;
+    gap: 24px;
   }
 }
 
 .item_rank {
-  @include font($body1, $medium);
+  @include font($body1, $bold);
   text-align: center;
   min-width: 24px;
 }

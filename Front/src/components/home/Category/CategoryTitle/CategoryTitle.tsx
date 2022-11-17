@@ -3,11 +3,15 @@ import style from "./CategoryTitle.module.scss";
 
 const CategoryTitle = () => {
   return (
-    <div className={style.title}>
-      <Neon positionH="bottom" positionW="right" color="marmalade100">
+    <header className={style.title}>
+      <Neon color="ocean" positionH="top" positionW="right">
+        NFT
+      </Neon>
+      &nbsp;
+      <Neon color="muscat" positionH="bottom" positionW="right">
         Category
       </Neon>
-    </div>
+    </header>
   );
 };
 

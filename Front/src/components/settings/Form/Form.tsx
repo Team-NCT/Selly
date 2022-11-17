@@ -70,7 +70,7 @@ const Form = () => {
         </div>
       </section>
       <div className={style.button}>
-        <Button disabled={!(profleStatus.bioStatus && profleStatus.usernameStatus)}>SAVE</Button>
+        <Button disabled={!(profleStatus.bioStatus && profleStatus.usernameStatus)}>Save</Button>
       </div>
     </form>
   );
