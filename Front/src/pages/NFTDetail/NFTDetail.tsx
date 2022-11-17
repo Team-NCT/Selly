@@ -60,7 +60,7 @@ const NFTDetail = () => {
 
   useEffect(() => {
     if (!isError) return;
-    navigate("/404");
+    navigate("/404", { replace: false });
   }, [isError, navigate]);
 
   //* 메타 데이터 fetch
