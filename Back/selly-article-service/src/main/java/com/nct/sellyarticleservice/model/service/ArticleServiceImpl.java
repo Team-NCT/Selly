@@ -19,7 +19,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -182,13 +184,16 @@ public class ArticleServiceImpl implements ArticleService{
           case "price":
             articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
             break;
-        }      articleList.forEach(v-> {
+        }
+        System.out.println(articleList);
+        articleList.forEach(v-> {
+          System.out.println(v.getArticleId());
           CategoryResponse articleResponse = CategoryResponse.builder()
                   .articleId(v.getArticleId())
                   .articleName(v.getArticleName())
                   .articleImgUrl(v.getArticleImgUrl())
                   .recentMarketPrice(v.getRecentMarketPrice())
-                  .rateChange(1.1)
+                  .rateChange(tradeServiceClient.rateChange(v.getArticleId()))
                   .build();
           articleResponseList.add(articleResponse);
         });
@@ -208,7 +213,7 @@ public class ArticleServiceImpl implements ArticleService{
                 .articleName(v.getArticleName())
                 .articleImgUrl(v.getArticleImgUrl())
                 .recentMarketPrice(v.getRecentMarketPrice())
-                .rateChange(1.1)
+                .rateChange(tradeServiceClient.rateChange(v.getArticleId()))
                 .build();
         articleResponseList.add(articleResponse);
       });
@@ -228,7 +233,7 @@ public class ArticleServiceImpl implements ArticleService{
                   .articleName(v.getArticleName())
                   .articleImgUrl(v.getArticleImgUrl())
                   .recentMarketPrice(v.getRecentMarketPrice())
-                  .rateChange(1.1)
+                  .rateChange(tradeServiceClient.rateChange(v.getArticleId()))
                   .build();
           articleResponseList.add(articleResponse);
         });
@@ -248,7 +253,7 @@ public class ArticleServiceImpl implements ArticleService{
                 .articleName(v.getArticleName())
                 .articleImgUrl(v.getArticleImgUrl())
                 .recentMarketPrice(v.getRecentMarketPrice())
-                .rateChange(1.1)
+                .rateChange(tradeServiceClient.rateChange(v.getArticleId()))
                 .build();
         articleResponseList.add(articleResponse);
       });

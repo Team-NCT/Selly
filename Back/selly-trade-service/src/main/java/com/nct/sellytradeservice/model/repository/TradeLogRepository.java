@@ -4,6 +4,7 @@ import com.nct.sellytradeservice.domain.dto.HistoryDto;
 import com.nct.sellytradeservice.domain.dto.ResponseSelectQuery;
 import com.nct.sellytradeservice.domain.entity.TradeLog;
 import org.hibernate.annotations.NamedNativeQuery;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +31,8 @@ public interface TradeLogRepository extends JpaRepository<TradeLog, Long> {
 
   @Query(value = "SELECT AVG(tradePrice) AS avgPrice FROM TradeLog WHERE articleId = :articleId", nativeQuery = true)
   Float selectTotalAvg(@Param("articleId") Long articleId);
+
+  TradeLog findTopByArticleIdAndTradeTimeBetweenOrderByTradeTimeDesc(Long articleId, LocalDateTime startDateTime, LocalDateTime endDateTime);
+  TradeLog findTopByArticleIdAndTradeTimeBeforeOrderByTradeTimeDesc(Long articleId, LocalDateTime endDateTime);
+
 }
