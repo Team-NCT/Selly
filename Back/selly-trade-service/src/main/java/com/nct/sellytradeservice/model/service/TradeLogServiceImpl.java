@@ -1,16 +1,19 @@
 package com.nct.sellytradeservice.model.service;
 
-import com.nct.sellytradeservice.domain.dto.ResponseCertification;
-import com.nct.sellytradeservice.domain.dto.ResponseSelectQuery;
-import com.nct.sellytradeservice.domain.dto.TradeRankDto;
+import com.nct.sellytradeservice.domain.dto.*;
 import com.nct.sellytradeservice.domain.entity.TradeLog;
 import com.nct.sellytradeservice.domain.entity.TradeRegist;
 import com.nct.sellytradeservice.model.repository.TradeLogRepository;
 import com.nct.sellytradeservice.model.repository.TradeRegistRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -65,5 +68,34 @@ public class TradeLogServiceImpl implements TradeLogService{
       return returnValue;
     }
     return list;
+  }
+
+  @Override
+  public HashMap<String, Object> historyArticle(Long articleId) {
+    List<String> strings = tradeLogRepository.selectRecentHistoryLimit5(articleId);
+    HashMap<String, Object> hashMap = new HashMap<>();
+    List<HistoryResponse> historyDtos = new ArrayList<>();
+    DecimalFormat form = new DecimalFormat("#.####");
+    if (strings != null){
+      strings.forEach(v->{
+        HistoryDto returnValue = tradeLogRepository.selectDateHistory(v, articleId);
+        System.out.println(returnValue);
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        HistoryResponse value = mapper.map(returnValue, HistoryResponse.class);
+        value.setAvgPrice(Double.valueOf(form.format(value.getAvgPrice())));
+        value.setLowPrice(Double.valueOf(form.format(value.getLowPrice())));
+        value.setMaxPrice(Double.valueOf(form.format(value.getMaxPrice())));
+        if( returnValue != null){
+          historyDtos.add(value);
+        }
+      });
+      hashMap.put("historyList", historyDtos);
+      Float aFloat = tradeLogRepository.selectTotalAvg(articleId);
+      hashMap.put("avgPrice",Double.valueOf(form.format(aFloat)));
+      return hashMap;
+    } else{
+      return null;
+    }
   }
 }

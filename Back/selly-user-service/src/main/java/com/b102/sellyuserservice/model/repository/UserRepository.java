@@ -13,6 +13,7 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
   UserEntity findByWallet(String wallet);
 
+//  Integer countByAll();
   List<UserEntity> findAllByNicknameContaining(String keyword);
 
   UserEntity findByNickname(String nickname);
