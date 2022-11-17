@@ -5,34 +5,30 @@
 
   .user_info {
     @include flex(row, flex-start);
-    gap: 6px;
+    gap: 16px;
     width: 100%;
-    
+
     .user_text_info {
       @include flex(column, center, flex-start);
       gap: 6px;
       width: 100%;
-    
+
       .nickname {
-        @include font($body1, $semibold);
+        @include font($body2, $semibold);
         width: 190px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
 
-        @include mobile {
-          @include font($body2, $semibold);
-        }
-
         @media (max-width: 520px) {
           width: calc(100% - 60px);
         }
       }
-      
+
       .wallet {
         @include flex(row, flex-start);
         width: 100%;
-      
+
         .wallet_address {
           @include font($body2, $regular, $black100);
           width: 150px;
@@ -48,11 +44,11 @@
     }
   }
   .button_section {
-    width: 120px;
+    width: 100px;
     flex-shrink: 0;
 
     Button {
-      @include font($body2, $bold);
+      @include font($caption, $bold);
     }
 
     @media (max-width: 520px) {
@@ -69,5 +65,3 @@
     gap: 6px;
   }
 }
-
-
