@@ -55,9 +55,10 @@ function SelectSection({ datas, changeStep }: SelectSectionProps) {
           <div className={style.step_arrow}></div>
           <h2 className={style.step_sign}>서명하기</h2>
         </div>
-        <h2 className={style.desc}>소유하신 NFT 중에서 판매할 작품을 선택하세요.</h2>
+        <h2 className={style.desc}>본인이 소유한 NFT를 조각으로 나누어 판매할 수 있습니다.</h2>
         <h2 className={style.desc}>
-          작품의 카테고리를 선택하고 조각의 이름, 개수, 가격을 입력한 뒤, 다음 단계로 넘어가주세요.
+          판매할 NFT를 선택하고, 카테고리와 조각의 이름, 개수, 가격을 입력한 뒤, 다음 단계로
+          넘어가주세요.
         </h2>
       </header>
       <section className={style.content}>

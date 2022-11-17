@@ -18,7 +18,7 @@ function Sell() {
   const [step, setStep] = useState<stepType>("SELECT");
   const [NFTdatas, setNFTdatas] = useState<CollectedNFTType[] | null>(null);
   const { address, userId } = useAppSelector(selectAccount);
-  const { openAlertModal } = useAlert();
+  const { openLoginAlert, openAlertModal } = useAlert();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ function Sell() {
   };
 
   const getOwnERC721NFTs = async () => {
-    if (!address || !SELLY_ERC_721_CA) return;
+    if (!address || !SELLY_ERC_721_CA || !userId) return;
     const sellyDatas = await getMySellyNfts({ CA: SELLY_ERC_721_CA, userWallet: address });
     const alchemyDatas = await getNFTsForOwnerAPI(address);
     console.log("셀리 데이터!!", sellyDatas, "외부 데이터!", alchemyDatas);
@@ -56,11 +56,11 @@ function Sell() {
   }, [address]);
 
   //* 로그인 되어있지 않으면 다시 뒤로 보내기
-  // useEffect(() => {
-  //   if (userId) return;
-  //   openLoginAlert();
-  //   navigate(-1);
-  // }, [userId]);
+  useEffect(() => {
+    if (userId) return;
+    openLoginAlert();
+    navigate(-1);
+  }, [userId]);
 
   return (
     <main>
