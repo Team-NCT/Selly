@@ -150,4 +150,10 @@ public class TradeController {
   public Integer sellerArticleCount(@PathVariable("userId") Long userId){
     return tradeLogRepository.countBySeller(userId);
   }
+
+  // 전날 오전 9시~ 오늘 오전 9시 조회
+  @GetMapping("/rateChange/{articleId}")
+  public double rateChange(@PathVariable("articleId") Long articleId) {
+    return tradeLogService.rateChange(articleId);
+  }
 }

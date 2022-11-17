@@ -9,4 +9,6 @@ import java.util.List;
 public interface TradeLogService {
   float searchPieceAndPriceLog(Long sellerId);
   List<TradeRankDto> tradeRank();
+
+  double rateChange(Long articleId);
 }
