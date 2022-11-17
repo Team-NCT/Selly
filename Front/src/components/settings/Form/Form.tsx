@@ -57,7 +57,7 @@ const Form = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form className={style.form} onSubmit={onSubmit}>
       <section className={style.section}>
         <div className={style.leftSection}>
           <Username />

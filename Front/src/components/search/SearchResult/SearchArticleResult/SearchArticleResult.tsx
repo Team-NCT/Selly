@@ -7,7 +7,7 @@ const SearchArticleResult = (props: SearchArticleType) => {
   return (
     <li className={style.search_form_dialog_article}>
       <Link to={`/detail/${props.articleId}`}>
-        <div>
+        <div className={style.search_form_dialog_article_content}>
           <ProfileImage size="xxs" profileStyle="square" url={props.articleImgUrl} />
           <p className={style.search_form_dialog_article_name}>{props.articleName}</p>
         </div>

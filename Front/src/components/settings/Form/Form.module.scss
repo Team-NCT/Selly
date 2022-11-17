@@ -1,3 +1,7 @@
+.form {
+  max-width: 960px;
+}
+
 .section {
   @include flex(row, space-between, flex-start);
   margin-top: 60px;
