@@ -150,6 +150,7 @@ public class ArticleServiceImpl implements ArticleService{
               .tokenId(entity.getTokenId())
               .contractAddress(entity.getContractAddress())
               .primaryCnt((entity.getPrimaryCnt()))
+              .recentMarketPrice(entity.getRecentMarketPrice())
               .build();
     }
     return ResponseArticle.builder()
@@ -159,6 +160,7 @@ public class ArticleServiceImpl implements ArticleService{
             .primaryCnt(entity.getPrimaryCnt())
             .owner(entity.getOwner())
             .metaDataUrl(entity.getMetaDataUrl())
+            .recentMarketPrice(entity.getRecentMarketPrice())
             .build();
   }
 

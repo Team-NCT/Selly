@@ -46,40 +46,14 @@ public class ProfileController {
   // 본인 조각 보기 (Profile - Fractions)
   @GetMapping("/user-fractions/{profileUserId}")
   public ResponseEntity<List<FractionResponse>> userFractionsList(@RequestHeader("userId") Long userId , @PathVariable("profileUserId") Long profileUserId) {
-    List<FractionResponse> responses = new ArrayList<>();
-    if (Objects.equals(userId, profileUserId)) {
-      FractionResponse fractionResponse = FractionResponse.builder()
-              .articleId(1L)
-              .articleImgUrl("https://skywalker.infura-ipfs.io/ipfs/QmP5VS1uroszxVxWk5Xsa9nGVnpiNaF4ZAkhLjszkSzY4R")
-              .articleName("articleName")
-              .recentMarketPrice(String.valueOf(1.1))
-              .rateChange(String.valueOf(1.5))
-              .pieceCnt(1)
-              .build();
-      responses.add(fractionResponse);
-      return ResponseEntity.ok().body(responses);
-    }
-    FractionResponse fractionResponse = FractionResponse.builder()
-            .articleId(1L)
-            .articleImgUrl("https://skywalker.infura-ipfs.io/ipfs/QmP5VS1uroszxVxWk5Xsa9nGVnpiNaF4ZAkhLjszkSzY4R")
-            .articleName("articleName")
-            .recentMarketPrice(null)
-            .rateChange(null)
-            .build();
-//    FractionResponse fractionResponse = new FractionResponse(1L, "articleName", "articleUrl");
-    responses.add(fractionResponse);
+    List<FractionResponse> responses = profileService.getFraction(userId, profileUserId);
     return ResponseEntity.ok().body(responses);
   }
 
   // 내 수익보기
   @GetMapping("/margin")
   public ResponseEntity<MarginResponse> getMargin(@RequestHeader("userId") Long userId) {
-    MarginResponse marginResponse = MarginResponse.builder()
-            .marginRate(11.1)
-            .totalAssetValue(34524532.3123)
-            .margin(34.1)
-            .principal(141414.14212)
-            .build();
+    MarginResponse marginResponse = profileService.getMargin(userId);
     return ResponseEntity.ok().body(marginResponse);
   }
 
