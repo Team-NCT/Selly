@@ -2,7 +2,7 @@ import style from "./ForSale.module.scss";
 import { CardList, Spinner } from "@/components/common";
 import { useFetchForSaleDataQuery } from "@/api/server/NFTTransactionAPI";
 import { useParams } from "react-router-dom";
-import { cardType } from "@/types/NFTData.types";
+import { CardType } from "@/types/NFTData.types";
 import { useInfiniteScroll } from "@/hooks";
 import { useState, useEffect } from "react";
 
@@ -14,7 +14,7 @@ const ForSale = () => {
   const { data, isError, isSuccess } = useFetchForSaleDataQuery(Number(params.id));
 
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState<cardType[]>([]);
+  const [items, setItems] = useState<CardType[]>([]);
 
   function fetchMoreItems() {
     if (!data) {

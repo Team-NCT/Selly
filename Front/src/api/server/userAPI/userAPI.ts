@@ -4,7 +4,6 @@ import { UserProfileType, UserFollowType } from "@/types/user.type";
 import {
   fetchUserProfileParamsData,
   followDataType,
-  cardType,
   RevenueType,
   SettingsType,
   FetchSettingsType,
@@ -72,11 +71,7 @@ const userAPI = createApi({
       query: (profilePageId) => `following/${profilePageId}/?lastFollowerId=100000`,
       providesTags: ["user"],
     }),
-    //@ description: Ceated 탭의 데이터를 가져오는 API
-    fetchCreatedData: build.query<cardType[], number>({
-      query: (userId) => `profile/user-created/${userId}/`,
-      providesTags: ["profile"],
-    }),
+
     //@ description: 내수익 보기 데이터를 가져오는 API
     fetchRevenueData: build.query<RevenueType, string>({
       query: (value) => `profile/margin${value}`,
@@ -102,7 +97,6 @@ export const {
   useUnFollowMutation,
   useFetchUserFollowerQuery,
   useFetchUserFollowingQuery,
-  useFetchCreatedDataQuery,
   useFetchRevenueDataQuery,
   useFetchArtistTotalRankingDataQuery,
   useFetchArtistTrendingRankingDataQuery,

@@ -8,12 +8,6 @@ export interface followDataType {
   followingId: number;
 }
 
-export interface cardType {
-  articleId: number;
-  articleName: string;
-  articleImgUrl: string;
-}
-
 export interface RevenueType {
   marginRate: number;
   totalAssetValue: number;
