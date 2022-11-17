@@ -32,4 +32,5 @@ public class ResponseArticle {
   private boolean certification;
   private boolean bookMark;
   private boolean availability;
+  private Double recentMarketPrice;
 }

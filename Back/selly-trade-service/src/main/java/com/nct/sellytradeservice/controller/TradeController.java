@@ -1,5 +1,6 @@
 package com.nct.sellytradeservice.controller;
 
+import com.nct.sellytradeservice.client.ArticleServiceClient;
 import com.nct.sellytradeservice.client.FeignClientException;
 import com.nct.sellytradeservice.client.UserServiceClient;
 import com.nct.sellytradeservice.domain.dto.*;
@@ -32,6 +33,8 @@ public class TradeController {
   private final UserServiceClient userServiceClient;
   private final TradeLogService tradeLogService;
   private final TradeRegistRepository tradeRegistRepository;
+
+  private final ArticleServiceClient articleServiceClient;
 
   @GetMapping("/all")
   public List<TradeResponse> findAll() {
@@ -106,23 +109,6 @@ public class TradeController {
     return tradeService.getUserTradeRegistList(userId, articleId);
   }
 
-  // 특정 작품 거래 히스토리 조회
-  @GetMapping("/nft-trade-history/{articleId}")
-  public HashMap<String, Object> nftTradeHistory(@PathVariable("articleId") Long articleId) {
-    HashMap<String , Object> hashMap = new HashMap<>();
-    List<HistoryResponse> historyResponseList = new ArrayList<>();
-    HistoryResponse historyResponse = HistoryResponse.builder()
-            .date(LocalDateTime.now())
-            .avgPrice(1.1)
-            .maxPrice(2.2)
-            .lowPrice(0.1)
-            .build();
-    historyResponseList.add(historyResponse);
-    hashMap.put("avgPrice", 110);
-    hashMap.put("historyList", historyResponseList);
-    return hashMap;
-  }
-
   @DeleteMapping("/trade-cancel")
   public String deleteTradeRegist(@RequestBody RequestDeleteTradeRegist requestDeleteTradeRegist){
     return tradeService.dropTradeRegist(requestDeleteTradeRegist);
@@ -158,5 +144,11 @@ public class TradeController {
     List<Long> returnValue = tradeRegistRepository.findSellerGroupByArticleId(userId);
     System.out.println(returnValue);
     return returnValue;
+  }
+
+  // 히스토리 조회
+  @GetMapping("/nft-trade-history/{articleId}")
+  public  HashMap<String, Object> articleHistory(@PathVariable("articleId") Long articleId){
+    return tradeLogService.historyArticle(articleId);
   }
 }

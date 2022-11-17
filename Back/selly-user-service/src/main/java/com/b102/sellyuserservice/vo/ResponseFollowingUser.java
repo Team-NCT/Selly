@@ -11,4 +11,5 @@ public class ResponseFollowingUser {
   private String image;
   private String nickname;
   private boolean myFollowing;
+  private boolean certification;
 }
