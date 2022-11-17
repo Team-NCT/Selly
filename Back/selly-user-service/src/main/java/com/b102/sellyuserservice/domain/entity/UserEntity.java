@@ -35,4 +35,6 @@ public
   @LastModifiedDate
   private LocalDateTime updateRegist;
   private boolean certification;
+  // 총 구매가 (현재 보유중인
+  private Double totalPurchasePrice;
 }
