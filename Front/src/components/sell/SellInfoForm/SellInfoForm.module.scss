@@ -3,16 +3,30 @@
   @include shadow-drop5;
   width: 100%;
   padding: 16px;
-  gap: 4px;
+  gap: 16px;
   min-width: 252px;
+  border-radius: $radius-card;
 
   .total_price {
-    @include font($body1, $semibold);
+    @include font($body1, $semibold, $navy350);
     @include flex(row, space-between, center);
+    width: 100%;
     margin-bottom: 18px;
+
+    @include tablet {
+      @include font($body2, $semibold, $navy350);
+    }
 
     .total_price_title {
       @include flex(row, center, center);
+      flex-shrink: 0;
+    }
+
+    > p {
+      max-width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

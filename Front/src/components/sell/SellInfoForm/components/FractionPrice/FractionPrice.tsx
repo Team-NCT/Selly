@@ -1,5 +1,5 @@
 import style from "./FractionPrice.module.scss";
-import { Label, NumberInput } from "@/components/common";
+import { NumberInput } from "@/components/common";
 import { FractionPriceProps } from "./FractionPrice.types";
 import { useState, useEffect } from "react";
 import { isNumber, numberinRange, fPointCheck } from "@/helpers/utils/numberValidation";
@@ -38,17 +38,7 @@ const FractionPrice = ({ value, changeHandler, setIsPriceTrue }: FractionPricePr
 
   return (
     <div className={style.fraction_price}>
-      <h2 className={style.fraction_price_label}>
-        <Label
-          color="sherbet"
-          positionH="bottom"
-          positionW="right"
-          id="fraction-price"
-          width={46}
-          horizontal={8}>
-          조각 당 가격
-        </Label>
-      </h2>
+      <h2 className={style.fraction_price_label}>조각 당 가격</h2>
       <NumberInput
         id="fraction-price"
         value={value}

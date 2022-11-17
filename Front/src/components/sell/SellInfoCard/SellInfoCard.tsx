@@ -26,7 +26,6 @@ const SellInfoCard = () => {
 
   return (
     <article className={style.sell_info_card}>
-      <h1>Selected NFT</h1>
       <div className={style.content}>
         <img
           src={!NFTValue.articleImgUrl ? sellyIcon : NFTValue.articleImgUrl}
@@ -35,27 +34,27 @@ const SellInfoCard = () => {
           className={!NFTValue.articleImgUrl || !errorStatus ? style.error_image : ""}
         />
         <div className={style.sell_info}>
-          <h2>
+          <h1>
             카테고리
             <span>{sellInfo.category}</span>
-          </h2>
-          <h2>
+          </h1>
+          <h1>
             조각 코드
             <span>{sellInfo.code}</span>
-          </h2>
-          <h2>
+          </h1>
+          <h1>
             조각 개수
             <span>
               {sellInfo.num} <strong>개</strong>
             </span>
-          </h2>
-          <h2>
+          </h1>
+          <h1>
             조각 당 가격
             <span>
               {sellInfo.price} <strong>ETH</strong>
             </span>
-          </h2>
-          <h2>
+          </h1>
+          <h1>
             <div className={style.total_price_title}>
               <EthereumIcon />
               <p>총 가격</p>
@@ -63,7 +62,7 @@ const SellInfoCard = () => {
             <span>
               {+(Number(sellInfo.num) * Number(sellInfo.price)).toFixed(4)} <strong>ETH</strong>
             </span>
-          </h2>
+          </h1>
         </div>
       </div>
       <Button size="fillContainer" bg="blackberry" color="white" onClick={editHandler}>

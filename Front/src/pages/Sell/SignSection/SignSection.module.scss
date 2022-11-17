@@ -1,7 +1,11 @@
 .header {
   @include flex(column, flex-start, flex-start);
   gap: 8px;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
+
+  @include laptop {
+    margin-bottom: 64px;
+  }
 
   .step_title {
     @include flex(row, flex-start, center);
@@ -34,14 +38,16 @@
 
 .content {
   @include flex(column-reverse, center, stretch);
-  gap: 32px;
+  gap: 40px;
 
   @media (min-width: #{800px}) {
     @include flex(row, space-between, center);
+    gap: 32px;
   }
 
   @include laptop {
     @include flex(row, space-around, center);
+    gap: 32px;
   }
 }
 

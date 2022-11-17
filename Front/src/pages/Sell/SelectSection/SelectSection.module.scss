@@ -1,7 +1,11 @@
 .header {
   @include flex(column, flex-start, flex-start);
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
+
+  @include laptop {
+    margin-bottom: 64px;
+  }
 
   .step_title {
     @include flex(row, flex-start, center);
@@ -64,7 +68,6 @@
   border-radius: 50%;
   background-color: $white;
   opacity: 80%;
-
 
   @media (min-width: #{800px}) {
     display: none;
