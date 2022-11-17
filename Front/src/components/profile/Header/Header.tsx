@@ -40,7 +40,12 @@ const Header = ({
   return (
     <header className={style.header}>
       <div className={style.profilImage}>
-        <ProfileImage url={data?.image} size="xxxl" profileStyle="round" />
+        <ProfileImage
+          url={data?.image}
+          size="xxxl"
+          profileStyle="round"
+          certification={data?.certification}
+        />
       </div>
 
       <section className={style.section}>

@@ -18,11 +18,15 @@ const SocialProof = () => {
 
   return (
     <section className={style.section}>
-      <span className={style.title}>
-        <Neon positionH="bottom" positionW="right" color="blackberry" width={35} horizontal={4}>
-          Selly Statistics
+      <header className={style.title}>
+        <Neon color="ocean" positionH="top" positionW="right">
+          Selly
         </Neon>
-      </span>
+        &nbsp;
+        <Neon color="muscat" positionH="bottom" positionW="right">
+          Statistics
+        </Neon>
+      </header>
       <div className={style.proof_section}>
         <div className={style.proof_content}>
           <span className={style.proof_number} {...totalNFT}>

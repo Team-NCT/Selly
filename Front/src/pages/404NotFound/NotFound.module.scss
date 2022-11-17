@@ -1,19 +1,30 @@
 .container {
   @include flex(column);
-  gap: 65px;
-  margin-top: 48px;
-}
+  gap: 24px;
+  margin-top: 160px;
 
-.header {
-  @include font($h4, $semibold);
-  letter-spacing: 8px;
+  header {
+    a {
+      @include font($h5, $semibold, $ocean250);
+      letter-spacing: 2px;
+      text-decoration: underline;
+    }
+  }
 }
 
 .error_container {
   text-align: center;
-  font-size: 180px;
+  font-size: 80px;
   font-weight: 800;
   margin: 20px 15px;
+
+  @include tablet {
+    font-size: 120px;
+  }
+
+  @include laptop {
+    font-size: 180px;
+  }
 }
 .error_container > span {
   display: inline-block;
@@ -95,9 +106,4 @@
   100% {
     transform: rotateX(0);
   }
-}
-
-.link_container {
-  @include font($body1, $regular, $black);
-  text-align: center;
 }

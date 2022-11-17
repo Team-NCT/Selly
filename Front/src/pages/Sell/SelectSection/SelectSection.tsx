@@ -9,10 +9,10 @@ import { Spinner } from "@/components/common";
 
 const FETCH_SIZE = 5;
 
-function SelectSection({ datas, changeStep }: SelectSectionProps) {
+function SelectSection({ datas, changeStep, userId }: SelectSectionProps) {
   const NFTValue = useAppSelector(selectNFTValue);
   const [items, setItems] = useState<Array<any>>([]);
-  const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
+  const { setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
   const [page, setPage] = useState(1);
 
   function fetchMoreItems() {
@@ -37,14 +37,13 @@ function SelectSection({ datas, changeStep }: SelectSectionProps) {
   useEffect(() => {
     if (!datas) return;
     setIsFinished(false);
-    console.log("???", datas);
     const nextDatas = datas.slice(0, FETCH_SIZE);
     if (FETCH_SIZE >= datas.length) {
       setIsFinished(true);
     }
     setItems([...nextDatas]);
     setPage(2);
-  }, [datas]);
+  }, [datas, setIsFinished]);
 
   return (
     <>
@@ -61,18 +60,24 @@ function SelectSection({ datas, changeStep }: SelectSectionProps) {
       </header>
       <section className={style.content}>
         <div className={style.select_card_list}>
-          {datas ? (
-            items.length !== 0 ? (
-              <SelectCardList data={items} defaultSelectedIdx={NFTValue.selectIdx} />
-            ) : (
-              <div className={style.nft_none}>
-                <p>현재 판매 가능한 NFT가 없습니다</p>
-                <p>(っ °Д °;)っ</p>
-              </div>
-            )
-          ) : (
+          {datas && userId && items.length > 0 && (
+            <SelectCardList data={items} defaultSelectedIdx={NFTValue.selectIdx} />
+          )}
+          {datas && userId && items.length === 0 && (
+            <div className={style.nft_none}>
+              <p>현재 판매 가능한 NFT가 없습니다</p>
+              <p>(っ °Д °;)っ</p>
+            </div>
+          )}
+          {!datas && userId && (
             <div className={style.spinner}>
               <Spinner />
+            </div>
+          )}
+          {!userId && (
+            <div className={style.nft_none}>
+              <p>현재 판매 가능한 NFT가 없습니다</p>
+              <p>(っ °Д °;)っ</p>
             </div>
           )}
         </div>

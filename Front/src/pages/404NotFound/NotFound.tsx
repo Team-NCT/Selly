@@ -4,7 +4,11 @@ import style from "./NotFound.module.scss";
 const NotFound = () => {
   return (
     <main className={style.container}>
-      <h1 className={style.header}>404 Not Found</h1>
+      <header>
+        <Link to="/" className={style.link_container}>
+          메인페이지로 이동하기
+        </Link>
+      </header>
       <section className={style.error_container}>
         <span>
           <span>4</span>
@@ -14,9 +18,6 @@ const NotFound = () => {
           <span>4</span>
         </span>
       </section>
-      <Link to="/" className={style.link_container}>
-        메인페이지로 이동하기
-      </Link>
     </main>
   );
 };
