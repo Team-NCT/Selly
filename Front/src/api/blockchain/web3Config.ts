@@ -10,7 +10,9 @@ import {
 
 export const web3 = new Web3(window.ethereum);
 
-export const sellyERC721Contract = (ca: string) => {
+export const sellyERC721Contract = new web3.eth.Contract(SELLY_ERC_721_ABI, SELLY_ERC_721_CA);
+
+export const ERC721Contract = (ca: string) => {
   return new web3.eth.Contract(SELLY_ERC_721_ABI, ca);
 };
 export const F_NFTFactoryContract = new web3.eth.Contract(F_NFT_FACTORY_ABI, F_NFT_FACTORY_CA);
