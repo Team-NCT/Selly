@@ -18,7 +18,7 @@ const BannerImg = () => {
   const limit = 100;
 
   const dispatch = useAppDispatch();
-  const { profileData } = useAppSelector(selectProfileData);
+  const { banner } = useAppSelector(selectProfileData);
 
   //* 이미지 파일이 업로드될 때 실행되는 함수
   const handleInputChange = useCallback(
@@ -75,7 +75,7 @@ const BannerImg = () => {
         <ImageInput
           handleInputChange={handleInputChange}
           id="banner-img"
-          imageUrl={profileData.banner}
+          imageUrl={banner}
           limit={10}
           styles="square"
         />

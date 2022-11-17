@@ -7,13 +7,11 @@ import { useCreateMutation } from "@/api/server/createNFTAPI";
 import { selectAccount } from "@/store/loginSlice";
 import { OpenAlertArg, useAlert, useAppDispatch, useAppSelector, useLogin } from "@/hooks";
 import { useNavigate } from "react-router-dom";
-import Web3 from "web3";
 import { closeLoading, openLoading, selectModal } from "@/store/modalSlice";
 import { createPortal } from "react-dom";
 
 const Form = () => {
   const { userId, address } = useAppSelector(selectAccount);
-  const web3 = new Web3(window.ethereum);
   const { openAlertModal } = useAlert();
   const [create] = useCreateMutation();
   const [loginHandler] = useLogin();
@@ -38,13 +36,13 @@ const Form = () => {
     let data: OpenAlertArg = {
       content: "에러가 발생했습니다. 다시 시도해주세요.",
       style: "error",
-      icon: true,
+      icon: false,
     };
     if (message === "MetaMask Tx Signature: User denied transaction signature.") {
       data = {
         content: "서명이 거부되었습니다.",
         style: "error",
-        icon: true,
+        icon: false,
       };
     }
     openAlertModal(data);
@@ -69,25 +67,14 @@ const Form = () => {
         articleName: createData.title,
       };
       const response = await create(body).unwrap();
-      const payload = {
-        nonce: response.nonce,
-        to: response.to,
-        from: response.from,
-        data: response.data,
+      if (!response) return;
+      navigate("/");
+      const data: OpenAlertArg = {
+        content: "민팅이 완료되었습니다",
+        style: "success",
+        icon: true,
       };
-      await web3.eth
-        .sendTransaction(payload)
-        .then(() => {
-          dispatch(closeLoading());
-          const data: OpenAlertArg = {
-            content: "민팅이 완료되었습니다",
-            style: "success",
-            icon: true,
-          };
-          openAlertModal(data);
-          navigate("/");
-        })
-        .catch((error) => errorHandler(error.message));
+      openAlertModal(data);
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;

@@ -1,67 +1,72 @@
-import { DescCardList } from "@/components/common";
+import style from "./Fractions.module.scss";
+import { DescCardList, CardList, Spinner } from "@/components/common";
+import { useFetchFractionsDataQuery } from "@/api/server/NFTTransactionAPI";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "@/hooks/useStore";
+import { selectAccount } from "@/store/loginSlice";
+import { useInfiniteScroll } from "@/hooks";
+import { useState, useEffect } from "react";
+import { NFTDescCardDataType } from "@/types/NFTData.types";
 
-//TODO Fractions API와 연결 예정
-const FractionsData = [
-  {
-    articleId: 0,
-    articleImgUrl:
-      "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    articleName: "좀비와 함께 춤을",
-    rateChange: 20.2525,
-    recentMarketPrice: 12.0025,
-  },
-  {
-    articleId: 1,
-    articleImgUrl:
-      "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    articleName: "좀비와 함께 춤을",
-    rateChange: 20.2525,
-    recentMarketPrice: 12.0025,
-  },
-  {
-    articleId: 2,
-    articleImgUrl:
-      "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    articleName: "좀비와 함께 춤을",
-    rateChange: 20.2525,
-    recentMarketPrice: 12.0025,
-  },
-  {
-    articleId: 3,
-    articleImgUrl:
-      "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    articleName: "좀비와 함께 춤을",
-    rateChange: 20.2525,
-    recentMarketPrice: 12.0025,
-  },
-  {
-    articleId: 4,
-    articleImgUrl:
-      "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    articleName: "좀비와 함께 춤을",
-    rateChange: 20.2525,
-    recentMarketPrice: 12.0025,
-  },
-  {
-    articleId: 5,
-    articleImgUrl:
-      "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    articleName: "좀비와 함께 춤을",
-    rateChange: 20.2525,
-    recentMarketPrice: 12.0025,
-  },
-  {
-    articleId: 6,
-    articleImgUrl:
-      "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    articleName: "좀비와 함께 춤을",
-    rateChange: 20.2525,
-    recentMarketPrice: 12.0025,
-  },
-];
+const FETCH_SIZE = 15;
 
 const Fractions = () => {
-  return <DescCardList data={FractionsData} />;
+  const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
+  const params = useParams();
+  const { data, isError, isSuccess } = useFetchFractionsDataQuery(Number(params.id));
+  const { userId } = useAppSelector(selectAccount);
+
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState<NFTDescCardDataType[]>([]);
+
+  function fetchMoreItems() {
+    if (!data) {
+      setIsFetching(false);
+      return;
+    }
+    const nextDatas = data.slice((page - 1) * FETCH_SIZE, page * FETCH_SIZE);
+    if (page * FETCH_SIZE >= data.length) {
+      setIsFinished(true);
+    }
+    setItems((pre) => [...pre, ...nextDatas]);
+    setPage((pre) => pre + 1);
+    setIsFetching(false);
+  }
+
+  //* 처음 datas에서 초기값 받아오기
+  useEffect(() => {
+    if (!data) return;
+    setIsFinished(false);
+    const nextDatas = data.slice(0, FETCH_SIZE);
+    if (FETCH_SIZE >= data.length) {
+      setIsFinished(true);
+    }
+    setItems([...nextDatas]);
+    setPage(2);
+  }, [data]);
+
+  return (
+    <section className={style.fractions_section}>
+      {isSuccess ? (
+        data.length !== 0 ? (
+          Number(params.id) === userId ? (
+            <DescCardList data={items} />
+          ) : (
+            <CardList data={items} />
+          )
+        ) : (
+          <div className={style.nft_none}>
+            <p>현재 소유 중인 NFT 조각이 없습니다</p>
+            <p>(っ °Д °;)っ</p>
+          </div>
+        )
+      ) : (
+        <div className={style.spinner}>
+          <Spinner />
+        </div>
+      )}
+    </section>
+  );
 };
 
 export default Fractions;

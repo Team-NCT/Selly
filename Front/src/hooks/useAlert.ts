@@ -23,10 +23,10 @@ export const useAlert = () => {
   const dispatch = useAppDispatch();
 
   const openAlertModal = ({ content, style, icon }: OpenAlertArg) => {
-    dispatch(openAlert());
     dispatch(setAlertContent(content));
     dispatch(setAlertStyles(style));
     dispatch(setIconStyles(icon));
+    dispatch(openAlert());
   };
 
   const closeAlertModal = () => {
@@ -37,10 +37,10 @@ export const useAlert = () => {
   };
 
   const openLoginAlert = () => {
-    dispatch(openAlert());
     dispatch(setAlertContent("로그인 시, 이용할 수 있습니다."));
     dispatch(setAlertStyles("error"));
     dispatch(setIconStyles(true));
+    dispatch(openAlert());
   };
 
   return { openAlertModal, closeAlertModal, openLoginAlert };

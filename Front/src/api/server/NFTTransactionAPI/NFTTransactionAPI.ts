@@ -9,7 +9,7 @@ import {
   cancleSellNFTFractionType,
 } from "./NFTTransactionAPI.types";
 import { SignedTransactionType, PayableSignedTransactionType } from "@/types/transaction.types";
-import { NFTFractionHistoryListType } from "@/types/NFTData.types";
+import { NFTFractionHistoryListType, DescCardType, CardType } from "@/types/NFTData.types";
 import sleep from "@/helpers/utils/sleep";
 import { sendTransaction, sendPayableTransaction } from "@/api/blockchain";
 import {
@@ -27,9 +27,11 @@ const NFTTransactionAPI = createApi({
     baseUrl: SELLY_API,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).account.token;
+      const userId = (getState() as RootState).account.userId || 0;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
+      headers.set("userId", String(userId));
 
       return headers;
     },
@@ -52,6 +54,17 @@ const NFTTransactionAPI = createApi({
     fetchOwnedNFTCount: build.query<number, RequestDataType>({
       query: ({ articleId, userId }) =>
         `selly-user-service/nftPiece/${userId}?articleId=${articleId}`,
+      providesTags: ["fraction"],
+    }),
+
+    //@ description: ForSale 탭의 데이터를 가져오는 API
+    fetchForSaleData: build.query<CardType[], number>({
+      query: (userId) => `selly-user-service/profile/user-forSale/${userId}/`,
+      providesTags: ["fraction"],
+    }),
+    //@ description: Fractions 탭의 데이터를 가져오는 API
+    fetchFractionsData: build.query<DescCardType[], number>({
+      query: (userId) => `selly-user-service/profile/user-fractions/${userId}/`,
       providesTags: ["fraction"],
     }),
 
@@ -78,10 +91,10 @@ const NFTTransactionAPI = createApi({
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
-          dispatch(openAlert());
           dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
+          dispatch(openAlert());
           return { data: false };
         }
       },
@@ -105,10 +118,10 @@ const NFTTransactionAPI = createApi({
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
-          dispatch(openAlert());
           dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
+          dispatch(openAlert());
           return { data: false };
         }
       },
@@ -132,10 +145,10 @@ const NFTTransactionAPI = createApi({
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
-          dispatch(openAlert());
           dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
+          dispatch(openAlert());
           return { data: false };
         }
       },
@@ -155,5 +168,7 @@ export const {
   useBuyNFTFractionMutation,
   useRegisterSellNFTFractionMutation,
   useCancleSellNFTFractionMutation,
+  useFetchForSaleDataQuery,
+  useFetchFractionsDataQuery,
 } = NFTTransactionAPI;
 export default NFTTransactionAPI;

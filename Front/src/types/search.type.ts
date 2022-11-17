@@ -1,7 +1,7 @@
 export interface SearchUserType {
   userId: number;
   nickname: string;
-  img: string;
+  image: string;
   certification: boolean;
 }
 

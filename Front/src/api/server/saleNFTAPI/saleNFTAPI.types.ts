@@ -8,6 +8,6 @@ export interface F_NFTSaleType {
   category: string;
   wallet: string;
   metaDataUrl: string;
-  articleUrl: string;
+  articleImgUrl: string;
   articleName: string;
 }

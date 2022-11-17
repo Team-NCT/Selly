@@ -13,6 +13,7 @@ const DescCardList = ({ data }: DescCardListProps) => {
           articleName={item.articleName}
           recentMarketPrice={item.recentMarketPrice}
           rateChange={item.rateChange}
+          pieceCnt={item.pieceCnt}
         />
       ))}
     </ul>

@@ -7,6 +7,8 @@ import com.nct.sellysearchservice.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -72,6 +74,7 @@ public class SearchServiceImpl implements SearchService{
 
   @Override
   public HashMap<String, Object> getSearchResult(String keyword) {
+    URLDecoder.decode(keyword, StandardCharsets.UTF_8);
     List<ArticleResponse> articleResponseList = articleServiceClient.articleSearchResponse(keyword);
     List<SearchUserResponse> userResponseList = userServiceClient.userSearchResponse(keyword);
     HashMap<String, Object> result = new HashMap<>();

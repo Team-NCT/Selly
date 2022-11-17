@@ -4,25 +4,29 @@ nav {
   width: 100%;
   position: fixed;
   top: 0;
-  padding: 0 30px;
+  padding: 0 16px;
   transition: opacity 0.5s linear;
   z-index: 20;
+
+  @include tablet {
+    padding: 0 32px;
+  }
   @include laptop {
     @include flex(row, space-between);
-    padding: 0 30px;
+    padding: 0 96px;
   }
   &:hover {
     opacity: 1;
     background-color: $white;
   }
   img {
-    max-width: 94px;
-    aspect-ratio: 94/39;
+    max-width: 70px;
+    aspect-ratio: 70/39;
   }
 }
 
 .logo {
-  width: 94px;
+  width: 70px;
   height: 39px;
 }
 

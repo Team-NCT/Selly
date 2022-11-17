@@ -1,6 +1,6 @@
 import { Meta, Story } from "@storybook/react";
 import DescCardListItem from "./DescCardListItem";
-import { DescCardListItemProps } from "./DescCardListItem.types";
+import { NFTDescCardDataType } from "@/types/NFTData.types";
 
 export default {
   title: "Common/DescCard/DescCardListItem",
@@ -11,7 +11,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Default: Story<DescCardListItemProps> = (args) => <DescCardListItem {...args} />;
+export const Default: Story<NFTDescCardDataType> = (args) => <DescCardListItem {...args} />;
 
 Default.args = {
   articleImgUrl:
@@ -20,4 +20,5 @@ Default.args = {
   recentMarketPrice: 12.0025,
   rateChange: 20.2525,
   articleId: 1,
+  pieceCnt: 17,
 };

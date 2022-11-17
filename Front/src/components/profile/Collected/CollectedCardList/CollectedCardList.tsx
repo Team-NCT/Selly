@@ -11,7 +11,7 @@ const CollectedCardList = ({ data }: CardListProps) => {
   return (
     <ul className={style.card_list}>
       {data.map((item, idx) => (
-        <Card key={idx} url={item.rawMetadata.image} title={item.title} />
+        <Card key={idx} articleImgUrl={item.rawMetadata.image} articleName={item.title} />
       ))}
     </ul>
   );

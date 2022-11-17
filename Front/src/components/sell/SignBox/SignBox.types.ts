@@ -9,7 +9,7 @@ export interface functionProps {
   userWallet: string;
   userId: number;
   metaDataUrl: string;
-  articleUrl: string;
+  articleImgUrl: string;
   category: string;
   price: string;
 }

@@ -1,11 +1,5 @@
-interface FollowItem {
-  userId: number;
-  wallet: string;
-  image: string;
-  nickname: string;
-  myFollowing: boolean;
-}
+import { UserFollowType } from "@/types/user.type";
 
 export interface FollowProps {
-  data: FollowItem;
+  data: UserFollowType;
 }

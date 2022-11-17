@@ -1,46 +1,76 @@
-import { CardList } from "@/components/common";
+import style from "./ForSale.module.scss";
+import { CardList, Spinner } from "@/components/common";
+import { useFetchForSaleDataQuery } from "@/api/server/NFTTransactionAPI";
+import { useParams } from "react-router-dom";
+import { CardType } from "@/types/NFTData.types";
+import { useInfiniteScroll } from "@/hooks";
+import { useState, useEffect } from "react";
 
-//TODO ForSale API와 연결 예정
-const CreatedData = [
-  {
-    id: 0,
-    title: "좀비와 함께 춤을",
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-  },
-  {
-    id: 1,
-    title: "좀비와 함께 춤을",
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-  },
-  {
-    id: 2,
-    title: "좀비와 함께 춤을",
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-  },
-  {
-    id: 3,
-    title: "좀비와 함께 춤을",
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-  },
-  {
-    id: 4,
-    title: "좀비와 함께 춤을",
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-  },
-  {
-    id: 5,
-    title: "좀비와 함께 춤을",
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-  },
-  {
-    id: 6,
-    title: "좀비와 함께 춤을",
-    url: "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-  },
-];
+const FETCH_SIZE = 15;
 
 const ForSale = () => {
-  return <CardList data={CreatedData} />;
+  const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
+  const params = useParams();
+  const { data, isError, isSuccess } = useFetchForSaleDataQuery(Number(params.id));
+
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState<CardType[]>([]);
+
+  function fetchMoreItems() {
+    if (!data) {
+      setIsFetching(false);
+      return;
+    }
+    const nextDatas = data.slice((page - 1) * FETCH_SIZE, page * FETCH_SIZE);
+    if (page * FETCH_SIZE >= data.length) {
+      setIsFinished(true);
+    }
+    setItems((pre) => [...pre, ...nextDatas]);
+    setPage((pre) => pre + 1);
+    setIsFetching(false);
+  }
+
+  //* 처음 datas에서 초기값 받아오기
+  useEffect(() => {
+    if (!data) return;
+    setIsFinished(false);
+    const nextDatas = data.slice(0, FETCH_SIZE);
+    if (FETCH_SIZE >= data.length) {
+      setIsFinished(true);
+    }
+    setItems([...nextDatas]);
+    setPage(2);
+  }, [data]);
+
+  if (isError) {
+    return (
+      <section className={style.forsale_section}>
+        <div className={style.nft_none}>
+          <p>에러가 발생했습니다 </p>
+          <p> (っ °Д °;)っ </p>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className={style.forsale_section}>
+      {isSuccess ? (
+        data.length !== 0 ? (
+          <CardList data={items} />
+        ) : (
+          <div className={style.nft_none}>
+            <p>현재 조각 판매 중인 NFT가 없습니다</p>
+            <p>(っ °Д °;)っ</p>
+          </div>
+        )
+      ) : (
+        <div className={style.spinner}>
+          <Spinner />
+        </div>
+      )}
+    </section>
+  );
 };
 
 export default ForSale;

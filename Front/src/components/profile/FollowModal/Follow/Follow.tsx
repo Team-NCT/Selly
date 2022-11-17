@@ -16,19 +16,15 @@ const Follow = ({ data }: FollowProps) => {
   const [unFollow] = useUnFollowMutation();
 
   const followOnclickHandler = async () => {
-    console.log("팔로우", data.userId);
     if (!userId) {
       return;
     }
-    const res = await follow({ followerId: userId, followingId: data.userId }).unwrap();
-    console.log(res);
+    await follow({ followerId: data.userId, followingId: userId });
   };
 
   const unFollowOnClickHandler = async () => {
-    console.log("언팔로우", data.userId);
     if (!userId) return;
-    const res = await unFollow({ followerId: userId, followingId: data.userId }).unwrap();
-    console.log(res);
+    await unFollow({ followerId: data.userId, followingId: userId });
   };
 
   return (
@@ -46,19 +42,21 @@ const Follow = ({ data }: FollowProps) => {
         </div>
       </Link>
       <div className={style.button_section}>
-        {data.myFollowing ? (
-          <Button
-            bg="blackberry"
-            color="outline"
-            onClick={unFollowOnClickHandler}
-            size="fillContainer">
-            Following
-          </Button>
-        ) : (
-          <Button onClick={followOnclickHandler} size="fillContainer">
-            Follow
-          </Button>
-        )}
+        {!!Number(userId) &&
+          data.userId !== Number(userId) &&
+          (data?.myFollowing ? (
+            <Button
+              bg="blackberry"
+              color="outline"
+              onClick={unFollowOnClickHandler}
+              size="fillContainer">
+              Following
+            </Button>
+          ) : (
+            <Button onClick={followOnclickHandler} size="fillContainer">
+              Follow
+            </Button>
+          ))}
       </div>
     </li>
   );

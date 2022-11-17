@@ -5,6 +5,7 @@ import { selectProfleStatus } from "@/store/profileStatusSlice";
 import style from "./Form.module.scss";
 import { Button } from "@/components/common";
 import { setProfileData, selectProfileData } from "@/store/profileDataSlice";
+import { useFetchSettingsMutation } from "@/api/server/userAPI";
 import { useEffect } from "react";
 
 export interface InitialStateProps {
@@ -25,11 +26,12 @@ const initialState = {
 };
 
 const Form = () => {
-  const { address } = useAppSelector(selectAccount);
+  const { address, userId } = useAppSelector(selectAccount);
   const { profleStatus } = useAppSelector(selectProfleStatus);
-  const { profileData } = useAppSelector(selectProfileData);
+  const profileData = useAppSelector(selectProfileData);
   const walletAddress = address ? address : "";
   const dispatch = useAppDispatch();
+  const [settings] = useFetchSettingsMutation();
   useEffect(() => {
     dispatch(
       setProfileData({
@@ -44,13 +46,14 @@ const Form = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const userData = {
+    const data = {
       nickname: profileData.nickname,
       introduction: profileData.introduction,
-      image: profileData.imageFile,
-      banner: profileData.bannerFile,
+      image: profileData.image,
+      banner: profileData.image,
     };
-    console.log(userData);
+    console.log(userId);
+    await settings({ data: data, userId: Number(userId) });
   };
 
   return (

@@ -7,7 +7,7 @@ const SearchUserResult = (props: SearchUserType) => {
   return (
     <li className={style.search_form_dialog_user}>
       <Link to={`/profile/${props.userId}`}>
-        <ProfileImage size="xxs" profileStyle="square" url={props.img} />
+        <ProfileImage size="xxs" profileStyle="square" url={props.image} />
         <p>{props.nickname}</p>
       </Link>
     </li>
