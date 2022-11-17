@@ -122,7 +122,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
       userWallet,
       userId,
       metaDataUrl,
-      articleUrl,
+      articleImgUrl,
       category,
       price,
     }).then((res) => {

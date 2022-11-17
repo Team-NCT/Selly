@@ -29,10 +29,10 @@ const SellInfoCard = () => {
       <h1>Selected NFT</h1>
       <div className={style.content}>
         <img
-          src={!NFTValue.articleUrl ? sellyIcon : NFTValue.articleUrl}
+          src={!NFTValue.articleImgUrl ? sellyIcon : NFTValue.articleImgUrl}
           alt={NFTValue.articleName}
           onError={handleImgError}
-          className={!NFTValue.articleUrl || !errorStatus ? style.error_image : ""}
+          className={!NFTValue.articleImgUrl || !errorStatus ? style.error_image : ""}
         />
         <div className={style.sell_info}>
           <h2>
