@@ -1,5 +1,5 @@
 import style from "./FractionNum.module.scss";
-import { Label, NumberInput } from "@/components/common";
+import { NumberInput } from "@/components/common";
 import { FractionNumProps } from "./FractionNum.types";
 import { useEffect, useState } from "react";
 import { isNumber, numberinRange, fPointCheck } from "@/helpers/utils/numberValidation";
@@ -32,11 +32,7 @@ const FractionNum = ({ value, changeHandler, setIsNumTrue }: FractionNumProps) =
 
   return (
     <div className={style.fraction_num}>
-      <h2 className={style.fraction_num_label}>
-        <Label color="lilac" positionH="bottom" positionW="right" id="fraction-num">
-          조각 개수
-        </Label>
-      </h2>
+      <h2 className={style.fraction_num_label}>조각 개수</h2>
       <NumberInput
         id="fraction-num"
         value={value}

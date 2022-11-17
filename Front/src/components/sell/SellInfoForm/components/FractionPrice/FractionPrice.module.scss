@@ -2,8 +2,10 @@
   min-height: 89px;
 
   .fraction_price_label {
-    Label {
-      @include font($body2, $bold);
+    @include font($body1, $semibold, $main-font);
+
+    @include tablet {
+      @include font($body2, $semibold, $main-font);
     }
   }
 }
