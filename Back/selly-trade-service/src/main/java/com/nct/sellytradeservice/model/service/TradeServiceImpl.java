@@ -364,7 +364,7 @@ public class TradeServiceImpl implements TradeService {
         NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
                 .articleId(tradeRequest.getArticleId())
                 .userId(sellerId)
-                .nftPieceCnt(sellerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt())
+                .nftPieceCnt(Objects.requireNonNull(sellerOwnership).getNftPieceCnt() - tradeRequest.getPieceCnt())
                 .avgPrice((sellerOwnership.getAvgPrice() * sellerOwnership.getNftPieceCnt()
                         - tradeRequest.getTradePrice() * tradeRequest.getPieceCnt())
                         / (sellerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt()))
