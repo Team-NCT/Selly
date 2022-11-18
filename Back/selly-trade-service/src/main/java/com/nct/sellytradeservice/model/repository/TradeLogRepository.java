@@ -30,7 +30,8 @@ public interface TradeLogRepository extends JpaRepository<TradeLog, Long> {
   HistoryDto selectDateHistory(@Param("historyDate") String date, @Param("articleId") Long articleId);
 
   @Query(value = "SELECT AVG(tradePrice) AS avgPrice FROM TradeLog WHERE articleId = :articleId", nativeQuery = true)
-  Float selectTotalAvg(@Param("articleId") Long articleId);
+  Double selectTotalAvg(@Param("articleId") Long articleId);
+
 
   TradeLog findTopByArticleIdAndTradeTimeBetweenOrderByTradeTimeDesc(Long articleId, LocalDateTime startDateTime, LocalDateTime endDateTime);
   TradeLog findTopByArticleIdAndTradeTimeBeforeOrderByTradeTimeDesc(Long articleId, LocalDateTime endDateTime);
