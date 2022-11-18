@@ -17,7 +17,7 @@ export const getMySellyNfts = async ({ CA, userWallet }: { CA: string; userWalle
     console.log(tokenURIs, tokenIds);
     for (let i = 0; i < tokenURIs.length; i++) {
       let metaData;
-      const metadataURI = tokenURIs[i];
+      const metadataURI = "https://skywalker.infura-ipfs.io/ipfs/" + tokenURIs[i];
       try {
         metaData = await getNFTData(metadataURI);
         console.log("??", metaData);

@@ -66,7 +66,7 @@ const SellInfoCard = () => {
         </div>
       </div>
       <Button size="fillContainer" bg="blackberry" color="white" onClick={editHandler}>
-        EDIT
+        Edit
       </Button>
     </article>
   );
