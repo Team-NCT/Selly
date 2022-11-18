@@ -55,7 +55,7 @@ const Follow = ({ data }: FollowProps) => {
               color="outline"
               onClick={unFollowOnClickHandler}
               size="fillContainer">
-              Following
+              UnFollow
             </Button>
           ) : (
             <Button onClick={followOnclickHandler} size="fillContainer">
