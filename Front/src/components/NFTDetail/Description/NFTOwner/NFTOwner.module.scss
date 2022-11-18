@@ -6,7 +6,7 @@
     @include font($h5, $bold, $main-font);
   }
 
-  button {
+  a {
     @include flex(row, flex-start, center);
     gap: 16px;
 

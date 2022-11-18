@@ -1,19 +1,15 @@
 import style from "./NFTOwner.module.scss";
 import { NFTOwnerProps } from "./NFTOwner.types";
 import { Neon, ProfileImage } from "@/components/common";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NFTOwner = ({ originalAuthor, nickname, image, certification }: NFTOwnerProps) => {
-  const navigate = useNavigate();
-  const handleNFTOwnerClick = () => {
-    navigate(`/profile/${originalAuthor}`);
-  };
   return (
     <div className={style.NFT_detail_description_owner}>
       <Neon color="ocean100" positionH="bottom" positionW="right">
         <h1>Owner</h1>
       </Neon>
-      <button onClick={handleNFTOwnerClick}>
+      <Link to={`/profile/${originalAuthor}`}>
         <ProfileImage
           profileStyle="square"
           size={"xxs"}
@@ -21,7 +17,7 @@ const NFTOwner = ({ originalAuthor, nickname, image, certification }: NFTOwnerPr
           certification={certification}
         />
         <p>{nickname}</p>
-      </button>
+      </Link>
     </div>
   );
 };
