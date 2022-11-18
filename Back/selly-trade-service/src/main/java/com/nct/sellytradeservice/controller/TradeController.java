@@ -139,6 +139,7 @@ public class TradeController {
   public Integer sellerArticleCount(@PathVariable("userId") Long userId){
     return tradeLogRepository.countBySeller(userId);
   }
+
   @GetMapping("/trade-search/{userId}")
   public List<Long> searchSellerArticleId(@PathVariable("userId") Long userId){
     List<Long> returnValue = tradeRegistRepository.findSellerGroupByArticleId(userId);
@@ -150,5 +151,10 @@ public class TradeController {
   @GetMapping("/nft-trade-history/{articleId}")
   public  HashMap<String, Object> articleHistory(@PathVariable("articleId") Long articleId){
     return tradeLogService.historyArticle(articleId);
+  }
+  // 자정 기준 거래가 변동률 조회
+  @GetMapping("/rateChange/{articleId}")
+  public double rateChange(@PathVariable("articleId") Long articleId) {
+    return tradeLogService.rateChange(articleId);
   }
 }

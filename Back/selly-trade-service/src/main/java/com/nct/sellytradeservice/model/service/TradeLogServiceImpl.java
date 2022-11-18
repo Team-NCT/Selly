@@ -14,6 +14,15 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -94,8 +103,23 @@ public class TradeLogServiceImpl implements TradeLogService{
       Float aFloat = tradeLogRepository.selectTotalAvg(articleId);
       hashMap.put("avgPrice",Double.valueOf(form.format(aFloat)));
       return hashMap;
-    } else{
-      return null;
     }
+    return null;
+  }
+  public double rateChange(Long articleId) {
+//    LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0,0,0));
+    LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23,59,59));
+//    TradeLog tradeLog = tradeLogRepository.findTopByArticleIdAndTradeTimeBetweenOrderByTradeTimeDesc(articleId, startDateTime, endDateTime);
+    TradeLog tradeLog = tradeLogRepository.findTopByArticleIdAndTradeTimeBeforeOrderByTradeTimeDesc(articleId, endDateTime);
+    LocalDateTime startDateTimeToday = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
+    LocalDateTime endDateTimeToday = LocalDateTime.now();
+    TradeLog tradeLogToday = tradeLogRepository.findTopByArticleIdAndTradeTimeBetweenOrderByTradeTimeDesc(articleId, startDateTimeToday, endDateTimeToday);
+    if (tradeLog== null) {
+      return 0;
+    }
+    if (tradeLogToday == null) {
+      return 0;
+    }
+    return ((tradeLog.getTradePrice()-tradeLogToday.getTradePrice()) / tradeLog.getTradePrice()) * 100;
   }
 }

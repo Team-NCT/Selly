@@ -13,6 +13,11 @@ import java.util.List;
 public interface TradeServiceClient {
   @GetMapping("/selly-trade-service/trade-ranking")
   List<TradeRankDto> tradeRanking();
+
   @GetMapping("/selly-trade-service/trade-search/{userId}")
   List<Long> searchResult(@PathVariable("userId") Long userId);
+
+  @GetMapping("/selly-trade-service/rateChange/{articleId}")
+  double rateChange(@PathVariable("articleId") Long articleId);
+
 }

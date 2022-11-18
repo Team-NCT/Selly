@@ -14,4 +14,7 @@ public interface TradeLogService {
   List<TradeRankDto> tradeRank();
 
   HashMap<String, Object> historyArticle(Long articleId);
+
+  double rateChange(Long articleId);
+
 }
