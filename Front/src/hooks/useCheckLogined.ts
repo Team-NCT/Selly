@@ -2,10 +2,10 @@ import { GOERLI_ID } from "@/constants/metamask";
 import { getWallet, getChainId } from "@/api/blockchain";
 import { useAppDispatch } from "@/hooks/useStore";
 import { setAddress, logout } from "@/store/loginSlice";
-import { useLoginMutation } from "@/api/server/loginAPI";
 import { useAlert, useSetGoerli } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 import { isMobileWeb } from "@/helpers/utils/checkDevice";
+import { useLoginMutation } from "@/api/server/userAPI";
 
 const useCheckLogined = () => {
   const { openAlertModal } = useAlert();

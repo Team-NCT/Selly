@@ -1,3 +1,4 @@
+import { useCheckUserNickNameQuery } from "@/api/server/userAPI";
 import { TextInput, Label } from "@/components/common";
 import { checkNumEngKor, checkBadWord, checkValueLength } from "@/helpers/utils/checkLanguage";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
@@ -9,18 +10,22 @@ import style from "./Username.module.scss";
 const Username = () => {
   const [status, setStatus] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [username, setUsername] = useState<string>("_");
   const dispatch = useAppDispatch();
   const { nickname } = useAppSelector(selectProfileData);
+  const checkNickname = useCheckUserNickNameQuery(username);
+  const isChecked = checkNickname.error?.data || "";
 
   const changeUsername = (event: React.FormEvent) => {
     const form = event.target as HTMLFormElement;
+    setUsername(form.value);
     dispatch(setNickname(form.value));
   };
 
   useEffect(() => {
     const debounce = setTimeout(async () => {
       setStatus(false);
-      if (nickname + "1" === nickname) {
+      if (isChecked === "중복된 닉네임입니다.") {
         setError("닉네임이 중복되었습니다.");
       } else if (!checkNumEngKor(nickname)) {
         setError("한글, 영어, 숫자의 조합만 가능합니다.");
@@ -37,7 +42,7 @@ const Username = () => {
     return () => {
       clearTimeout(debounce);
     };
-  }, [nickname, status, dispatch]);
+  }, [nickname, status, dispatch, isChecked]);
 
   return (
     <section className={style.section}>

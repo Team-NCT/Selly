@@ -15,7 +15,7 @@ const SearchResultList = ({ data }: SearchResultProps) => {
   const [page, setPage] = useState(1);
 
   //* 인피니티 스크롤 연결
-  useInfiniteScroll(() => setPage((prev) => prev + 1));
+  const { setIsFetching } = useInfiniteScroll(() => setPage((prev) => prev + 1));
 
   //* title 길이 순으로 정렬
   useEffect(() => {
@@ -29,7 +29,8 @@ const SearchResultList = ({ data }: SearchResultProps) => {
     const currentPage = page * SIZE;
     const searchResultData = sortedData.slice(0, currentPage);
     setCurrentData([...searchResultData]);
-  }, [page, sortedData]);
+    setIsFetching(false);
+  }, [page, sortedData, setIsFetching]);
 
   return (
     <>

@@ -1,18 +1,20 @@
 import { ImageInput, Label } from "@/components/common";
 import { useCallback, useState } from "react";
+import { useAppSelector } from "@/hooks/useStore";
+import { selectProfileData } from "@/store/profileDataSlice";
 import {
   checkImageExtension,
   encodeFileToBase64,
   checkImageSize,
 } from "@/helpers/utils/fileValidation";
 import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
-import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
-import { setImage, setImageFile, selectProfileData } from "@/store/profileDataSlice";
 import style from "./ProfileImg.module.scss";
+import defaultImage from "@/assets/images/profile.png";
 
 const ProfileImg = () => {
-  const dispatch = useAppDispatch();
+  const [imageUrl, setImageUrl] = useState("");
   const { image } = useAppSelector(selectProfileData);
+  const imageUrlData = imageUrl ? imageUrl : image === "default" ? defaultImage : image;
 
   //* 알럿
   const { openAlertModal } = useAlert();
@@ -48,12 +50,9 @@ const ProfileImg = () => {
       }
 
       //* 업로드 파일 미리보기
-      encodeFileToBase64(file).then((res) => dispatch(setImage(res)));
-
-      //* 정상적인 이미지 파일을 state에 저장한다.
-      dispatch(setImageFile(file));
+      encodeFileToBase64(file).then((res) => setImageUrl(res));
     },
-    [openAlertModal, dispatch]
+    [openAlertModal]
   );
 
   return (
@@ -75,7 +74,7 @@ const ProfileImg = () => {
         <ImageInput
           handleInputChange={handleInputChange}
           id="image-input"
-          imageUrl={image}
+          imageUrl={imageUrlData}
           limit={10}
           styles="round"
         />
