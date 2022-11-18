@@ -85,9 +85,13 @@ const NFTTransactionAPI = createApi({
           });
           dispatch(openLoading());
           await sendPayableTransaction(data as PayableSignedTransactionType);
+          await sleep(2000);
           dispatch(closeLoading());
           dispatch(closeBuy());
-          await sleep(2000);
+          dispatch(setAlertContent("구매가 완료되었습니다"));
+          dispatch(setAlertStyles("success"));
+          dispatch(setIconStyles(true));
+          dispatch(openAlert());
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
@@ -112,9 +116,13 @@ const NFTTransactionAPI = createApi({
           });
           dispatch(openLoading());
           await sendTransaction(data as SignedTransactionType);
+          await sleep(2000);
           dispatch(closeLoading());
           dispatch(closeSell());
-          await sleep(2000);
+          dispatch(setAlertContent("조각 판매 등록이 되었습니다"));
+          dispatch(setAlertStyles("success"));
+          dispatch(setIconStyles(true));
+          dispatch(openAlert());
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
@@ -139,9 +147,13 @@ const NFTTransactionAPI = createApi({
           });
           dispatch(openLoading());
           await sendTransaction(data as SignedTransactionType);
+          await sleep(2000);
           dispatch(closeLoading());
           dispatch(closeSellStatus());
-          await sleep(2000);
+          dispatch(setAlertContent("조각 판매 취소 처리가 되었습니다"));
+          dispatch(setAlertStyles("success"));
+          dispatch(setIconStyles(true));
+          dispatch(openAlert());
           return { data: true };
         } catch (error) {
           dispatch(closeLoading());
