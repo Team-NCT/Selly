@@ -70,7 +70,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
 
   const onClickHandler = () => {
     if (!address || !userId) return;
-    if (!metaDataUrl || articleImgUrl) return;
+    if (!metaDataUrl || !articleImgUrl) return;
     const userWallet = address;
 
     setSignable(false);
