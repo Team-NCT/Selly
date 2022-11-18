@@ -1,59 +1,56 @@
 import { Username, Bio, WalletAddress, ProfileImg, BannerImg } from "./components";
-import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
+import { useAppSelector } from "@/hooks/useStore";
 import { selectAccount } from "@/store/loginSlice";
 import { selectProfleStatus } from "@/store/profileStatusSlice";
 import style from "./Form.module.scss";
 import { Button } from "@/components/common";
-import { setProfileData, selectProfileData } from "@/store/profileDataSlice";
-import { useFetchSettingsMutation } from "@/api/server/userAPI";
-import { useEffect } from "react";
-
-export interface InitialStateProps {
-  nickname: string;
-  introduction: string;
-  image: string;
-  banner: string;
-}
-
-//* 내프로필 API와 연결할 예정
-const initialState = {
-  nickname: "띠용",
-  introduction: "안녕하세요.",
-  image:
-    "https://user-images.githubusercontent.com/97648143/200227851-cfc7fcca-7b1d-497d-8b40-f2e16e0a490e.png",
-  banner:
-    "https://user-images.githubusercontent.com/97648143/200227313-2782cc12-af1e-4bca-b48a-f3aaaca871e0.png",
-};
+import { useFetchSettingsMutation, useFetchUserProfileQuery } from "@/api/server/userAPI";
+import { uploadImage } from "@/api/IPFS";
+import { selectProfileData } from "@/store/profileDataSlice";
+import { useNavigate } from "react-router-dom";
+import { OpenAlertArg, useAlert } from "@/hooks/useAlert";
 
 const Form = () => {
   const { address, userId } = useAppSelector(selectAccount);
   const { profleStatus } = useAppSelector(selectProfleStatus);
   const profileData = useAppSelector(selectProfileData);
+  const { openAlertModal } = useAlert();
+  useFetchUserProfileQuery({
+    profileId: Number(userId),
+    userId: Number(userId),
+  });
   const walletAddress = address ? address : "";
-  const dispatch = useAppDispatch();
   const [settings] = useFetchSettingsMutation();
-  useEffect(() => {
-    dispatch(
-      setProfileData({
-        nickname: initialState.nickname,
-        introduction: initialState.introduction,
-        image: initialState.image,
-        banner: initialState.banner,
-      })
-    );
-  }, []);
+  const navigate = useNavigate();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const target = event.target as unknown as HTMLInputElement[];
+    const nickname = target[0].value;
+    const introduction = target[1].value;
+    const imageFile = target[2].files ? target[2].files[0] : null;
+    const bannerFile = target[3].files ? target[3].files[0] : null;
 
-    const data = {
-      nickname: profileData.nickname,
-      introduction: profileData.introduction,
-      image: profileData.image,
-      banner: profileData.image,
-    };
-    console.log(userId);
-    await settings({ data: data, userId: Number(userId) });
+    try {
+      const imageLink = imageFile ? await uploadImage(imageFile) : profileData.image;
+      const bannerLink = bannerFile ? await uploadImage(bannerFile) : profileData.banner;
+
+      const data = {
+        nickname: nickname,
+        introduction: introduction,
+        image: imageLink,
+        banner: bannerLink,
+      };
+      await settings({ data: data, userId: Number(userId) });
+      navigate(`/profile/${userId}`);
+    } catch {
+      const data: OpenAlertArg = {
+        content: "개인정보 수정에 실패 하셨습니다.",
+        style: "error",
+        icon: true,
+      };
+      openAlertModal(data);
+    }
   };
 
   return (

@@ -2,9 +2,9 @@ import { getWallet, getChainId, changeNetwork } from "@/api/blockchain";
 import { GOERLI_ID, METAMASK_DOWNLOAD_LINK } from "@/constants/metamask";
 import { setAddress } from "@/store/loginSlice";
 import { useAppDispatch } from "@/hooks/useStore";
-import { useLoginMutation } from "@/api/server/loginAPI";
 import { useAlert, useSetGoerli } from "@/hooks";
 import { isMobileWeb } from "@/helpers/utils/checkDevice";
+import { useLoginMutation } from "@/api/server/userAPI";
 
 const useLogin = () => {
   const [login] = useLoginMutation();
