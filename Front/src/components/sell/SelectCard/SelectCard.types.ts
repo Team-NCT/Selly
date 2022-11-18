@@ -1,11 +1,9 @@
 // selectNFT의 필요한 정보를 저장할 타입
-import { SelectNFTState } from "@/store/selectNFTSlice";
-
 export interface SelectCardProps {
   /**
    * NFT 이미지 url
    */
-  url: string;
+  url: string | undefined;
 
   /**
    * NFT 제목
