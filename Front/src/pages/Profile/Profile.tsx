@@ -18,6 +18,7 @@ function Profile() {
     profileId: Number(id),
     userId: Number(userId),
   });
+  const isMe = Number(id) === Number(userId);
 
   useEffect(() => {
     if (error) {
@@ -31,7 +32,7 @@ function Profile() {
       <main>
         <Header profilePageId={Number(id)} userId={Number(userId)} data={data} />
         {Number(id) === userId && <Revenue />}
-        <ProfileTab wallet={data?.wallet} />
+        <ProfileTab wallet={data?.wallet} isMe={isMe} />
       </main>
       {follower &&
         createPortal(
