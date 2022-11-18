@@ -9,7 +9,7 @@ export interface SearchArticleType {
   articleId: number;
   articleName: string;
   articleImgUrl: string;
-  recentMarketPrice: number | null;
+  recentMarketPrice: number;
 }
 
 export interface SearchResultType {
