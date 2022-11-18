@@ -6,11 +6,13 @@ import {
   F_NFT_FACTORY_CA,
   F_NFT_ABI,
   F_NFT_SALE_ABI,
+  WEB3_INFURA_API_KEY,
 } from "@/constants/blockchain";
 
+export const InfuraWeb3 = new Web3(new Web3.providers.HttpProvider(WEB3_INFURA_API_KEY as string));
 export const web3 = new Web3(window.ethereum);
 
-export const sellyERC721Contract = new web3.eth.Contract(SELLY_ERC_721_ABI, SELLY_ERC_721_CA);
+export const sellyERC721Contract = new InfuraWeb3.eth.Contract(SELLY_ERC_721_ABI, SELLY_ERC_721_CA);
 
 export const ERC721Contract = (ca: string) => {
   return new web3.eth.Contract(SELLY_ERC_721_ABI, ca);

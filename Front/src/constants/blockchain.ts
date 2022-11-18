@@ -1935,3 +1935,5 @@ export const F_NFT_ABI: AbiItem[] = [
 
 export const SELLY_ERC_721_CA = process.env.SELLY_ERC_721_CA;
 export const F_NFT_FACTORY_CA = process.env.SELLY_F_NFT_FACTORY_CA;
+
+export const WEB3_INFURA_API_KEY = process.env.WEB3_INFURA_API_KEY;
