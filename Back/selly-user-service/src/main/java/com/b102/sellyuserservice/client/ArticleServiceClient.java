@@ -19,4 +19,7 @@ public interface ArticleServiceClient {
 
   @GetMapping("/selly-article-service/findByArticleList")
   List<ArticleResponse> getArticleList(@RequestParam("List") List<Long> articleIdList);
+
+  @GetMapping("/selly-article-service/profile/{articleId}")
+  ArticleResponse getArticleForProfile(@PathVariable("articleId") Long articleId);
 }

@@ -34,7 +34,7 @@ public class ArticleResponse {
   private String tokenId;
   private String ownerImg;
   private String ownerNickname;
-  private boolean certification;
-  private boolean bookMark;
+  private Boolean certification;
+  private Boolean bookMark;
   private Double recentMarketPrice;
 }
