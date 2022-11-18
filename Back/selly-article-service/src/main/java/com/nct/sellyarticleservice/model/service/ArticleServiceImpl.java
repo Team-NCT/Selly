@@ -61,7 +61,7 @@ public class ArticleServiceImpl implements ArticleService{
     System.out.println(requestArticleCreate);
     System.out.println(requestArticleCreate.getWallet());
     requestArticleCreate.setMetaDataUrl("https://skywalker.infura-ipfs.io/ipfs/"+requestArticleCreate.getMetaDataUrl());
-    requestArticleCreate.setArticleImgUrl("https://skywalker.infura-ipfs.io/ipfs/" + requestArticleCreate.getArticleImgUrl());
+    requestArticleCreate.setArticleImgUrl(requestArticleCreate.getArticleImgUrl());
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     Article article = mapper.map(requestArticleCreate, Article.class);
     articleRepository.save(article);

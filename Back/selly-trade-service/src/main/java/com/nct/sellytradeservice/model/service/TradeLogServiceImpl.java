@@ -91,8 +91,8 @@ public class TradeLogServiceImpl implements TradeLogService{
         }
       });
       hashMap.put("historyList", historyDtos);
-      Float aFloat = tradeLogRepository.selectTotalAvg(articleId);
-      hashMap.put("avgPrice",Double.valueOf(form.format(aFloat)));
+      Double aDouble = tradeLogRepository.selectTotalAvg(articleId);
+      hashMap.put("avgPrice",Double.valueOf(form.format(aDouble)));
       return hashMap;
     } else{
       return null;
