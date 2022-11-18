@@ -32,7 +32,7 @@ const ImageInput = ({
         {!imageUrl && (
           <div className={style[`input_image_${styles}`]}>
             <AddPhotoIcon />
-            <span className={style.input_image_desc}> GIF, JPG, JPEG, PNG, WEBP</span>
+            <span className={style.input_image_desc}> GIF, JPG, JPEG, PNG, WEBP, AVIF</span>
             <span className={style.input_image_desc}>파일 크기: 최대 {limit} MB</span>
           </div>
         )}
