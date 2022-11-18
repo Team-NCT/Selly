@@ -7,6 +7,7 @@ export interface UserProfileType {
   banner: string;
   followerCnt: number;
   followingCnt: number;
+  certification: boolean;
   myFollowing?: boolean;
 }
 
@@ -23,4 +24,5 @@ export interface UserFollowType {
   nickname: string;
   image: string;
   myFollowing: boolean;
+  certification: boolean;
 }

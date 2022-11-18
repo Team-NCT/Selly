@@ -78,3 +78,11 @@ export interface DescCardType {
   articleMargin: number;
   pieceCnt: number;
 }
+
+export interface CollectedNFTType {
+  CA: string;
+  tokenId: string;
+  metaDataUrl: string | undefined;
+  articleName: string;
+  articleImgUrl: string | undefined;
+}

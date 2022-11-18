@@ -7,10 +7,10 @@ import { PropertyType } from "../Property/Property.types";
 
 const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps) => {
   //* create 페이지의 properties를 받아와서 modal의 변수에 저장, 6개보다 작다면 빈 input 보여주기
-  const [modalProperties, setModalProperties] = useState<PropertyType[]>(properties);
+  const [modalProperties, setModalProperties] = useState<PropertyType[]>([]);
   useEffect(() => {
     if (properties.length < 6) {
-      setModalProperties([...properties, { type: "", name: "" }]);
+      setModalProperties([...JSON.parse(JSON.stringify(properties)), { type: "", name: "" }]);
     }
   }, [properties]);
 
@@ -59,7 +59,6 @@ const PropertyModal = ({ close, properties, setProperties }: PropertyModalProps)
   //* 저장
   const saveHandler = (event: React.MouseEvent) => {
     event.preventDefault();
-    console.log(modalProperties);
     const saveProperties = modalProperties.filter(
       (property) => property.type.trim() && property.name.trim()
     );

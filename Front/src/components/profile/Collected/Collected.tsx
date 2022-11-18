@@ -1,23 +1,37 @@
 import { CollectedProps } from "./Collected.types";
 import { useState, useEffect } from "react";
 import { CollectedCardList } from "./CollectedCardList";
-import { getNFTsForOwnerAPI } from "@/api/blockchain";
-import { useInfiniteScroll } from "@/hooks";
+import { useInfiniteScroll, useAlert, OpenAlertArg } from "@/hooks";
 import { Spinner } from "@/components/common";
 import style from "./Collected.module.scss";
+import { getMySellyNfts, getNFTsForOwnerAPI } from "@/api/blockchain";
+import { SELLY_ERC_721_CA } from "@/constants/blockchain";
+import { CollectedNFTType } from "@/types/NFTData.types";
 
 const FETCH_SIZE = 15;
 
 const Collected = ({ wallet }: CollectedProps) => {
-  const [NFTdatas, setNFTdatas] = useState<any>(null);
+  const [NFTdatas, setNFTdatas] = useState<CollectedNFTType[] | null>(null);
   const { isFetching, setIsFetching, setIsFinished } = useInfiniteScroll(fetchMoreItems);
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState<Array<any>>([]);
+  const [items, setItems] = useState<CollectedNFTType[]>([]);
+  const { openAlertModal } = useAlert();
 
   const getOwnERC721NFTs = async () => {
-    if (!wallet) return;
-    const datas = await getNFTsForOwnerAPI(wallet);
-    setNFTdatas(datas);
+    if (!wallet || !SELLY_ERC_721_CA) return;
+    const sellyDatas = await getMySellyNfts({ CA: SELLY_ERC_721_CA, userWallet: wallet });
+    const alchemyDatas = await getNFTsForOwnerAPI(wallet);
+    if (!sellyDatas) {
+      const data: OpenAlertArg = {
+        content: "에러가 발생했습니다.",
+        style: "error",
+        icon: false,
+      };
+      openAlertModal(data);
+      setNFTdatas([]);
+      return;
+    }
+    setNFTdatas(sellyDatas.concat(alchemyDatas));
   };
 
   function fetchMoreItems() {

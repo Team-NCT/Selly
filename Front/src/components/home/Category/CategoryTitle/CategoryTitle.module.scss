@@ -3,6 +3,6 @@
   width: 100%;
 
   @include laptop {
-    @include font($h2, $bold);
+    @include font($h3, $bold);
   }
 }

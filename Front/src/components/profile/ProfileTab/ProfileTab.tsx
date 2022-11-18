@@ -38,7 +38,7 @@ const ProfileTab = ({ wallet }: ProfileTabProps) => {
       <div className={style.profileTab}>
         {windowWidth < 550 ? (
           <div className={style.mobileTab}>
-            <span className={style.mobileTabTitle}>NFT Category</span>
+            <span className={style.mobileTabTitle}>Profile Category</span>
             <div className={style.selectBox}>
               <SelectBox
                 list={tabItems}

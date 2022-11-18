@@ -16,7 +16,9 @@ const HomeHeader = () => {
         <span className={style.title}>NFT, ArtTech and Mint</span>
         <div className={style.introduction}>
           <span>누구나 쉽게 만나는 예술</span>
-          <span>민팅, 분할, 거래 이 모든 것을 Selly에서 경험해보세요</span>
+          <span>
+            NFT <strong>민팅, 분할, 거래</strong>를 <strong>Selly</strong>에서 경험해보세요
+          </span>
         </div>
         <div className={style.buttonSection}>
           <button className={style.wallet} onClick={login}>

@@ -37,7 +37,7 @@ export const useAlert = () => {
   };
 
   const openLoginAlert = () => {
-    dispatch(setAlertContent("로그인 시, 이용할 수 있습니다."));
+    dispatch(setAlertContent("로그인 시 이용할 수 있습니다"));
     dispatch(setAlertStyles("error"));
     dispatch(setIconStyles(true));
     dispatch(openAlert());
