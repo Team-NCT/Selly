@@ -25,30 +25,20 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const el = document.getElementById("modal-root")!;
 
-  const [checkWallet, checkWalletAccount] = useCheckLogined();
+  const [checkWallet] = useCheckLogined();
   const [setGoerliToken] = useSetGoerli();
   const { userId } = useAppSelector(selectAccount);
-  const disconnect = () => {
-    console.log("disconnect");
-  };
-  const connect = () => {
-    console.log("connect");
-  };
 
   useEffect(() => {
     window.ethereum?.on("chainChanged", checkWallet);
-    window.ethereum?.on("accountsChanged", checkWalletAccount);
-    window.ethereum?.on("disconnect", disconnect);
-    window.ethereum?.on("connect", connect);
+    window.ethereum?.on("accountsChanged", checkWallet);
     if (window.ethereum && userId) {
       setGoerliToken();
     }
 
     return () => {
       window.ethereum?.removeListener("chainChanged", checkWallet);
-      window.ethereum?.removeListener("accountsChanged", checkWalletAccount);
-      window.ethereum?.removeListener("disconnect", disconnect);
-      window.ethereum?.removeListener("connect", connect);
+      window.ethereum?.removeListener("accountsChanged", checkWallet);
     };
   });
 
