@@ -5,6 +5,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.core.Response;
+
 @FeignClient(name = "selly-article-service")
 public interface ArticleServiceClient {
   @PostMapping("/selly-article-service/{articleId}")
@@ -20,7 +22,7 @@ public interface ArticleServiceClient {
   ResponseArticleId responseArticleId(@PathVariable("contractAddress") String contractAddress, @PathVariable("tokenId") String tokenId);
 
   @PostMapping("/selly-article-service/create/nominting")
-  RequestArticleNoMinting aricleCreateNoMinting(@RequestBody RequestArticleNoMinting requestArticleNoMinting);
+  ResponseArticleId aricleCreateNoMinting(@RequestBody RequestArticleNoMinting requestArticleNoMinting);
 
   // 판매 등록 후 call 작품 정보 수정
   @PostMapping("/selly-article-service/{articleId}")
