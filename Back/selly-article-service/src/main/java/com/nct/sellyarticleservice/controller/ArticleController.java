@@ -185,10 +185,16 @@ public class ArticleController {
   public List<ArticleResponse> findByArticleList(@RequestParam("List") List<Long> articleIdList) {
     List<ArticleResponse> articleResponseList = new ArrayList<>();
     for (Long i : articleIdList) {
+      System.out.println(i);
       Article article = articleRepository.findByArticleId(i);
       articleResponseList.add(new ModelMapper().map(article, ArticleResponse.class));
     }
     return articleResponseList;
+  }
+
+  @GetMapping("/profile/{articleId}")
+  public ArticleResponse findByIdForProfile (@PathVariable("articleId") Long articleId) {
+    return articleService.findByIdForProfile(articleId);
   }
 }
 

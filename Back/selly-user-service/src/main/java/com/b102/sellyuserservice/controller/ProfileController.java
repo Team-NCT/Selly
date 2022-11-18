@@ -32,14 +32,7 @@ public class ProfileController {
   // 유저가 판매중인 작품리스트 조회 (Profile-ForSale)
   @GetMapping("/user-forSale/{userId}")
   public ResponseEntity<List<ArticleResponse>> userSaleArticleList(@PathVariable("userId") Long userId) {
-//    List<ArticleResponse> responses = profileService.findUserSaleArticleList(userId);
-    ArticleResponse articleResponse = ArticleResponse.builder()
-            .articleName("articleName")
-            .articleImgUrl("https://skywalker.infura-ipfs.io/ipfs/QmP5VS1uroszxVxWk5Xsa9nGVnpiNaF4ZAkhLjszkSzY4R")
-            .articleId(1L)
-            .build();
-    List<ArticleResponse> responses = new ArrayList<>();
-    responses.add(articleResponse);
+    List<ArticleResponse> responses = profileService.findUserSaleArticleList(userId);
     return ResponseEntity.ok().body(responses);
   }
 

@@ -26,4 +26,6 @@ public interface TradeRegistRepository extends JpaRepository<TradeRegist, Long> 
 
   @Query(value = "SELECT SUM(pieceCnt) FROM TradeRegist WHERE articleId = :articleId", nativeQuery = true)
   Integer selectArticleStatus(@Param("articleId") Long articleId);
+
+  List<TradeRegist> findBySellerAndStatus(Long userId, boolean status);
 }
