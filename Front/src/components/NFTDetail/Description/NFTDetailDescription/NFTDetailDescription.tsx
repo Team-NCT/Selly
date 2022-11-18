@@ -22,7 +22,7 @@ const NFTDetailDescription = ({
         image={user.image}
         certification={user.certification}
       />
-      <NFTDescription description={metaData.description} />
+      {metaData.description && <NFTDescription description={metaData.description} />}
       {metaData.attributes.length > 0 && <NFTProperties properties={metaData.attributes} />}
       <NFTDetails contractAddress={contractAddress} primaryCnt={primaryCnt} tokenId={tokenId} />
     </section>
