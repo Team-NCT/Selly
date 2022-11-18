@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { USER_SERVICE_API } from "@/constants/server";
 import { UserProfileType, UserFollowType } from "@/types/user.type";
+import { setAccount, logout } from "@/store/loginSlice";
 import {
   fetchUserProfileParamsData,
   followDataType,
@@ -8,8 +9,10 @@ import {
   SettingsType,
   FetchSettingsType,
   ArtistRankingType,
+  NavDataType,
 } from "./userAPI.types";
 import type { RootState } from "@/store";
+import { setProfileData } from "@/store/profileDataSlice";
 
 const userAPI = createApi({
   reducerPath: "userAPI",
@@ -27,12 +30,51 @@ const userAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: ["user", "profile", "settings"],
+  tagTypes: ["user", "profile", "settings", "checkNickname", "login"],
   endpoints: (build) => ({
+    //@ description: 로그인 하는 API
+    login: build.mutation({
+      query: (body: { wallet: string; pwd: string }) => ({
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        url: "/login",
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: ["login"],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { meta } = await queryFulfilled;
+          const header = meta?.response?.headers;
+          dispatch(
+            setAccount({
+              token: header?.get("token"),
+              userId: header?.get("userId") ? Number(header?.get("userId")) : null,
+            })
+          );
+        } catch (error) {
+          dispatch(logout());
+        }
+      },
+    }),
     //@ description: 프로필에 들어갔을 때 유저의 정보를 fetch하는 API
     fetchUserProfile: build.query<UserProfileType, fetchUserProfileParamsData>({
       query: (param) => `users/${param.profileId}/${param.userId}`,
       providesTags: ["user", "settings"],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        if (args.profileId === args.userId) {
+          dispatch(
+            setProfileData({
+              nickname: data?.nickname,
+              introduction: data?.introduction,
+              image: data?.image,
+              banner: data?.banner,
+            })
+          );
+        }
+      },
     }),
     //@ description: 유저 프로필을 업데이트 하는 API
     fetchSettings: build.mutation<SettingsType, FetchSettingsType>({
@@ -66,6 +108,16 @@ const userAPI = createApi({
       query: (profilePageId) => `follower/${profilePageId}/?lastFollowingId=100000`,
       providesTags: ["user"],
     }),
+    //@ description: 중복 닉네임을 확인하는 API
+    checkUserNickName: build.query<string, string>({
+      query: (nickname) => `nicknameCheck/${nickname}`,
+      providesTags: ["checkNickname"],
+    }),
+    //@ description: 네브바 정보를 가져오는  API
+    fetchNavData: build.query<NavDataType, void>({
+      query: () => "nameAndImage",
+      providesTags: ["login", "settings"],
+    }),
     //@ description: 유저가 팔로우 중인 사람을 가져오는 API
     fetchUserFollowing: build.query<UserFollowType[], number>({
       query: (profilePageId) => `following/${profilePageId}/?lastFollowerId=100000`,
@@ -91,6 +143,7 @@ const userAPI = createApi({
 });
 
 export const {
+  useLoginMutation,
   useFetchUserProfileQuery,
   useFetchSettingsMutation,
   useFollowMutation,
@@ -100,5 +153,7 @@ export const {
   useFetchRevenueDataQuery,
   useFetchArtistTotalRankingDataQuery,
   useFetchArtistTrendingRankingDataQuery,
+  useCheckUserNickNameQuery,
+  useFetchNavDataQuery,
 } = userAPI;
 export default userAPI;

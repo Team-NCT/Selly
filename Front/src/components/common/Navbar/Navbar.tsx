@@ -8,10 +8,13 @@ import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { logout, selectAccount } from "@/store/loginSlice";
 import { useLogin } from "@/hooks";
 import { WalletIcon } from "@/components/icon";
+import { useFetchNavDataQuery } from "@/api/server/userAPI";
 
 const Navbar = () => {
   //* account 정보
-  const { userId, goerliToken, address } = useAppSelector(selectAccount);
+  const { userId, goerliToken } = useAppSelector(selectAccount);
+  const { data } = useFetchNavDataQuery();
+
   const dispatch = useAppDispatch();
   //* 로그인 훅
   const [login] = useLogin();
@@ -159,8 +162,8 @@ const Navbar = () => {
           </ul>
           {userId ? (
             <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
-              <ProfileImage size="xxs" profileStyle="round" />
-              <h5 className={styles.nav_username}>{address}</h5>
+              <ProfileImage size="xxs" profileStyle="round" url={data?.image} />
+              <h5 className={styles.nav_username}>{data?.nickname}</h5>
               <div className={styles.dropdown_content_user}>
                 <h5 className={styles.wallet_token}>
                   <span>{goerliToken}</span>

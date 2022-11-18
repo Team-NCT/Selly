@@ -43,3 +43,8 @@ export interface ArtistRankingType {
   followerCnt: number;
   nftCnt: number;
 }
+
+export interface NavDataType {
+  nickname: string;
+  image: string;
+}
