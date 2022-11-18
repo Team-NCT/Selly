@@ -12,6 +12,8 @@ import com.nct.sellytradeservice.model.service.TradeService;
 import com.nct.sellytradeservice.model.service.TradeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.mapper.Mapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -156,5 +158,20 @@ public class TradeController {
   @GetMapping("/rateChange/{articleId}")
   public double rateChange(@PathVariable("articleId") Long articleId) {
     return tradeLogService.rateChange(articleId);
+  }
+
+  @GetMapping("/user-trade-regist/{userId}")
+  public List<TradeResponse> getTradeRegist(@PathVariable("userId") Long userId) {
+    System.out.println("############################");
+    List<TradeResponse> tradeResponseList = new ArrayList<>();
+    List<TradeRegist> tradeRegistList = tradeRegistRepository.findBySellerAndStatus(userId, true);
+    tradeRegistList.forEach( v -> {
+      System.out.println(v);
+      TradeResponse tradeResponse = TradeResponse.builder()
+              .articleId(v.getArticleId())
+              .build();
+      tradeResponseList.add(tradeResponse);
+    });
+    return tradeResponseList;
   }
 }

@@ -394,4 +394,13 @@ public class ArticleServiceImpl implements ArticleService{
     });
     return returnValue;
   }
+  @Override
+  public ArticleResponse findByIdForProfile(Long articleId) {
+    Optional<Article> optionalArticleResponse = articleRepository.findById(articleId);
+    if (optionalArticleResponse.isPresent()) {
+      Article article = optionalArticleResponse.get();
+      return mapper.map(article, ArticleResponse.class);
+    }
+    return null;
+  }
 }
