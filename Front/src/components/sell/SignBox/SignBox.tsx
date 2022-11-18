@@ -130,7 +130,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
         setButtonText("서명하기");
         setSignable(true);
         dispatch(openAlert());
-        dispatch(setAlertContent("블록체인 통신 ERROR"));
+        dispatch(setAlertContent("거래가 중단되었습니다"));
         dispatch(setAlertStyles("error"));
         dispatch(setIconStyles(false));
       }
