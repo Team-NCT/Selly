@@ -73,7 +73,7 @@ public class TradeLogServiceImpl implements TradeLogService{
     list.sort(cp);
     List<TradeRankDto> returnValue = new ArrayList<>();
     if (list.size() >10){
-      returnValue = list.subList(0, 9);
+      returnValue = list.subList(0, 10);
       return returnValue;
     }
     return list;
