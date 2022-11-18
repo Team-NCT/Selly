@@ -332,6 +332,7 @@ public class TradeServiceImpl implements TradeService {
       System.out.println(tradeRegist);
       tradeRegist.updateTradeRegist(stock, status);
       tradeRegistRepository.save(tradeRegist);
+      System.out.println(tradeRegist);
       ResponseArticleUpdate responseArticleUpdate = new ResponseArticleUpdate();
       if (tradeRegistRepository.selectArticleStatus(tradeRegist.getArticleId()) == 0){
         responseArticleUpdate.setArticleId(tradeRegist.getArticleId());
