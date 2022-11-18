@@ -34,18 +34,18 @@ const userAPI = createApi({
   endpoints: (build) => ({
     //@ description: 로그인 하는 API
     login: build.mutation({
-      query: (body: { wallet: string; pwd: string }) => ({
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-        url: "/login",
-        method: "POST",
-        body: body,
-      }),
-      invalidatesTags: ["login"],
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      queryFn: async (
+        body: { wallet: string; pwd: string },
+        { dispatch },
+        extraOptions,
+        baseQuery
+      ) => {
         try {
-          const { meta } = await queryFulfilled;
+          const { meta } = await baseQuery({
+            url: "/login",
+            method: "POST",
+            body: body,
+          });
           const header = meta?.response?.headers;
           dispatch(
             setAccount({
@@ -53,10 +53,14 @@ const userAPI = createApi({
               userId: header?.get("userId") ? Number(header?.get("userId")) : null,
             })
           );
+          return { data: true };
         } catch (error) {
           dispatch(logout());
+          return { data: false };
         }
       },
+
+      invalidatesTags: ["login"],
     }),
     //@ description: 프로필에 들어갔을 때 유저의 정보를 fetch하는 API
     fetchUserProfile: build.query<UserProfileType, fetchUserProfileParamsData>({
