@@ -7,7 +7,7 @@ export interface F_NFTSaleType {
   tradePrice: number;
   category: string;
   wallet: string;
-  metaDataUrl: string;
-  articleImgUrl: string;
+  metaDataUrl: string | undefined;
+  articleImgUrl: string | undefined;
   articleName: string;
 }
