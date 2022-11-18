@@ -328,6 +328,8 @@ public class TradeServiceImpl implements TradeService {
       boolean status = stock != 0;
       log.debug(String.valueOf(status));
       log.debug("판매 등록 수정");
+      System.out.println(stock);
+      System.out.println(tradeRegist);
       tradeRegist.updateTradeRegist(stock, status);
       tradeRegistRepository.save(tradeRegist);
       ResponseArticleUpdate responseArticleUpdate = new ResponseArticleUpdate();
@@ -352,7 +354,7 @@ public class TradeServiceImpl implements TradeService {
       log.debug("판매자 소유권 수정, 삭제");
       ResponseEntity<NftPieceResponseDto> oSellerOwnership = userServiceClient.getOwnership(sellerId, tradeRequest.getArticleId());
       NftPieceResponseDto sellerOwnership = oSellerOwnership.getBody();
-
+      System.out.println(sellerOwnership);
       if (!status) {
         log.debug("판매자 소유권 삭제");
         userServiceClient.deleteOwnership(seller, tradeRequest.getArticleId());
