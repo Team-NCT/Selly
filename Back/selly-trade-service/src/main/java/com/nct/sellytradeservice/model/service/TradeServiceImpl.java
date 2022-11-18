@@ -157,7 +157,7 @@ public class TradeServiceImpl implements TradeService {
       TradeRegist tradeRegist = mapper.map(sellRegistRequest, TradeRegist.class);
       System.out.println(tradeRegist);
       tradeRegist.setArticleId(getArticleId.getArticleId());
-      ResponseSaleCA responseSaleCA = sellyContractServiceClient.responseSaleCa(sellRegistRequest.getWallet(), sellRegistRequest.getContractAddress());
+      ResponseSaleCA responseSaleCA = sellyContractServiceClient.responseSaleCa(sellRegistRequest.getWallet(), sellRegistRequest.getOwnershipContractAddress());
       tradeRegist.setSaleContractAddress(responseSaleCA.getSaleContractAddress());
       tradeRegistRepository.save(tradeRegist);
       return "등록 성공";
