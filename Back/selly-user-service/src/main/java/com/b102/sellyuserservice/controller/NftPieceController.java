@@ -54,6 +54,7 @@ public class NftPieceController {
     System.out.println(ResponseEntity.status(HttpStatus.OK).body(response));
     if(ResponseEntity.status(HttpStatus.OK).body(response).getBody() == null){
       System.out.println("true");
+      return ResponseEntity.ok().body(null);
     }
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

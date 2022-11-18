@@ -54,7 +54,6 @@ public class NftPieceServiceImpl implements NftPieceService{
 //      NftPiece nftPiece = NftPiece.builder()
     NftPiece nftPiece = NftPiece.builder()
             .articleId(nftPieceRequest.getArticleId())
-            .pieceId(nftPieceRequest.getArticleId())
             .userId(userId)
             .nftPieceCnt(nftPieceRequest.getNftPieceCnt())
             .avgPrice(nftPieceRequest.getAvgPrice())

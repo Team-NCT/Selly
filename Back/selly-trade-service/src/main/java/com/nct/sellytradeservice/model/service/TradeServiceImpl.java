@@ -30,7 +30,7 @@ public class TradeServiceImpl implements TradeService {
   private final TradeRegistRepository tradeRegistRepository;
 
   private final SellyContractServiceClient sellyContractServiceClient;
-  private ModelMapper mapper= new ModelMapper();
+  private ModelMapper mapper = new ModelMapper();
 
 //  @Override
 //  public String registArticleSell(Long id, ArticleUpdateRequest articleUpdateRequest){
@@ -201,7 +201,7 @@ public class TradeServiceImpl implements TradeService {
       Long seller = tradeRegist.getSeller();
       // TradeRegist 수정
       // status가 false(0)면 품절, 품절이면 status = false
-      int stock = tradeRegist.getPieceCnt() - tradeRequest.getPieceCnt();
+      Integer stock = tradeRegist.getPieceCnt() - tradeRequest.getPieceCnt();
       boolean status = stock != 0;
       log.debug(String.valueOf(status));
       log.debug("판매 등록 수정");
@@ -238,9 +238,9 @@ public class TradeServiceImpl implements TradeService {
         userServiceClient.deleteOwnership(seller, tradeRequest.getArticleId());
       } else {
         log.debug("판매자 소유권 수정");
-        if (sellerOwnership.getNftPieceCnt() == null){
-          sellerOwnership.setNftPieceCnt(0);
-        }
+//        if (sellerOwnership.getNftPieceCnt() == null){
+//          sellerOwnership.setNftPieceCnt(0);
+//        }
         NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
                 .articleId(tradeRequest.getArticleId())
                 .userId(sellerId)

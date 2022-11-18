@@ -19,7 +19,7 @@ public interface UserServiceClient {
   NftPieceDto createOrEditOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);
 
   @PostMapping("/ownership/{userId}")
-  NftPieceDto createOwnership(@PathVariable("userId") Long userId, @RequestBody NftPieceRequest nftPieceRequest);
+  void createOwnership(@PathVariable("userId") Long userId, @RequestBody NftPieceRequest nftPieceRequest);
   @DeleteMapping(value = "/ownership/{userId}", produces = "application/json")
   void deleteOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId);
   @PutMapping("/ownership/{userId}")
