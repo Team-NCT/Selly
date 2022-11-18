@@ -15,7 +15,7 @@ const getNFTsForOwnerAPI = async (owner: string) => {
 
     console.log("엔에프티", ownedNfts);
 
-    let ERC721datas = [];
+    const ERC721datas = [];
     for (let i = 0; i < ownedNfts.length; i++) {
       if (
         ownedNfts[i].contract.address.toUpperCase() !== SELLY_ERC_721_CA?.toUpperCase() &&

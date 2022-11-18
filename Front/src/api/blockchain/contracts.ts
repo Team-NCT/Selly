@@ -1,4 +1,4 @@
-import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
+import { functionProps } from "@/components/sell/SignBox/SignBox.types";
 import {
   sellyERC721Contract,
   ERC721Contract,

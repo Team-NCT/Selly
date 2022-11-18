@@ -4,9 +4,9 @@ import { RootState } from "@/store";
 export interface SelectNFTState {
   CA: string;
   tokenId: string;
-  metaDataUrl: string;
+  metaDataUrl: string | undefined;
   articleName: string;
-  articleImgUrl: string;
+  articleImgUrl: string | undefined;
   selectIdx: number;
 }
 

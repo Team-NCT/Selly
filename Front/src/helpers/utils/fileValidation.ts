@@ -5,7 +5,7 @@
  * @ 이미지이면 true를 반환합니다.
  */
 export const checkImageExtension = (fileName: string): boolean => {
-  const imageExtensions = ["gif", "jpg", "jpeg", "png", "webp"];
+  const imageExtensions = ["gif", "jpg", "jpeg", "png", "webp", "avif"];
   const extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLocaleLowerCase();
   const result = imageExtensions.some((item) => item === extension);
 

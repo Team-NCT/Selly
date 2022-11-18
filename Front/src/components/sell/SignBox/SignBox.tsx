@@ -8,7 +8,7 @@ import { selectNFTValue } from "@/store/selectNFTSlice";
 import { selectSellInfo } from "@/store/sellInfoSlice";
 import { selectAccount } from "@/store/loginSlice";
 import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
-import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
+import { functionProps } from "@/components/sell/SignBox/SignBox.types";
 import { PencilIcon } from "@/components/icon";
 import { closeLoading, openLoading } from "@/store/modalSlice";
 import { openAlert, setAlertContent, setAlertStyles, setIconStyles } from "@/store/alertSlice";
@@ -70,6 +70,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
 
   const onClickHandler = () => {
     if (!address || !userId) return;
+    if (!metaDataUrl || !articleImgUrl) return;
     const userWallet = address;
 
     setSignable(false);
