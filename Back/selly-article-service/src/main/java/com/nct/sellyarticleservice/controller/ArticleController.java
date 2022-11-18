@@ -10,6 +10,7 @@ import com.nct.sellyarticleservice.vo.ArticleRankingResponse;
 import com.nct.sellyarticleservice.vo.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -173,11 +174,21 @@ public class ArticleController {
 
   // 작품 판매상태 업데이트
   @PutMapping("/article-availability")
-  public void articleAvailability(@RequestBody ResponseArticleUpdate responseArticleUpdate){
+  public void articleAvailability(@RequestBody ResponseArticleUpdate responseArticleUpdate) {
     Article article = articleRepository.findByArticleId(responseArticleUpdate.getArticleId());
     article.setAvailability(responseArticleUpdate.isAvailability());
     article.setRecentMarketPrice(responseArticleUpdate.getRecentMarketPrice());
     articleRepository.save(article);
+
+  }
+  @GetMapping("/findByArticleList")
+  public List<ArticleResponse> findByArticleList(@RequestParam("List") List<Long> articleIdList) {
+    List<ArticleResponse> articleResponseList = new ArrayList<>();
+    for (Long i : articleIdList) {
+      Article article = articleRepository.findByArticleId(i);
+      articleResponseList.add(new ModelMapper().map(article, ArticleResponse.class));
+    }
+    return articleResponseList;
   }
 }
 
