@@ -1,4 +1,4 @@
-import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
+import { functionProps } from "@/components/sell/SignBox/SignBox.types";
 import {
   sellyERC721Contract,
   ERC721Contract,
@@ -17,7 +17,7 @@ export const getMySellyNfts = async ({ CA, userWallet }: { CA: string; userWalle
     console.log(tokenURIs, tokenIds);
     for (let i = 0; i < tokenURIs.length; i++) {
       let metaData;
-      const metadataURI = "https://skywalker.infura-ipfs.io/ipfs/" + tokenURIs[i];
+      const metadataURI = tokenURIs[i];
       try {
         metaData = await getNFTData(metadataURI);
         console.log("??", metaData);

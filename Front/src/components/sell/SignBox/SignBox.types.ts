@@ -8,8 +8,8 @@ export interface functionProps {
   setValue: ((value: string) => void) | undefined;
   userWallet: string;
   userId: number;
-  metaDataUrl: string;
-  articleImgUrl: string;
+  metaDataUrl: string | undefined;
+  articleImgUrl: string | undefined;
   category: string;
   price: string;
 }
@@ -38,7 +38,22 @@ export interface SignBoxProps {
   /**
    * 각 서명 박스에 들어갈 함수
    */
-  signFunction: (({}: functionProps) => Promise<boolean>) | null;
+  signFunction:
+    | (({
+        CA,
+        num,
+        articleName,
+        code,
+        F_NFTCA,
+        setValue,
+        userWallet,
+        userId,
+        metaDataUrl,
+        articleImgUrl,
+        category,
+        price,
+      }: functionProps) => Promise<boolean>)
+    | null;
 
   /**
    * 클릭했을 때 다음 박스로 넘어가도록 하는 함수
