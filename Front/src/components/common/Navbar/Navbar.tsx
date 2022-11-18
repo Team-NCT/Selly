@@ -58,7 +58,7 @@ const Navbar = () => {
       <nav className={HeaderStatus ? styles.nav_background : ""}>
         <h2 className={styles.nav_title}>사이트 네비게이션</h2>
         <div className={styles.nav_head}>
-          <NavLink to="/" className={styles.logo}>
+          <NavLink to="/" className={styles.logo} onClick={() => setMenuToggle(false)}>
             <img src={sellyNavbarLogo} alt="selly" />
           </NavLink>
           <button
