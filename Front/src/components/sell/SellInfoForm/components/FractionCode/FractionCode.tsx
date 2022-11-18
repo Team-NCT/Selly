@@ -26,7 +26,7 @@ const FractionCode = ({ value, changeHandler, setIsCodeTrue }: FractionCodeProps
 
   return (
     <div className={style.fraction_code}>
-      <h2 className={style.fraction_code_label}>조각 코드</h2>
+      <h2 className={style.fraction_code_label}>조각 이름</h2>
       <TextInput
         id="fraction-code"
         value={value}
