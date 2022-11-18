@@ -19,15 +19,16 @@ const ExploreCardList = ({ category, sort, order }: ExploreParamsType) => {
   const navigate = useNavigate();
 
   //* 인피니티 스크롤 연결
-  useInfiniteScroll(() => setPage((prev) => prev + 1));
+  const { setIsFetching } = useInfiniteScroll(() => setPage((prev) => prev + 1));
 
   //* 페이지가 증가하면 데이터를 더 불러온다.
   useEffect(() => {
+    setIsFetching(false);
     if (!data) return;
     const currentPage = page * SIZE;
     const exploreResultData = data.slice(0, currentPage);
     setCurrentData([...exploreResultData]);
-  }, [data, page]);
+  }, [data, page, setIsFetching]);
 
   useEffect(() => {
     if (CATEGORY.includes(category) && SORT.includes(sort) && ORDER.includes(order)) return;

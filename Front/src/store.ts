@@ -29,7 +29,6 @@ import {
 import {
   NFTDetailAPI,
   searchAPI,
-  loginAPI,
   createNFTAPI,
   NFTTransactionAPI,
   exploreAPI,
@@ -51,7 +50,6 @@ const reducers = combineReducers({
   signData,
   [NFTDetailAPI.reducerPath]: NFTDetailAPI.reducer,
   [searchAPI.reducerPath]: searchAPI.reducer,
-  [loginAPI.reducerPath]: loginAPI.reducer,
   [createNFTAPI.reducerPath]: createNFTAPI.reducer,
   [userAPI.reducerPath]: userAPI.reducer,
   [NFTTransactionAPI.reducerPath]: NFTTransactionAPI.reducer,
@@ -80,7 +78,6 @@ const store = configureStore({
     }).concat(
       NFTDetailAPI.middleware,
       searchAPI.middleware,
-      loginAPI.middleware,
       createNFTAPI.middleware,
       userAPI.middleware,
       NFTTransactionAPI.middleware,
