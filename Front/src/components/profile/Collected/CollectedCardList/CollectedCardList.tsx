@@ -1,17 +1,16 @@
 import style from "./CollectedCardList.module.scss";
 import { Card } from "@/components/common";
+import { CollectedNFTType } from "@/types/NFTData.types";
 
-// TODO_YK: alchemy에서 type가져오기
 interface CardListProps {
-  data: any[];
+  data: CollectedNFTType[];
 }
-
 const CollectedCardList = ({ data }: CardListProps) => {
   console.log(data);
   return (
     <ul className={style.card_list}>
       {data.map((item, idx) => (
-        <Card key={idx} articleImgUrl={item.rawMetadata.image} articleName={item.title} />
+        <Card key={idx} articleImgUrl={item.articleImgUrl} articleName={item.articleName} />
       ))}
     </ul>
   );

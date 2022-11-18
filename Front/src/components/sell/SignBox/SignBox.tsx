@@ -8,15 +8,11 @@ import { selectNFTValue } from "@/store/selectNFTSlice";
 import { selectSellInfo } from "@/store/sellInfoSlice";
 import { selectAccount } from "@/store/loginSlice";
 import { useSaleNFTMutation } from "@/api/server/saleNFTAPI";
-import { functionProps } from "@/components/Sell/SignBox/SignBox.types";
+import { functionProps } from "@/components/sell/SignBox/SignBox.types";
 import { PencilIcon } from "@/components/icon";
 import { closeLoading, openLoading } from "@/store/modalSlice";
 import { openAlert, setAlertContent, setAlertStyles, setIconStyles } from "@/store/alertSlice";
 import { sendTransaction } from "@/api/blockchain";
-
-import Web3 from "web3";
-
-const web3 = new Web3(window.ethereum);
 
 const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }: SignBoxProps) => {
   const [isCompleted, setIsCompleted] = useState(false);
@@ -74,6 +70,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
 
   const onClickHandler = () => {
     if (!address || !userId) return;
+    if (!metaDataUrl || !articleImgUrl) return;
     const userWallet = address;
 
     setSignable(false);
@@ -103,7 +100,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
           setButtonText("서명하기");
           setSignable(true);
           dispatch(openAlert());
-          dispatch(setAlertContent("블록체인 통신 ERROR"));
+          dispatch(setAlertContent("거래가 중단되었습니다"));
           dispatch(setAlertStyles("error"));
           dispatch(setIconStyles(false));
         }
@@ -134,7 +131,7 @@ const SignBox = ({ title, desc, idx, isActive, signFunction, goNext, setValue }:
         setButtonText("서명하기");
         setSignable(true);
         dispatch(openAlert());
-        dispatch(setAlertContent("블록체인 통신 ERROR"));
+        dispatch(setAlertContent("거래가 중단되었습니다"));
         dispatch(setAlertStyles("error"));
         dispatch(setIconStyles(false));
       }

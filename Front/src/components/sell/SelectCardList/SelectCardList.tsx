@@ -16,11 +16,11 @@ const SelectCardList = ({ data, defaultSelectedIdx = -1 }: SelectCardListProps) 
     } else {
       dispatch(
         setNFTValue({
-          CA: data[idx].contract.address,
+          CA: data[idx].CA,
           tokenId: data[idx].tokenId,
-          metaDataUrl: data[idx].tokenUri.raw,
-          articleName: data[idx].title,
-          articleImgUrl: data[idx].rawMetadata.image,
+          metaDataUrl: data[idx].metaDataUrl,
+          articleName: data[idx].articleName,
+          articleImgUrl: data[idx].articleImgUrl,
           selectIdx: idx,
         })
       );
@@ -32,8 +32,8 @@ const SelectCardList = ({ data, defaultSelectedIdx = -1 }: SelectCardListProps) 
       {data.map((item, idx) => (
         <SelectCard
           key={idx}
-          url={item.rawMetadata.image}
-          title={item.title}
+          url={item.articleImgUrl}
+          title={item.articleName}
           idx={idx}
           isSelected={idx === selectedNum}
           setValue={setValue}
