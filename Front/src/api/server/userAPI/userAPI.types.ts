@@ -9,7 +9,7 @@ export interface followDataType {
 }
 
 export interface RevenueType {
-  marginRate: number;
+  marginRate: number | string;
   totalAssetValue: number;
   margin: number;
   principal: number;
