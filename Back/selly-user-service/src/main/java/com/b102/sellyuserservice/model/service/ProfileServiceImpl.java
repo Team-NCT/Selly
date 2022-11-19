@@ -117,16 +117,14 @@ public class ProfileServiceImpl implements ProfileService{
     double totalPurchasePrice = 0;
     for (NftPiece i : articleResponseList) {
       ArticleResponse articleResponse = articleServiceClient.getArticle(i.getArticleId());
-      if (Objects.equals(articleResponse.getOwner(), userId)) {
+      if (Objects.equals(articleResponse.getOwner(), userId))
         continue;
-      }
-        totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
+      totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
     }
     double totalAssetValue = 0;
     for (ArticleResponse articleResponse : articleResponseList1) {
-      if (Objects.equals(articleResponse.getOwner(), userId)) {
+      if (Objects.equals(articleResponse.getOwner(), userId))
         continue;
-      }
       Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleResponse.getArticleId());
       if (optionalNftPiece.isPresent()) {
         NftPiece nftPiece = optionalNftPiece.get();
