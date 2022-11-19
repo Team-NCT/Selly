@@ -131,7 +131,7 @@ public class TradeServiceImpl implements TradeService {
                 .trade(true)
                 .nftPieceCnt(nftPieceResponseDto.getNftPieceCnt() - sellRegistRequest.getPieceCnt())
                 .avgPrice((nftPieceResponseDto.getAvgPrice() * nftPieceResponseDto.getNftPieceCnt()
-                        - sellRegistRequest.getTradePrice() * sellRegistRequest.getPieceCnt())
+                        - nftPieceResponseDto.getAvgPrice() * sellRegistRequest.getPieceCnt())
                         / (nftPieceResponseDto.getNftPieceCnt() - sellRegistRequest.getPieceCnt()))
                 .build();
         userServiceClient.updateOwnership(sellRegistRequest.getSeller(), nftPieceRequest);
