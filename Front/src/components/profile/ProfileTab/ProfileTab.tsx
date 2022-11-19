@@ -70,7 +70,7 @@ const ProfileTab = ({ wallet, isMe }: ProfileTabProps) => {
           ))
         )}
       </div>
-      {selectedTab === "Fractions" && <Fractions />}
+      {isMe && selectedTab === "Fractions" && <Fractions />}
       {selectedTab === "Created" && <Created />}
       {selectedTab === "ForSale" && <ForSale />}
       {selectedTab === "Collected" && <Collected wallet={wallet} />}
