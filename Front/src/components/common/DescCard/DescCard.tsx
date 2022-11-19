@@ -11,6 +11,7 @@ const DescCard = ({
   pieceCnt,
 }: DescCardProps) => {
   const [errorStatus, setErrorStatus] = useState(true);
+  const APIKEY = process.env.SELLY_FILESTACK_API_KEY;
 
   const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = sellyIcon;
@@ -21,7 +22,11 @@ const DescCard = ({
     <div className={style.card}>
       <figure>
         <img
-          src={!articleImgUrl ? sellyIcon : articleImgUrl}
+          src={
+            !articleImgUrl
+              ? sellyIcon
+              : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:444,height:444/${articleImgUrl}`
+          }
           alt={articleName}
           onError={handleImgError}
           className={!articleImgUrl || !errorStatus ? style.error_image : ""}></img>

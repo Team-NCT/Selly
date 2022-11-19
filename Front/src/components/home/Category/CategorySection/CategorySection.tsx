@@ -1,16 +1,16 @@
 import style from "./CategorySection.module.scss";
-import huggingFace from "@/assets/images/emojis/huggingFace.png";
-import heartRibbon from "@/assets/images/emojis/heartRibbon.png";
-import kissingCat from "@/assets/images/emojis/kissingCat.png";
-import smilingFaceHearts from "@/assets/images/emojis/smilingFaceHearts.png";
-import phone from "@/assets/images/emojis/phone.png";
-import lightBulb from "@/assets/images/emojis/lightBulb.png";
-import palette from "@/assets/images/emojis/palette.png";
-import ribbon from "@/assets/images/emojis/ribbon.png";
-import paintbrush from "@/assets/images/emojis/paintbrush.png";
-import sailboat from "@/assets/images/emojis/sailboat.png";
-import camera from "@/assets/images/emojis/camera.png";
-import camping from "@/assets/images/emojis/camping.png";
+import huggingFace from "@/assets/images/emojis/huggingFace.webp";
+import heartRibbon from "@/assets/images/emojis/heartRibbon.webp";
+import kissingCat from "@/assets/images/emojis/kissingCat.webp";
+import smilingFaceHearts from "@/assets/images/emojis/smilingFaceHearts.webp";
+import phone from "@/assets/images/emojis/phone.webp";
+import lightBulb from "@/assets/images/emojis/lightBulb.webp";
+import palette from "@/assets/images/emojis/palette.webp";
+import ribbon from "@/assets/images/emojis/ribbon.webp";
+import paintbrush from "@/assets/images/emojis/paintbrush.webp";
+import sailboat from "@/assets/images/emojis/sailboat.webp";
+import camera from "@/assets/images/emojis/camera.webp";
+import camping from "@/assets/images/emojis/camping.webp";
 import { NavLink } from "react-router-dom";
 
 const CategorySection = () => {
