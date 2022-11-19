@@ -34,7 +34,7 @@ const DescCard = ({
             <p className={style.red}> +{Number(rateChange).toFixed(2)}%</p>
           )}
           {typeof rateChange === "number" && rateChange < 0 && (
-            <p className={style.blue}> -{Number(rateChange).toFixed(2)}%</p>
+            <p className={style.blue}> {Number(rateChange).toFixed(2)}%</p>
           )}
         </div>
         {typeof pieceCnt === "number" && (

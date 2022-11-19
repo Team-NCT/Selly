@@ -2,7 +2,7 @@ import { useCheckUserNickNameQuery } from "@/api/server/userAPI";
 import { TextInput, Label } from "@/components/common";
 import { checkNumEngKor, checkBadWord, checkValueLength } from "@/helpers/utils/checkLanguage";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
-import { setNickname, selectProfileData } from "@/store/profileDataSlice";
+import { selectProfileData } from "@/store/profileDataSlice";
 import { setUsernameStatus } from "@/store/profileStatusSlice";
 import { useEffect, useState } from "react";
 import style from "./Username.module.scss";
@@ -10,16 +10,16 @@ import style from "./Username.module.scss";
 const Username = () => {
   const [status, setStatus] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  const [username, setUsername] = useState<string>("_");
+  const [username, setUsername] = useState<string>("");
   const dispatch = useAppDispatch();
   const { nickname } = useAppSelector(selectProfileData);
-  const checkNickname = useCheckUserNickNameQuery(username);
+  const fetchName = username ? (username === nickname ? "_" : username) : "_";
+  const checkNickname = useCheckUserNickNameQuery(fetchName);
   const isChecked = checkNickname.error?.data || "";
 
   const changeUsername = (event: React.FormEvent) => {
     const form = event.target as HTMLFormElement;
     setUsername(form.value);
-    dispatch(setNickname(form.value));
   };
 
   useEffect(() => {
@@ -44,6 +44,10 @@ const Username = () => {
     };
   }, [nickname, status, dispatch, isChecked]);
 
+  useEffect(() => {
+    setUsername(nickname);
+  }, [setUsername, nickname]);
+
   return (
     <section className={style.section}>
       <Label
@@ -63,7 +67,7 @@ const Username = () => {
         id="username"
         maxLength={12}
         status={status}
-        value={nickname}
+        value={username}
         errorMessage={error}
         placeHolder="닉네임을 입력해 주세요."
       />
