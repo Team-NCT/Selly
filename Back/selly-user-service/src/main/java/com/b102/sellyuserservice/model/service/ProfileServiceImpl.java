@@ -110,10 +110,10 @@ public class ProfileServiceImpl implements ProfileService{
     // 전체 조각소유주 리스트 중 내 NFT 조각 리스트 가져오기
     List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(userId);
     List<Long> longList = new ArrayList<>();
-    List<ArticleResponse> articleResponseList1 = articleServiceClient.getArticleList(longList);
     articleResponseList.forEach( v -> {
       longList.add(v.getArticleId());
     });
+    List<ArticleResponse> articleResponseList1 = articleServiceClient.getArticleList(longList);
     double totalPurchasePrice = 0;
     for (NftPiece i : articleResponseList) {
       ArticleResponse articleResponse = articleServiceClient.getArticle(i.getArticleId());
@@ -121,10 +121,15 @@ public class ProfileServiceImpl implements ProfileService{
         continue;
       totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
     }
+    System.out.println(articleResponseList1);
     double totalAssetValue = 0.0;
     for (ArticleResponse articleResponse : articleResponseList1) {
-      if (Objects.equals(articleResponse.getOwner(), userId))
+      System.out.println("for문 들어감");
+      if (Objects.equals(articleResponse.getOwner(), userId)) {
+        System.out.println("if문 전");
         continue;
+      }
+      System.out.println("if문 후");
       Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleResponse.getArticleId());
       if (optionalNftPiece.isPresent()) {
         System.out.println("총 자산가치 더하기 전");
