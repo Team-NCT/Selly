@@ -121,15 +121,26 @@ public class ProfileServiceImpl implements ProfileService{
         continue;
       totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
     }
-    double totalAssetValue = 0;
+    double totalAssetValue = 0.0;
     for (ArticleResponse articleResponse : articleResponseList1) {
       if (Objects.equals(articleResponse.getOwner(), userId))
         continue;
       Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleResponse.getArticleId());
       if (optionalNftPiece.isPresent()) {
+        System.out.println("총 자산가치 더하기 전");
         NftPiece nftPiece = optionalNftPiece.get();
-        totalAssetValue += articleResponse.getRecentMarketPrice() * nftPiece.getNftPieceCnt();
+        System.out.println(totalAssetValue);
+        totalAssetValue += (articleResponse.getRecentMarketPrice() * nftPiece.getNftPieceCnt());
+        System.out.println("총 자산가치 더한 후");
+        System.out.println(totalAssetValue);
       }
+    }
+    System.out.println("총 자산가치 확인");
+    System.out.println(totalAssetValue);
+    if(totalAssetValue-totalPurchasePrice == 0) {
+      rateChange = 0.0;
+    } else {
+      rateChange = ((totalAssetValue-totalPurchasePrice) / totalPurchasePrice) * 100;
     }
     return MarginResponse.builder()
             .marginRate(((totalAssetValue-totalPurchasePrice) / totalPurchasePrice) * 100)
