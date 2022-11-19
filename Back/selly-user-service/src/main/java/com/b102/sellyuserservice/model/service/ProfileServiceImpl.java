@@ -58,48 +58,51 @@ public class ProfileServiceImpl implements ProfileService{
     return articleResponseList;
   }
 
-  @Override
-  public List<FractionResponse> getFraction(Long userId, Long profileUserId) {
-    List<FractionResponse> responses = new ArrayList<>();
-    if (Objects.equals(userId, profileUserId)) {
-      List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
-      articleResponseList.forEach( v -> {
-        Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(profileUserId, v.getArticleId());
-        if (optionalNftPiece.isPresent()) {
-          NftPiece nftPiece = optionalNftPiece.get();
-          ArticleResponse articleResponse = articleServiceClient.getArticleForProfile(v.getArticleId());
-          if((articleResponse.getRecentMarketPrice() - nftPiece.getAvgPrice())== 0){
-            rateChange = 0.0;
-          } else {
-            rateChange = ((articleResponse.getRecentMarketPrice() - nftPiece.getAvgPrice()) / nftPiece.getAvgPrice()) * 100;
-          }
-          FractionResponse fractionResponse = FractionResponse.builder()
-                  .articleId(v.getArticleId())
-                  .articleName(articleResponse.getArticleName())
-                  .articleImgUrl(articleResponse.getArticleImgUrl())
-                  .recentMarketPrice(articleResponse.getRecentMarketPrice())
-                  .pieceCnt(nftPiece.getNftPieceCnt())
-                  .rateChange(this.rateChange)
-                  .build();
-          responses.add(fractionResponse);
-        }
-      });
-      return responses;
-    }
-    List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
-
-    articleResponseList.forEach( v -> {
-      ArticleResponse articleResponse = articleServiceClient.getArticle(v.getArticleId());
-      FractionResponse fractionResponse = FractionResponse.builder()
-              .articleId(v.getArticleId())
-              .articleName(articleResponse.getArticleName())
-              .articleImgUrl(articleResponse.getArticleImgUrl())
-              .recentMarketPrice(articleResponse.getRecentMarketPrice())
-              .build();
-      responses.add(fractionResponse);
-    });
-    return responses;
-  }
+//  @Override
+//  public List<FractionResponse> getFraction(Long userId, Long profileUserId) {
+//    List<FractionResponse> responses = new ArrayList<>();
+//    if (Objects.equals(userId, profileUserId)) {
+//      List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
+//      articleResponseList.forEach( v -> {
+//        Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(profileUserId, v.getArticleId());
+//        if (optionalNftPiece.isPresent()) {
+//          NftPiece nftPiece = optionalNftPiece.get();
+//          ArticleResponse articleResponse = articleServiceClient.getArticleForProfile(v.getArticleId());
+//          if (articleResponse.getOwner() == profileUserId)
+//            continue;
+//
+//          if((articleResponse.getRecentMarketPrice() - nftPiece.getAvgPrice())== 0){
+//            rateChange = 0.0;
+//          } else {
+//            rateChange = ((articleResponse.getRecentMarketPrice() - nftPiece.getAvgPrice()) / nftPiece.getAvgPrice()) * 100;
+//          }
+//          FractionResponse fractionResponse = FractionResponse.builder()
+//                  .articleId(v.getArticleId())
+//                  .articleName(articleResponse.getArticleName())
+//                  .articleImgUrl(articleResponse.getArticleImgUrl())
+//                  .recentMarketPrice(articleResponse.getRecentMarketPrice())
+//                  .pieceCnt(nftPiece.getNftPieceCnt())
+//                  .rateChange(this.rateChange)
+//                  .build();
+//          responses.add(fractionResponse);
+//        }
+//      });
+//      return responses;
+//    }
+//    List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
+//
+//    articleResponseList.forEach( v -> {
+//      ArticleResponse articleResponse = articleServiceClient.getArticle(v.getArticleId());
+//      FractionResponse fractionResponse = FractionResponse.builder()
+//              .articleId(v.getArticleId())
+//              .articleName(articleResponse.getArticleName())
+//              .articleImgUrl(articleResponse.getArticleImgUrl())
+//              .recentMarketPrice(articleResponse.getRecentMarketPrice())
+//              .build();
+//      responses.add(fractionResponse);
+//    });
+//    return responses;
+//  }
 
   @Override
   public MarginResponse getMargin(Long userId) {
@@ -146,5 +149,51 @@ public class ProfileServiceImpl implements ProfileService{
             .margin(totalAssetValue - totalPurchasePrice)
             .principal(totalPurchasePrice)
             .build();
+  }
+  @Override
+  public List<FractionResponse> getFraction(Long userId, Long profileUserId) {
+    List<FractionResponse> responses = new ArrayList<>();
+    if (Objects.equals(userId, profileUserId)) {
+      List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
+      for (NftPiece v : articleResponseList ) {
+        Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(profileUserId, v.getArticleId());
+        if (optionalNftPiece.isPresent()) {
+          NftPiece nftPiece = optionalNftPiece.get();
+          ArticleResponse articleResponse = articleServiceClient.getArticleForProfile(v.getArticleId());
+          if (Objects.equals(articleResponse.getOwner(), profileUserId))
+            continue;
+          if((articleResponse.getRecentMarketPrice() - nftPiece.getAvgPrice())== 0){
+            rateChange = 0.0;
+          } else {
+            rateChange = ((articleResponse.getRecentMarketPrice() - nftPiece.getAvgPrice()) / nftPiece.getAvgPrice()) * 100;
+          }
+          FractionResponse fractionResponse = FractionResponse.builder()
+                  .articleId(v.getArticleId())
+                  .articleName(articleResponse.getArticleName())
+                  .articleImgUrl(articleResponse.getArticleImgUrl())
+                  .recentMarketPrice(articleResponse.getRecentMarketPrice())
+                  .pieceCnt(nftPiece.getNftPieceCnt())
+                  .rateChange(this.rateChange)
+                  .build();
+          responses.add(fractionResponse);
+        } else {
+          return new ArrayList<>();
+        }
+      }
+      return responses;
+    }
+    List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
+
+    articleResponseList.forEach( v -> {
+      ArticleResponse articleResponse = articleServiceClient.getArticle(v.getArticleId());
+      FractionResponse fractionResponse = FractionResponse.builder()
+              .articleId(v.getArticleId())
+              .articleName(articleResponse.getArticleName())
+              .articleImgUrl(articleResponse.getArticleImgUrl())
+              .recentMarketPrice(articleResponse.getRecentMarketPrice())
+              .build();
+      responses.add(fractionResponse);
+    });
+    return responses;
   }
 }
