@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
-    "alchemy-sdk": "^2.2.0",
+    "alchemy-sdk": "^2.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-easy-crop": "^4.6.1",

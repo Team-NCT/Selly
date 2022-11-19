@@ -6,11 +6,14 @@ interface CardListProps {
   data: CollectedNFTType[];
 }
 const CollectedCardList = ({ data }: CardListProps) => {
-  console.log(data);
   return (
     <ul className={style.card_list}>
       {data.map((item, idx) => (
-        <Card key={idx} articleImgUrl={item.articleImgUrl} articleName={item.articleName} />
+        <Card
+          key={idx}
+          articleImgUrl={item.articleImgUrl as string}
+          articleName={item.articleName}
+        />
       ))}
     </ul>
   );
