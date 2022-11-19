@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SelectSectionProps } from "./SelectSection.types";
-import { SelectCardList, SellInfoForm, SelectedCard } from "@/components/sell";
+import { SelectCardList, SellInfoForm } from "@/components/sell";
 import style from "./SelectSection.module.scss";
 import { selectNFTValue } from "@/store/selectNFTSlice";
 import { useAppSelector, useInfiniteScroll } from "@/hooks";

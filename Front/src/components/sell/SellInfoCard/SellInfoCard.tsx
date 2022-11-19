@@ -39,7 +39,7 @@ const SellInfoCard = () => {
             <span>{sellInfo.category}</span>
           </h1>
           <h1>
-            조각 코드
+            조각 이름
             <span>{sellInfo.code}</span>
           </h1>
           <h1>
