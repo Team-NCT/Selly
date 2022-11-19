@@ -12,7 +12,6 @@ const alchemy = new Alchemy(settings);
 const getNFTsForOwnerAPI = async (owner: string) => {
   try {
     const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
-
     console.log("엔에프티", ownedNfts);
 
     const ERC721datas = [];

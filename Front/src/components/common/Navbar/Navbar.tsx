@@ -3,7 +3,7 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Neon, ProfileImage } from "@/components/common";
 import { SearchInput } from "@/components/search";
 import styles from "./Navbar.module.scss";
-import sellyNavbarLogo from "@/assets/images/sellyNavbarLogo.svg";
+import sellyLogo from "@/assets/images/sellyNavbarLogo.svg";
 import { useAppSelector, useAppDispatch } from "@/hooks/useStore";
 import { logout, selectAccount } from "@/store/loginSlice";
 import { useLogin } from "@/hooks";
@@ -84,7 +84,7 @@ const Navbar = () => {
         <h2 className={styles.nav_title}>사이트 네비게이션</h2>
         <div className={styles.nav_head}>
           <NavLink to="/" className={styles.logo} onClick={() => setMenuToggle(false)}>
-            <img src={sellyNavbarLogo} alt="selly" />
+            <img src={sellyLogo} alt="selly" />
           </NavLink>
           <button
             className={styles.navBtn}
