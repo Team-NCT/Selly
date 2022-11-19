@@ -131,7 +131,7 @@ const userAPI = createApi({
     //@ description: 내수익 보기 데이터를 가져오는 API
     fetchRevenueData: build.query<RevenueType, void>({
       query: () => "profile/margin",
-      providesTags: ["profile"],
+      providesTags: ["profile", "login"],
     }),
     //@ description: Artist Trend Ranking 데이터를 가져오는 API
     fetchArtistTrendingRankingData: build.query<ArtistRankingType[], void>({
