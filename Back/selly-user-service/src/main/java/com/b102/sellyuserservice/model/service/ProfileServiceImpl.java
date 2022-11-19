@@ -116,20 +116,31 @@ public class ProfileServiceImpl implements ProfileService{
     List<ArticleResponse> articleResponseList1 = articleServiceClient.getArticleList(longList);
     double totalPurchasePrice = 0;
     for (NftPiece i : articleResponseList) {
-      ArticleResponse articleResponse = articleServiceClient.getArticle(i.getArticleId());
+      System.out.println(i);
+      System.out.println(i.getArticleId());
+      ArticleResponse articleResponse = articleServiceClient.getArticleForProfile(i.getArticleId());
+      System.out.println(articleResponse);
+      System.out.println(articleResponse.getOwner());
+      System.out.println(userId);
       if (Objects.equals(articleResponse.getOwner(), userId))
         continue;
+      System.out.println("총 원가 더하기 전");
+      System.out.println(totalPurchasePrice);
       totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
+      System.out.println("총 원가 더한 후");
+      System.out.println(totalPurchasePrice);
     }
     System.out.println(articleResponseList1);
     double totalAssetValue = 0.0;
     for (ArticleResponse articleResponse : articleResponseList1) {
       System.out.println("for문 들어감");
-      if (Objects.equals(articleResponse.getOwner(), userId)) {
-        System.out.println("if문 전");
+      System.out.println(articleResponse.getOwner());
+      System.out.println(userId);
+      if (Objects.equals(articleResponse.getOwner(), userId))
+//        System.out.println("if문 전");
         continue;
-      }
-      System.out.println("if문 후");
+
+//      System.out.println("if문 후");
       Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleResponse.getArticleId());
       if (optionalNftPiece.isPresent()) {
         System.out.println("총 자산가치 더하기 전");
@@ -148,7 +159,7 @@ public class ProfileServiceImpl implements ProfileService{
       rateChange = ((totalAssetValue-totalPurchasePrice) / totalPurchasePrice) * 100;
     }
     return MarginResponse.builder()
-            .marginRate(((totalAssetValue-totalPurchasePrice) / totalPurchasePrice) * 100)
+            .marginRate(rateChange)
             .totalAssetValue(totalAssetValue)
             .margin(totalAssetValue - totalPurchasePrice)
             .principal(totalPurchasePrice)
