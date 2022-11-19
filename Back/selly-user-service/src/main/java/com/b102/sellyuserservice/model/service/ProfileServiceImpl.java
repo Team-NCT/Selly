@@ -107,42 +107,32 @@ public class ProfileServiceImpl implements ProfileService{
   @Override
   public MarginResponse getMargin(Long userId) {
     // 총 구매가 구하기
+    // 전체 조각소유주 리스트 중 내 NFT 조각 리스트 가져오기
     List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(userId);
-    double totalPurchasePrice = 0;
-    for (NftPiece i : articleResponseList) {
-        totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
-    }
-    System.out.println(totalPurchasePrice);
     List<Long> longList = new ArrayList<>();
+    List<ArticleResponse> articleResponseList1 = articleServiceClient.getArticleList(longList);
     articleResponseList.forEach( v -> {
       longList.add(v.getArticleId());
     });
+    double totalPurchasePrice = 0;
+    for (NftPiece i : articleResponseList) {
+      ArticleResponse articleResponse = articleServiceClient.getArticle(i.getArticleId());
+      if (Objects.equals(articleResponse.getOwner(), userId)) {
+        continue;
+      }
+        totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
+    }
     double totalAssetValue = 0;
-    List<ArticleResponse> articleResponseList1 = articleServiceClient.getArticleList(longList);
     for (ArticleResponse articleResponse : articleResponseList1) {
+      if (Objects.equals(articleResponse.getOwner(), userId)) {
+        continue;
+      }
       Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleResponse.getArticleId());
       if (optionalNftPiece.isPresent()) {
         NftPiece nftPiece = optionalNftPiece.get();
         totalAssetValue += articleResponse.getRecentMarketPrice() * nftPiece.getNftPieceCnt();
       }
     }
-
-//    double totalRecentTradePrice =
-//    for (NftPiece i : articleResponseList) {
-//        totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
-//    }
-    //    ArrayList<Double> a = new ArrayList<>();
-//    a.add(3.4);
-//    a.add(3.6);
-//    double b = a.stream().mapToDouble(Double::doubleValue).sum();
-//    System.out.println(b);
-//    articleResponseList.forEach( v -> {
-//      totalPurchasePrice += (v.getAvgPrice() * v.getNftPieceCnt());
-//    });
-//    double marginRate;
-//    if (totalAssetValue >= totalPurchasePrice) {
-//      marginRate =
-//    }
     return MarginResponse.builder()
             .marginRate(((totalAssetValue-totalPurchasePrice) / totalPurchasePrice) * 100)
             .totalAssetValue(totalAssetValue)
