@@ -1,7 +1,7 @@
 import { TextInput, Label } from "@/components/common";
 import { checkBadWord, checkValueLength } from "@/helpers/utils/checkLanguage";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
-import { setIntroduction, selectProfileData } from "@/store/profileDataSlice";
+import { selectProfileData } from "@/store/profileDataSlice";
 import { setBioStatus } from "@/store/profileStatusSlice";
 
 import { useEffect, useState } from "react";
@@ -10,12 +10,13 @@ import style from "./Bio.module.scss";
 const Bio = () => {
   const [status, setStatus] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
   const dispatch = useAppDispatch();
   const { introduction } = useAppSelector(selectProfileData);
 
   const changeBio = (event: React.FormEvent) => {
     const form = event.target as HTMLFormElement;
-    dispatch(setIntroduction(form.value));
+    setBio(form.value);
   };
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const Bio = () => {
     };
   }, [introduction, status, dispatch]);
 
+  useEffect(() => {
+    setBio(introduction);
+  }, [setBio, introduction]);
+
   return (
     <section className={style.section}>
       <Label
@@ -55,7 +60,7 @@ const Bio = () => {
         id="Bio"
         maxLength={100}
         status={status}
-        value={introduction}
+        value={bio}
         errorMessage={error}
         placeHolder="한 줄 소개를 입력해 주세요."
       />
