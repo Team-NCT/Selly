@@ -10,12 +10,37 @@ import { useLogin } from "@/hooks";
 import { WalletIcon } from "@/components/icon";
 import { useFetchNavDataQuery } from "@/api/server/userAPI";
 
-const Navbar = () => {
-  //* account 정보
+const Profile = () => {
   const { userId, goerliToken } = useAppSelector(selectAccount);
   const { data } = useFetchNavDataQuery();
-
   const dispatch = useAppDispatch();
+
+  return (
+    <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
+      <ProfileImage size="xxs" profileStyle="round" url={data?.image} />
+      <h5 className={styles.nav_username}>{data?.nickname}</h5>
+      <div className={styles.dropdown_content_user}>
+        <h5 className={styles.wallet_token}>
+          <span>{goerliToken}</span>
+          <span>eth</span>
+        </h5>
+        <NavLink to={`/profile/${userId}`} className={styles.dropdown_item}>
+          Profile
+        </NavLink>
+        <NavLink to="/settings" className={styles.dropdown_item}>
+          Settings
+        </NavLink>
+        <NavLink to="/" className={styles.dropdown_item} onClick={() => dispatch(logout())}>
+          Logout
+        </NavLink>
+      </div>
+    </div>
+  );
+};
+
+const Navbar = () => {
+  //* account 정보
+  const { userId } = useAppSelector(selectAccount);
   //* 로그인 훅
   const [login] = useLogin();
 
@@ -161,25 +186,7 @@ const Navbar = () => {
             </li>
           </ul>
           {userId ? (
-            <div className={`${styles.nav_user} ${styles.dropdown_user}`}>
-              <ProfileImage size="xxs" profileStyle="round" url={data?.image} />
-              <h5 className={styles.nav_username}>{data?.nickname}</h5>
-              <div className={styles.dropdown_content_user}>
-                <h5 className={styles.wallet_token}>
-                  <span>{goerliToken}</span>
-                  <span>eth</span>
-                </h5>
-                <NavLink to={`/profile/${userId}`} className={styles.dropdown_item}>
-                  Profile
-                </NavLink>
-                <NavLink to="/settings" className={styles.dropdown_item}>
-                  Settings
-                </NavLink>
-                <NavLink to="/" className={styles.dropdown_item} onClick={() => dispatch(logout())}>
-                  Logout
-                </NavLink>
-              </div>
-            </div>
+            <Profile />
           ) : (
             <li
               onMouseOver={() => {

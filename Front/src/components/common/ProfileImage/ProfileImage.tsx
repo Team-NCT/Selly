@@ -8,10 +8,15 @@ const ProfileImage = ({ url, size, profileStyle, certification = false }: Profil
   const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = defaultImage;
   };
+  const APIKEY = process.env.SELLY_FILESTACK_API_KEY;
   return (
     <div className={`${style.profile_image} ${style[`size_${size}`]}`}>
       <img
-        src={!url || url === "default" ? defaultImage : url}
+        src={
+          !url || url === "default"
+            ? defaultImage
+            : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:128,height:128/${url}`
+        }
         alt=""
         className={style[`profile_${profileStyle}`]}
         onError={handleImgError}></img>

@@ -5,10 +5,13 @@ import { useState, useCallback, useEffect } from "react";
 import { Created, ForSale, Collected, Fractions, Bookmark } from "@/components/profile";
 import style from "./ProfileTab.module.scss";
 
-const ProfileTab = ({ wallet }: ProfileTabProps) => {
-  const [selectedTab, setSelectedTab] = useState<string>("Fractions");
+const ProfileTab = ({ wallet, isMe }: ProfileTabProps) => {
+  const [selectedTab, setSelectedTab] = useState<string>(isMe ? "Fractions" : "Created");
   const [windowWidth, setWindowWidth] = useState(getViewportSize().width);
-  const tabItems = ["Fractions", "Collected", "ForSale", "Created", "Bookmark"];
+  const tabItemsMe = ["Fractions", "Created", "ForSale", "Collected", "Bookmark"];
+  const tabItemsOther = ["Created", "ForSale", "Collected", "Bookmark"];
+
+  const tabItems = isMe ? tabItemsMe : tabItemsOther;
 
   const onChangeTab = (event: React.FormEvent) => {
     const form = event.target as HTMLFormElement;
@@ -67,7 +70,7 @@ const ProfileTab = ({ wallet }: ProfileTabProps) => {
           ))
         )}
       </div>
-      {selectedTab === "Fractions" && <Fractions />}
+      {isMe && selectedTab === "Fractions" && <Fractions />}
       {selectedTab === "Created" && <Created />}
       {selectedTab === "ForSale" && <ForSale />}
       {selectedTab === "Collected" && <Collected wallet={wallet} />}
