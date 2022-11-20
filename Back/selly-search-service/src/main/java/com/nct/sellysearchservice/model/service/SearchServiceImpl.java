@@ -31,41 +31,6 @@ public class SearchServiceImpl implements SearchService{
             set.add(v.getArticleId()));
 
     List<Long> articleIdList = new ArrayList<Long>(set);
-
-
-
-//    List<Long> articleList = new ArrayList<>();
-//    switch (auction) {
-//      case "selling":
-//        articleResponseDtoList.forEach(v -> {
-//          if(v.isAuction()) {
-//            articleList.add(v.getArticleId());
-//          }
-//        });
-//        switch (sell) {
-//          case "ing":
-//            if()
-//            break;
-//          case "end":
-//            break;
-//          default:
-//
-//            break;
-//        }
-//        break;
-//      case "end":
-//        switch (sell) {
-//          case "ing":
-//            break;
-//          case "end":
-//            break;
-//          default:
-//            break;
-//        }
-//        break;
-//      default:
-//        break;
-//    }
     return null;
   }
 
