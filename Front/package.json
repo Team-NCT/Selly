@@ -91,5 +91,8 @@
     "web3": "^1.8.0",
     "web3-utils": "^1.8.0"
   },
-  "sideEffects": false
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ]
 }
