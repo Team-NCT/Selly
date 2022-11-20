@@ -1,0 +1,12 @@
+.section {
+  width: 100%;
+  min-height: 81px;
+}
+
+.text {
+  @include font($body1, $semibold);
+}
+
+.caption_danger {
+  color: $sherbet150;
+}

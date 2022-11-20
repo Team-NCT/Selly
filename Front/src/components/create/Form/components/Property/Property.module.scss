@@ -1,0 +1,37 @@
+.form_container {
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+}
+
+.form_title_label {
+  @include font($body1, $semibold);
+}
+
+.form_title_desc {
+  @include font($caption, $regular, $black200);
+  margin-top: 4px;
+}
+
+.form_title_desc_bold {
+  @include font($caption, $semibold, $main-font);
+}
+
+.form_property_container {
+  @include flex(row, flex-start);
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 8px;
+}
+
+.form_property_button {
+  @include flex(row, flex-start);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form_property_item {
+  width: 30%;
+  @include laptop {
+    width: 15%;
+  }
+}

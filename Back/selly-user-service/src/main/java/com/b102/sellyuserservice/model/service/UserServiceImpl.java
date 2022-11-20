@@ -59,7 +59,8 @@ public class UserServiceImpl implements UserService {
     ModelMapper mapper = new ModelMapper();
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     UserEntity userEntity = mapper.map(userDto, UserEntity.class); // UserDto Type을 UserEntity Type으로 변경
-    userEntity.setNickname("Selly_"+userDto.getWallet().substring(0, 10));
+    userEntity.setNickname("Selly"+userDto.getWallet().substring(0, 10));
+    userEntity.setIntroduction("안녕하세요");
     Base64.Encoder encoder = Base64.getEncoder();
     if (userEntity.getBanner() != null){
       String encodeBanner = null;
@@ -211,7 +212,7 @@ public class UserServiceImpl implements UserService {
     if(authorRankingResponses.size() <=10){
       return authorRankingResponses;
     }
-    return  authorRankingResponses.subList(0, 9);
+    return  authorRankingResponses.subList(0, 10);
   }
 
   @Override
@@ -265,6 +266,6 @@ public class UserServiceImpl implements UserService {
     if(authorRankingTotalResponses.size() <=10){
       return authorRankingTotalResponses;
     }
-    return  authorRankingTotalResponses.subList(0, 9);
+    return  authorRankingTotalResponses.subList(0, 10);
   }
 }

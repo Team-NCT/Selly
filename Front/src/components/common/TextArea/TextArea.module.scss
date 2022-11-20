@@ -1,0 +1,29 @@
+.textarea {
+  width: 100%;
+  height: 260px;
+  border: 2px solid $main-font;
+  resize: none;
+  padding: 5px;
+  &::placeholder {
+    @include font($body2, $light, $white350);
+  }
+  &:focus {
+    outline: none;
+  }
+  // chrome
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  // firefox
+  scrollbar-width: thin;
+
+  @include tablet {
+    height: 258px;
+  }
+}
+
+.textarea_desc {
+  @include font($caption, $regular);
+  text-align: right;
+}

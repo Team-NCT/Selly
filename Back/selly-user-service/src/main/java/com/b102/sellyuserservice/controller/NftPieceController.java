@@ -50,6 +50,7 @@ public class NftPieceController {
     NftPieceResponseDto response = nftPieceService.getOwnershipByUserIdAndArticleId(userId, articleId);
     if(ResponseEntity.status(HttpStatus.OK).body(response).getBody() == null){
       System.out.println("true");
+      return ResponseEntity.ok().body(null);
     }
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

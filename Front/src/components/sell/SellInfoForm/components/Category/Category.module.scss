@@ -1,0 +1,13 @@
+.category {
+  margin-bottom: 12px;
+
+  .category_label {
+    @include font($body1, $semibold, $main-font);
+
+    @include tablet {
+      @include font($body2, $semibold, $main-font);
+    }
+
+    margin-bottom: 12px;
+  }
+}

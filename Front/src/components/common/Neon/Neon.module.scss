@@ -1,0 +1,78 @@
+$colors: (
+  "sherbet": $sherbet,
+  "sherbet100": $sherbet100,
+  "sherbet150": $sherbet150,
+  "muscat": $muscat,
+  "muscat100": $muscat100,
+  "muscat150": $muscat150,
+  "muscat200": $muscat200,
+  "muscat250": $muscat250,
+  "marmalade": $marmalade,
+  "marmalade100": $marmalade100,
+  "marmalade150": $marmalade150,
+  "lilac": $lilac,
+  "lilac100": $lilac100,
+  "lilac150": $lilac150,
+  "lilac200": $lilac200,
+  "lilac250": $lilac250,
+  "ocean": $ocean,
+  "ocean100": $ocean100,
+  "ocean150": $ocean150,
+  "ocean200": $ocean200,
+  "ocean250": $ocean250,
+  "blackberry": $navy,
+);
+
+@mixin neonH($h) {
+  &.top:after {
+    top: -$h + "%";
+  }
+
+  &.bottom:after {
+    bottom: -$h + "%";
+  }
+}
+@mixin neonW($w) {
+  &.right:after {
+    right: -$w + "%";
+  }
+
+  &.left:after {
+    left: -$w + "%";
+  }
+}
+
+.neonText {
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+@each $key, $value in $colors {
+  .#{$key}-bg:after {
+    background-color: $value;
+  }
+}
+
+@for $i from 1 to 101 {
+  .width-#{$i}:after {
+    width: #{$i} + "%";
+  }
+
+  .height-#{$i}:after {
+    height: #{$i} + "%";
+  }
+
+  .vertical-#{$i} {
+    @include neonH(#{$i});
+  }
+
+  .horizontal-#{$i} {
+    @include neonW(#{$i});
+  }
+}

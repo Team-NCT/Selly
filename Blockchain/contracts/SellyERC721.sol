@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721enumerable.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
 contract SellyERC721 is ERC721Enumerable {
     uint256 private _tokenIds;
@@ -36,7 +36,7 @@ contract SellyERC721 is ERC721Enumerable {
         tokenURIs[tokenId] = _tokenURI;
         _tokenIds = tokenId;
         _mint(to, tokenId);
-        emit mintNFT(tokenId, to, _tokenURI);
+        // emit mintNFT(tokenId, to, _tokenURI);
         return tokenId;
     }
 
@@ -49,7 +49,7 @@ contract SellyERC721 is ERC721Enumerable {
         tokenURIs[tokenId] = _tokenURI;
         _tokenIds = tokenId;
         _mint(me, tokenId);
-        emit mintNFT(tokenId, me, _tokenURI);
+        // emit mintNFT(tokenId, me, _tokenURI);
         return tokenId;
     }
 

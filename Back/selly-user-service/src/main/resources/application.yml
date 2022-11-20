@@ -5,7 +5,8 @@ spring:
   application:
     name: selly-user-service
   datasource:
-    url: jdbc:mariadb://localhost:3306/selly
+#    url: jdbc:mariadb://localhost:3306/selly
+    url: jdbc:mariadb://nftselly.com:3306/selly?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     driver-class-name: org.mariadb.jdbc.Driver
     username: S07P31B102
     password: Bh1736c3o!
@@ -19,16 +20,28 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 100000000
+        readTimeout: 100000000
 
 eureka:
   instance:
-#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-     instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    hostname: 15.165.177.117
+#  instance:
+#    instance-id: 15.165.177.117
+#  instance:
+##    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#     instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://nftselly.com:8761/eureka
+#      defaultZone: http://127.0.0.1:8761/eureka
+
 
 logging:
   level:

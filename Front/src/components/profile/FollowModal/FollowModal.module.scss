@@ -1,0 +1,82 @@
+.follow_modal {
+  @include flex(column, center, center);
+  @include shadow-modal;
+  width: calc(100vw - 32px);
+  height: calc(100vh - 100px);
+  max-width: 624px;
+  max-height: 620px;
+  min-height: 300px;
+  padding: 32px 32px 48px 32px;
+  gap: 24px;
+  border-radius: $radius-modal;
+
+  @include mobile {
+    width: calc(100vw - 48px);
+    min-height: 240px;
+    max-height: 520px;
+    padding: 24px 24px 36px 24px;
+  }
+
+  .header {
+    @include flex(row, flex-start, center);
+    @include font($h5, $semibold);
+    width: 100%;
+    gap: 32px;
+
+    button {
+      transform: translateY(8%);
+    }
+
+    @include mobile {
+      @include font($h5, $semibold);
+
+      gap: 16px;
+      button {
+        transform: translateY(4%);
+      }
+    }
+  }
+
+  .follow_tab {
+    @include flex-center;
+    width: 100%;
+    gap: 0px;
+
+    button {
+      @include font($body1, $medium);
+      width: 50%;
+      padding: 12px 0px 16px 0px;
+      color: $black;
+      border-bottom: 2px solid $black;
+    }
+  }
+
+  .follow_tab_FOLLOWER {
+    .followers_tab {
+      color: $black350;
+      border-bottom: 2px solid $black350;
+    }
+  }
+
+  .follow_tab_FOLLOWING {
+    .following_tab {
+      color: $black350;
+      border-bottom: 2px solid $black350;
+    }
+  }
+
+  ul {
+    @include flex(column, flex-start, center);
+    @include hide-scroll;
+    width: 100%;
+    height: 368px;
+    gap: 40px;
+    padding: 0 32px;
+    overflow-y: scroll;
+
+    @include mobile {
+      height: 300px;
+      padding: 0 16px;
+    }
+  }
+}

@@ -20,4 +20,4 @@ COPY --from=build build/libs/*.jar app.jar
 
 EXPOSE 8201
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-Duser.timezone=Asia/Seoul", "-jar", "/app.jar"]

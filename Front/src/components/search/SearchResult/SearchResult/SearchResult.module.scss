@@ -1,0 +1,24 @@
+.search_form_dialog {
+  @include shadow-drop3;
+  gap: 32px;
+  top: 64px;
+  background-color: $white;
+  width: 80%;
+  min-width: 600px;
+  padding: 0px 32px;
+  border-radius: $radius-card;
+
+  ul {
+    width: 100%;
+    margin: 32px 0px;
+    h1 {
+      @include font($h5, $bold, $main-font);
+      margin-bottom: 16px;
+    }
+  }
+
+  > div {
+    margin: 32px 0px;
+    text-align: center;
+  }
+}

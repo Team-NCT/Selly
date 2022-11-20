@@ -1,0 +1,26 @@
+.section {
+  width: 100%;
+}
+
+.address {
+  width: 100%;
+  padding: 8px 2px 4px 2px;
+
+  margin: 4px 0px 6px 0px;
+
+  @include font($body2, $medium, $white350);
+  border-bottom: 2px solid $white350;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.text {
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.labelText {
+  @include font($body1, $semibold);
+}

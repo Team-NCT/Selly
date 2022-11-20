@@ -12,7 +12,6 @@ public class NftPieceResponseDto {
   private Long userId;
   private Integer nftPieceCnt;
   private double avgPrice;
-  private String contractAddress;
 
 
   @Builder

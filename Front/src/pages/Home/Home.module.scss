@@ -1,0 +1,26 @@
+.home {
+  position: relative;
+  width: 100%;
+  margin-top: -64px;
+
+  main {
+    @include flex(column);
+    padding: 180px 0px 120px 0px;
+    gap: 160px;
+  }
+}
+
+.background {
+  position: absolute;
+  height: calc(100vh - 64px);
+  width: 100%;
+  z-index: -10;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    linear-gradient(
+      96.07deg,
+      rgba(124, 251, 198, 0.24) 2.01%,
+      rgba(124, 198, 251, 0.11) 32.37%,
+      rgba(124, 152, 251, 0.11) 65.37%,
+      rgba(210, 124, 251, 0.11) 95.19%
+    );
+}

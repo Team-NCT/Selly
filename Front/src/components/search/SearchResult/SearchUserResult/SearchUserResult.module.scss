@@ -1,0 +1,15 @@
+.search_form_dialog_user {
+  width: 100%;
+  margin-bottom: 8px;
+
+  a {
+    @include flex(row, flex-start, center);
+    @include font($body2, $medium, $main-font);
+    gap: 16px;
+    width: 100%;
+
+    img {
+      width: 40px;
+    }
+  }
+}

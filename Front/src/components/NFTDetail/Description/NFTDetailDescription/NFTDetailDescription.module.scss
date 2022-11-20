@@ -1,0 +1,13 @@
+.NFT_detail_description {
+  @include flex(column, flex-start, flex-start);
+  @include shadow-drop3;
+  gap: 80px;
+  width: 100%;
+  max-width: 624px;
+  padding: 32px;
+  border-radius: $radius-card;
+  @include laptop {
+    width: 40%;
+    box-shadow: none;
+  }
+}

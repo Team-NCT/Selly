@@ -1,0 +1,5 @@
+.home_art {
+  @include flex(column);
+  gap: 32px;
+  width: 100%;
+}

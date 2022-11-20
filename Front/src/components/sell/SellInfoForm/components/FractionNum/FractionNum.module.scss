@@ -1,0 +1,11 @@
+.fraction_num {
+  min-height: 89px;
+
+  .fraction_num_label {
+    @include font($body1, $semibold, $main-font);
+
+    @include tablet {
+      @include font($body2, $semibold, $main-font);
+    }
+  }
+}

@@ -41,7 +41,6 @@ public class NftPieceServiceImpl implements NftPieceService{
   public NftPieceDto postOwnership(Long userId, NftPieceRequest nftPieceRequest) {
     NftPiece nftPiece = NftPiece.builder()
             .articleId(nftPieceRequest.getArticleId())
-            .pieceId(nftPieceRequest.getArticleId())
             .userId(userId)
             .nftPieceCnt(nftPieceRequest.getNftPieceCnt())
             .avgPrice(nftPieceRequest.getAvgPrice())

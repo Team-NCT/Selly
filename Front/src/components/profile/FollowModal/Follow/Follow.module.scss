@@ -1,0 +1,67 @@
+.follow_article {
+  @include flex(row, space-between, center);
+  width: 100%;
+  min-width: 496px;
+
+  .user_info {
+    @include flex(row, flex-start);
+    gap: 16px;
+    width: 100%;
+
+    .user_text_info {
+      @include flex(column, center, flex-start);
+      gap: 6px;
+      width: 100%;
+
+      .nickname {
+        @include font($body2, $semibold);
+        width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @media (max-width: 520px) {
+          width: calc(100% - 60px);
+        }
+      }
+
+      .wallet {
+        @include flex(row, flex-start);
+        width: 100%;
+
+        .wallet_address {
+          @include font($body2, $regular, $black100);
+          width: 150px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          @media (max-width: 520px) {
+            width: calc(100% - 80px);
+          }
+        }
+      }
+    }
+  }
+  .button_section {
+    width: 100px;
+    flex-shrink: 0;
+
+    Button {
+      @include font($caption, $bold);
+    }
+
+    @media (max-width: 520px) {
+      width: 100%;
+    }
+  }
+
+  @include mobile {
+    min-width: 0px;
+  }
+
+  @media (max-width: 520px) {
+    @include flex(column, center, stretch);
+    gap: 6px;
+  }
+}

@@ -1,0 +1,10 @@
+.header {
+  @include font($h4, $bold);
+  @include flex(row, flex-start);
+  gap: 10px;
+  width: 100%;
+
+  @include laptop {
+    @include font($h3, $bold);
+  }
+}

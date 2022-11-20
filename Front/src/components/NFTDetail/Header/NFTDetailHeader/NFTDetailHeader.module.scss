@@ -1,0 +1,69 @@
+.NFT_detail_header {
+  @include flex-center;
+  padding: 20px 0px 40px 0px;
+  background-color: $white200;
+
+  @include tablet {
+    padding: 40px 0px;
+  }
+  section {
+    @include flex-center;
+    @include basic-layout;
+    position: relative;
+    width: calc(100% - 32px);
+
+    .NFT_detail_header_image {
+      @include flex(column, flex-start, center);
+      gap: 40px;
+      width: 100%;
+      margin-top: 72px;
+
+      @include tablet {
+        margin-top: 0px;
+      }
+
+      h1 {
+        @include font($h5, $bold, $main-font);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 70%;
+        max-width: 400px;
+        text-align: center;
+      }
+      img {
+        width: 100%;
+        max-width: 320px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: $radius-card;
+      }
+
+      .error_image {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: none;
+        border-radius: $radius-card;
+        background-color: $navy250;
+      }
+    }
+
+    .NFT_detail_header_left_icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .NFT_detail_header_right_icon {
+      @include flex(row, center, flex-start);
+      gap: 8px;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      @include tablet {
+        gap: 16px;
+      }
+    }
+  }
+}

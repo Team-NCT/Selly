@@ -1,0 +1,59 @@
+.header {
+  @include flex(column, flex-start, flex-start);
+  gap: 8px;
+  margin-bottom: 40px;
+
+  @include laptop {
+    margin-bottom: 64px;
+  }
+
+  .step_title {
+    @include flex(row, flex-start, center);
+    @include font($body1, $semibold);
+    gap: 12px;
+
+    @include laptop {
+      @include font($h5, $bold);
+      gap: 16px;
+    }
+
+    .step_sell {
+      color: $black100;
+    }
+
+    .step_arrow {
+      width: 14px;
+      height: 14px;
+      border-top: 3px solid $black200;
+      border-right: 3px solid $black200;
+      transform: translate(-3.5px, 3.5px);
+      rotate: 45deg;
+    }
+  }
+
+  .desc {
+    @include font($body2, $regular);
+  }
+}
+
+.content {
+  @include flex(column-reverse, center, stretch);
+  gap: 40px;
+
+  @media (min-width: #{800px}) {
+    @include flex(row, space-between, center);
+    gap: 32px;
+  }
+
+  @include laptop {
+    @include flex(row, space-around, center);
+    gap: 32px;
+  }
+}
+
+.sell_info {
+  @media (min-width: #{800px}) {
+    top: calc(100vh / 2);
+    width: 252px;
+  }
+}

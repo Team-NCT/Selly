@@ -1,0 +1,21 @@
+.item_active {
+  @include font($h5, $semibold, $black350);
+
+  @include laptop {
+    @include font(24px, $semibold, $black350);
+  }
+}
+
+.item_inactive {
+  @include font($h5, $medium, $black);
+
+  @include laptop {
+    @include font(24px, $medium, $white350);
+  }
+}
+
+.selct_container {
+  @include flex(row, flex-end);
+  width: 100%;
+  gap: 20px;
+}

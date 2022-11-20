@@ -1,11 +1,11 @@
-
 server:
   port: 8201
 
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/selly?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+#    url: jdbc:mariadb://localhost:3306/selly?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    url: jdbc:mariadb://nftselly.com:3306/selly?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     username: S07P31B102
     password: Bh1736c3o!
   jpa:
@@ -16,11 +16,22 @@ spring:
       ddl-auto: update
   application:
     name: selly-search-service
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 100000000
+        readTimeout: 100000000
 
 eureka:
+  instance:
+    hostname: 15.165.177.117
+#  instance:
+#    instance-id: 15.165.177.117
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://nftselly.com:8761/eureka
+#      defaultZone: http://127.0.0.1:8761/eureka
 

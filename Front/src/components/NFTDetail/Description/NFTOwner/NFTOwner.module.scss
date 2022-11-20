@@ -1,0 +1,17 @@
+.NFT_detail_description_owner {
+  @include flex(column, flex-start, flex-start);
+  gap: 16px;
+  width: 100%;
+  h1 {
+    @include font($h5, $bold, $main-font);
+  }
+
+  a {
+    @include flex(row, flex-start, center);
+    gap: 16px;
+
+    p {
+      @include font($body2, $medium, $main-font);
+    }
+  }
+}

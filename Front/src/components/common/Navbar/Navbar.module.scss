@@ -1,0 +1,252 @@
+nav {
+  @include shadow-nav;
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  padding: 0 16px;
+  transition: opacity 0.5s linear;
+  z-index: 20;
+
+  @include tablet {
+    padding: 0 32px;
+  }
+  @include laptop {
+    @include flex(row, space-between);
+    padding: 0 96px;
+  }
+  &:hover {
+    opacity: 1;
+    background-color: $white;
+  }
+  img {
+    max-width: 70px;
+    aspect-ratio: 70/39;
+  }
+}
+
+.logo {
+  width: 70px;
+  height: 39px;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 19;
+}
+
+.nav_background {
+  background-color: $white;
+}
+
+.nav_head {
+  @include flex(row, space-between, center);
+  width: 100%;
+  margin-top: 8px;
+  @include laptop {
+    width: auto;
+    margin-top: 0px;
+    margin-right: 40px;
+  }
+}
+
+.nav_row {
+  display: none;
+  @include laptop {
+    @include flex(row, space-between);
+    gap: 20px;
+    width: 90%;
+  }
+}
+
+.nav_down {
+  @include flex(column, flex-start, flex-start);
+  width: 240px;
+  background-color: $white;
+  position: absolute;
+  right: 0;
+  z-index: -10;
+  height: calc(100vh - 64px);
+  top: 64px;
+  padding-left: 30px;
+  padding-bottom: 30px;
+  @include laptop {
+    @include flex(row, space-between);
+    width: 90%;
+    background-color: transparent;
+    height: 64px;
+    position: relative;
+    padding-bottom: 0;
+    top: 0;
+  }
+}
+
+.navBtn {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  color: transparent;
+  @include laptop {
+    display: none;
+  }
+}
+.navBtn::before,
+.navBtn::after {
+  content: "";
+  position: absolute;
+}
+.navBtn::before {
+  top: 14px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 24px;
+  height: 4px;
+  background: $black350;
+  box-shadow: 0 8px 0 $black350, 0 16px 0 $black350;
+}
+
+.nav_title {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  font-size: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.nav_list {
+  @include flex(column, center, flex-start);
+  margin-top: 40px;
+  width: 90%;
+  @include laptop {
+    @include flex(row, space-between);
+    width: 30%;
+    max-width: 300px;
+    margin-top: 0;
+  }
+
+  li {
+    margin-bottom: 40px;
+    @include laptop {
+      margin-bottom: 0;
+    }
+    a {
+      @include font($h5, bold, $main-font);
+    }
+  }
+}
+
+.wallet {
+  font-size: 32px;
+  width: 100%;
+}
+
+// dropdown
+.dropdown {
+  position: relative;
+  display: inline-block;
+  &:hover {
+    .dropdown_content {
+      @include flex(column);
+    }
+  }
+}
+
+.dropdown_content {
+  @include shadow-drop5;
+  display: none;
+  position: absolute;
+  top: -5px;
+  right: 73px;
+  background-color: $white;
+  width: 140px;
+  z-index: 1;
+  border-radius: $radius-modal;
+  padding: 5px 0;
+  @include laptop {
+    top: 25px;
+    left: 0;
+  }
+  .dropdown_item {
+    @include font($caption, $bold, $main-font);
+    padding: 8px 13px;
+    display: block;
+    height: 90%;
+    width: 90%;
+    border-radius: $radius-modal;
+    &:hover {
+      background-color: $ocean;
+    }
+  }
+}
+
+.dropdown_user {
+  position: relative;
+  display: inline-block;
+  &:hover {
+    .dropdown_content_user {
+      @include flex(column);
+    }
+  }
+}
+
+.dropdown_content_user {
+  @include shadow-drop5;
+  display: none;
+  position: absolute;
+  top: -80px;
+  right: 170px;
+  background-color: $white;
+  min-width: 117px;
+  z-index: 1;
+  border-radius: $radius-modal;
+  padding: 0 0 5px 0;
+  @include laptop {
+    top: 48px;
+    left: -40px;
+  }
+  .dropdown_item {
+    @include font($caption, $bold, $main-font);
+    padding: 8px 13px;
+    display: block;
+    height: 90%;
+    width: 90%;
+    border-radius: $radius-modal;
+    &:hover {
+      background-color: $muscat;
+    }
+  }
+}
+
+.nav_user {
+  @include flex(row);
+  margin-top: auto;
+  @include laptop {
+    margin-top: 0;
+  }
+}
+
+.nav_username {
+  margin-left: 20px;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @include laptop {
+    display: none;
+  }
+}
+
+.wallet_token {
+  @include flex(row, space-around);
+  height: 100%;
+  width: 100%;
+  padding: 8px 13px;
+  margin-bottom: 4px;
+  background: $marmalade;
+  border-radius: 4px 4px 0 0;
+}

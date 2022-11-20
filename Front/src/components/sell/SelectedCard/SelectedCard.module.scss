@@ -1,0 +1,14 @@
+.selected_card {
+  width: 100%;
+}
+
+.emptyCard {
+  @include flex;
+  @include font($body1, $semibold);
+  @include shadow-drop5;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: $radius-card;
+  background-color: $white200;
+}

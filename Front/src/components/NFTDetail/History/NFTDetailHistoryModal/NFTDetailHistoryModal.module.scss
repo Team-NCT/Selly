@@ -1,0 +1,14 @@
+.NFT_detail_history_modal {
+  @include shadow-drop1;
+  position: absolute;
+  padding: 8px 12px;
+  width: max-content;
+  border-radius: $radius-modal;
+  top: -28px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  p {
+    @include font($caption, $medium, $main-font);
+  }
+}

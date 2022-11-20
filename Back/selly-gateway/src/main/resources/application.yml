@@ -11,7 +11,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: 'http://localhost:3000'
+            allowedOrigins: 'https://nftselly.com/'
             allow-credentials: true
             allowedHeaders: '*'
             allowedMethods:
@@ -175,12 +175,23 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/selly-contract-service/(?<segment>.*), /$\{segment}
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 100000000
+        readTimeout: 100000000
+
 eureka:
+#  instance:
+#    instance-id: 15.165.177.117
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://nftselly.com:8761/eureka
+#      defaultZone: http://127.0.0.1:8761/eureka
 
 token:
   secret: '01234567890123456789012345678901234567890123456789'

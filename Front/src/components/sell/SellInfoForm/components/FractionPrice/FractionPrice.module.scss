@@ -1,0 +1,11 @@
+.fraction_price {
+  min-height: 89px;
+
+  .fraction_price_label {
+    @include font($body1, $semibold, $main-font);
+
+    @include tablet {
+      @include font($body2, $semibold, $main-font);
+    }
+  }
+}

@@ -73,7 +73,7 @@ public class TradeLogServiceImpl implements TradeLogService{
     list.sort(cp);
     List<TradeRankDto> returnValue = new ArrayList<>();
     if (list.size() >10){
-      returnValue = list.subList(0, 9);
+      returnValue = list.subList(0, 10);
       return returnValue;
     }
     return list;
@@ -100,8 +100,8 @@ public class TradeLogServiceImpl implements TradeLogService{
         }
       });
       hashMap.put("historyList", historyDtos);
-      Double aDouble = tradeLogRepository.selectTotalAvg(articleId);
-      hashMap.put("avgPrice",Double.valueOf(form.format(aDouble)));
+      Float aDouble = tradeLogRepository.selectTotalAvg(articleId);
+      hashMap.put("avgPrice",Float.valueOf(form.format(aDouble)));
       return hashMap;
     }
     return null;

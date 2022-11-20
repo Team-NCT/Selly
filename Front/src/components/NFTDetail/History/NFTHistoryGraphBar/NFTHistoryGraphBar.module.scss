@@ -1,0 +1,41 @@
+.NFT_history_graph_item {
+  @include flex(row, center, flex-end);
+  width: 100%;
+  height: 100%;
+
+  div {
+    position: relative;
+    width: 72%;
+    background-color: $navy200;
+
+    @include tablet {
+      width: 50%;
+    }
+
+    .NFT_history_graph_average {
+      @include font($caption, $medium, $main-font);
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .NFT_history_graph_date {
+      @include font(12px, $bold, $main-font);
+      position: absolute;
+      bottom: -32px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      @include tablet {
+        @include font($caption, $bold, $main-font);
+      }
+    }
+  }
+}
+
+@for $i from 1 to 101 {
+  .height-#{$i} {
+    height: #{$i} + "%";
+  }
+}

@@ -1,0 +1,53 @@
+.card {
+  @include flex(column, center, center);
+  @include shadow-modal;
+  width: 100%;
+  border-radius: $radius-card;
+  background-color: $white;
+  figure {
+    width: 100%;
+
+    img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: contain;
+      border-radius: $radius-card $radius-card 0px 0px;
+    }
+    .error_image {
+      width: 100%;
+      background-color: $navy250;
+      aspect-ratio: 1/1;
+      object-fit: none;
+      border-radius: $radius-card $radius-card 0px 0px;
+    }
+  }
+  .card_content {
+    width: 100%;
+    border-radius: 0px, 0px, $radius-card, $radius-card;
+    padding: 8px 12px;
+
+    @include tablet {
+      padding: 8px 12px;
+    }
+
+    @include laptop {
+      padding: 16px 12px;
+    }
+    .card_content_title {
+      @include font($body1, $semibold, $main-font);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 80%;
+      margin-bottom: 16px;
+      min-height: 19.09px;
+      @include tablet {
+        @include font($body2, $semibold, $main-font);
+      }
+
+      @include laptop {
+        @include font($body1, $semibold, $main-font);
+      }
+    }
+  }
+}

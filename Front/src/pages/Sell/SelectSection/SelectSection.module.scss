@@ -1,0 +1,80 @@
+.header {
+  @include flex(column, flex-start, flex-start);
+  gap: 8px;
+  margin-bottom: 40px;
+
+  @include laptop {
+    margin-bottom: 64px;
+  }
+
+  .step_title {
+    @include flex(row, flex-start, center);
+    @include font($body1, $semibold);
+    gap: 12px;
+
+    @include laptop {
+      @include font($h5, $bold);
+      gap: 16px;
+    }
+
+    .step_arrow {
+      width: 14px;
+      height: 14px;
+      border-top: 3px solid $black200;
+      border-right: 3px solid $black200;
+      transform: translate(-3.5px, 3.5px);
+      rotate: 45deg;
+    }
+
+    .step_sign {
+      color: $black100;
+    }
+  }
+
+  .desc {
+    @include font($body2, $regular);
+  }
+}
+
+.content {
+  @include flex(column-reverse, center, stretch);
+  gap: 24px;
+
+  @media (min-width: #{800px}) {
+    @include flex(row, space-between, flex-start);
+    gap: 48px;
+
+    .sell_info {
+      position: sticky;
+      top: 128px;
+    }
+  }
+
+  .select_card_list {
+    @include flex(row, center, center);
+    width: 100%;
+    min-height: 300px;
+  }
+}
+
+.scroll_up_icon {
+  @include shadow-drop4;
+  display: block;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: $white;
+  opacity: 80%;
+
+  @media (min-width: #{800px}) {
+    display: none;
+  }
+}
+
+.nft_none {
+  @include font($body2, $medium, $black200);
+  @include flex(column, center, center);
+}

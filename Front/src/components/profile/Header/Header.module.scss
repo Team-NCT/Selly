@@ -1,0 +1,102 @@
+.header {
+  @include flex(row, flex-start);
+  position: relative;
+  margin-bottom: 64px;
+}
+
+.nickname {
+  @include font($h5, $medium);
+}
+
+.address {
+  @include font($body1, $medium, $white350);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 190px;
+}
+
+.addressSection {
+  @include flex(row, space-between, center);
+  width: 210px;
+  cursor: pointer;
+}
+
+.section {
+  @include flex(row, space-between, flex-start);
+
+  width: 100%;
+  margin-top: 10px;
+  gap: 4%;
+  @include mobile {
+    @include flex(column-reverse, space-between, flex-start);
+    margin-right: 16px;
+  }
+}
+
+.leftSection {
+  position: relative;
+  @include flex(column, flex-start, flex-start);
+  margin-left: 164px;
+  max-width: 400px;
+
+  gap: 8px;
+
+  @include mobile {
+    margin-top: 32px;
+    margin-left: 20px;
+    @include flex(column, flex-start, flex-start);
+    max-width: 100%;
+  }
+}
+
+.rightSection {
+  width: 160px;
+
+  @include mobile {
+    @include flex(row, space-between, flex-start);
+    width: calc(100% - 164px);
+
+    margin-left: 164px;
+    gap: 32px;
+  }
+
+  @media (max-width: 474px) {
+    @include flex(column, space-between, flex-start);
+    gap: 4px;
+  }
+}
+
+.profilImage {
+  position: absolute;
+  top: -64px;
+
+  @include mobile {
+    left: 10px;
+  }
+}
+
+.followSection {
+  @include flex(row, space-between, flex-start);
+  text-align: center;
+  margin-bottom: 8px;
+  @include mobile {
+    width: 160px;
+    gap: 32px;
+  }
+
+  @media (max-width: 474px) {
+    width: 100%;
+    @include flex(row, center);
+    font-size: 10%;
+    margin-bottom: 0;
+    gap: 12%;
+  }
+}
+
+.followTitle {
+  @include font($body2, $medium);
+}
+
+.followNumber {
+  @include font($body1, $bold);
+}

@@ -1,0 +1,17 @@
+.sell_title {
+  @include font($h4, $bold);
+  margin-top: 48px;
+  margin-bottom: 24px;
+
+  @include laptop {
+    @include font($h2, $bold);
+  }
+
+  .title_span {
+    margin-left: 6px;
+
+    @include laptop {
+      margin-left: 15px;
+    }
+  }
+}

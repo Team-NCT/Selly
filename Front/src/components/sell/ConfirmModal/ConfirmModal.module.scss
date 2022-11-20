@@ -1,0 +1,40 @@
+.confirm_modal {
+  @include flex(column, space-between, center);
+  @include shadow-modal;
+  gap: 32px;
+  border-radius: $radius-card;
+  padding: 32px 32px;
+
+  @include tablet {
+    padding: 32px 64px;
+  }
+
+  .text_section {
+    @include flex(column, center, center);
+    min-width: 287px;
+    line-height: 200%;
+
+    h1 {
+      @include font($body1, $semibold);
+
+      @include tablet {
+        @include font($h5, $semibold);
+      }
+    }
+
+    .alert_text {
+      @include font($body2, $semibold);
+      color: $sherbet150;
+    }
+  }
+
+  .button_section {
+    @include flex(row, center, center);
+    gap: 40px;
+
+    Button {
+      @include font($body1, $bold);
+      flex-shrink: 0;
+    }
+  }
+}

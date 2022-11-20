@@ -1,0 +1,12 @@
+.caption_danger {
+  color: $sherbet150;
+}
+
+.input_desc {
+  @include font($caption, $regular);
+  margin-top: 4px;
+}
+
+.input {
+  min-height: 60px;
+}

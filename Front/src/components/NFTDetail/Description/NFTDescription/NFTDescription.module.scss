@@ -1,0 +1,26 @@
+.NFT_detail_description_DESC {
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+  gap: 16px;
+  h1 {
+    @include font($h5, $bold, $main-font);
+  }
+
+  p {
+    @include font($body2, $medium, $main-font);
+    line-height: 24px;
+    min-height: 32px;
+  }
+
+  button {
+    @include font($body2, $bold, $main-font);
+    align-self: flex-end;
+  }
+}
+
+.NFT_detail_description_DESC_show {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}

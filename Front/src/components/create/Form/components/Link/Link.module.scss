@@ -1,0 +1,12 @@
+.input_desc {
+  @include font($caption, $regular);
+  margin-top: 4px;
+}
+
+.input {
+  min-height: 60px;
+}
+
+.link_margin {
+  margin-bottom: -20px;
+}
