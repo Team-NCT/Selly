@@ -264,7 +264,7 @@ public class TradeServiceImpl implements TradeService {
             Sort.Order.asc("tradePrice"),
             Sort.Order.desc("tradeRegistTime")
     );
-    List<TradeRegist> tradeRegistList = tradeRegistRepository.findByArticleId(articleId, sort);
+    List<TradeRegist> tradeRegistList = tradeRegistRepository.findByArticleIdAndStatus(articleId, true, sort);
     List<TradeRegistResponse> tradeRegistResponseList = new ArrayList<>();
     tradeRegistList.forEach( v -> {
               TradeRegistResponse tradeRegistResponse = TradeRegistResponse.builder()
@@ -273,7 +273,6 @@ public class TradeServiceImpl implements TradeService {
                       .tradePrice(v.getTradePrice())
                       .pieceCnt(v.getPieceCnt())
                       .build();
-//              tradeRegistResponseList.add(new ModelMapper().map(v, TradeRegistResponse.class));
               tradeRegistResponseList.add(tradeRegistResponse);
       }
     );
@@ -287,7 +286,7 @@ public class TradeServiceImpl implements TradeService {
             Sort.Order.desc("tradePrice"),
             Sort.Order.asc("tradeRegistTime")
     );
-    List<TradeRegist> tradeRegistList = tradeRegistRepository.findBySellerAndArticleId(userId, articleId, sort);
+    List<TradeRegist> tradeRegistList = tradeRegistRepository.findBySellerAndArticleIdAndStatus(userId, articleId, true, sort);
     List<TradeRegistResponse> tradeRegistResponseList = new ArrayList<>();
     tradeRegistList.forEach( v -> {
       TradeRegistResponse tradeRegistResponse = TradeRegistResponse.builder()
@@ -296,7 +295,6 @@ public class TradeServiceImpl implements TradeService {
               .tradePrice(v.getTradePrice())
               .pieceCnt(v.getPieceCnt())
               .build();
-//              tradeRegistResponseList.add(new ModelMapper().map(v, TradeRegistResponse.class));
               tradeRegistResponseList.add(tradeRegistResponse);
             }
     );
