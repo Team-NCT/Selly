@@ -1,7 +1,3 @@
-import Web3 from "web3";
-
-const web3 = new Web3(window.ethereum);
-
 export const getWallet = async () => {
   try {
     const accounts = await window.ethereum.request({
@@ -31,6 +27,9 @@ export const changeNetwork = async (chainId: string) => {
 };
 
 export const getGoerliToken = async (account: string) => {
-  const token = await web3.eth.getBalance(account);
-  return Number(Number(web3.utils.fromWei(token)).toFixed(4));
+  const token = await window.ethereum.request({
+    method: "eth_getBalance",
+    params: [account, "latest"],
+  });
+  return Number((token / 1000000000 / 1000000000).toFixed(4));
 };

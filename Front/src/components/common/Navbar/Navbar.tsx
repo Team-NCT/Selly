@@ -73,6 +73,7 @@ const Navbar = () => {
   const [create, setCreate] = useState(50);
   const [sell, setSell] = useState(50);
   const [wallet, setWallet] = useState(50);
+
   return (
     <>
       {menuToggle ? (

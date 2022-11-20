@@ -23,7 +23,7 @@ const Carousel = ({ data }: { data: NFTCardDataType[] }) => {
       let ulWidth: number;
       if (ulRef.current) {
         ulWidth = ulRef.current.getBoundingClientRect().width;
-        const calcWidth = (CAROUSEL_WIDTH - ulWidth) / 5;
+        const calcWidth = (CAROUSEL_WIDTH - ulWidth) / 16 / 5;
         setMoveWidth(Math.round(calcWidth));
         setStep(0);
       }
