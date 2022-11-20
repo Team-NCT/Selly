@@ -27,22 +27,22 @@ const Username = () => {
       setStatus(false);
       if (isChecked === "중복된 닉네임입니다.") {
         setError("닉네임이 중복되었습니다.");
-      } else if (!checkNumEngKor(nickname)) {
+      } else if (!checkNumEngKor(username)) {
         setError("한글, 영어, 숫자의 조합만 가능합니다.");
-      } else if (!checkBadWord(nickname)) {
+      } else if (!checkBadWord(username)) {
         setError("비속어가 포함되어 있습니다.");
-      } else if (!checkValueLength(nickname.trim(), 2)) {
+      } else if (!checkValueLength(username.trim(), 2)) {
         setError("닉네임은 최소 2글자입니다.");
       } else {
         setStatus(true);
       }
-      dispatch(setUsernameStatus(status && !!nickname));
+      dispatch(setUsernameStatus(status && !!username));
     }, 200);
 
     return () => {
       clearTimeout(debounce);
     };
-  }, [nickname, status, dispatch, isChecked]);
+  }, [username, status, dispatch, isChecked]);
 
   useEffect(() => {
     setUsername(nickname);
@@ -61,7 +61,7 @@ const Username = () => {
         width={25}>
         <span className={style.text}>Username</span>
       </Label>
-      {nickname ? "" : <span className={style.caption_danger}>*</span>}
+      {username ? "" : <span className={style.caption_danger}>*</span>}
       <TextInput
         handleInputChange={changeUsername}
         id="username"

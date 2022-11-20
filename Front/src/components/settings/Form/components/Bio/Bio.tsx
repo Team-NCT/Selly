@@ -22,20 +22,20 @@ const Bio = () => {
   useEffect(() => {
     const debounce = setTimeout(async () => {
       setStatus(false);
-      if (!checkBadWord(introduction)) {
+      if (!checkBadWord(bio)) {
         setError("비속어가 포함되어 있습니다.");
-      } else if (!checkValueLength(introduction.trim(), 5)) {
+      } else if (!checkValueLength(bio.trim(), 5)) {
         setError("5글자 이상 입력헤 주세요");
       } else {
         setStatus(true);
       }
-      dispatch(setBioStatus(status && !!introduction));
+      dispatch(setBioStatus(status && !!bio));
     }, 200);
 
     return () => {
       clearTimeout(debounce);
     };
-  }, [introduction, status, dispatch]);
+  }, [bio, status, dispatch]);
 
   useEffect(() => {
     setBio(introduction);
@@ -54,7 +54,7 @@ const Bio = () => {
         width={90}>
         <span className={style.text}>Bio</span>
       </Label>
-      {introduction ? "" : <span className={style.caption_danger}>*</span>}
+      {bio ? "" : <span className={style.caption_danger}>*</span>}
       <TextInput
         handleInputChange={changeBio}
         id="Bio"
