@@ -30,6 +30,32 @@ const buildConfig = {
     }),
   ],
   optimization: {
+    splitChunks: {
+      chunks: "async",
+      minSize: 20000,
+      minRemainingSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+        },
+        web3Vendors: {
+          test: getAbsPath("node_modules/web3/dist/web3.min.js"),
+          chunks: "all",
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
     minimize: true,
     minimizer: [
       new CssMinimizerPlugin(),
