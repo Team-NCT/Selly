@@ -34,7 +34,7 @@
   }
 }
 
-@for $i from 10 to 101 {
+@for $i from 1 to 101 {
   .height-#{$i} {
     height: #{$i} + "%";
   }

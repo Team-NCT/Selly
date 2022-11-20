@@ -25,7 +25,7 @@ export const calcNFTTransactionHistoryGraph = (
   }
 
   const graphList = historyList.map((item) => {
-    const height = (item.avgPrice / maxValue) * 100;
+    const height = Math.round((item.avgPrice / maxValue) * 100);
     return { height, ...item };
   });
 

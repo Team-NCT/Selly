@@ -5,10 +5,10 @@ import style from "./SocialProof.module.scss";
 const SocialProof = () => {
   //TODO socialProof API 연결 예정
   const socialProofData = {
-    totalNFT: 100,
-    totalSell: 213,
-    maxSell: 20,
-    totalUser: 60,
+    totalNFT: 217,
+    totalSell: 16,
+    maxSell: 173,
+    totalUser: 42,
   };
 
   const totalNFT = useScrollCount(socialProofData.totalNFT);
@@ -52,10 +52,10 @@ const SocialProof = () => {
             <span className={style.proof_number} {...maxSell}>
               0
             </span>
-            <span className={style.proof_number_type}> ETH</span>
+            <span className={style.proof_number_type}> 회</span>
           </span>
           <Neon positionH="top" positionW="left" color="marmalade" width={50}>
-            <h1 className={style.proof_title}>최대 낙찰금액</h1>
+            <h1 className={style.proof_title}>총 거래 수</h1>
           </Neon>
         </div>
         <div className={style.proof_content}>
