@@ -12,6 +12,7 @@ const DescCard = ({
 }: DescCardProps) => {
   const [errorStatus, setErrorStatus] = useState(true);
   const APIKEY = process.env.SELLY_FILESTACK_API_KEY;
+  const RateChange = typeof rateChange === "number" && Number(Number(rateChange).toFixed(2));
 
   const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = sellyIcon;
@@ -35,12 +36,8 @@ const DescCard = ({
         <p className={style.card_content_title}>{articleName}</p>
         <div className={style.card_content_desc}>
           <p>{recentMarketPrice ? recentMarketPrice + "ETH" : "-"}</p>
-          {typeof rateChange === "number" && rateChange >= 0 && (
-            <p className={style.red}> +{Number(rateChange).toFixed(2)}%</p>
-          )}
-          {typeof rateChange === "number" && rateChange < 0 && (
-            <p className={style.blue}> {Number(rateChange).toFixed(2)}%</p>
-          )}
+          {RateChange >= 0 && <p className={style.red}> +{RateChange}%</p>}
+          {RateChange < 0 && <p className={style.blue}> {RateChange}%</p>}
         </div>
         {typeof pieceCnt === "number" && (
           <p className={style.card_content_piece}>{pieceCnt} 조각</p>
