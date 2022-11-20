@@ -9,7 +9,7 @@ const Banner = ({ bannerUrl }: { bannerUrl: string | undefined }) => {
       src={
         bannerUrl === "default"
           ? banner
-          : `https://cdn.filestackcontent.co/resize=width:1440/${APIKEY}/output=format:webp/${bannerUrl}`
+          : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:1440/output=format:webp/${bannerUrl}`
       }
       alt=""
       className={style.banner}
