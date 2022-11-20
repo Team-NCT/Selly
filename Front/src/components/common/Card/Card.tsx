@@ -6,6 +6,7 @@ import sellyIcon from "@/assets/images/sellyLogo.svg";
 
 const Card = ({ articleImgUrl, articleName, presentSalePieceCnt }: CardProps) => {
   const [errorStatus, setErrorStatus] = useState(true);
+  const APIKEY = process.env.SELLY_FILESTACK_API_KEY;
   let supplyCount;
   if (typeof presentSalePieceCnt == "number") {
     supplyCount = numberAddComma(presentSalePieceCnt);
@@ -20,7 +21,11 @@ const Card = ({ articleImgUrl, articleName, presentSalePieceCnt }: CardProps) =>
     <div className={style.card}>
       <figure>
         <img
-          src={!articleImgUrl ? sellyIcon : articleImgUrl}
+          src={
+            !articleImgUrl
+              ? sellyIcon
+              : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:544,height:544/${articleImgUrl}`
+          }
           alt={articleName}
           onError={handleImgError}
           className={!articleImgUrl || !errorStatus ? style.error_image : ""}></img>

@@ -1,8 +1,8 @@
 import style from "./HomeHeader.module.scss";
-import smilingFaceHeart_eyes from "@/assets/images/emojis/smilingFaceHeart-eyes.png";
-import smilingFaceHearts from "@/assets/images/emojis/smilingFaceHearts.png";
-import sparklingHeart from "@/assets/images/emojis/sparklingHeart.png";
-import palette from "@/assets/images/emojis/palette.png";
+import smilingFaceHeart_eyes from "@/assets/images/emojis/smilingFaceHeart-eyes.webp";
+import smilingFaceHearts from "@/assets/images/emojis/smilingFaceHearts.webp";
+import sparklingHeart from "@/assets/images/emojis/sparklingHeart.webp";
+import palette from "@/assets/images/emojis/palette.webp";
 import { WalletIcon } from "@/components/icon";
 import { NavLink } from "react-router-dom";
 import { useLogin } from "@/hooks";
