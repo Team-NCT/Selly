@@ -10,7 +10,7 @@ import { NFTDescCardDataType } from "@/types/NFTData.types";
 const CATEGORY = ["all", "digital", "analog", "photography"];
 const SORT = ["asc", "desc"];
 const ORDER = ["sellRegist", "price"];
-const SIZE = 12;
+const SIZE = 15;
 
 const ExploreCardList = ({ category, sort, order }: ExploreParamsType) => {
   const { data, isLoading } = useFetchNFTListQuery({ category, sort, order });
