@@ -2,7 +2,19 @@ import style from "./Banner.module.scss";
 import banner from "@/assets/images/banner.jpg";
 
 const Banner = ({ bannerUrl }: { bannerUrl: string | undefined }) => {
-  return <img src={bannerUrl === "default" ? banner : bannerUrl} alt="" className={style.banner} />;
+  const APIKEY = process.env.SELLY_FILESTACK_API_KEY;
+
+  return (
+    <img
+      src={
+        bannerUrl === "default"
+          ? banner
+          : `https://cdn.filestackcontent.com/${APIKEY}/output=format:webp/${bannerUrl}`
+      }
+      alt=""
+      className={style.banner}
+    />
+  );
 };
 
 export default Banner;

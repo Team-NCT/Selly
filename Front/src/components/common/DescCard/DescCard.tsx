@@ -25,7 +25,7 @@ const DescCard = ({
           src={
             !articleImgUrl
               ? sellyIcon
-              : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:444,height:444/${articleImgUrl}`
+              : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:444,height:444/output=format:webp/${articleImgUrl}`
           }
           alt={articleName}
           onError={handleImgError}
