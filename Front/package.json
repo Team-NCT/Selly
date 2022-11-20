@@ -90,5 +90,9 @@
     "redux-persist": "^6.0.0",
     "web3": "^1.8.0",
     "web3-utils": "^1.8.0"
-  }
+  },
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ]
 }
