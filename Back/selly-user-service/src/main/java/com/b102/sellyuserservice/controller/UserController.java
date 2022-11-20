@@ -127,9 +127,7 @@ public class UserController {
   @GetMapping("/users/{profileId}/{userId}")
   public ResponseEntity<ResponseUser> getOtherUser(@PathVariable("profileId") Long profileId, @PathVariable("userId") Long userId) throws UnsupportedEncodingException {
     UserDto userDto = userService.getUserByUserId(profileId);
-    System.out.println("userDto : " + userDto);
     ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
-    System.out.println("returnValue : " + returnValue);
     if(returnValue.getImage() != null){
       byte[] imageDecode = Base64.getDecoder().decode(returnValue.getImage());
       returnValue.setImage(new String(imageDecode, StandardCharsets.UTF_8));

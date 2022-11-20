@@ -36,22 +36,9 @@ public class NftPieceServiceImpl implements NftPieceService{
       NftPiece nftPiece = optionalNftPiece.get();
       return new NftPieceResponseDto(nftPiece);
     } return null;
-//    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleId)
-//            .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
-//    return new NftPieceResponseDto(nftPiece);
-    //  return nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
   }
   @Override
   public NftPieceDto postOwnership(Long userId, NftPieceRequest nftPieceRequest) {
-//    NftPiece nftPiece = nftPieceRepository.save(mapper.map(tradeRequest, NftPiece.class));
-    System.out.println("소유권 생성");
-//    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId())
-//            .orElseThrow(() -> new IllegalArgumentException("소유권이 없습니다."));
-//
-//    Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
-//    if (optionalNftPiece.isPresent()) {
-//      NftPiece nftPiece = optionalNftPiece.get();
-//      NftPiece nftPiece = NftPiece.builder()
     NftPiece nftPiece = NftPiece.builder()
             .articleId(nftPieceRequest.getArticleId())
             .pieceId(nftPieceRequest.getArticleId())
@@ -60,31 +47,15 @@ public class NftPieceServiceImpl implements NftPieceService{
             .avgPrice(nftPieceRequest.getAvgPrice())
             .build();
     nftPieceRepository.save(nftPiece);
-    //    NftPiece nftPiece = nftPieceRepository.save(mapper.map(tradeRequest, NftPiece.class));
     return mapper.map(nftPiece, NftPieceDto.class);
   }
-//    return new IllegalArgumentException("소유권 생성 실패");
-//  }
-//  @Override
-//  public NftPieceResponseDto getOwnershipByUserIdAndArticleId(Long userId, TradeRequest tradeRequest) {
-//    NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, tradeRequest.getArticleId());
-//    System.out.println(userId);
-//    System.out.println(tradeRequest.getArticleId());
-//    return mapper.map(nftPiece, NftPieceDto.class);
-//  }
 
   @Override
   public NftPieceDto updateOwnership(Long userId, NftPieceRequest nftPieceRequest) {
-    System.out.println("소유권 수정");
-    System.out.println(userId);
-    System.out.println(nftPieceRequest.getArticleId());
     NftPiece nftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, nftPieceRequest.getArticleId())
             .orElseThrow(() -> new IllegalArgumentException("해당 소유권이 없습니다."));
     int nftPieceCnt = nftPiece.getNftPieceCnt();
     nftPiece.updateOwnership(
-//            nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt(),
-//            (nftPiece.getAvgPrice()*nftPiece.getNftPieceCnt() + tradeRequest.getPieceCnt()* tradeRequest.getTradePrice())/(nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt())
-//            nftPieceCnt + tradeRequest.getNftPieceCnt(),
             nftPieceRequest.getNftPieceCnt(),
             nftPieceRequest.getAvgPrice(),
             nftPieceRequest.isTrade()
@@ -106,8 +77,6 @@ public class NftPieceServiceImpl implements NftPieceService{
                       / (nftPiece.getNftPieceCnt()+ tradeRequest.getPieceCnt()))
               .userId(userId)
               .build();
-//      NftPieceRequest nftPieceRequest = mapper.map(tradeRequest, NftPieceRequest.class);
-      System.out.println(nftPieceRequest.getArticleId());
       updateOwnership(userId, nftPieceRequest);
     } else {
       NftPieceRequest nftPieceRequest = NftPieceRequest.builder()

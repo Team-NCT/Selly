@@ -36,20 +36,11 @@ public class ArticleServiceImpl implements ArticleService{
   @Transactional
   @Override
   public ResponseArticle createArticle(RequestArticleCreate requestArticleCreate) {
-    System.out.println("들어옴");
-    System.out.println(requestArticleCreate);
-    System.out.println(requestArticleCreate.getWallet());
     requestArticleCreate.setMetaDataUrl("https://skywalker.infura-ipfs.io/ipfs/"+requestArticleCreate.getMetaDataUrl());
     requestArticleCreate.setArticleImgUrl("https://skywalker.infura-ipfs.io/ipfs/" + requestArticleCreate.getArticleImgUrl());
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     Article article = mapper.map(requestArticleCreate, Article.class);
-    System.out.println(requestArticleCreate.getMetaDataUrl());
-    System.out.println(requestArticleCreate.getArticleImgUrl());
-    System.out.println(requestArticleCreate.getWallet());
     ResponseListen responseListen = sellyContractServiceClient.getListen(requestArticleCreate.getWallet());
-//    ResponseListen responseListen = sellyContractServiceClient.getListen();
-    System.out.println(responseListen);
-    System.out.println("리슨 완료 !");
     article.setContractAddress(responseListen.getContractAddress());
     article.setTokenId(responseListen.getTokenId());
     article.setOriginalAuthor(requestArticleCreate.getOwner());
@@ -59,17 +50,11 @@ public class ArticleServiceImpl implements ArticleService{
 
   @Override
   public ResponseArticle createArticleNoMinting(RequestNoMinting requestArticleCreate) {
-    System.out.println("민팅 X 들어옴");
-    System.out.println(requestArticleCreate);
-    System.out.println(requestArticleCreate.getWallet());
     requestArticleCreate.setMetaDataUrl("https://skywalker.infura-ipfs.io/ipfs/"+requestArticleCreate.getMetaDataUrl());
     requestArticleCreate.setArticleImgUrl(requestArticleCreate.getArticleImgUrl());
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     Article article = mapper.map(requestArticleCreate, Article.class);
     articleRepository.save(article);
-    System.out.println(requestArticleCreate.getMetaDataUrl());
-    System.out.println(requestArticleCreate.getArticleImgUrl());
-    System.out.println(requestArticleCreate.getWallet());
     return mapper.map(article, ResponseArticle.class);
   }
 
@@ -84,61 +69,6 @@ public class ArticleServiceImpl implements ArticleService{
     return responseArticleList;
   }
 
-//  @Override
-//<<<<<<< HEAD
-//  public ArticleResponseDto findById (Long articleId, Long userId) {
-//    ArticleResponseDto articleResponseDto = new ArticleResponseDto();
-//    Optional<Article> optionalArticle = articleRepository.findById(articleId);
-//    if (optionalArticle.isPresent()) {
-//      Article article = optionalArticle.get();
-//      ResponseUser responseUser = userServiceClient.getUser(article.getOwner());
-//      return ArticleResponseDto.builder()
-//              .owner(article.getOwner())
-//              .ownerImg(responseUser.getImage())
-//              .ownerNickname(responseUser.getNickname())
-//              .certification(responseUser.isCertification())
-//              .articleImgUrl(article.getArticleImgUrl())
-//              .contractAddress(article.getContractAddress())
-//              .tokenId(article.getTokenId())
-//              .metaDataUrl(article.getMetaDataUrl())
-////            .bookMark()
-//              .build();
-//    }
-//    return articleResponseDto;
-//    Article entity = articleRepository.findById(articleId)
-//            .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
-//    ResponseUser responseUser = userServiceClient.getUser(entity.getOwner());
-//    if (entity.isAvailability()) {
-//      return ArticleResponseDto.builder()
-//              .owner(entity.getOwner())
-//              .ownerImg(responseUser.getImage())
-//              .ownerNickname(responseUser.getNickname())
-//              .certification(responseUser.isCertification())
-//              .articleImgUrl(entity.getArticleImgUrl())
-//              .contractAddress(entity.getContractAddress())
-//              .tokenId(entity.getTokenId())
-//              .metaDataUrl(entity.getMetaDataUrl())
-//              .build();
-//    }
-//    return ArticleResponseDto.builder()
-//            .articleId(entity.getArticleId())
-//            .articleName(entity.getArticleName())
-//            .articleImgUrl(entity.getArticleImgUrl())
-//            .metaDataUrl(entity.getMetaDataUrl())
-//            .articleIntroduction(entity.getArticleIntroduction())
-//            .originalAuthor(entity.getOriginalAuthor())
-//            .build();
-//    return ArticleResponseDto.builder()
-//            .owner(entity.getOwner())
-//            .ownerImg(responseUser.getImage())
-//            .ownerNickname(responseUser.getNickname())
-//            .certification(responseUser.isCertification())
-//            .articleImgUrl(entity.getArticleImgUrl())
-//            .contractAddress(entity.getContractAddress())
-//            .tokenId(entity.getTokenId())
-//            .metaDataUrl(entity.getMetaDataUrl())
-////            .bookMark()
-//            .build();
   public ResponseArticle findById (Long articleId) {
     Article entity = articleRepository.findById(articleId)
             .orElseThrow(() -> new IllegalArgumentException("해당 작품이 없습니다. id=" + articleId));
@@ -185,9 +115,7 @@ public class ArticleServiceImpl implements ArticleService{
             articleList = articleRepository.findByAvailability(availability, Sort.by(Sort.Direction.ASC, "price"));
             break;
         }
-        System.out.println(articleList);
         articleList.forEach(v-> {
-          System.out.println(v.getArticleId());
           CategoryResponse articleResponse = CategoryResponse.builder()
                   .articleId(v.getArticleId())
                   .articleName(v.getArticleName())

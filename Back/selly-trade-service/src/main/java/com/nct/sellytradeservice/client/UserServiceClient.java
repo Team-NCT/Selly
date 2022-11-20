@@ -13,7 +13,6 @@ import java.util.Optional;
 @FeignClient(name = "selly-user-service")
 public interface UserServiceClient {
   @GetMapping("/get-ownership")
-//  ResponseEntity<NftPieceResponseDto> getOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId);
   ResponseEntity<NftPieceResponseDto> getOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId);
   @PostMapping("/create-or-edit-ownership/{userId}")
   NftPieceDto createOrEditOwnership(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest);

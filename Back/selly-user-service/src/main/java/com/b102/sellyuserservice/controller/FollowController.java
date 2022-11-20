@@ -57,8 +57,6 @@ public class FollowController {
   public ResponseMessage deleteFollow(@RequestBody RequestFollow requestFollow){
     ModelMapper mapper = new ModelMapper();
     mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-//    ResponseMessage returnValue = followService.followUnLike(followDto);
-//    return returnValue; 아래와 같음
     return followService.followUnLike(requestFollow);
   }
 

@@ -50,8 +50,6 @@ public class UserServiceImpl implements UserService {
       } catch (UnsupportedEncodingException e) {
         throw new RuntimeException(e);
       }
-
-//      throw new UsernameNotFoundException(wallet);
     }
     return new User(userEntity.getWallet(), userEntity.getEncryptedPwd(), true, true, true, true, new ArrayList<>());
   }
@@ -91,7 +89,6 @@ public class UserServiceImpl implements UserService {
     float returnValue = tradeServiceClient.getLog(userId);
     if (!userEntity.isCertification()){
       if (returnValue >= 1.0){
-        System.out.println(returnValue >= 1.0);
         userEntity.setCertification(true);
         userRepository.save(userEntity);
       }
@@ -169,12 +166,10 @@ public class UserServiceImpl implements UserService {
   public List<AuthorRankingResponse> findByAllId() {
     List<AuthorRankingResponse> authorRankingResponses = new ArrayList<>();
     Iterable<UserEntity> userEntities = userRepository.findAll();
-    System.out.println(userEntities);
     userEntities.forEach(v->{
       float returnValue = tradeServiceClient.getLog(v.getUserId());
       if (!v.isCertification()){
         if (returnValue >= 1.0){
-          System.out.println(returnValue >= 1.0);
           v.setCertification(true);
           userRepository.save(v);
         }
@@ -223,7 +218,6 @@ public class UserServiceImpl implements UserService {
   public List<AuthorRankingTotalResponse> userArticleRanking() {
     List<AuthorRankingTotalResponse> authorRankingTotalResponses = new ArrayList<>();
     Iterable<UserEntity> userEntities = userRepository.findAll();
-    System.out.println(userEntities);
     userEntities.forEach(v->{
       float returnValue = tradeServiceClient.getLog(v.getUserId());
       if (!v.isCertification()){

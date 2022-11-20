@@ -19,7 +19,6 @@ public class ProofController {
 
   @GetMapping("/all")
   public SocialProof socialProof(){
-//    Integer totalUsers = userRepository.countByAll();
     SocialProof socialProof = new SocialProof();
     socialProof.setTotalUsers(855);
     socialProof.setTotalNft(1450);

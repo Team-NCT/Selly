@@ -15,8 +15,6 @@ public class TradeLogCustomRepositoryImpl implements TradeLogCustomRepository {
 
   @Override
   public Integer findTradePriceAvg(Long articleId) {
-//    return jpaQueryFactory.selectFrom(TradeLog)
-//            .where(articleId);
     return null;
   }
 }

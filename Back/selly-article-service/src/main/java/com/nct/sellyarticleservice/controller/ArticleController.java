@@ -131,9 +131,9 @@ public class ArticleController {
   }
   @GetMapping("/searchId/{contractAddress}/{tokenId}")
   public ResponseArticleId articleIdSearch(@PathVariable("contractAddress") String contractAddress, @PathVariable("tokenId") String tokenId){
-    System.out.println(articleService.findByArticleId(contractAddress, tokenId));
-    if (articleService.findByArticleId(contractAddress, tokenId) == null)
-      System.out.println(true);
+    if (articleService.findByArticleId(contractAddress, tokenId) == null){
+      return null;
+    }
     return articleService.findByArticleId(contractAddress, tokenId);
   }
 
@@ -185,7 +185,6 @@ public class ArticleController {
   public List<ArticleResponse> findByArticleList(@RequestParam("List") List<Long> articleIdList) {
     List<ArticleResponse> articleResponseList = new ArrayList<>();
     for (Long i : articleIdList) {
-      System.out.println(i);
       Article article = articleRepository.findByArticleId(i);
       articleResponseList.add(new ModelMapper().map(article, ArticleResponse.class));
     }
