@@ -5,7 +5,6 @@ import {
   F_NFT_FACTORY_ABI,
   F_NFT_FACTORY_CA,
   F_NFT_ABI,
-  F_NFT_SALE_ABI,
   WEB3_INFURA_API_KEY,
 } from "@/constants/blockchain";
 
@@ -21,8 +20,4 @@ export const F_NFTFactoryContract = new web3.eth.Contract(F_NFT_FACTORY_ABI, F_N
 
 export const F_NFTContract = (ca: string) => {
   return new web3.eth.Contract(F_NFT_ABI, ca);
-};
-
-export const F_NFT_SaleContract = (ca: string) => {
-  return new web3.eth.Contract(F_NFT_SALE_ABI, ca);
 };
