@@ -7,7 +7,7 @@ import sellyIcon from "@/assets/images/sellyLogo.svg";
 
 const NFTDetailHeader = ({ title, id, imageUrl, url, userId }: NFTDetailHeaderProps) => {
   const [errorStatus, setErrorStatus] = useState(true);
-
+  const APIKEY = process.env.SELLY_FILESTACK_API_KEY;
   const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = sellyIcon;
     setErrorStatus(false);
@@ -19,7 +19,7 @@ const NFTDetailHeader = ({ title, id, imageUrl, url, userId }: NFTDetailHeaderPr
         <div className={style.NFT_detail_header_image}>
           <h1>{title}</h1>
           <img
-            src={imageUrl}
+            src={`https://cdn.filestackcontent.com/${APIKEY}/resize=width:640,height:640/output=format:webp/${imageUrl}`}
             alt={title}
             onError={handleImgError}
             className={!imageUrl || !errorStatus ? style.error_image : ""}></img>
