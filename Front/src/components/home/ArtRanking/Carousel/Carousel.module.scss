@@ -39,10 +39,10 @@
   }
 }
 
-@for $i from 0 to -3152 {
+@for $i from 0 to -197 {
   .step_#{$i} {
     li {
-      transform: translateX(#{$i} + "px");
+      transform: translateX(#{$i} + "rem");
     }
   }
 }

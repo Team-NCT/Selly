@@ -15,7 +15,7 @@ const ProfileImage = ({ url, size, profileStyle, certification = false }: Profil
         src={
           !url || url === "default"
             ? defaultImage
-            : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:128,height:128/${url}`
+            : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:128,height:128/output=format:webp/${url}`
         }
         alt=""
         className={style[`profile_${profileStyle}`]}
