@@ -6,7 +6,7 @@ import { sortSearchArticleResult } from "@/helpers/service/sortSearchResult";
 import { SearchArticleType } from "@/types/search.type";
 import { useInfiniteScroll } from "@/hooks";
 
-const SIZE = 12;
+const SIZE = 15;
 
 const SearchResultList = ({ data }: SearchResultProps) => {
   const [sortedData, setSortedData] = useState<SearchArticleType[]>([]);

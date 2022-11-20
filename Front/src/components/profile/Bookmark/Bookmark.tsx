@@ -1,7 +1,7 @@
 import style from "./Bookmark.module.scss";
 import { CardList, Spinner } from "@/components/common";
 import { useFetchBookmarkDataQuery } from "@/api/server/bookmarkAPI";
-import { cardType } from "@/types/NFTData.types";
+import { CardType } from "@/types/NFTData.types";
 import { useParams } from "react-router-dom";
 import { useInfiniteScroll } from "@/hooks";
 import { useState, useEffect } from "react";
@@ -14,7 +14,7 @@ const Bookmark = () => {
   const { data, isError, isSuccess } = useFetchBookmarkDataQuery(Number(params.id));
 
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState<cardType[]>([]);
+  const [items, setItems] = useState<CardType[]>([]);
 
   function fetchMoreItems() {
     if (!data) {
