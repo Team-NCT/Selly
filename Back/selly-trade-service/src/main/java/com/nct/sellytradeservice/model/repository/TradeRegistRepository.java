@@ -20,9 +20,9 @@ public interface TradeRegistRepository extends JpaRepository<TradeRegist, Long> 
   TradeRegist findBySaleContractAddressAndSeller(String saleContractAddress, Long seller);
   Optional<TradeRegist> findByArticleId(Long ArticleId);
   Optional<TradeRegist> findByArticleIdAndSaleContractAddress(Long ArticleId, String saleContractAddress);
-  List<TradeRegist> findByArticleId(Long articleId, Sort sort);
+  List<TradeRegist> findByArticleIdAndStatus(Long articleId, boolean Status, Sort sort);
 
-  List<TradeRegist> findBySellerAndArticleId(Long userId, Long articleId,Sort sort);
+  List<TradeRegist> findBySellerAndArticleIdAndStatus(Long userId, Long articleId, boolean Status, Sort sort);
 
   @Query(value = "SELECT SUM(pieceCnt) FROM TradeRegist WHERE articleId = :articleId", nativeQuery = true)
   Integer selectArticleStatus(@Param("articleId") Long articleId);
