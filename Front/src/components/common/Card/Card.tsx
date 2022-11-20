@@ -24,7 +24,7 @@ const Card = ({ articleImgUrl, articleName, presentSalePieceCnt }: CardProps) =>
           src={
             !articleImgUrl
               ? sellyIcon
-              : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:544,height:544/${articleImgUrl}`
+              : `https://cdn.filestackcontent.com/${APIKEY}/resize=width:544,height:544/output=format:webp/${articleImgUrl}`
           }
           alt={articleName}
           onError={handleImgError}
