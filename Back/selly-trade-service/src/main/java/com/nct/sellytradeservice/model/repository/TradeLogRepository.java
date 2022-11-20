@@ -19,7 +19,6 @@ public interface TradeLogRepository extends JpaRepository<TradeLog, Long> {
   List<TradeLog> findBySeller(Long sellerId);
   List<TradeLog> findByStatus(boolean status);
   List<TradeLog> findByArticleId(Long articleId);
-//  List<TradeLog> findTop5ByArticleIdOrderByDesc(Long articleId);
   Integer countByArticleId(Long articleId);
   Integer countBySeller(Long seller);
 

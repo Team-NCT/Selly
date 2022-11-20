@@ -23,14 +23,7 @@ public class SearchController {
   // 필터 컨트롤러
   @GetMapping("/filter")
   public ResponseEntity<List<Object>> filter(@RequestParam("sell") String sell, @RequestParam("auction") String auction) {
-
     List<Object> result = new ArrayList<>();
-//    switch (sell) {
-//      case "selling":
-//        searchService.filter(sell)
-//    }
-//    result = searchService.filter(criterion);
-//    searchService(sell, auction);
     return ResponseEntity.ok().body(result);
   }
 

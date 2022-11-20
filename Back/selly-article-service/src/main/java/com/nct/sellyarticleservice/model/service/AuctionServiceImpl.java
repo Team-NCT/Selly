@@ -28,8 +28,6 @@ public class AuctionServiceImpl implements AuctionService{
   @Override
   public Auction createAuction(RequestAuctionRegist requestAuctionRegist, Long userId) {
     ResponseArticle responseArticle = articleService.findById(requestAuctionRegist.getArticleId());
-    System.out.println(responseArticle);
-    System.out.println(responseArticle.getArticleId());
     if (responseArticle.getArticleId() != null){
       List<Auction> check = auctionRepository.findByArticleId(requestAuctionRegist.getArticleId());
       final int[] checknum = {0};
@@ -42,8 +40,6 @@ public class AuctionServiceImpl implements AuctionService{
         return null;
       }
       NftPieceResponseDto nftPieceResponseDto = userServiceClient.getPiece(userId, requestAuctionRegist.getArticleId());
-      System.out.println(nftPieceResponseDto.getNftPieceCnt());
-      System.out.println(responseArticle.getPrimaryCnt());
       float get50 = ( (float) nftPieceResponseDto.getNftPieceCnt() / (float) responseArticle.getPrimaryCnt()) * 100;
       if (get50 <50){
         return null;

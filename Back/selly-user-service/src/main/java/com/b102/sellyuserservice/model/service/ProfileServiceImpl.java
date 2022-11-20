@@ -58,52 +58,6 @@ public class ProfileServiceImpl implements ProfileService{
     return articleResponseList;
   }
 
-//  @Override
-//  public List<FractionResponse> getFraction(Long userId, Long profileUserId) {
-//    List<FractionResponse> responses = new ArrayList<>();
-//    if (Objects.equals(userId, profileUserId)) {
-//      List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
-//      articleResponseList.forEach( v -> {
-//        Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(profileUserId, v.getArticleId());
-//        if (optionalNftPiece.isPresent()) {
-//          NftPiece nftPiece = optionalNftPiece.get();
-//          ArticleResponse articleResponse = articleServiceClient.getArticleForProfile(v.getArticleId());
-//          if (articleResponse.getOwner() == profileUserId)
-//            continue;
-//
-//          if((articleResponse.getRecentMarketPrice() - nftPiece.getAvgPrice())== 0){
-//            rateChange = 0.0;
-//          } else {
-//            rateChange = ((articleResponse.getRecentMarketPrice() - nftPiece.getAvgPrice()) / nftPiece.getAvgPrice()) * 100;
-//          }
-//          FractionResponse fractionResponse = FractionResponse.builder()
-//                  .articleId(v.getArticleId())
-//                  .articleName(articleResponse.getArticleName())
-//                  .articleImgUrl(articleResponse.getArticleImgUrl())
-//                  .recentMarketPrice(articleResponse.getRecentMarketPrice())
-//                  .pieceCnt(nftPiece.getNftPieceCnt())
-//                  .rateChange(this.rateChange)
-//                  .build();
-//          responses.add(fractionResponse);
-//        }
-//      });
-//      return responses;
-//    }
-//    List<NftPiece> articleResponseList = nftPieceRepository.findByUserId(profileUserId);
-//
-//    articleResponseList.forEach( v -> {
-//      ArticleResponse articleResponse = articleServiceClient.getArticle(v.getArticleId());
-//      FractionResponse fractionResponse = FractionResponse.builder()
-//              .articleId(v.getArticleId())
-//              .articleName(articleResponse.getArticleName())
-//              .articleImgUrl(articleResponse.getArticleImgUrl())
-//              .recentMarketPrice(articleResponse.getRecentMarketPrice())
-//              .build();
-//      responses.add(fractionResponse);
-//    });
-//    return responses;
-//  }
-
   @Override
   public MarginResponse getMargin(Long userId) {
     // 총 구매가 구하기
@@ -116,43 +70,21 @@ public class ProfileServiceImpl implements ProfileService{
     List<ArticleResponse> articleResponseList1 = articleServiceClient.getArticleList(longList);
     double totalPurchasePrice = 0;
     for (NftPiece i : articleResponseList) {
-      System.out.println(i);
-      System.out.println(i.getArticleId());
       ArticleResponse articleResponse = articleServiceClient.getArticleForProfile(i.getArticleId());
-      System.out.println(articleResponse);
-      System.out.println(articleResponse.getOwner());
-      System.out.println(userId);
       if (Objects.equals(articleResponse.getOwner(), userId))
         continue;
-      System.out.println("총 원가 더하기 전");
-      System.out.println(totalPurchasePrice);
       totalPurchasePrice += (i.getAvgPrice() * i.getNftPieceCnt());
-      System.out.println("총 원가 더한 후");
-      System.out.println(totalPurchasePrice);
     }
-    System.out.println(articleResponseList1);
     double totalAssetValue = 0.0;
     for (ArticleResponse articleResponse : articleResponseList1) {
-      System.out.println("for문 들어감");
-      System.out.println(articleResponse.getOwner());
-      System.out.println(userId);
       if (Objects.equals(articleResponse.getOwner(), userId))
-//        System.out.println("if문 전");
         continue;
-
-//      System.out.println("if문 후");
       Optional<NftPiece> optionalNftPiece = nftPieceRepository.findByUserIdAndArticleId(userId, articleResponse.getArticleId());
       if (optionalNftPiece.isPresent()) {
-        System.out.println("총 자산가치 더하기 전");
         NftPiece nftPiece = optionalNftPiece.get();
-        System.out.println(totalAssetValue);
         totalAssetValue += (articleResponse.getRecentMarketPrice() * nftPiece.getNftPieceCnt());
-        System.out.println("총 자산가치 더한 후");
-        System.out.println(totalAssetValue);
       }
     }
-    System.out.println("총 자산가치 확인");
-    System.out.println(totalAssetValue);
     if(totalAssetValue-totalPurchasePrice == 0) {
       rateChange = 0.0;
     } else {

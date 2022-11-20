@@ -47,11 +47,7 @@ public class NftPieceController {
   }
   @GetMapping("/get-ownership")
   public ResponseEntity<NftPieceResponseDto> getOwnership(@RequestParam("userId") Long userId, @RequestParam("articleId") Long articleId) throws IllegalArgumentException {
-    System.out.println("소유권 검색");
-    System.out.println(userId);
     NftPieceResponseDto response = nftPieceService.getOwnershipByUserIdAndArticleId(userId, articleId);
-//    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-    System.out.println(ResponseEntity.status(HttpStatus.OK).body(response));
     if(ResponseEntity.status(HttpStatus.OK).body(response).getBody() == null){
       System.out.println("true");
       return ResponseEntity.ok().body(null);
@@ -68,19 +64,6 @@ public class NftPieceController {
     NftPieceDto response = nftPieceService.postOwnership(userId, nftPieceRequest);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
-
-  // 특정 유저가 가진 특정 작품의 소유권 조회
-//  @GetMapping("/ownership/{userId}")
-//  public ResponseEntity<Object> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-//    Object response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-//    return ResponseEntity.status(HttpStatus.OK).body(response);
-//  }
-//  @GetMapping("/ownership/{userId}")
-//  public ResponseEntity<NftPieceResponseDto> getOwnershipByUserIdAndArticleId(@PathVariable("userId") Long userId, @RequestBody TradeRequest tradeRequest) {
-//    NftPieceResponseDto response = userService.getOwnershipByUserIdAndArticleId(userId, tradeRequest);
-//    return ResponseEntity.status(HttpStatus.OK).body(response);
-//  }
-
 
   @PutMapping("/ownership/{userId}")
   public ResponseEntity<Object> updateOwnership(@PathVariable("userId") Long userId, @RequestBody NftPieceRequest tradeRequest) {

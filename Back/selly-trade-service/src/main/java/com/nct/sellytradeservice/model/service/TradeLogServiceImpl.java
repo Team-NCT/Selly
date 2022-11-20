@@ -107,9 +107,7 @@ public class TradeLogServiceImpl implements TradeLogService{
     return null;
   }
   public double rateChange(Long articleId) {
-//    LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0,0,0));
     LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23,59,59));
-//    TradeLog tradeLog = tradeLogRepository.findTopByArticleIdAndTradeTimeBetweenOrderByTradeTimeDesc(articleId, startDateTime, endDateTime);
     TradeLog tradeLog = tradeLogRepository.findTopByArticleIdAndTradeTimeBeforeOrderByTradeTimeDesc(articleId, endDateTime);
     LocalDateTime startDateTimeToday = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
     LocalDateTime endDateTimeToday = LocalDateTime.now();

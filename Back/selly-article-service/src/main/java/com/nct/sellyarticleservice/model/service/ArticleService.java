@@ -15,10 +15,8 @@ public interface ArticleService {
   List<ResponseArticle> findByAll();
   List<ArticleRankingResponse> rankingTop10();
 
-   // ArticleResponseDto findById(Long articleId, Long userId);
    ResponseArticle findById(Long articleId);
    ResponseArticleId findByArticleId(String contractAddress, String tokenId);
-//  ArticleResponse findById(Long articleId);
 
    Long numberOfArticle();
 
