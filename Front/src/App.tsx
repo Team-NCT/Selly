@@ -6,6 +6,7 @@ import { useAppSelector } from "@/hooks/useStore";
 import { selectAlert } from "@/store/alertSlice";
 import { Alert, Navbar } from "@/components/common";
 import { selectAccount } from "@/store/loginSlice";
+
 import {
   Home,
   Create,
@@ -18,6 +19,7 @@ import {
   SearchResult,
   NotFound,
 } from "@/pages";
+
 import { useCheckLogined, useSetGoerli } from "@/hooks";
 
 function App() {
