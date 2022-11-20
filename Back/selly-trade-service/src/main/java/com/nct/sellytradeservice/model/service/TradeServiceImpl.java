@@ -233,6 +233,7 @@ public class TradeServiceImpl implements TradeService {
       ResponseEntity<NftPieceResponseDto> oSellerOwnership = userServiceClient.getOwnership(sellerId, tradeRequest.getArticleId());
       NftPieceResponseDto sellerOwnership = oSellerOwnership.getBody();
       System.out.println(sellerOwnership);
+      System.out.println(sellerOwnership.getNftPieceCnt());
       if (!status) {
         log.debug("판매자 소유권 삭제");
         userServiceClient.deleteOwnership(seller, tradeRequest.getArticleId());
@@ -244,10 +245,13 @@ public class TradeServiceImpl implements TradeService {
         NftPieceRequest nftPieceRequest = NftPieceRequest.builder()
                 .articleId(tradeRequest.getArticleId())
                 .userId(sellerId)
-                .nftPieceCnt(sellerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt())
-                .avgPrice((sellerOwnership.getAvgPrice() * sellerOwnership.getNftPieceCnt()
-                        - tradeRequest.getTradePrice() * tradeRequest.getPieceCnt())
-                        / (sellerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt()))
+//                .nftPieceCnt(sellerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt())
+//                .avgPrice((sellerOwnership.getAvgPrice() * sellerOwnership.getNftPieceCnt()
+//                        - tradeRequest.getTradePrice() * tradeRequest.getPieceCnt())
+//                        / (sellerOwnership.getNftPieceCnt() - tradeRequest.getPieceCnt()))
+//                .nftPieceCnt()
+                .nftPieceCnt(sellerOwnership.getNftPieceCnt())
+                .avgPrice(sellerOwnership.getAvgPrice())
                 .build();
         userServiceClient.updateOwnership(seller, nftPieceRequest);
       }
