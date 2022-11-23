@@ -22,6 +22,27 @@
   }
 }
 
+.size_xxxl {
+  .certification {
+    @include flex(row, center, center);
+    @include shadow-drop4;
+    position: absolute;
+    transform: translate(210%, -100%);
+    border: 1px solid $white;
+    border-radius: 50%;
+    fill: $white;
+    background-color: $ocean200;
+    transform: translate(305%, -120%);
+    width: 24%;
+    height: 24%;
+
+    svg {
+      width: 60%;
+      height: 60%;
+    }
+  }
+}
+
 .profile_square {
   border-radius: $radius-card;
   aspect-ratio: 1/1;
