@@ -12,8 +12,6 @@
     fill: $white;
     background-color: $ocean200;
     transform: translate(200%, -100%);
-    width: 34%;
-    height: 34%;
 
     svg {
       width: 70%;
@@ -34,7 +32,8 @@
     background-color: $ocean200;
     transform: translate(305%, -120%);
     width: 24%;
-    height: 24%;
+    max-width: 34px;
+    aspect-ratio: 1/1;
 
     svg {
       width: 60%;
