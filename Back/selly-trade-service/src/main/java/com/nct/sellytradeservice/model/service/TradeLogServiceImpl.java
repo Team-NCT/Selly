@@ -118,6 +118,6 @@ public class TradeLogServiceImpl implements TradeLogService{
     if (tradeLogToday == null) {
       return 0;
     }
-    return ((tradeLog.getTradePrice()-tradeLogToday.getTradePrice()) / tradeLog.getTradePrice()) * 100;
+    return ((tradeLogToday.getTradePrice()-tradeLog.getTradePrice()) / tradeLog.getTradePrice()) * 100;
   }
 }
