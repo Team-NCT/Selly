@@ -199,3 +199,10 @@ PC환경으로 제작되었습니다. 반응형 페이지가 적용되어 있습
 | 최종 발표자료 | [링크](exec/최종-발표-자료.pdf)                              |
 | 시연 시나리오 | [링크](exec/3-시연시나리오.md)                               |
 
+<br>
+
+# 🎉 Special thanks to...
+| <image src="https://avatars.githubusercontent.com/u/93081720?v=4" width="150px"> |
+| ------------- | 
+| [배포 도우미 박시원](https://github.com/siwon-park)| 
+
